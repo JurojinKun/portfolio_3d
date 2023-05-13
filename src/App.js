@@ -1,17 +1,20 @@
-import React from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Box, PerspectiveCamera } from '@react-three/drei';
+import { Canvas } from "@react-three/fiber";
+import { PerspectiveCamera } from '@react-three/drei';
+
+import Stars from "./components/stars";
 
 function App() {
   return (
-    <Canvas>
-      <PerspectiveCamera makeDefault position={[0, 0, 5]} />
-      <OrbitControls />
-      <Box>
-        <meshStandardMaterial color="blue" />
-      </Box>
-      <directionalLight intensity={1} />
-      <ambientLight intensity={0.5} />
+    <Canvas
+      style={{
+        height: '100%',
+        width: '100%',
+        position: 'absolute',
+        overflow: 'hidden',
+      }}
+    >
+      <PerspectiveCamera makeDefault position={[0, 0, 15]} fov={45} near={0.1} far={1000} />
+      <Stars count={2000} />
     </Canvas>
   );
 }
