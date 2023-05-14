@@ -31,8 +31,8 @@ function Star() {
 
     return (
         <mesh ref={meshRef} position={[x, y, z]}>
-            <sphereGeometry attach="geometry" args={[0.01, 8, 8]} />
-            <meshBasicMaterial attach="material" color="black" />
+            <sphereGeometry attach="geometry" args={[0.02, 8, 8]} />
+            <meshBasicMaterial attach="material" color="white" />
         </mesh>
     );
 }
