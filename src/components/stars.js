@@ -1,5 +1,6 @@
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
+import { useTexture } from "@react-three/drei";
 
 function Star() {
     const meshRef = useRef();
@@ -28,11 +29,12 @@ function Star() {
     });
 
     const [x, y, z] = useMemo(() => [(Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20], []);
+    const texture = useTexture("/pictures/profile_picture.png");
 
     return (
-        <mesh ref={meshRef} position={[x, y, z]}>
-            <sphereGeometry attach="geometry" args={[0.02, 8, 8]} />
-            <meshBasicMaterial attach="material" color="white" />
+        <mesh ref={meshRef}  position={[x, y, z]} >
+            <boxGeometry attach="geometry" args={[0.5, 0.5, 0.5]} />
+            <meshBasicMaterial attach="material" map={texture} />
         </mesh>
     );
 }
