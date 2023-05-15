@@ -1,41 +1,79 @@
-import React from 'react';
-import { useFrame } from '@react-three/fiber';
+import React, { useEffect, useRef, useMemo } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import * as THREE from 'three';
 import { Sphere } from '@react-three/drei';
 
 function SphereCustom() {
-    const meshRef = React.useRef();
+  const meshRef = useRef();
+  const lightRef = useRef();
+  const scrollYRef = useRef(window.scrollY);
 
-    useFrame(() => {
-        if (meshRef.current) {
-            meshRef.current.rotation.x += 0.001;
-            meshRef.current.rotation.y += 0.001;
-        }
-    });
+  useFrame(({ clock }) => {
+    if (meshRef.current && lightRef.current) {
+      meshRef.current.rotation.y += 0.001;
 
-    const sphereRadius = 4;
-    const numSpheres = 3000;
-    const smallSphereRadius = 0.04;
-
-    const spheres = [];
-    for (let i = 0; i < numSpheres; i++) {
-        const theta = 2 * Math.PI * Math.random(); // Angle around the sphere
-        const phi = Math.acos(2 * Math.random() - 1); // Angle from the sphere's pole
-        const x = sphereRadius * Math.sin(phi) * Math.cos(theta);
-        const y = sphereRadius * Math.sin(phi) * Math.sin(theta);
-        const z = sphereRadius * Math.cos(phi);
-
-        spheres.push(
-            <Sphere args={[smallSphereRadius]} position={[x, y, z]} key={i}>
-                <meshBasicMaterial color="#121223" />
-            </Sphere>
-        );
+      // Change light color over time
+      const elapsedTime = clock.getElapsedTime();
+      const color = new THREE.Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`);
+      lightRef.current.color.set(color);
     }
+  });
 
-    return (
-        <mesh ref={meshRef}>
-            {spheres}
-        </mesh>
+  const sphereRadius = 2;
+  const numSpheres = 2000;
+  const smallSphereRadius = 0.02;
+
+  const spheres = [];
+  const offset = 2 / numSpheres;
+  const increment = Math.PI * (3 - Math.sqrt(5));
+  for (let i = 0; i < numSpheres; i++) {
+    const y = i * offset - 1 + (offset / 2);
+    const radius = Math.sqrt(1 - Math.pow(y, 2));
+
+    const phi = ((i + 1) % numSpheres) * increment;
+
+    const x = Math.cos(phi) * radius;
+    const z = Math.sin(phi) * radius;
+
+    spheres.push(
+      <Sphere args={[smallSphereRadius]} position={[x * sphereRadius, y * sphereRadius, z * sphereRadius]} key={i}>
+        <meshPhongMaterial color="white" />
+      </Sphere>
     );
+  }
+
+  const { size } = useThree();
+  const position = useMemo(() => [size.width > 1000 ? 3 : 2, -0.5, 1], [size.width]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const maxScrollY = document.body.scrollHeight - window.innerHeight;
+      const scrollRatio = scrollY / maxScrollY;
+
+      // Update the mesh position based on scroll ratio
+      if (meshRef.current) {
+        meshRef.current.position.x = 3 - scrollRatio * 3;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return (
+    <>
+      <mesh ref={meshRef} position={position}>
+        {spheres}
+      </mesh>
+      <ambientLight ref={lightRef} color="white" intensity={1} />
+    </>
+  );
 }
+
+
 
 export default SphereCustom;
