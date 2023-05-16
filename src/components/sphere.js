@@ -43,37 +43,17 @@ function SphereCustom() {
   }
 
   const { size } = useThree();
-  const position = useMemo(() => [size.width > 1000 ? 3 : 2, -0.5, 1], [size.width]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const maxScrollY = document.body.scrollHeight - window.innerHeight;
-      const scrollRatio = scrollY / maxScrollY;
-
-      // Update the mesh position based on scroll ratio
-      if (meshRef.current) {
-        meshRef.current.position.x = 3 - scrollRatio * 3;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  const position = useMemo(() => [size.width > 1000 ? 3 : 2, -0.5, 5], [size.width]);
 
   return (
     <>
       <mesh ref={meshRef} position={position}>
         {spheres}
       </mesh>
-      <ambientLight ref={lightRef} color="white" intensity={1} />
+      <ambientLight ref={lightRef} color="white" intensity={0.4} />
     </>
   );
 }
 
-
-
 export default SphereCustom;
+

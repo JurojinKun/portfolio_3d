@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { PerspectiveCamera, ScrollControls } from '@react-three/drei';
+import { PerspectiveCamera, ScrollControls, OrbitControls } from '@react-three/drei';
 import { ResizeObserver } from '@juggle/resize-observer';
 
 // import Stars from "./components/stars";
@@ -7,6 +7,7 @@ import BackgroundGradient from "./components/background";
 import './App.css';
 import SphereCustom from "./components/sphere";
 import Stars from "./components/stars";
+import ScrollCamera from "./components/scroll_camera";
 
 function App() {
   return (
@@ -18,10 +19,9 @@ function App() {
       <Canvas
         resize={{ polyfill: ResizeObserver }}
         style={{ height: '100%', width: '100%', position: 'absolute', overflow: 'hidden' }}>
-        <ScrollControls pages={5}>
+        <ScrollControls pages={2}>
           <BackgroundGradient />
-          <PerspectiveCamera makeDefault position={[0, 0, 5]} />
-          {/* <OrbitControls /> */}
+          <ScrollCamera />
           <SphereCustom />
           <Stars />
         </ScrollControls>
