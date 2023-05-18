@@ -1,54 +1,60 @@
-import React, { useRef, useLayoutEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Box, ScrollControls, PerspectiveCamera, useScroll } from '@react-three/drei';
-import gsap from 'gsap';
+import { PerspectiveCamera, ScrollControls, useScroll, Box } from '@react-three/drei';
+import { useRef } from 'react';
 
-function SpinningBox() {
-  const meshRef = useRef();
+const Scene = () => {
+  const scroll = useScroll();
+  const cameraRef = useRef();
 
-  useFrame(() => {
-    // if (meshRef.current) {
-    //   meshRef.current.rotation.x += 0.01;
-    //   meshRef.current.rotation.y += 0.01;
-    // }
-  });
+  useFrame((state, delta) => {
+    console.log(scroll.offset);
+    // La caméra tourne en fonction du défilement
+    // cameraRef.current.rotation.y = scroll.offset * Math.PI * 2;
+    // cameraRef.current.rotation.z = scroll.offset * Math.PI * 2;
+    // cameraRef.current.lookAt(0, 0, 0);
+
+  }, [scroll]);
 
   return (
-    <Box ref={meshRef}>
-      <meshStandardMaterial color="blue" />
-    </Box>
+    <>
+      <PerspectiveCamera makeDefault position={[0, 0, 10]} ref={cameraRef}>
+        <pointLight position={[10, 10, 10]} />
+      </PerspectiveCamera>
+      <ambientLight />
+      <Cube scroll={scroll} />
+    </>
   );
 }
 
-function ScrollableCamera() {
-  const cameraRef = useRef();
-  const scroll = useScroll();
+const Cube = ({ scroll }) => {
+  const cubeRef = useRef();
 
-  const radius = 5; // la distance de la caméra par rapport à l'origine (le cube)
+  useFrame((state, delta) => {
+    // Faire bouger le cube en fonction du scroll
+    cubeRef.current.position.x = scroll.offset * 2;
+    cubeRef.current.position.z = scroll.offset * 5;
+  }, [scroll]);
 
-  useFrame(() => {
-    if (cameraRef.current) {
-      const theta = 2 * Math.PI * scroll.offset; // convertit l'offset de défilement en un angle de rotation
-      cameraRef.current.position.x = radius * Math.sin(theta);
-      cameraRef.current.position.z = radius * Math.cos(theta);
-      // cameraRef.current.lookAt(0, 0, 0); // s'assure que la caméra est toujours tournée vers le cube
-    }
-  });
-
-  return <PerspectiveCamera ref={cameraRef} position={[0, 0, radius]} />;
-}
-
-function App() {
   return (
-    <Canvas style={{ height: '100%', width: '100%', overflow: 'hidden', position: 'absolute' }}>
-      <ambientLight intensity={0.5} />
-      <ScrollControls pages={3} damping={0.25}>
-        <SpinningBox />
-        <ScrollableCamera />
+    <Box ref={cubeRef} position={[0, 0, 10]}>
+      <meshStandardMaterial color="orange" />
+    </Box>
+  );
+};
+
+const App = () => {
+  return (
+    <Canvas style={{
+      backgroundColor: 'black',
+      height: "100%",
+      width: '100%',
+      overflow: 'hidden', position: 'absolute'
+    }}>
+      <ScrollControls pages={6} damping={0.25}>
+        <Scene />
       </ScrollControls>
     </Canvas>
   );
-}
+};
 
 export default App;
-
