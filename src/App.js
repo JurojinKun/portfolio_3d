@@ -1,33 +1,19 @@
-import { Canvas } from "@react-three/fiber";
-import { PerspectiveCamera, ScrollControls, OrbitControls } from '@react-three/drei';
-import { ResizeObserver } from '@juggle/resize-observer';
+import './index.css';
+import CanvasPicture from './canvas/PictureCanvas';
+import MainSceneCanvas from './canvas/MainSceneCanvas';
+import StarsCanvas from './canvas/StarsCanvas';
 
-// import Stars from "./components/stars";
-import BackgroundGradient from "./components/background";
-import './App.css';
-import SphereCustom from "./components/sphere";
-import Stars from "./components/stars";
-import ScrollCamera from "./components/scroll_camera";
-
-function App() {
+const App = () => {
   return (
-    <div>
+    <>
       <header className="App-header">
-        <img src="/pictures/profile_picture.png" alt="Logo" className="logo" />
-        <h2>0ruj Portfolio</h2>
+        <CanvasPicture />
+        <h2>0ruj | 3D Portfolio</h2>
       </header>
-      <Canvas
-        resize={{ polyfill: ResizeObserver }}
-        style={{ height: '100%', width: '100%', position: 'absolute', overflow: 'hidden' }}>
-        <ScrollControls pages={2}>
-          <BackgroundGradient />
-          <ScrollCamera />
-          <SphereCustom />
-          <Stars />
-        </ScrollControls>
-      </Canvas>
-    </div>
+      <StarsCanvas />
+      <MainSceneCanvas />
+    </>
   );
-}
+};
 
 export default App;
