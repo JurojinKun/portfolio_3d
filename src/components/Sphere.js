@@ -10,7 +10,8 @@ const SphereCustom = ({ scroll }) => {
 
     useFrame(({ clock }) => {
         if (meshRef.current && lightRef.current) {
-            meshRef.current.rotation.y += 0.001;
+            meshRef.current.rotation.x += 0.001
+            // meshRef.current.rotation.y += 0.001;
             meshRef.current.rotation.z += 0.001
 
             // Change sphere color over time
@@ -18,8 +19,15 @@ const SphereCustom = ({ scroll }) => {
             const color = new THREE.Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`);
             materialRefs.forEach(ref => ref.current && ref.current.color.set(color));
 
-            // meshRef.current.position.x = scroll.offset * 5;
-            // meshRef.current.position.z = scroll.offset * 5;
+            if (scroll.offset > 0) {
+                const startPosition = [1.5, -1, 7];
+                const endPosition = [0, -0.2, 4];
+
+                // Interpolation linéaire entre les positions de départ et de fin en fonction de offset
+                meshRef.current.position.x = startPosition[0] + scroll.offset * (endPosition[0] - startPosition[0]);
+                meshRef.current.position.y = startPosition[1] + scroll.offset * (endPosition[1] - startPosition[1]);
+                meshRef.current.position.z = startPosition[2] + scroll.offset * (endPosition[2] - startPosition[2]);
+            }
         }
     });
 
@@ -48,7 +56,7 @@ const SphereCustom = ({ scroll }) => {
 
     return (
         <>
-            <mesh ref={meshRef} position={[2, -1.25, 7]}>
+            <mesh ref={meshRef} position={[1.5, -1, 7]}>
                 {spheres}
             </mesh>
             <ambientLight ref={lightRef} intensity={0.4} />
