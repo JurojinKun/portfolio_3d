@@ -1,9 +1,12 @@
 import AppTypewriter from "./AppTypewriter";
 import '../css/index.css';
+import { IconRoundButton, TextButton } from "./ButtonsCustom";
 
-const Overview = () => {
+const Overview = ({ opacity }) => {
     return (
-        <section className="overview-content">
+        <section className="overview-content" style={{
+            opacity: opacity
+        }}>
             <h1>
                 Hi, I'm <span className="name">0ruj</span> <span className="wave">👋🏻</span>
             </h1>
@@ -20,6 +23,14 @@ const Overview = () => {
                 wrapperClassName="typewriterWrapper"
                 cursorClassName="typewriterCursor"
             />
+            <div style={{ display: 'flex', marginBlock: "40px"}}>
+                <IconRoundButton icon="fa-home" url="https://www.example.com" />
+                <IconRoundButton icon="fa-home" url="https://www.example.com" />
+                <IconRoundButton icon="fa-home" url="https://www.example.com" />
+            </div>
+            <div style={{ display: "flex"}}>
+            <TextButton text="Start my world" url="https://www.example.com" />
+            </div>
         </section>
     );
 }

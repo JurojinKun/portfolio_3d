@@ -7,7 +7,7 @@ const MainSceneCanvas = () => {
 
     return (
         <Canvas>
-            <ScrollControls pages={1} damping={0.25}>
+            <ScrollControls pages={2} damping={0.25}>
                 <MainScene />
             </ScrollControls>
         </Canvas>
