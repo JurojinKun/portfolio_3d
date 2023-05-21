@@ -10,9 +10,36 @@ const SphereCustom = ({ scroll }) => {
 
     const satellitesRef = useRef([]);
 
+    const satelliteSection = (index) => {
+        let section;
+
+        switch (index) {
+            case 0:
+                section = "About Me";
+                break;
+            case 1:
+                section = "Skills";
+                break;
+            case 2:
+                section = "Experiences";
+                break;
+            case 3:
+                section = "Portfolio";
+                break;
+            case 4:
+                section = "Contact Me";
+                break;
+            default:
+                section = "Satellite";
+                break;
+        }
+
+        return section;
+    }
+
     const onSatelliteClick = (index) => {
-        console.log(`Satellite ${index + 1} clicked`);
-        // Ajoutez votre logique ici
+        console.log(`Satellite ${index} clicked`);
+        //  TODO ajout logique click satellite
     }
 
     useFrame(({ clock }) => {
@@ -38,6 +65,7 @@ const SphereCustom = ({ scroll }) => {
 
                 // Déplacez les satellites autour de la sphère si la sphère est à sa position finale
                 if (meshRef.current.position.x <= (endPosition[0] + 0.2) &&
+                    meshRef.current.position.y <= (endPosition[1] + 0.2) &&
                     meshRef.current.position.z <= (endPosition[2] + 0.2)) {
                     satellitesRef.current.children.forEach((satellite, index) => {
                         satellite.visible = true;
@@ -101,7 +129,7 @@ const SphereCustom = ({ scroll }) => {
                             textAlign="center"
                             fontWeight="bold"
                         >
-                            Satellite {i + 1}
+                            {satelliteSection(i)}
                         </Text>
                     </mesh>
                 ))}

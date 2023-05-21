@@ -4,9 +4,10 @@ import { ScrollControls } from "@react-three/drei";
 import MainScene from "../pages/MainScene";
 
 const MainSceneCanvas = () => {
+
     return (
         <Canvas>
-            <ScrollControls pages={2} damping={0.25}>
+            <ScrollControls pages={1} damping={0.25}>
                 <MainScene />
             </ScrollControls>
         </Canvas>
