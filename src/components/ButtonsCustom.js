@@ -8,7 +8,7 @@ const IconRoundButton = ({ icon, url }) => {
 
     return (
         <button className="round-btn" onClick={handleClick}>
-             <i class="fas fa-coffee"></i>
+             {icon}
         </button>
     );
 }

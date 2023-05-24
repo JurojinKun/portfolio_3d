@@ -6,6 +6,7 @@
     box-shadow: 0 0 5px #47CDD6;
     background-color: #1A1B1B;
     transition: background-color 0.3s ease;
+    margin-right: 25px;
 }
 
 .round-btn:hover {

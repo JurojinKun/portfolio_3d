@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
     "@jridgewell/sourcemap-codec": "^1.4.15",
     "@juggle/resize-observer": "^3.4.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.2",
     "@react-three/drei": "^9.68.2",
     "@react-three/fiber": "^8.13.0",
     "@rollup/plugin-terser": "^0.4.1",

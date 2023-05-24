@@ -1,7 +1,10 @@
 import AppTypewriter from "./AppTypewriter";
 import { useTranslation } from 'react-i18next';
 import '../css/index.css';
-import { IconRoundButton, TextButton } from "./ButtonsCustom";
+import { IconRoundButton } from "./ButtonsCustom";
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import DownloadIcon from '@mui/icons-material/Download';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Overview = ({ opacity }) => {
     const { t } = useTranslation();
@@ -26,13 +29,33 @@ const Overview = ({ opacity }) => {
                 wrapperClassName="typewriterWrapper"
                 cursorClassName="typewriterCursor"
             />
-            <div style={{ display: "flex", width: "50%", justifyContent: "space-between", marginBlock: "40px" }}>
-                <IconRoundButton icon="fa-home" url="https://www.example.com" />
-                <IconRoundButton icon="fa-home" url="https://www.example.com" />
-                <IconRoundButton icon="fa-home" url="https://www.example.com" />
+            <div style={{ display: "flex", marginBlock: "30px" }}>
+                <IconRoundButton icon={<img
+                    src="/pictures/github.png"
+                    alt="Icone GitHub"
+                    style={{ width: 30, height: 30, color: "red" }}
+                />} url="https://github.com/JurojinKun" />
+                <IconRoundButton icon={<LinkedInIcon style={{
+                    color: "white",
+                    fontSize: 30,
+                }} />} url="https://www.linkedin.com/in/cl%C3%A9ment-communay-39238b12b/" />
+                <IconRoundButton icon={<DownloadIcon style={{
+                    color: "white",
+                    fontSize: 30,
+                }} />} url="https://www.example.com" />
             </div>
-            <div>
-                <p>Enter on my world</p>
+            <div style={{ display: "inline-flex", alignItems: "center" }}>
+                <p style={{
+                    fontSize: 23,
+                    fontWeight: "bold"
+                }}>Embark on a tour</p>
+                <ArrowCircleRightOutlinedIcon style={{
+                    color: "white",
+                    fontSize: 36,
+                    marginLeft: 10
+                }} onClick={() => {
+                    console.log("3D animation");
+                }} />
             </div>
         </section>
     );
