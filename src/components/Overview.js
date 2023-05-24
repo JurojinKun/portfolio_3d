@@ -1,35 +1,38 @@
 import AppTypewriter from "./AppTypewriter";
+import { useTranslation } from 'react-i18next';
 import '../css/index.css';
 import { IconRoundButton, TextButton } from "./ButtonsCustom";
 
 const Overview = ({ opacity }) => {
+    const { t } = useTranslation();
+
     return (
         <section className="overview-content" style={{
             opacity: opacity
         }}>
             <h1>
-                Hi, I'm <span className="name">0ruj</span> <span className="wave">👋🏻</span>
+                {t("overview.hello")}  <span className="name">0ruj</span> <span className="wave">👋🏻</span>
             </h1>
             <p>
-                I am a 26 years old french engineer who started his career in the world of AI, image processing and computer vision. 👨‍🎓🇨🇵
+                {t("overview.first_para")} 👨‍🎓🇨🇵
             </p>
-            <p>Since 2 years and a half, I am a self-taught frontend developer in the vast world of mobile and web development. 📱</p>
-            <p>Why not learn the backend to become a full stack developer soon? 🧠</p>
+            <p>{t("overview.second_para")} 📱</p>
+            <p>{t("overview.third_para")} 🧠</p>
             <AppTypewriter
                 strings={[
-                    "Young developper in the IT world",
-                    "Always learning new things",
+                    t("overview.type_writer_1"),
+                    t("overview.type_writer_2"),
                 ]}
                 wrapperClassName="typewriterWrapper"
                 cursorClassName="typewriterCursor"
             />
-            <div style={{ display: 'flex', marginBlock: "40px"}}>
+            <div style={{ display: "flex", width: "50%", justifyContent: "space-between", marginBlock: "40px" }}>
                 <IconRoundButton icon="fa-home" url="https://www.example.com" />
                 <IconRoundButton icon="fa-home" url="https://www.example.com" />
                 <IconRoundButton icon="fa-home" url="https://www.example.com" />
             </div>
-            <div style={{ display: "flex"}}>
-            <TextButton text="Start my world" url="https://www.example.com" />
+            <div>
+                <p>Enter on my world</p>
             </div>
         </section>
     );
