@@ -2,8 +2,11 @@ import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Sphere, Text } from '@react-three/drei';
+import { useTranslation } from 'react-i18next';
 
 const SphereCustom = ({ scroll }) => {
+    const { t } = useTranslation();
+
     const meshRef = useRef();
     const lightRef = useRef();
     const materialRefs = useMemo(() => Array(2000).fill(0).map(() => React.createRef()), []);
@@ -15,19 +18,19 @@ const SphereCustom = ({ scroll }) => {
 
         switch (index) {
             case 0:
-                section = "About Me";
+                section = t("satellites.about_me");
                 break;
             case 1:
-                section = "Skills";
+                section = t("satellites.skills");
                 break;
             case 2:
-                section = "Experiences";
+                section = t("satellites.experiences");
                 break;
             case 3:
-                section = "Portfolio";
+                section = t("satellites.projects");
                 break;
             case 4:
-                section = "Contact Me";
+                section = t("satellites.contact_me");
                 break;
             default:
                 section = "Satellite";

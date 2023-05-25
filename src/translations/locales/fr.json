@@ -1,10 +1,22 @@
 {
     "overview": {
         "hello": "Salut, je suis",
-        "first_para": "I am a 26 years old french engineer who started his career in the world of AI, image processing and computer vision.",
-        "second_para": "Since 2 years and a half, I am a self-taught frontend developer in the vast world of mobile and web development.",
-        "third_para": "Why not learn the backend to become a full stack developer soon?",
-        "type_writer_1": "Young developper in the IT world",
-        "type_writer_2": "Always learning new things"
+        "first_para": "Je suis un ingénieur français de 26 ans qui a commencé sa carrière dans le monde de l'IA, du traitement d'images et de la vision par ordinateur.",
+        "second_para": "Depuis 2 ans et demi, je suis un développeur frontend autodidacte dans le vaste monde du développement mobile et web.",
+        "third_para": "Pourquoi ne pas apprendre le backend pour devenir bientôt un développeur full stack ?",
+        "type_writer_1": "Jeune développeur dans le monde de l'informatique",
+        "type_writer_2": "Apprendre toujours de nouvelles choses",
+        "embark": "Embarquez pour une visite"
+    },
+    "languages": {
+        "french": "Français",
+        "english": "Anglais"
+    },
+    "satellites": {
+        "about_me": "À PROPOS DE MOI",
+        "skills": "COMPÉTENCES",
+        "experiences": "EXPÉRIENCES",
+        "projects": "PROJETS",
+        "contact_me": "ME CONTACTER"
     }
 } 

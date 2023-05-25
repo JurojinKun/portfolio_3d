@@ -14,7 +14,7 @@ code {
 
 .App-header {
   position: absolute;
-  height: 100px;
+  height: 80px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0);
   z-index: 1;
@@ -124,8 +124,8 @@ code {
   color: #47CDD6;
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
   .overview-content h1 {
     font-size: 25px;
   }
-}
+} */

@@ -48,7 +48,7 @@ const Overview = ({ opacity }) => {
                 <p style={{
                     fontSize: 23,
                     fontWeight: "bold"
-                }}>Embark on a tour</p>
+                }}>{t("overview.embark")}</p>
                 <ArrowCircleRightOutlinedIcon style={{
                     color: "white",
                     fontSize: 36,
