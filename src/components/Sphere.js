@@ -1,8 +1,36 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Sphere, Text } from '@react-three/drei';
 import { useTranslation } from 'react-i18next';
+import { ExtrudeGeometry, Shape } from 'three';
+
+const createStarGeometry = () => {
+    const starShape = new Shape();
+
+    const spikes = 5;
+    const outerRadius = 0.15;
+    const innerRadius = outerRadius * 0.5;
+
+    starShape.moveTo(0, outerRadius);
+
+    for (let i = 0; i < spikes; i++) {
+        let angle = (i / spikes) * Math.PI * 2;
+
+        starShape.lineTo(innerRadius * Math.sin(angle + Math.PI / spikes),
+            innerRadius * Math.cos(angle + Math.PI / spikes));
+
+        starShape.lineTo(outerRadius * Math.sin(angle + Math.PI / spikes * 2),
+            outerRadius * Math.cos(angle + Math.PI / spikes * 2));
+    }
+
+    starShape.lineTo(0, outerRadius);
+
+    return new ExtrudeGeometry(starShape, {
+        depth: 0.05,
+        bevelEnabled: false,
+    });
+}
 
 const SphereCustom = ({ scroll }) => {
     const { t } = useTranslation();
@@ -12,6 +40,7 @@ const SphereCustom = ({ scroll }) => {
     const materialRefs = useMemo(() => Array(2000).fill(0).map(() => React.createRef()), []);
 
     const satellitesRef = useRef([]);
+    const starGeometry = useRef();
 
     const satelliteSection = (index) => {
         let section;
@@ -44,6 +73,10 @@ const SphereCustom = ({ scroll }) => {
         console.log(`Satellite ${index} clicked`);
         //  TODO ajout logique click satellite
     }
+
+    useEffect(() => {
+        starGeometry.current = createStarGeometry();
+    }, []);
 
     useFrame(({ clock }) => {
         if (meshRef.current && lightRef.current) {
@@ -78,6 +111,9 @@ const SphereCustom = ({ scroll }) => {
                         satellite.position.y = meshRef.current.position.y + distance * Math.sin(angle);
                         satellite.position.z = meshRef.current.position.z;
                         satellite.material.color.set(color);
+
+                        // satellite.rotation.y += 0.001;
+                        // satellite.rotation.z += 0.001;
                     });
                 } else {
                     satellitesRef.current.children.forEach((satellite) => {
@@ -116,18 +152,19 @@ const SphereCustom = ({ scroll }) => {
             <mesh ref={meshRef} position={[1.5, -1, 7]}>
                 {spheres}
             </mesh>
-            <group ref={satellitesRef}>
+            <group ref={satellitesRef}
+            >
                 {[...Array(5)].map((_, i) => (
                     <mesh
                         key={i}
+                        geometry={starGeometry.current}
                         visible={false}
                         onClick={() => onSatelliteClick(i)}
                     >
-                        <sphereGeometry args={[0.15, 32, 32]} />
                         <meshPhongMaterial color="white" />
                         <Text
-                            position={[0, -0.3, 0]}
-                            fontSize={0.12}
+                            position={[0, -0.25, 0]}
+                            fontSize={0.10}
                             color="white"
                             textAlign="center"
                             fontWeight="bold"
