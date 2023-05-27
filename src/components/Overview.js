@@ -39,10 +39,12 @@ const Overview = ({ opacity }) => {
                     color: "white",
                     fontSize: 30,
                 }} />} url="https://www.linkedin.com/in/cl%C3%A9ment-communay-39238b12b/" />
+                <a href="/cv/CV_Clement_Communay.pdf" download>
                 <IconRoundButton icon={<DownloadIcon style={{
                     color: "white",
                     fontSize: 30,
-                }} />} url="https://www.example.com" />
+                }} />} />
+                </a>
             </div>
             <div style={{ display: "inline-flex", alignItems: "center" }}>
                 <p style={{

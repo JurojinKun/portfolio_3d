@@ -7,8 +7,10 @@ const IconRoundButton = ({ icon, url }) => {
     };
 
     return (
-        <button className="round-btn" onClick={handleClick}>
-             {icon}
+        url === undefined || url === null ? <button className="round-btn">
+            {icon}
+        </button> : <button className="round-btn" onClick={handleClick}>
+            {icon}
         </button>
     );
 }
@@ -19,7 +21,9 @@ const TextButton = ({ text, url }) => {
     };
 
     return (
-        <button className="text-btn" onClick={handleClick}>
+        url === undefined || url === null ? <button className="text-btn">
+            {text}
+        </button> : <button className="text-btn" onClick={handleClick}>
             {text}
         </button>
     );
@@ -31,7 +35,9 @@ const ImageButton = ({ imageUrl, url }) => {
     };
 
     return (
-        <button className="image-btn" onClick={handleClick}>
+        url === undefined || url === null ? <button className="image-btn">
+            <img src={imageUrl} alt="button" />
+        </button> : <button className="image-btn" onClick={handleClick}>
             <img src={imageUrl} alt="button" />
         </button>
     );
