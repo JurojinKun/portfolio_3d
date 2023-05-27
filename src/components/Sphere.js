@@ -1,46 +1,21 @@
-import React, { useRef, useMemo, useEffect } from 'react';
+import React, { useRef, useMemo, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Sphere, Text } from '@react-three/drei';
+import { Sphere } from '@react-three/drei';
 import { useTranslation } from 'react-i18next';
-import { ExtrudeGeometry, Shape } from 'three';
 
-const createStarGeometry = () => {
-    const starShape = new Shape();
-
-    const spikes = 5;
-    const outerRadius = 0.15;
-    const innerRadius = outerRadius * 0.5;
-
-    starShape.moveTo(0, outerRadius);
-
-    for (let i = 0; i < spikes; i++) {
-        let angle = (i / spikes) * Math.PI * 2;
-
-        starShape.lineTo(innerRadius * Math.sin(angle + Math.PI / spikes),
-            innerRadius * Math.cos(angle + Math.PI / spikes));
-
-        starShape.lineTo(outerRadius * Math.sin(angle + Math.PI / spikes * 2),
-            outerRadius * Math.cos(angle + Math.PI / spikes * 2));
-    }
-
-    starShape.lineTo(0, outerRadius);
-
-    return new ExtrudeGeometry(starShape, {
-        depth: 0.05,
-        bevelEnabled: false,
-    });
-}
+import Satellite from './Satellite';
 
 const SphereCustom = ({ scroll }) => {
     const { t } = useTranslation();
-
     const meshRef = useRef();
     const lightRef = useRef();
     const materialRefs = useMemo(() => Array(2000).fill(0).map(() => React.createRef()), []);
 
-    const satellitesRef = useRef([]);
-    const starGeometry = useRef();
+    const [color, setColor] = useState('white');
+    const [satellitePositions, setSatellitePositions] = useState(Array(5).fill([0, 0, 0]));
+    const [satellitesVisible, setSatellitesVisible] = useState(false);
+
 
     const satelliteSection = (index) => {
         let section;
@@ -71,58 +46,53 @@ const SphereCustom = ({ scroll }) => {
 
     const onSatelliteClick = (index) => {
         console.log(`Satellite ${index} clicked`);
-        //  TODO ajout logique click satellite
     }
-
-    useEffect(() => {
-        starGeometry.current = createStarGeometry();
-    }, []);
 
     useFrame(({ clock }) => {
         if (meshRef.current && lightRef.current) {
-            // meshRef.current.rotation.x += 0.001;
             meshRef.current.rotation.y += 0.001;
             meshRef.current.rotation.z += 0.001;
 
             // Change sphere color over time
             const elapsedTime = clock.getElapsedTime();
-            const color = new THREE.Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`);
+            setColor(new THREE.Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`));
             materialRefs.forEach(ref => ref.current && ref.current.color.set(color));
 
             if (scroll.offset > 0) {
                 const startPosition = [1.5, -1, 7];
                 const endPosition = [0, 0.1, 3.5];
 
-                // Interpolation linéaire entre les positions de départ et de fin en fonction de offset
+                // Linear interpolation between start and end positions based on offset
                 meshRef.current.position.x = (startPosition[0] + scroll.offset * (endPosition[0] - startPosition[0]));
                 meshRef.current.position.y = (startPosition[1] + scroll.offset * (endPosition[1] - startPosition[1]));
                 meshRef.current.position.z = (startPosition[2] + scroll.offset * (endPosition[2] - startPosition[2]));
 
-
-                // Déplacez les satellites autour de la sphère si la sphère est à sa position finale
-                if (meshRef.current.position.x <= (endPosition[0] + 0.2) &&
+                // Check whether satellites should be visible
+                const shouldSatellitesBeVisible = (
+                    meshRef.current.position.x <= (endPosition[0] + 0.2) &&
                     meshRef.current.position.y <= (endPosition[1] + 0.2) &&
-                    meshRef.current.position.z <= (endPosition[2] + 0.2)) {
-                    satellitesRef.current.children.forEach((satellite, index) => {
-                        satellite.visible = true;
-                        const angle = (2 * Math.PI / satellitesRef.current.children.length) * index + clock.getElapsedTime() * 0.2;
-                        const distance = 2.7; // distance from the center of the sphere
-                        satellite.position.x = meshRef.current.position.x + distance * Math.cos(angle);
-                        satellite.position.y = meshRef.current.position.y + distance * Math.sin(angle);
-                        satellite.position.z = meshRef.current.position.z;
-                        satellite.material.color.set(color);
+                    meshRef.current.position.z <= (endPosition[2] + 0.2)
+                );
+                setSatellitesVisible(shouldSatellitesBeVisible);
 
-                        // satellite.rotation.y += 0.001;
-                        // satellite.rotation.z += 0.001;
+                if (shouldSatellitesBeVisible) {
+                    // Calculate satellite positions and update the state
+                    const newPositions = satellitePositions.map((_, index) => {
+                        const angle = (2 * Math.PI / satellitePositions.length) * index + clock.getElapsedTime() * 0.2;
+                        const distance = 2.7;
+                        return [
+                            distance * Math.cos(angle),
+                            distance * Math.sin(angle),
+                            meshRef.current.position.z
+                        ];
                     });
-                } else {
-                    satellitesRef.current.children.forEach((satellite) => {
-                        satellite.visible = false;
-                    });
+                    setSatellitePositions(newPositions);
                 }
             }
         }
     });
+
+
 
     const sphereRadius = 2;
     const numSpheres = 2000;
@@ -152,32 +122,21 @@ const SphereCustom = ({ scroll }) => {
             <mesh ref={meshRef} position={[1.5, -1, 7]}>
                 {spheres}
             </mesh>
-            <group ref={satellitesRef}
-            >
-                {[...Array(5)].map((_, i) => (
-                    <mesh
-                        key={i}
-                        geometry={starGeometry.current}
-                        visible={false}
-                        onClick={() => onSatelliteClick(i)}
-                    >
-                        <meshPhongMaterial color="white" />
-                        <Text
-                            position={[0, -0.25, 0]}
-                            fontSize={0.10}
-                            color="white"
-                            textAlign="center"
-                            fontWeight="bold"
-                        >
-                            {satelliteSection(i)}
-                        </Text>
-                    </mesh>
-                ))}
-            </group>
+            {satellitePositions.map((pos, i) => (
+                <Satellite
+                    key={i}
+                    color={color}
+                    visible={satellitesVisible}
+                    position={pos}
+                    onClick={() => onSatelliteClick(i)}
+                    sectionName={satelliteSection(i)}
+                />
+            ))}
             <ambientLight ref={lightRef} intensity={0.4} />
         </>
     );
 }
 
 export default SphereCustom;
+
 
