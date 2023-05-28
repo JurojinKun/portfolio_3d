@@ -1,10 +1,13 @@
-import React, { useRef, useMemo, useState } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Sphere } from '@react-three/drei';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Satellite from './Satellite';
+import { selectValues } from '../redux/selectors/valueSelector';
+import { updateValues } from '../redux/slices/valueSlice';
 
 const SphereCustom = ({ scroll }) => {
     const { t } = useTranslation();
@@ -16,37 +19,22 @@ const SphereCustom = ({ scroll }) => {
     const [satellitePositions, setSatellitePositions] = useState(Array(5).fill([0, 0, 0]));
     const [satellitesVisible, setSatellitesVisible] = useState(false);
 
+    const dispatch = useDispatch();
+    const [x, y, z] = useSelector(selectValues);
 
-    const satelliteSection = (index) => {
-        let section;
+    useEffect(() => {
 
-        switch (index) {
-            case 0:
-                section = t("satellites.about_me");
-                break;
-            case 1:
-                section = t("satellites.skills");
-                break;
-            case 2:
-                section = t("satellites.experiences");
-                break;
-            case 3:
-                section = t("satellites.projects");
-                break;
-            case 4:
-                section = t("satellites.contact_me");
-                break;
-            default:
-                section = "Satellite";
-                break;
-        }
+        const timeout = setTimeout(() => {
+            if ((x !== meshRef.current.position.x || y !== meshRef.current.position.y || z !== meshRef.current.position.z)) {
+                dispatch(updateValues([meshRef.current.position.x, meshRef.current.position.y, meshRef.current.position.z]));
+            }
+        }, 500);
 
-        return section;
-    }
+        return () => {
+            clearTimeout(timeout);
+        };
 
-    const onSatelliteClick = (index) => {
-        console.log(`Satellite ${index} clicked`);
-    }
+    }, [scroll.offset, x, y, z, dispatch]);
 
     useFrame(({ clock }) => {
         const elapsedTime = clock.getElapsedTime();
@@ -93,7 +81,36 @@ const SphereCustom = ({ scroll }) => {
         }
     });
 
+    const satelliteSection = (index) => {
+        let section;
 
+        switch (index) {
+            case 0:
+                section = t("satellites.about_me");
+                break;
+            case 1:
+                section = t("satellites.skills");
+                break;
+            case 2:
+                section = t("satellites.experiences");
+                break;
+            case 3:
+                section = t("satellites.projects");
+                break;
+            case 4:
+                section = t("satellites.contact_me");
+                break;
+            default:
+                section = "Satellite";
+                break;
+        }
+
+        return section;
+    }
+
+    const onSatelliteClick = (index) => {
+        console.log(`Satellite ${index} clicked`);
+    }
 
     const sphereRadius = 2;
     const numSpheres = 2000;
@@ -120,7 +137,7 @@ const SphereCustom = ({ scroll }) => {
 
     return (
         <>
-            <mesh ref={meshRef} position={[1.5, -1, 7]}>
+            <mesh ref={meshRef} position={[x, y, z]}>
                 {spheres}
             </mesh>
             {satellitePositions.map((pos, i) => (
