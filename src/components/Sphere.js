@@ -49,12 +49,13 @@ const SphereCustom = ({ scroll }) => {
     }
 
     useFrame(({ clock }) => {
+        const elapsedTime = clock.getElapsedTime();
+
         if (meshRef.current && lightRef.current) {
             meshRef.current.rotation.y += 0.001;
             meshRef.current.rotation.z += 0.001;
 
             // Change sphere color over time
-            const elapsedTime = clock.getElapsedTime();
             setColor(new THREE.Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`));
             materialRefs.forEach(ref => ref.current && ref.current.color.set(color));
 
@@ -78,7 +79,7 @@ const SphereCustom = ({ scroll }) => {
                 if (shouldSatellitesBeVisible) {
                     // Calculate satellite positions and update the state
                     const newPositions = satellitePositions.map((_, index) => {
-                        const angle = (2 * Math.PI / satellitePositions.length) * index + clock.getElapsedTime() * 0.2;
+                        const angle = (2 * Math.PI / satellitePositions.length) * index + elapsedTime * 0.05;
                         const distance = 2.7;
                         return [
                             distance * Math.cos(angle),
