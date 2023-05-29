@@ -16,7 +16,11 @@ i18n
     fallbackLng: 'en', // si aucune langue correspondante est trouvée, on utilise l'anglais
     interpolation: {
       escapeValue: false, 
-    }
+    },
+    load: 'languageOnly',
+  })
+  .then(() => {
+    console.log("Language Detected", i18n.language);
   });
 
 export default i18n;
