@@ -40,7 +40,7 @@ const customStyles = {
 
 const LanguageSwitcher = () => {
     const { t, i18n } = useTranslation();
-    const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+    const [selectedLanguage, setSelectedLanguage] = useState(i18n.language.split('-')[0]);
 
     const languageOptions = [
         { value: 'fr', label: "🇫🇷 " + t("languages.french") },

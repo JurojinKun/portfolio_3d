@@ -7,7 +7,7 @@ import frTranslation from './locales/fr.json';
 
 i18n
   .use(LanguageDetector) // détection de la langue du navigateur
-  .use(initReactI18next) 
+  .use(initReactI18next)
   .init({
     resources: {
       en: { translation: enTranslation },
@@ -15,12 +15,8 @@ i18n
     },
     fallbackLng: 'en', // si aucune langue correspondante est trouvée, on utilise l'anglais
     interpolation: {
-      escapeValue: false, 
+      escapeValue: false,
     },
-    load: 'languageOnly',
-  })
-  .then(() => {
-    console.log("Language Detected", i18n.language);
   });
 
 export default i18n;

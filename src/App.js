@@ -5,9 +5,6 @@ import store from "./redux/store";
 
 
 const App = () => {
-  // var lang = window.navigator.language;
-  // console.log(lang); // Retourne quelque chose comme 'en-US'
-
   return (
     <Provider store={store}>
       <Home />
