@@ -1,54 +1,66 @@
 import React, { useRef, useMemo } from 'react';
-import { useFrame, useLoader } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
+import { useLoader, useFrame } from '@react-three/fiber';
 import { OBJLoader } from 'three-stdlib';
-import { Box3, Vector3 } from 'three';
+import { MeshPhongMaterial, Box3, Vector3 } from 'three';
+import { Text } from '@react-three/drei';
+
+// import TextUnderline from './TextUnderline';
 
 const Satellite = ({ color, visible, position, onClick, sectionName, modelPath }) => {
   const satelliteRef = useRef();
-  const obj = useLoader(OBJLoader, modelPath);
 
-  // Redimensionner et centrer l'objet
-  useMemo(() => {
+  const objModel = useLoader(OBJLoader, modelPath);
+
+  const model = useMemo(() => {
+    const obj = objModel.clone();
+
     const box = new Box3().setFromObject(obj);
-    const size = box.getSize(new Vector3()).length();
-    const center = box.getCenter(new Vector3());
-    
-    obj.position.x += (obj.position.x - center.x);
-    obj.position.y += (obj.position.y - center.y);
-    obj.position.z += (obj.position.z - center.z);
-    obj.scale.multiplyScalar(1 / size);
-  }, [obj]);
+    const size = new Vector3();
+    box.getSize(size);
+
+    const scaleFactor = 0.3;  // Adjust this to change the size of the model
+    const scaleVector = new Vector3(scaleFactor / size.x, scaleFactor / size.y, 0.05);
+    obj.scale.multiply(scaleVector);
+
+    obj.traverse((child) => {
+      if (child.material) {
+        child.material = new MeshPhongMaterial({
+          color: color,
+        });
+      }
+    });
+
+    return obj;
+  }, [objModel, color]);
 
   useFrame(() => {
     if (satelliteRef.current) {
-      satelliteRef.current.rotation.y += 0.02;
-      satelliteRef.current.rotation.z += 0.02;
+      satelliteRef.current.rotation.y += 0.01;
+      satelliteRef.current.rotation.z += 0.01;
     }
   });
 
   return (
     <group position={position} visible={visible} onClick={onClick}>
-      <primitive
-        ref={satelliteRef}
-        object={obj}
-      >
-        {/* <meshPhongMaterial color={color} /> */}
-      </primitive>
+      <mesh ref={satelliteRef}>
+        <primitive object={model} />
+      </mesh>
       <Text
         position={[0, -0.25, 0]}
         fontSize={0.10}
         color="white"
         textAlign="center"
-        fontWeight="bold"
+        fontWeight="600"
       >
         {sectionName}
       </Text>
+      {/* <TextUnderline sectionName={sectionName} /> */}
     </group>
   );
 }
 
 export default Satellite;
+
 
 // import React, { useRef } from 'react';
 // import { useFrame } from '@react-three/fiber';
