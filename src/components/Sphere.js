@@ -148,7 +148,6 @@ const SphereCustom = ({ scroll }) => {
                     position={pos}
                     onClick={() => onSatelliteClick(i)}
                     sectionName={satelliteSection(i)}
-                    modelPath={"/icones/Fichier_1.obj"}
                 />
             ))}
             <ambientLight ref={lightRef} intensity={0.4} />
