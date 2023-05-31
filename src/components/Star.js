@@ -28,11 +28,12 @@ const createStarGeometry = () => {
     });
 }
 
-const Star = ({ starRef, starColor }) => {
+const Star = ({ starRef, starColor, onClick }) => {
     return (
         <mesh
             ref={starRef}
             geometry={createStarGeometry()}
+            onClick={onClick}
         >
             <meshPhongMaterial color={starColor} />
         </mesh>

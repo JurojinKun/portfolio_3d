@@ -15,14 +15,15 @@ const Satellite = ({ color, visible, position, onClick, sectionName }) => {
   });
 
   return (
-    <group position={position} visible={visible} onClick={onClick}>
-      <Hexagon hexagonRef={satelliteRef} hexagonColor={color} />
+    <group position={position} visible={visible}>
+      <Hexagon hexagonRef={satelliteRef} hexagonColor={color} onClick={onClick} />
       <Text
         position={[0, -0.25, 0]}
         fontSize={0.10}
         color="white"
         textAlign="center"
         fontWeight="bold"
+        onClick={onClick}
       >
         {sectionName}
       </Text>

@@ -20,15 +20,21 @@ const createHexagonGeometry = () => {
     });
 }
 
-const Hexagon = ({ hexagonRef, hexagonColor }) => {
+const Hexagon = ({ hexagonRef, hexagonColor, onClick }) => {
     return (
-        <mesh ref={hexagonRef} geometry={createHexagonGeometry()}>
-            <meshPhongMaterial color={hexagonColor} transparent={true} opacity={0.5} />
-            <lineSegments>
-                <edgesGeometry attach="geometry" args={[createHexagonGeometry()]} />
-                <lineBasicMaterial attach="material" color={hexagonColor} />
-            </lineSegments>
-        </mesh>
+        <>
+            <mesh geometry={createHexagonGeometry()} onClick={onClick}>
+                <meshBasicMaterial visible={false} />
+            </mesh>
+            <mesh ref={hexagonRef} geometry={createHexagonGeometry()} >
+                <meshPhongMaterial color={hexagonColor} transparent={true} opacity={0.5} />
+                <lineSegments>
+                    <edgesGeometry attach="geometry" args={[createHexagonGeometry()]} />
+                    <lineBasicMaterial attach="material" color={hexagonColor} />
+                </lineSegments>
+            </mesh>
+        </>
+
     );
 }
 
