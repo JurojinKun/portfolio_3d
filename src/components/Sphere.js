@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Color } from 'three';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,6 +9,8 @@ import { selectValues } from '../redux/selectors/valueSelector';
 import { updateValues } from '../redux/slices/valueSlice';
 
 const SphereCustom = ({ scroll }) => {
+    const sphereRadius = 2;
+    const sphereDetail = 25;
     const { t } = useTranslation();
     const meshRef = useRef();
     const lightRef = useRef();
@@ -39,7 +41,7 @@ const SphereCustom = ({ scroll }) => {
             meshRef.current.rotation.z += 0.0001;
 
             // Change sphere color over time
-            setColor(new THREE.Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`));
+            setColor(new Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`));
 
             if (scroll.offset > 0) {
                 const startPosition = [1.5, -1, 7];
@@ -105,9 +107,6 @@ const SphereCustom = ({ scroll }) => {
     const onSatelliteClick = (index) => {
         console.log(`Satellite ${index} clicked`);
     }
-
-    const sphereRadius = 2;
-    const sphereDetail = 25;
 
     return (
         <>
