@@ -9,8 +9,8 @@ const Satellite = ({ color, visible, position, onClick, sectionName }) => {
 
   useFrame(() => {
     if (satelliteRef.current) {
-      satelliteRef.current.rotation.y += 0.01;
-      satelliteRef.current.rotation.z += 0.01;
+      satelliteRef.current.rotation.y += 0.001;
+      satelliteRef.current.rotation.z += 0.001;
     }
   });
 
@@ -18,7 +18,7 @@ const Satellite = ({ color, visible, position, onClick, sectionName }) => {
     <group position={position} visible={visible}>
       <Hexagon hexagonRef={satelliteRef} hexagonColor={color} onClick={onClick} />
       <Text
-        position={[0, -0.25, 0]}
+        position={[0, -0.27, 0]}
         fontSize={0.10}
         color="white"
         textAlign="center"

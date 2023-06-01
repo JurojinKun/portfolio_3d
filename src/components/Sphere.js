@@ -1,7 +1,6 @@
-import React, { useRef, useMemo, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Sphere } from '@react-three/drei';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -13,8 +12,6 @@ const SphereCustom = ({ scroll }) => {
     const { t } = useTranslation();
     const meshRef = useRef();
     const lightRef = useRef();
-    const materialRefs = useMemo(() => Array(2000).fill(0).map(() => React.createRef()), []);
-
     const [color, setColor] = useState('white');
     const [satellitePositions, setSatellitePositions] = useState(Array(5).fill([0, 0, 0]));
     const [satellitesVisible, setSatellitesVisible] = useState(false);
@@ -23,7 +20,6 @@ const SphereCustom = ({ scroll }) => {
     const [x, y, z] = useSelector(selectValues);
 
     useEffect(() => {
-
         const timeout = setTimeout(() => {
             if ((x !== meshRef.current.position.x || y !== meshRef.current.position.y || z !== meshRef.current.position.z)) {
                 dispatch(updateValues([meshRef.current.position.x, meshRef.current.position.y, meshRef.current.position.z]));
@@ -33,19 +29,17 @@ const SphereCustom = ({ scroll }) => {
         return () => {
             clearTimeout(timeout);
         };
-
     }, [scroll.offset, x, y, z, dispatch]);
 
     useFrame(({ clock }) => {
         const elapsedTime = clock.getElapsedTime();
 
         if (meshRef.current && lightRef.current) {
-            meshRef.current.rotation.y += 0.001;
-            meshRef.current.rotation.z += 0.001;
+            meshRef.current.rotation.y += 0.0001;
+            meshRef.current.rotation.z += 0.0001;
 
             // Change sphere color over time
             setColor(new THREE.Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`));
-            materialRefs.forEach(ref => ref.current && ref.current.color.set(color));
 
             if (scroll.offset > 0) {
                 const startPosition = [1.5, -1, 7];
@@ -67,7 +61,7 @@ const SphereCustom = ({ scroll }) => {
                 if (shouldSatellitesBeVisible) {
                     // Calculate satellite positions and update the state
                     const newPositions = satellitePositions.map((_, index) => {
-                        const angle = (2 * Math.PI / satellitePositions.length) * index + elapsedTime * 0.05;
+                        const angle = (2 * Math.PI / satellitePositions.length) * index + elapsedTime * 0.03;
                         const distance = 2.7;
                         return [
                             distance * Math.cos(angle),
@@ -113,32 +107,13 @@ const SphereCustom = ({ scroll }) => {
     }
 
     const sphereRadius = 2;
-    const numSpheres = 2000;
-    const smallSphereRadius = 0.02;
-
-    const spheres = [];
-    const offset = 2 / numSpheres;
-    const increment = Math.PI * (3 - Math.sqrt(5));
-    for (let i = 0; i < numSpheres; i++) {
-        const y = i * offset - 1 + (offset / 2);
-        const radius = Math.sqrt(1 - Math.pow(y, 2));
-
-        const phi = ((i + 1) % numSpheres) * increment;
-
-        const x = Math.cos(phi) * radius;
-        const z = Math.sin(phi) * radius;
-
-        spheres.push(
-            <Sphere args={[smallSphereRadius]} position={[x * sphereRadius, y * sphereRadius, z * sphereRadius]} key={i}>
-                <meshPhongMaterial ref={materialRefs[i]} color="white" />
-            </Sphere>
-        );
-    }
+    const sphereDetail = 25;
 
     return (
         <>
             <mesh ref={meshRef} position={[x, y, z]}>
-                {spheres}
+                <sphereGeometry args={[sphereRadius, sphereDetail, sphereDetail]} />
+                <meshBasicMaterial wireframe color={color} />
             </mesh>
             {satellitePositions.map((pos, i) => (
                 <Satellite
@@ -156,5 +131,3 @@ const SphereCustom = ({ scroll }) => {
 }
 
 export default SphereCustom;
-
-
