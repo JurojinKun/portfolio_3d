@@ -1,38 +1,41 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { ExtrudeGeometry, Shape } from "three";
 
-const createStarGeometry = () => {
-    const starShape = new Shape();
+const Star = ({ starRef, starColor, onClick }) => {
 
-    const spikes = 5;
-    const outerRadius = 0.15;
-    const innerRadius = outerRadius * 0.5;
+    const starShape = useMemo(() => {
+        const shape = new Shape();
 
-    starShape.moveTo(0, outerRadius);
+        const spikes = 5;
+        const outerRadius = 0.15;
+        const innerRadius = outerRadius * 0.5;
 
-    for (let i = 0; i < spikes; i++) {
-        let angle = (i / spikes) * Math.PI * 2;
+        shape.moveTo(0, outerRadius);
 
-        starShape.lineTo(innerRadius * Math.sin(angle + Math.PI / spikes),
-            innerRadius * Math.cos(angle + Math.PI / spikes));
+        for (let i = 0; i < spikes; i++) {
+            let angle = (i / spikes) * Math.PI * 2;
 
-        starShape.lineTo(outerRadius * Math.sin(angle + Math.PI / spikes * 2),
-            outerRadius * Math.cos(angle + Math.PI / spikes * 2));
-    }
+            shape.lineTo(innerRadius * Math.sin(angle + Math.PI / spikes),
+                innerRadius * Math.cos(angle + Math.PI / spikes));
 
-    starShape.lineTo(0, outerRadius);
+            shape.lineTo(outerRadius * Math.sin(angle + Math.PI / spikes * 2),
+                outerRadius * Math.cos(angle + Math.PI / spikes * 2));
+        }
 
-    return new ExtrudeGeometry(starShape, {
+        shape.lineTo(0, outerRadius);
+
+        return shape;
+    }, []);
+
+    const starGeometry = useMemo(() => new ExtrudeGeometry(starShape, {
         depth: 0.05,
         bevelEnabled: false,
-    });
-}
+    }), [starShape]);
 
-const Star = ({ starRef, starColor, onClick }) => {
     return (
         <mesh
             ref={starRef}
-            geometry={createStarGeometry()}
+            geometry={starGeometry}
             onClick={onClick}
         >
             <meshPhongMaterial color={starColor} />

@@ -9,7 +9,7 @@ const Satellite = ({ color, visible, position, index }) => {
   const { t } = useTranslation();
   const satelliteRef = useRef();
 
-  const satelliteSection = (index) => {
+  const satelliteName = (index) => {
     let section;
 
     switch (index) {
@@ -36,6 +36,33 @@ const Satellite = ({ color, visible, position, index }) => {
     return section;
   }
 
+  const satelliteIconPath = (index) => {
+    let iconPath;
+
+    switch (index) {
+      case 0:
+        iconPath = "/icons/about_me.svg";
+        break;
+      case 1:
+        iconPath = "/icons/skills.svg";
+        break;
+      case 2:
+        iconPath = "/icons/experiences.svg";
+        break;
+      case 3:
+        iconPath = "/icons/projects.svg";
+        break;
+      case 4:
+        iconPath = "/icons/contact_me.svg";
+        break;
+      default:
+        iconPath = "";
+        break;
+    }
+
+    return iconPath;
+  }
+
   const onSatelliteClick = (index) => {
     console.log(`Satellite ${index} clicked`);
   }
@@ -49,7 +76,7 @@ const Satellite = ({ color, visible, position, index }) => {
 
   return (
     <group position={position} visible={visible}>
-      <Hexagon hexagonRef={satelliteRef} hexagonColor={color} onClick={() => onSatelliteClick(index)} />
+      <Hexagon hexagonRef={satelliteRef} hexagonColor={color} onClick={() => onSatelliteClick(index)} iconPath={satelliteIconPath(index)} />
       <Text
         position={[0, -0.27, 0]}
         fontSize={0.10}
@@ -58,7 +85,7 @@ const Satellite = ({ color, visible, position, index }) => {
         fontWeight="bold"
         onClick={() => onSatelliteClick(index)}
       >
-        {satelliteSection(index)}
+        {satelliteName(index)}
       </Text>
     </group>
   );
