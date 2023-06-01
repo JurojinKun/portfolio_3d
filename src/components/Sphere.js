@@ -7,10 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Satellite from './Satellite';
 import { selectValues } from '../redux/selectors/valueSelector';
 import { updateValues } from '../redux/slices/valueSlice';
+import { selectShouldAnimate } from '../redux/selectors/animationSphereSelector';
 
 const SphereCustom = ({ scroll }) => {
     const sphereRadius = 2;
-    const sphereDetail = 25;
+    const sphereDetail = 30;
     const { t } = useTranslation();
     const meshRef = useRef();
     const lightRef = useRef();
@@ -20,6 +21,11 @@ const SphereCustom = ({ scroll }) => {
 
     const dispatch = useDispatch();
     const [x, y, z] = useSelector(selectValues);
+    const shouldAnimateSphere = useSelector(selectShouldAnimate);
+
+    useEffect(() => {
+        console.log(shouldAnimateSphere);
+    }, [shouldAnimateSphere]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {

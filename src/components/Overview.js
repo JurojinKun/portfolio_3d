@@ -1,13 +1,20 @@
+import '../css/index.css';
+
 import AppTypewriter from "./AppTypewriter";
 import { useTranslation } from 'react-i18next';
-import '../css/index.css';
 import { IconRoundButton } from "./ButtonsCustom";
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import DownloadIcon from '@mui/icons-material/Download';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { startAnimation, resetAnimation } from '../redux/slices/animationSphereSlice';
+import { selectShouldAnimate } from '../redux/selectors/animationSphereSelector';
 
 const Overview = ({ opacity }) => {
     const { t } = useTranslation();
+    const dispatch = useDispatch();
+    const shouldAnimateSphere = useSelector(selectShouldAnimate);
 
     return (
         <section className="overview-content" style={{
@@ -40,10 +47,10 @@ const Overview = ({ opacity }) => {
                     fontSize: 30,
                 }} />} url="https://www.linkedin.com/in/cl%C3%A9ment-communay-39238b12b/" />
                 <a href="/cv/CV_Clement_Communay.pdf" download>
-                <IconRoundButton icon={<DownloadIcon style={{
-                    color: "white",
-                    fontSize: 30,
-                }} />} />
+                    <IconRoundButton icon={<DownloadIcon style={{
+                        color: "white",
+                        fontSize: 30,
+                    }} />} />
                 </a>
             </div>
             <div style={{ display: "inline-flex", alignItems: "center" }}>
@@ -56,7 +63,11 @@ const Overview = ({ opacity }) => {
                     fontSize: 36,
                     marginLeft: 10
                 }} onClick={() => {
-                    console.log("3D animation");
+                    if (!shouldAnimateSphere) {
+                        dispatch(startAnimation());
+                    } else {
+                        dispatch(resetAnimation());
+                    }
                 }} />
             </div>
         </section>

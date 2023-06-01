@@ -1,8 +1,11 @@
 import { Scroll, PerspectiveCamera, useScroll } from '@react-three/drei';
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { Provider } from 'react-redux';
+
 import SphereCustom from '../components/Sphere';
 import Overview from '../components/Overview';
+import store from "../redux/store";
 
 const MainScene = () => {
     const scroll = useScroll();
@@ -22,7 +25,9 @@ const MainScene = () => {
             <ambientLight />
             <SphereCustom scroll={scroll} />
             <Scroll html>
-                <Overview opacity={opacityOverview} />
+                <Provider store={store}>
+                    <Overview opacity={opacityOverview} />
+                </Provider>
             </Scroll>
         </>
     );

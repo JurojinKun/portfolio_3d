@@ -15,8 +15,8 @@ const CubePicture = () => {
 
     useFrame(() => {
         if (cubeRef.current) {
-            cubeRef.current.rotation.x += 0.005;
-            cubeRef.current.rotation.y += 0.005;
+            cubeRef.current.rotation.x += 0.003;
+            cubeRef.current.rotation.y += 0.003;
         }
     });
 
