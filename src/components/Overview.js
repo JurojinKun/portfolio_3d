@@ -1,5 +1,6 @@
 import '../css/index.css';
 
+import React, { useState } from 'react';
 import AppTypewriter from "./AppTypewriter";
 import { useTranslation } from 'react-i18next';
 import { IconRoundButton } from "./ButtonsCustom";
@@ -13,6 +14,9 @@ import { selectShouldAnimate } from '../redux/selectors/animationSphereSelector'
 
 const Overview = ({ opacity }) => {
     const { t } = useTranslation();
+
+    const [colorIcon, setColorIcon] = useState("white");
+
     const dispatch = useDispatch();
     const shouldAnimateSphere = useSelector(selectShouldAnimate);
 
@@ -59,16 +63,19 @@ const Overview = ({ opacity }) => {
                     fontWeight: "bold"
                 }}>{t("overview.embark")}</p>
                 <ArrowCircleRightOutlinedIcon style={{
-                    color: "white",
+                    color: colorIcon,
                     fontSize: 36,
                     marginLeft: 10
-                }} onClick={() => {
-                    if (!shouldAnimateSphere) {
-                        dispatch(startAnimation());
-                    } else {
-                        dispatch(resetAnimation());
-                    }
-                }} />
+                }}
+                    onMouseEnter={() => setColorIcon("#47CDD6")}
+                    onMouseLeave={() => setColorIcon("white")}
+                    onClick={() => {
+                        if (!shouldAnimateSphere) {
+                            dispatch(startAnimation());
+                        } else {
+                            dispatch(resetAnimation());
+                        }
+                    }} />
             </div>
         </section>
     );

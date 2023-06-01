@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Color } from 'three';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Satellite from './Satellite';
@@ -12,9 +11,10 @@ import { selectShouldAnimate } from '../redux/selectors/animationSphereSelector'
 const SphereCustom = ({ scroll }) => {
     const sphereRadius = 2;
     const sphereDetail = 30;
-    const { t } = useTranslation();
+
     const meshRef = useRef();
     const lightRef = useRef();
+
     const [color, setColor] = useState('white');
     const [satellitePositions, setSatellitePositions] = useState(Array(5).fill([0, 0, 0]));
     const [satellitesVisible, setSatellitesVisible] = useState(false);
@@ -83,37 +83,6 @@ const SphereCustom = ({ scroll }) => {
         }
     });
 
-    const satelliteSection = (index) => {
-        let section;
-
-        switch (index) {
-            case 0:
-                section = t("satellites.about_me");
-                break;
-            case 1:
-                section = t("satellites.skills");
-                break;
-            case 2:
-                section = t("satellites.experiences");
-                break;
-            case 3:
-                section = t("satellites.projects");
-                break;
-            case 4:
-                section = t("satellites.contact_me");
-                break;
-            default:
-                section = "Satellite";
-                break;
-        }
-
-        return section;
-    }
-
-    const onSatelliteClick = (index) => {
-        console.log(`Satellite ${index} clicked`);
-    }
-
     return (
         <>
             <mesh ref={meshRef} position={[x, y, z]}>
@@ -126,8 +95,7 @@ const SphereCustom = ({ scroll }) => {
                     color={color}
                     visible={satellitesVisible}
                     position={pos}
-                    onClick={() => onSatelliteClick(i)}
-                    sectionName={satelliteSection(i)}
+                    index={i}
                 />
             ))}
             <ambientLight ref={lightRef} intensity={0.4} />
