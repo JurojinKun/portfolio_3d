@@ -1,24 +1,14 @@
 import '../css/index.css';
 
-import React, { useState } from 'react';
+import React from 'react';
 import AppTypewriter from "./AppTypewriter";
 import { useTranslation } from 'react-i18next';
 import { IconRoundButton } from "./ButtonsCustom";
-import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import DownloadIcon from '@mui/icons-material/Download';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { startAnimation, resetAnimation } from '../redux/slices/animationSphereSlice';
-import { selectShouldAnimate } from '../redux/selectors/animationSphereSelector';
 
 const Overview = ({ opacity }) => {
     const { t } = useTranslation();
-
-    const [colorIcon, setColorIcon] = useState("white");
-
-    const dispatch = useDispatch();
-    const shouldAnimateSphere = useSelector(selectShouldAnimate);
 
     return (
         <section className="overview-content" style={{
@@ -62,20 +52,9 @@ const Overview = ({ opacity }) => {
                     fontSize: 23,
                     fontWeight: "bold"
                 }}>{t("overview.embark")}</p>
-                <ArrowCircleRightOutlinedIcon style={{
-                    color: colorIcon,
-                    fontSize: 36,
-                    marginLeft: 10
-                }}
-                    onMouseEnter={() => setColorIcon("#47CDD6")}
-                    onMouseLeave={() => setColorIcon("white")}
-                    onClick={() => {
-                        if (!shouldAnimateSphere) {
-                            dispatch(startAnimation());
-                        } else {
-                            dispatch(resetAnimation());
-                        }
-                    }} />
+                <div className='field'>
+                    <div className='mouse' />
+                </div>
             </div>
         </section>
     );

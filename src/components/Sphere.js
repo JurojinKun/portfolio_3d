@@ -1,12 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Color } from 'three';
-import { useDispatch, useSelector } from 'react-redux';
 
 import Satellite from './Satellite';
-import { selectValues } from '../redux/selectors/valueSelector';
-import { updateValues } from '../redux/slices/valueSlice';
-import { selectShouldAnimate } from '../redux/selectors/animationSphereSelector';
 
 const SphereCustom = ({ scroll }) => {
     const sphereRadius = 2;
@@ -18,26 +14,6 @@ const SphereCustom = ({ scroll }) => {
     const [color, setColor] = useState('white');
     const [satellitePositions, setSatellitePositions] = useState(Array(5).fill([0, 0, 0]));
     const [satellitesVisible, setSatellitesVisible] = useState(false);
-
-    const dispatch = useDispatch();
-    const [x, y, z] = useSelector(selectValues);
-    const shouldAnimateSphere = useSelector(selectShouldAnimate);
-
-    useEffect(() => {
-        console.log(shouldAnimateSphere);
-    }, [shouldAnimateSphere]);
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            if ((x !== meshRef.current.position.x || y !== meshRef.current.position.y || z !== meshRef.current.position.z)) {
-                dispatch(updateValues([meshRef.current.position.x, meshRef.current.position.y, meshRef.current.position.z]));
-            }
-        }, 500);
-
-        return () => {
-            clearTimeout(timeout);
-        };
-    }, [scroll.offset, x, y, z, dispatch]);
 
     useFrame(({ clock }) => {
         const elapsedTime = clock.getElapsedTime();
@@ -85,7 +61,7 @@ const SphereCustom = ({ scroll }) => {
 
     return (
         <>
-            <mesh ref={meshRef} position={[x, y, z]}>
+            <mesh ref={meshRef} position={[1.5, -1, 7]}>
                 <sphereGeometry args={[sphereRadius, sphereDetail, sphereDetail]} />
                 <meshBasicMaterial wireframe color={color} />
             </mesh>

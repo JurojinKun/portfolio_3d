@@ -129,3 +129,44 @@ code {
     font-size: 25px;
   }
 } */
+
+.field {
+  margin: 10px;
+}
+
+.mouse {
+  width: 25px;
+  height: 50px;
+  border: 3px solid #fff;
+  border-radius: 60px;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 1;
+    animation: wheel 2s infinite;
+    -webkit-animation: wheel 2s infinite;
+  }
+}
+
+@keyframes wheel {
+  to {
+    opacity: 0;
+    bottom: 40px;
+  }
+}
+
+@-webkit-keyframes wheel {
+  to {
+    opacity: 0;
+    bottom: 40px;
+  }
+}
