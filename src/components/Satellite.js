@@ -2,11 +2,14 @@ import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import Hexagon from './Hexagon';
 
 const Satellite = ({ color, visible, position, index }) => {
   const { t } = useTranslation();
+  let navigate = useNavigate();
+
   const satelliteRef = useRef();
 
   const satelliteName = (index) => {
@@ -64,7 +67,8 @@ const Satellite = ({ color, visible, position, index }) => {
   }
 
   const onSatelliteClick = (index) => {
-    console.log(`Satellite ${index} clicked`);
+    const url = "/portfolio/section" + (index + 1);
+    navigate(url);
   }
 
   useFrame(() => {

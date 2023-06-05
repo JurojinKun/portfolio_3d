@@ -3,7 +3,7 @@ import MainSceneCanvas from '../canvas/MainSceneCanvas';
 import StarsCanvas from '../canvas/StarsCanvas';
 import FixedHeader from '../components/FixedHeader';
 
-const Home = () => {
+const Home3D = () => {
     return (
         <div className='parent'>
             <FixedHeader />
@@ -13,4 +13,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Home3D;
