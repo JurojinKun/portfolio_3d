@@ -69,8 +69,8 @@ const Satellite = ({ color, visible, position, index }) => {
 
   useFrame(() => {
     if (satelliteRef.current) {
-      satelliteRef.current.rotation.y += 0.001;
-      satelliteRef.current.rotation.z += 0.001;
+      satelliteRef.current.rotation.y += 0.003;
+      satelliteRef.current.rotation.z += 0.003;
     }
   });
 
