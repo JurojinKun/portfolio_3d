@@ -5,7 +5,7 @@ const NotFound = () => {
         <div style={{
             height: '100vh',
             width: '100vw',
-            backgroundColor: '#02020D',
+            backgroundColor: '#050505',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
@@ -14,7 +14,7 @@ const NotFound = () => {
                 color: 'white',
                 textAlign: "center",
                 fontSize: 23,
-                fontWeight: "bold"
+                fontWeight: "bold",
             }}>
                 URL not found
             </div>

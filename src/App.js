@@ -11,7 +11,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home3D />} />
         <Route path="/portfolio/:sectionId?" element={<Portfolio />} />
-        <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

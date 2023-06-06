@@ -9,8 +9,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -165,7 +165,7 @@ code {
     width: 12px;
     height: 12px;
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     background-color: #fff;
@@ -177,15 +177,35 @@ code {
 }
 
 @keyframes wheel {
-  to {
-    opacity: 0;
-    bottom: 40px;
+  0% {
+    opacity: 1;
+    bottom: 5px;
+  }
+
+  50% {
+    opacity: 1;
+    bottom: 35px;
+  }
+
+  100% {
+    opacity: 1;
+    bottom: 5px;
   }
 }
 
 @-webkit-keyframes wheel {
-  to {
-    opacity: 0;
-    bottom: 40px;
+  0% {
+    opacity: 1;
+    bottom: 5px;
+  }
+
+  50% {
+    opacity: 1;
+    bottom: 35px;
+  }
+
+  100% {
+    opacity: 1;
+    bottom: 5px;
   }
 }
