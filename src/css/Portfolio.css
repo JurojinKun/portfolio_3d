@@ -1,0 +1,19 @@
+.sectionSpan {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sectionSpan.default {
+    color: white;
+}
+
+.sectionSpan.default:hover {
+    color: #47CDD6;
+}
+
+.sectionSpan.active {
+    color: #47CDD6;
+}

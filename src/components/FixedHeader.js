@@ -8,8 +8,8 @@ const FixedHeader = () => {
         <header className="App-header">
             <div style={{
                 display: "flex",
-                alignItems: "center",
-                marginLeft: 100
+                alignItems: "center", 
+                paddingLeft: "100px" 
             }}>
                 <div style={{
                     pointerEvents: 'auto'
@@ -20,7 +20,8 @@ const FixedHeader = () => {
                 <h2>0ruj | 3D Portfolio</h2>
             </div>
             <div style={{
-                pointerEvents: 'auto'
+                pointerEvents: 'auto',
+                paddingRight: "100px"
             }}>
                 <LanguageSwitcher />
             </div>

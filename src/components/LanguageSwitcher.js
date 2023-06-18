@@ -9,7 +9,6 @@ const customStyles = {
         color: '#fff',
         border: state.isFocused ? '2px solid #47CDD6' : '2px solid #2a2a2a',
         borderRadius: '4px',
-        marginRight: '100px',
         boxShadow: state.isFocused ? '0 0 0 1px #47CDD6' : 'none', // remove default blue box shadow and add custom one
         '&:hover': {
             border: '2px solid #47CDD6', // change border color on hover
@@ -26,8 +25,6 @@ const customStyles = {
     }),
     menuList: (provided) => ({
         ...provided,
-        padding: '0',
-        marginRight: '100px',
         borderRadius: "4px",
     }),
     option: (provided, state) => ({
