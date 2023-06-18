@@ -13,11 +13,11 @@
         "english": "Anglais"
     },
     "satellites": {
-        "about_me": "À PROPOS DE MOI",
-        "skills": "COMPÉTENCES",
-        "experiences": "EXPÉRIENCES",
-        "projects": "PROJETS",
-        "contact_me": "ME CONTACTER"
+        "about_me": "À propos de moi",
+        "skills": "Compétences",
+        "experiences": "Expériences",
+        "projects": "Projets",
+        "contact_me": "Me contacter"
     },
     "not_found": {
         "url_not_found": "Cette URL n'existe pas"

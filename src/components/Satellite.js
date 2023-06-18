@@ -17,22 +17,22 @@ const Satellite = ({ color, visible, position, index }) => {
 
     switch (index) {
       case 0:
-        section = t("satellites.about_me");
+        section = t("satellites.about_me").toUpperCase();
         break;
       case 1:
-        section = t("satellites.skills");
+        section = t("satellites.skills").toUpperCase();
         break;
       case 2:
-        section = t("satellites.experiences");
+        section = t("satellites.experiences").toUpperCase();
         break;
       case 3:
-        section = t("satellites.projects");
+        section = t("satellites.projects").toUpperCase();
         break;
       case 4:
-        section = t("satellites.contact_me");
+        section = t("satellites.contact_me").toUpperCase();
         break;
       default:
-        section = "Satellite";
+        section = "SATELLITE";
         break;
     }
 
@@ -67,7 +67,28 @@ const Satellite = ({ color, visible, position, index }) => {
   }
 
   const onSatelliteClick = (index) => {
-    const url = "/portfolio/section" + (index + 1);
+    let url;
+
+    switch (index) {
+      case 0:
+        url = "/portfolio/aboutme";
+        break;
+      case 1:
+        url = "/portfolio/skills";
+        break;
+      case 2:
+        url = "/portfolio/experiences";
+        break;
+      case 3:
+        url = "/portfolio/projects";
+        break;
+      case 4:
+        url = "/portfolio/contactme";
+        break;
+      default:
+        url = "/portfolio";
+        break;
+    }
     navigate(url);
   }
 

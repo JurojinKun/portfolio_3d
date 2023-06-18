@@ -1,6 +1,6 @@
 # Portfolio 3D
 
-Personal portfolio developed with Three.js
+Personal portfolio developed with Three.js and React.js
 
 # Getting Started with Create React App
 
