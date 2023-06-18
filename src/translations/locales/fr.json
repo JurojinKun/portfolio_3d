@@ -20,6 +20,7 @@
         "contact_me": "Me contacter"
     },
     "not_found": {
-        "url_not_found": "Cette URL n'existe pas"
+        "user_lost": "Vous vous êtes sûrement perdus",
+        "url_not_found": "Ce que vous recherchez n'existe pas ou plus dans cet univers"
     }
 } 

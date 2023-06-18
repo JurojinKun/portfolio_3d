@@ -49,6 +49,14 @@ const NotFound = () => {
                     fontSize: 23,
                     fontWeight: "bold",
                 }}>
+                    {t("not_found.user_lost")}
+                </div>
+                <div style={{
+                    color: 'white',
+                    textAlign: "center",
+                    fontSize: 23,
+                    fontWeight: "bold",
+                }}>
                     {t("not_found.url_not_found")}
                 </div>
             </div>
