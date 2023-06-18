@@ -18,5 +18,8 @@
         "experiences": "EXPÉRIENCES",
         "projects": "PROJETS",
         "contact_me": "ME CONTACTER"
+    },
+    "not_found": {
+        "url_not_found": "Cette URL n'existe pas"
     }
 } 
