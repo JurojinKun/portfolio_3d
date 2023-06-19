@@ -18,7 +18,7 @@ const Portfolio = () => {
 
     const validSectionIds = useMemo(() => ["aboutme", "skills", "experiences", "projects", "contactme"], []);
 
-    const [isCurrentSection, setIsCurrentSection] = useState(sectionId);
+    const [isCurrentSection, setIsCurrentSection] = useState(sectionId === null || sectionId === undefined ? "aboutme" : sectionId);
     const [scrollPosition, setScrollPosition] = useState(0);
 
     const setNewCurrentUrl = (currentSection) => {
@@ -115,7 +115,6 @@ const Portfolio = () => {
                             alignItems: "center"
                         }}>
                             <img src={profilePicture} alt='Profile pic' style={{
-                                height: "45px",
                                 width: "45px",
                             }} />
                             <h3 style={{ fontSize: 20, paddingLeft: "10px" }}>0ruj | 3D Portfolio</h3>

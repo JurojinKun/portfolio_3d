@@ -76,25 +76,48 @@ const NotFound = () => {
                         <div id="custom-cursor"></div>
                     </div>
                 </div>
-                <div style={{
-                    color: 'white',
-                    textAlign: "center",
-                    fontSize: 23,
-                    fontWeight: "bold",
-                }}>
+                <div style={styles.textStyle}>
                     {t("not_found.user_lost")}
                 </div>
-                <div style={{
-                    color: 'white',
-                    textAlign: "center",
-                    fontSize: 23,
-                    fontWeight: "bold",
-                }}>
+                <div style={styles.textStyle}>
                     {t("not_found.url_not_found")}
                 </div>
             </div>
         </>
     );
+}
+
+const styles = {
+    textStyle: {
+        color: 'white',
+        textAlign: "center",
+        fontSize: 23,
+        fontWeight: "bold",
+    },
+    mainContainer: {
+        height: '100vh',
+        width: '100vw',
+        margin: 0,
+        padding: 0,
+        backgroundColor: '#161616',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: "column"
+    },
+    innerContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: "50px"
+    },
+    notFoundAstro: {
+        height: "250px",
+        width: "150px",
+        paddingInline: "30px",
+        zIndex: 1
+    }
 }
 
 export default NotFound;
