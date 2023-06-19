@@ -93,7 +93,7 @@ const Portfolio = () => {
             }}>
                 <nav style={{
                     position: 'fixed', top: 0, left: 0, height: "70px", width: '100%', zIndex: 1, backgroundColor: scrollPosition > 100 ? 'rgba(12, 12, 12, 0.5)' : 'transparent',
-                    backdropFilter: scrollPosition > 100 ? 'blur(10px)' : 'none', transition: 'background-color 0.5s ease, backdrop-filter 0.5s ease', display: "flex", alignItems: "center", justifyContent: "space-around"
+                    backdropFilter: scrollPosition > 100 ? 'blur(10px)' : 'none', transition: 'background-color 0.5s ease, backdrop-filter 0.5s ease', display: "flex", alignItems: "center", justifyContent: "space-between"
                 }}>
                     <ScrollLink
                         key={validSectionIds[0]}
@@ -102,6 +102,9 @@ const Portfolio = () => {
                         duration={800}
                         onClick={() => {
                             setNewCurrentUrl(validSectionIds[0]);
+                        }}
+                        style={{
+                            paddingLeft: "50px"
                         }}
                     >
                         <div style={{
@@ -118,7 +121,7 @@ const Portfolio = () => {
                             <h3 style={{ fontSize: 20, paddingLeft: "10px" }}>0ruj | 3D Portfolio</h3>
                         </div>
                     </ScrollLink>
-                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", paddingRight: "50px" }}>
                         {validSectionIds.map((section) => (
                             <ScrollLink
                                 key={section}
