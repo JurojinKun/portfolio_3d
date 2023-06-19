@@ -53,3 +53,36 @@
         transform: rotate(360deg);
     }
 }
+
+@keyframes bug-effect {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(-2px, -2px) rotate(-1deg);
+    }
+
+    50% {
+        transform: translate(-2px, 2px) rotate(1deg);
+    }
+
+    75% {
+        transform: translate(2px, 2px) rotate(-1deg);
+    }
+
+    100% {
+        transform: translate(2px, -2px) rotate(1deg);
+    }
+}
+
+.bug-cursor {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background: blue;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    pointer-events: none;
+    z-index: 9999;
+    animation: bug-effect 0.08s infinite;
+}
