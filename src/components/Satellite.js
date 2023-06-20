@@ -31,6 +31,9 @@ const Satellite = ({ color, visible, position, index }) => {
       case 4:
         section = t("satellites.contact_me").toUpperCase();
         break;
+      case 5:
+        section = "????";
+        break;
       default:
         section = "SATELLITE";
         break;
@@ -58,6 +61,9 @@ const Satellite = ({ color, visible, position, index }) => {
       case 4:
         iconPath = "/icons/contact_me.svg";
         break;
+      case 5:
+        iconPath = "/icons/not_found.svg";
+        break;
       default:
         iconPath = "";
         break;
@@ -84,6 +90,9 @@ const Satellite = ({ color, visible, position, index }) => {
         break;
       case 4:
         url = "/portfolio/contactme";
+        break;
+      case 5:
+        url = "/notfound";
         break;
       default:
         url = "/portfolio";

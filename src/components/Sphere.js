@@ -12,7 +12,7 @@ const SphereCustom = ({ scroll }) => {
     const lightRef = useRef();
 
     const [color, setColor] = useState('white');
-    const [satellitePositions, setSatellitePositions] = useState(Array(5).fill([0, 0, 0]));
+    const [satellitePositions, setSatellitePositions] = useState(Array(6).fill([0, 0, 0]));
     const [satellitesVisible, setSatellitesVisible] = useState(false);
 
     useFrame(({ clock }) => {
@@ -68,7 +68,7 @@ const SphereCustom = ({ scroll }) => {
             {satellitePositions.map((pos, i) => (
                 <Satellite
                     key={i}
-                    color={color}
+                    color={i === 5 ? "grey" : color}
                     visible={satellitesVisible}
                     position={pos}
                     index={i}
