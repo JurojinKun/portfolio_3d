@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { Color } from 'three';
 
 import Satellite from './Satellite';
+import SatelliteBug from './SatelliteBug';
 
 const SphereCustom = ({ scroll }) => {
     const sphereRadius = 2;
@@ -66,13 +67,21 @@ const SphereCustom = ({ scroll }) => {
                 <meshBasicMaterial wireframe color={color} />
             </mesh>
             {satellitePositions.map((pos, i) => (
-                <Satellite
-                    key={i}
-                    color={i === 5 ? "grey" : color}
-                    visible={satellitesVisible}
-                    position={pos}
-                    index={i}
-                />
+                i === 5 ?
+                    <SatelliteBug
+                        key={i}
+                        color={color}
+                        visible={satellitesVisible}
+                        position={pos}
+                    />
+                    :
+                    <Satellite
+                        key={i}
+                        color={color}
+                        visible={satellitesVisible}
+                        position={pos}
+                        index={i}
+                    />
             ))}
             <ambientLight ref={lightRef} intensity={0.4} />
         </>
