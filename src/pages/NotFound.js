@@ -42,24 +42,8 @@ const NotFound = () => {
     return (
         <>
             <StarryBackground />
-            <div style={{
-                height: '100vh',
-                width: '100vw',
-                margin: 0,
-                padding: 0,
-                backgroundColor: '#161616',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: "column"
-            }}>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: "50px"
-                }}>
+            <div style={styles.mainContainer}>
+                <div style={styles.innerContainer}>
                     <img src={notFoundAstro} alt='Not Found' style={{
                         height: "250px",
                         width: "150px",
@@ -99,7 +83,7 @@ const styles = {
         width: '100vw',
         margin: 0,
         padding: 0,
-        backgroundColor: '#161616',
+        backgroundColor: '#02020D',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

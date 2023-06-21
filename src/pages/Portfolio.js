@@ -99,11 +99,11 @@ const Portfolio = () => {
     return (
         !validSectionIds.includes(isCurrentSection) && isCurrentSection ?
             <NotFound /> : <div style={{
-                backgroundColor: "#161616"
+                backgroundColor: "#02020D"
             }}>
                 <progress max="100" value="0" />
                 <nav style={{
-                    position: 'fixed', top: 0, left: 0, height: "70px", width: '100%', zIndex: 1, backgroundColor: scrollPosition > 100 ? 'rgba(12, 12, 12, 0.5)' : 'transparent',
+                    position: 'fixed', top: 0, left: 0, height: "70px", width: '100%', zIndex: 1, backgroundColor: scrollPosition > 100 ? 'rgba(2, 2, 13, 0.5)' : 'transparent',
                     backdropFilter: scrollPosition > 100 ? 'blur(10px)' : 'none', transition: 'background-color 0.5s ease, backdrop-filter 0.5s ease', display: "flex", alignItems: "center", justifyContent: "space-between"
                 }}>
                     <ScrollLink
