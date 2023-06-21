@@ -4,6 +4,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link as ScrollLink, Element, scroller, animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 import NotFound from "./NotFound";
 import LanguageSwitcher from '../components/LanguageSwitcher';
@@ -57,6 +59,14 @@ const Portfolio = () => {
 
     useEffect(() => {
         const setCurrentUrl = () => {
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.to("progress", {
+                value: 100,
+                scrollTrigger: {
+                    scrub: 0.5
+                },
+            });
+
             if (isCurrentSection) {
                 if (validSectionIds.includes(isCurrentSection)) {
                     scroller.scrollTo(isCurrentSection, {
@@ -91,6 +101,7 @@ const Portfolio = () => {
             <NotFound /> : <div style={{
                 backgroundColor: "#161616"
             }}>
+                <progress max="100" value="0" />
                 <nav style={{
                     position: 'fixed', top: 0, left: 0, height: "70px", width: '100%', zIndex: 1, backgroundColor: scrollPosition > 100 ? 'rgba(12, 12, 12, 0.5)' : 'transparent',
                     backdropFilter: scrollPosition > 100 ? 'blur(10px)' : 'none', transition: 'background-color 0.5s ease, backdrop-filter 0.5s ease', display: "flex", alignItems: "center", justifyContent: "space-between"

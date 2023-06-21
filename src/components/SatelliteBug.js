@@ -14,7 +14,7 @@ const SatelliteBug = ({ color, visible, position }) => {
 
     useEffect(() => {
         let random = Math.random();
-        const newColor = random < 0.8 ? 'gray' : color;
+        const newColor = random < 0.90 ? 'gray' : color;
         setHexagonColor(newColor);
     }, [color]);
 
@@ -36,7 +36,7 @@ const SatelliteBug = ({ color, visible, position }) => {
                 fontWeight="bold"
                 onClick={() => navigate("/notfound")}
             >
-                {"????"}
+                {"ERR 404"}
             </Text>
         </group>
     );

@@ -17,3 +17,23 @@
 .sectionSpan.active {
     color: #47CDD6;
 }
+
+progress {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border: none;
+}
+
+progress::-webkit-progress-bar {
+    background: transparent;
+}
+
+progress::-webkit-progress-value {
+    background-color: #47CDD6;
+}
