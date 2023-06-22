@@ -42,7 +42,7 @@ const LanguageSwitcher = () => {
     const languageOptions = [
         { value: 'fr', label: "🇫🇷 " + t("languages.french") },
         { value: 'en', label: "🇬🇧 " + t("languages.english") },
-    ];
+    ];    
 
     const changeLanguage = (selectedOption) => {
         setSelectedLanguage(selectedOption.value);
