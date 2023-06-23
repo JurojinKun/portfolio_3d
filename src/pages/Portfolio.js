@@ -25,7 +25,6 @@ const Portfolio = () => {
 
     const setNewCurrentUrl = (currentSection) => {
         if (currentSection && currentSection !== isCurrentSection) {
-            navigate(`/portfolio/${currentSection}`, { replace: true });
             setIsCurrentSection(currentSection);
         }
     }
@@ -95,6 +94,35 @@ const Portfolio = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        const setNewCurrentUrlObserver = (currentSection) => {
+            if (currentSection && currentSection !== isCurrentSection) {
+                navigate(`/portfolio/${currentSection}`, { replace: true });
+                setIsCurrentSection(currentSection);
+            }
+        }
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setNewCurrentUrlObserver(entry.target.id);
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        });
+
+        const targets = document.querySelectorAll('.sectionElement');
+        targets.forEach(target => observer.observe(target));
+
+        return () => {
+            targets.forEach(target => observer.unobserve(target));
+        };
+    }, [isCurrentSection, navigate]);
+
+
 
     return (
         !validSectionIds.includes(isCurrentSection) && isCurrentSection ?
@@ -128,7 +156,7 @@ const Portfolio = () => {
                             alignItems: "center"
                         }}>
                             <img src={profilePicture} alt='Profile pic' style={{
-                                width: "45px",
+                                width: "40px",
                             }} />
                             <h3 style={{ fontSize: 20, paddingLeft: "10px" }}>0ruj | 3D Portfolio</h3>
                         </div>
@@ -156,13 +184,14 @@ const Portfolio = () => {
                 </nav>
 
                 {validSectionIds.map((section) => (
-                    <Element key={section} name={section}>
+                    <Element key={section} name={section} id={section} className='sectionElement'>
                         <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', paddingTop: '60px' }}>
                             <h2 style={{ color: "white" }}>{nameSection(section)}</h2>
                             <p style={{ color: "white" }}>Content {nameSection(section).toLowerCase()}...</p>
                         </div>
                     </Element>
                 ))}
+
             </div>
     );
 }
