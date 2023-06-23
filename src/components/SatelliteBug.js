@@ -10,11 +10,11 @@ const SatelliteBug = ({ color, visible, position }) => {
 
     const satelliteRef = useRef();
 
-    const [hexagonColor, setHexagonColor] = useState('#242424');
+    const [hexagonColor, setHexagonColor] = useState('#252525');
 
     useEffect(() => {
         let random = Math.random();
-        const newColor = random < 0.95 ? '#242424' : color;
+        const newColor = random < 0.95 ? '#252525' : color;
         setHexagonColor(newColor);
     }, [color]);
 

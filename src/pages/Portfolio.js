@@ -99,7 +99,9 @@ const Portfolio = () => {
     return (
         !validSectionIds.includes(isCurrentSection) && isCurrentSection ?
             <NotFound /> : <div style={{
-                backgroundColor: "#02020D"
+                backgroundColor: "#02020D",
+                backgroundClip: 'padding-box',
+                border: '1px solid rgba(2, 2, 13, 1)'
             }}>
                 <progress max="100" value="0" />
                 <nav style={{

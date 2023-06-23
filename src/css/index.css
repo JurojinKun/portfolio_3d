@@ -44,6 +44,8 @@ code {
 .parent {
   position: relative;
   background-color: #02020D;
+  background-clip: padding-box;
+  border: 1px solid rgba(2, 2, 13, 1);
   height: 100vh;
   width: 100vw;
 }

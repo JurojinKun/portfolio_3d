@@ -87,7 +87,9 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: "column"
+        flexDirection: "column",
+        backgroundClip: 'padding-box',
+        border: '1px solid rgba(2, 2, 13, 1)'
     },
     innerContainer: {
         display: 'flex',
