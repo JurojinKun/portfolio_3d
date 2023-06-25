@@ -126,6 +126,26 @@ const Portfolio = () => {
     }, [isCurrentSection, navigate]);
 
 
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(min-width: 1200px)');
+        
+        const handleWindowSizeChange = () => {
+            if (mediaQuery.matches && isOpen) {
+                setIsOpen(false);
+            }
+        }
+    
+        mediaQuery.addEventListener('change', handleWindowSizeChange);
+        
+        handleWindowSizeChange();
+    
+        return () => {
+          mediaQuery.removeEventListener('change', handleWindowSizeChange);
+        }
+    }, [isOpen]);
+    
+
+
 
     return (
         !validSectionIds.includes(isCurrentSection) && isCurrentSection ?

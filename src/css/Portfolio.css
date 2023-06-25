@@ -96,7 +96,7 @@ progress::-moz-progress-bar {
     box-shadow: 0px 10px 20px rgba(71, 205, 214, 0.19), 0px 6px 6px rgba(71, 205, 214, 0.23);
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1200px) {
     .navbar-desktop {
         display: none;
     }
