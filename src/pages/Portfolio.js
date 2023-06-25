@@ -186,31 +186,45 @@ const Portfolio = () => {
                     backgroundColor: scrollPosition > 100 ? 'rgba(2, 2, 13, 0.5)' : 'transparent',
                     backdropFilter: scrollPosition > 100 ? 'blur(10px)' : 'none'
                 }}>
-                    <ScrollLink
-                        key={validSectionIds[0]}
-                        to={validSectionIds[0]}
-                        smooth={true}
-                        duration={800}
-                        onClick={() => {
-                            setNewCurrentUrl(validSectionIds[0]);
-                        }}
-                        style={{
-                            paddingLeft: "50px"
-                        }}
-                    >
-                        <div style={{
+                    {!isOpen ?
+                        <ScrollLink
+                            key={validSectionIds[0]}
+                            to={validSectionIds[0]}
+                            smooth={true}
+                            duration={800}
+                            onClick={() => {
+                                setNewCurrentUrl(validSectionIds[0]);
+                            }}
+                            style={{
+                                paddingLeft: "50px"
+                            }}
+                        >
+                            <div style={{
+                                color: "white",
+                                cursor: "pointer",
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center"
+                            }}>
+                                <img src={profilePicture} alt='Profile pic' style={{
+                                    width: "40px",
+                                }} />
+                                <h3 style={{ fontSize: 20, paddingLeft: "10px" }}>0ruj | 3D Portfolio</h3>
+                            </div>
+                        </ScrollLink>
+                        : <div style={{
                             color: "white",
-                            cursor: "pointer",
+                            cursor: "default",
                             display: "flex",
                             flexDirection: "row",
-                            alignItems: "center"
+                            alignItems: "center",
+                            paddingLeft: "50px"
                         }}>
                             <img src={profilePicture} alt='Profile pic' style={{
                                 width: "40px",
                             }} />
                             <h3 style={{ fontSize: 20, paddingLeft: "10px" }}>0ruj | 3D Portfolio</h3>
-                        </div>
-                    </ScrollLink>
+                        </div>}
 
                     <div className="navbar-desktop">
                         {validSectionIds.map((section) => (
