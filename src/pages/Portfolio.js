@@ -7,6 +7,9 @@ import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FaTimes } from 'react-icons/fa';
+import { BiMask, BiBrain, BiPhone } from 'react-icons/bi';
+import { MdOutlineScience, MdComputer } from 'react-icons/md';
 
 import NotFound from "./NotFound";
 import LanguageSwitcher from '../components/LanguageSwitcher';
@@ -57,6 +60,33 @@ const Portfolio = () => {
         }
 
         return titleBtn;
+    }
+
+    const iconSectionSidebar = (section) => {
+        let iconSection;
+
+        switch (section) {
+            case "aboutme":
+                iconSection = <BiMask size={25} />
+                break;
+            case "skills":
+                iconSection = <BiBrain size={25} />
+                break;
+            case "experiences":
+                iconSection = <MdOutlineScience size={25} />
+                break;
+            case "projects":
+                iconSection = <MdComputer size={25} />
+                break;
+            case "contactme":
+                iconSection = <BiPhone size={25} />
+                break;
+            default:
+                iconSection = <MdComputer size={25} />
+                break;
+        }
+
+        return iconSection
     }
 
     useEffect(() => {
@@ -127,25 +157,22 @@ const Portfolio = () => {
 
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(min-width: 1200px)');
-        
+        const mediaQuery = window.matchMedia('(min-width: 1250px)');
+
         const handleWindowSizeChange = () => {
             if (mediaQuery.matches && isOpen) {
                 setIsOpen(false);
             }
         }
-    
+
         mediaQuery.addEventListener('change', handleWindowSizeChange);
-        
+
         handleWindowSizeChange();
-    
+
         return () => {
-          mediaQuery.removeEventListener('change', handleWindowSizeChange);
+            mediaQuery.removeEventListener('change', handleWindowSizeChange);
         }
     }, [isOpen]);
-    
-
-
 
     return (
         !validSectionIds.includes(isCurrentSection) && isCurrentSection ?
@@ -205,31 +232,58 @@ const Portfolio = () => {
                             <LanguageSwitcher />
                         </div>
                     </div>
-
-
-                    <GiHamburgerMenu className="icon-sidebar" onClick={() => setIsOpen(!isOpen)} size={25} style={{ color: "white", cursor: "pointer" }} />
-
-
+                    <GiHamburgerMenu className="icon-sidebar" onClick={() => setIsOpen(!isOpen)} size={27} style={{ color: "white", cursor: "pointer" }} />
                 </nav>
 
                 <div className="navbar-mobile">
                     <div className={`sidebar ${isOpen ? "open" : ""}`}>
-                        {validSectionIds.map((section) => (
-                            <ScrollLink key={section}
-                                to={section}
-                                smooth={true}
-                                duration={800} onClick={() => {
-                                    setNewCurrentUrl(section);
-                                    setIsOpen(false);
-                                }} >
-                                <span className={`sectionSpan ${isCurrentSection === section ? "active" : "default"}`}>{nameSection(section)}</span>
-                            </ScrollLink>
-                        ))}
+                        <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
+                            <span style={{ color: "white", fontSize: "25px", fontWeight: "bold", paddingLeft: "20px" }}>{t("portfolio.menu")}</span>
+                            <FaTimes size={27} style={{ color: "white", paddingRight: "20px", cursor: "pointer" }} onClick={() => setIsOpen(!isOpen)} />
+                        </div>
+                        <div style={{
+                            overflowY: "auto",
+                            display: "flex", height: "100%", flexDirection: "column", paddingLeft: "10px",
+                            paddingRight: "10px"
+                        }}>
+                            {validSectionIds.map((section) => (
+                                <ScrollLink key={section}
+                                    to={section}
+                                    smooth={true}
+                                    duration={800} onClick={() => {
+                                        setNewCurrentUrl(section);
+                                        setIsOpen(false);
+                                    }}
+                                    className={`sectionSpanSidebar ${isCurrentSection === section ? "active" : "default"}`}
+                                    style={{
+                                        marginTop: "35px",
+                                        marginBottom: "35px",
+                                        paddingLeft: "15px",
+                                        height: "30px",
+                                        display: "flex",
+                                        alignItems: "center"
+                                    }} >
+                                    {iconSectionSidebar(section)}
+                                    <span
+                                        style={{
+                                            padding: "15px",
+                                            fontSize: "20px",
+                                            fontWeight: "bold",
+                                            textDecoration: "none",
+                                        }}
+                                    >{nameSection(section)}</span>
+                                </ScrollLink>
+                            ))}
+                        </div>
                         <div style={{
                             pointerEvents: 'auto',
+                            marginBottom: "20px",
+                            paddingLeft: "20px",
+                            paddingRight: "20px"
                         }}>
                             <LanguageSwitcher />
                         </div>
+
                     </div>
                 </div>
 

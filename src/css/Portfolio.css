@@ -18,6 +18,22 @@
     color: #47CDD6;
 }
 
+.sectionSpanSidebar {
+    cursor: pointer;
+}
+
+.sectionSpanSidebar.default {
+    color: white;
+}
+
+.sectionSpanSidebar.default:hover {
+    color: #47CDD6;
+}
+
+.sectionSpanSidebar.active {
+    color: #47CDD6;
+}
+
 progress {
     position: fixed;
     z-index: 2;
@@ -73,30 +89,26 @@ progress::-moz-progress-bar {
 
 .sidebar {
     position: fixed;
-    width: 250px;
+    width: 300px;
     height: calc(100vh - 30px);
     top: 15px;
     right: 0;
-    overflow-y: auto;
     background-color: #02020D;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     z-index: 3;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 .sidebar.open {
     transform: translateX(0);
-    box-shadow: 0px 10px 20px rgba(71, 205, 214, 0.19), 0px 6px 6px rgba(71, 205, 214, 0.23);
+    box-shadow: 0px 10px 20px rgba(71, 205, 214, 0.4), 0px 6px 5px rgba(71, 205, 214, 0.2);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
     .navbar-desktop {
         display: none;
     }

@@ -22,5 +22,8 @@
     "not_found": {
         "user_lost": "Vous vous êtes sûrement perdus",
         "url_not_found": "Ce que vous recherchez n'existe pas ou plus dans cet univers"
+    },
+    "portfolio": {
+        "menu": "Menu"
     }
-} 
+}
