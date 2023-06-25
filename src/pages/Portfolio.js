@@ -6,6 +6,7 @@ import { Link as ScrollLink, Element, scroller, animateScroll as scroll } from "
 import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 import NotFound from "./NotFound";
 import LanguageSwitcher from '../components/LanguageSwitcher';
@@ -22,6 +23,8 @@ const Portfolio = () => {
 
     const [isCurrentSection, setIsCurrentSection] = useState(sectionId === null || sectionId === undefined ? "aboutme" : sectionId);
     const [scrollPosition, setScrollPosition] = useState(0);
+
+    const [isOpen, setIsOpen] = useState(false);
 
     const setNewCurrentUrl = (currentSection) => {
         if (currentSection && currentSection !== isCurrentSection) {
@@ -129,12 +132,12 @@ const Portfolio = () => {
             <NotFound /> : <div style={{
                 backgroundColor: "#02020D",
                 backgroundClip: 'padding-box',
-                border: '1px solid rgba(2, 2, 13, 1)'
+                border: '1px solid rgba(2, 2, 13, 1)',
             }}>
                 <progress max="100" value="0" />
-                <nav style={{
-                    position: 'fixed', top: 0, left: 0, height: "70px", width: '100%', zIndex: 1, backgroundColor: scrollPosition > 100 ? 'rgba(2, 2, 13, 0.5)' : 'transparent',
-                    backdropFilter: scrollPosition > 100 ? 'blur(10px)' : 'none', transition: 'background-color 0.5s ease, backdrop-filter 0.5s ease', display: "flex", alignItems: "center", justifyContent: "space-between"
+                <nav className={`navbar main-content${isOpen ? " blurred" : ""}`} style={{
+                    backgroundColor: scrollPosition > 100 ? 'rgba(2, 2, 13, 0.5)' : 'transparent',
+                    backdropFilter: scrollPosition > 100 ? 'blur(10px)' : 'none'
                 }}>
                     <ScrollLink
                         key={validSectionIds[0]}
@@ -161,7 +164,8 @@ const Portfolio = () => {
                             <h3 style={{ fontSize: 20, paddingLeft: "10px" }}>0ruj | 3D Portfolio</h3>
                         </div>
                     </ScrollLink>
-                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", paddingRight: "50px" }}>
+
+                    <div className="navbar-desktop">
                         {validSectionIds.map((section) => (
                             <ScrollLink
                                 key={section}
@@ -181,16 +185,48 @@ const Portfolio = () => {
                             <LanguageSwitcher />
                         </div>
                     </div>
+
+
+                    <GiHamburgerMenu className="icon-sidebar" onClick={() => setIsOpen(!isOpen)} size={25} style={{ color: "white", cursor: "pointer" }} />
+
+
                 </nav>
 
-                {validSectionIds.map((section) => (
-                    <Element key={section} name={section} id={section} className='sectionElement'>
-                        <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', paddingTop: '60px' }}>
-                            <h2 style={{ color: "white" }}>{nameSection(section)}</h2>
-                            <p style={{ color: "white" }}>Content {nameSection(section).toLowerCase()}...</p>
+                <div className="navbar-mobile">
+                    <div className={`sidebar ${isOpen ? "open" : ""}`}>
+                        {validSectionIds.map((section) => (
+                            <ScrollLink key={section}
+                                to={section}
+                                smooth={true}
+                                duration={800} onClick={() => {
+                                    setNewCurrentUrl(section);
+                                    setIsOpen(false);
+                                }} >
+                                <span className={`sectionSpan ${isCurrentSection === section ? "active" : "default"}`}>{nameSection(section)}</span>
+                            </ScrollLink>
+                        ))}
+                        <div style={{
+                            pointerEvents: 'auto',
+                        }}>
+                            <LanguageSwitcher />
                         </div>
-                    </Element>
-                ))}
+                    </div>
+                </div>
+
+                <div className={`main-content${isOpen ? " blurred" : ""}`} onClick={() => {
+                    if (isOpen) {
+                        setIsOpen(false);
+                    }
+                }} >
+                    {validSectionIds.map((section) => (
+                        <Element key={section} name={section} id={section} className='sectionElement'>
+                            <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', paddingTop: '60px' }}>
+                                <h2 style={{ color: "white" }}>{nameSection(section)}</h2>
+                                <p style={{ color: "white" }}>Content {nameSection(section).toLowerCase()}...</p>
+                            </div>
+                        </Element>
+                    ))}
+                </div>
 
             </div>
     );
