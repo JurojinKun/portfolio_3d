@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLanguage } from '../redux/selectors/languageSelector';
+import { setLanguage } from '../redux/slices/languageSlice';
 
 const customStyles = {
     control: (provided, state) => ({
@@ -37,21 +40,25 @@ const customStyles = {
 
 const LanguageSwitcher = () => {
     const { t, i18n } = useTranslation();
-    const [selectedLanguage, setSelectedLanguage] = useState(i18n.language.split('-')[0]);
+
+    const dispatch = useDispatch();
+
+    const selectedLanguage = useSelector(selectLanguage);
 
     const languageOptions = [
         { value: 'fr', label: "🇫🇷 " + t("languages.french") },
         { value: 'en', label: "🇬🇧 " + t("languages.english") },
-    ];    
+    ];
 
     const changeLanguage = (selectedOption) => {
-        setSelectedLanguage(selectedOption.value);
         i18n.changeLanguage(selectedOption.value);
+        console.log(selectedOption.value);
+        dispatch(setLanguage(selectedOption.value));
     };
 
     return (
         <Select
-            value={languageOptions.find(option => option.value === selectedLanguage)}
+            value={languageOptions.find(option => !!selectedLanguage ? option.value === selectedLanguage : option.value === i18n.language.split('-')[0])}
             options={languageOptions}
             onChange={changeLanguage}
             styles={customStyles}
