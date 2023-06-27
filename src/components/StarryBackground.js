@@ -50,12 +50,14 @@ const StarryBackground = () => {
         const gradientRadius = Math.min(canvas.width, canvas.height) * 0.5;
 
         const topLeftGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, gradientRadius);
-        topLeftGradient.addColorStop(0, 'rgba(71, 205, 214, 0.8)');
+        topLeftGradient.addColorStop(0, 'rgba(209, 243, 245, 0.8)');
+        topLeftGradient.addColorStop(0.25, 'rgba(71, 205, 214, 0.7)');
         topLeftGradient.addColorStop(0.5, 'rgba(157, 77, 196, 0.6)');
         topLeftGradient.addColorStop(1, 'transparent');
 
         const bottomRightGradient = ctx.createRadialGradient(canvas.width, canvas.height, 0, canvas.width, canvas.height, gradientRadius);
-        bottomRightGradient.addColorStop(0, 'rgba(157, 77, 196, 0.8)');
+        bottomRightGradient.addColorStop(0, 'rgba(231, 211, 241, 0.8)');
+        bottomRightGradient.addColorStop(0.25, 'rgba(157, 77, 196, 0.7)');
         bottomRightGradient.addColorStop(0.5, 'rgba(71, 205, 214, 0.6)');
         bottomRightGradient.addColorStop(1, 'transparent');
 
