@@ -14,6 +14,11 @@ import { MdOutlineScience, MdComputer } from 'react-icons/md';
 import NotFound from "./NotFound";
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import profilePicture from '../assets/profile_picture.png';
+import AboutMe from "./AboutMe";
+import Skills from "./Skills";
+import Experiences from "./Experiences";
+import Projects from "./Projects";
+import ContactMe from "./ContactMe";
 
 const Portfolio = () => {
 
@@ -87,6 +92,33 @@ const Portfolio = () => {
         }
 
         return iconSection
+    }
+
+    const sectionPart = (section) => {
+        let currentSection;
+
+        switch (section) {
+            case "aboutme":
+                currentSection = <AboutMe />
+                break;
+            case "skills":
+                currentSection = <Skills />
+                break;
+            case "experiences":
+                currentSection = <Experiences />
+                break;
+            case "projects":
+                currentSection = <Projects />
+                break;
+            case "contactme":
+                currentSection = <ContactMe />
+                break;
+            default:
+                currentSection = <AboutMe />
+                break;
+        }
+
+        return currentSection;
     }
 
     useEffect(() => {
@@ -307,10 +339,7 @@ const Portfolio = () => {
                 }} >
                     {validSectionIds.map((section) => (
                         <Element key={section} name={section} id={section} className='sectionElement'>
-                            <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', paddingTop: '60px' }}>
-                                <h2 style={{ color: "white" }}>{nameSection(section)}</h2>
-                                <p style={{ color: "white" }}>Content {nameSection(section).toLowerCase()}...</p>
-                            </div>
+                            {sectionPart(section)}
                         </Element>
                     ))}
                 </div>
