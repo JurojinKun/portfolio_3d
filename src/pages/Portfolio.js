@@ -214,8 +214,8 @@ const Portfolio = () => {
             }}>
                 <progress max="100" value="0" />
                 <nav className={`navbar main-content${isOpen ? " blurred" : ""}`} style={{
-                    backgroundColor: scrollPosition > 100 ? 'rgba(2, 2, 13, 0.5)' : 'transparent',
-                    backdropFilter: scrollPosition > 100 ? 'blur(10px)' : 'none'
+                    backgroundColor: scrollPosition > 10 ? 'rgba(2, 2, 13, 0.5)' : 'transparent',
+                    backdropFilter: scrollPosition > 10 ? 'blur(5px)' : 'none'
                 }}>
                     {!isOpen ?
                         <ScrollLink

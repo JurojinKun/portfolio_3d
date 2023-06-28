@@ -41,7 +41,7 @@ const NotFound = () => {
 
     return (
         <>
-            <StarryBackground />
+            <StarryBackground gradientTopLeft={true} gradientBottomRight={true} />
             <div style={styles.mainContainer}>
                 <div style={styles.innerContainer}>
                     <img src={notFoundAstro} alt='Not Found' style={{
