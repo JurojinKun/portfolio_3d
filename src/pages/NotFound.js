@@ -3,7 +3,7 @@ import '../css/BlackHole.css';
 import React, { useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 
-import notFoundAstro from '../assets/astro_notfound.png';
+import notFoundAstro from '../assets/astro_not_found.png';
 import StarryBackground from '../components/StarryBackground';
 
 const NotFound = () => {
@@ -45,8 +45,8 @@ const NotFound = () => {
             <div style={styles.mainContainer}>
                 <div style={styles.innerContainer}>
                     <img src={notFoundAstro} alt='Not Found' style={{
-                        height: "250px",
-                        width: "150px",
+                        height: "265px",
+                        width: "165px",
                         paddingInline: "30px",
                         zIndex: 1
                     }} />
