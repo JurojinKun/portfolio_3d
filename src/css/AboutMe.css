@@ -1,0 +1,51 @@
+.aboutme {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.overview-aboutme {
+    background-color: rgba(26, 26, 26, 0.7);
+    z-index: 0;
+    border-radius: 10px;
+    width: 45%;
+    max-height: 75%;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.overview-aboutme h1 {
+    font-size: 55px;
+    color: white;
+}
+
+.overview-aboutme p {
+    font-size: 25px;
+    color: white;
+}
+
+.img-astro-aboutme {
+    height: 350px;
+    width: 300px;
+    z-index: 0;
+    position: relative;
+    animation: bounce 4s infinite;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-30px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

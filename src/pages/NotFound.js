@@ -45,8 +45,8 @@ const NotFound = () => {
             <div style={styles.mainContainer}>
                 <div style={styles.innerContainer}>
                     <img src={notFoundAstro} alt='Not Found' style={{
-                        height: "265px",
-                        width: "165px",
+                        height: "305px",
+                        width: "190px",
                         paddingInline: "30px",
                         zIndex: 1
                     }} />
