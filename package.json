@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@frank-mayer/react-tag-cloud": "^1.2.1",
     "@jridgewell/sourcemap-codec": "^1.4.15",
     "@juggle/resize-observer": "^3.4.0",
     "@mui/icons-material": "^5.11.16",

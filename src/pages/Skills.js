@@ -1,10 +1,32 @@
+import "../css/Skills.css";
+
 import React from "react";
+import { TagCloud } from "@frank-mayer/react-tag-cloud";
 
 const Skills = () => {
     return (
-        <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', /*paddingTop: '60px'*/ }}>
-            <h2 style={{ color: "white" }}>Skills</h2>
-            <p style={{ color: "white" }}>Content skills...</p>
+        <div className="skills">
+            <TagCloud
+                options={(w, TagCloudOptions) => ({
+                    radius: Math.min(500, w.innerWidth, w.innerHeight / 2),
+                    maxSpeed: "fast",
+                })}
+                onClick={(tag, ev) => alert(tag)}
+                onClickOptions={{ passive: true }}
+            >
+                {[
+                    "VSCode",
+                    "TypeScript",
+                    "React",
+                    "Preact",
+                    "Parcel",
+                    "Jest",
+                    "Next",
+                    "ESLint",
+                    "Framer Motion",
+                    "Three.js",
+                ]}
+            </TagCloud>
         </div>
     );
 }
