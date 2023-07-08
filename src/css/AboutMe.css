@@ -1,11 +1,17 @@
 .aboutme {
     height: 100vh;
     display: flex;
+
+    flex-direction: column;
+    padding-left: 15px;
+    padding-right: 15px
+}
+
+.aboutme-content {
+    display: flex;
     align-items: center;
     justify-content: space-evenly;
-    flex-direction: row;
-    padding-left: 15px;
-    padding-right: 15px;
+    flex-direction: row
 }
 
 .overview-aboutme {
@@ -13,9 +19,7 @@
     z-index: 0;
     border-radius: 10px;
     width: 45%;
-    max-height: 75%;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding: 25px 25px 0 25px;
 }
 
 .overview-aboutme h1 {
@@ -24,21 +28,33 @@
 }
 
 .overview-aboutme p {
-    font-size: 25px;
+    font-size: 22px;
+    font-weight: 600;
     color: white;
 }
+
+.typewriterWrapper {
+    font-size: 22px;
+    color: #47CDD6;
+    font-weight: 600;
+  }
+  
+  .typewriterCursor {
+    font-size: 22px;
+    color: #47CDD6;
+  }
 
 .img-astro-aboutme {
     height: 350px;
     width: 300px;
     z-index: 0;
     position: relative;
-    animation: bounce 4s infinite;
+    animation: bounce 6s infinite;
 }
 
 @keyframes bounce {
     0% {
-        transform: translateY(0);
+        transform: translateY(30px);
     }
 
     50% {
@@ -46,6 +62,58 @@
     }
 
     100% {
-        transform: translateY(0);
+        transform: translateY(30px);
+    }
+}
+
+/* Pour tablettes */
+@media screen and (max-width: 768px) {
+    .aboutme {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .overview-aboutme {
+        width: 100%;
+        max-height: none;
+    }
+
+    .overview-aboutme h1 {
+        font-size: 40px;
+    }
+
+    .overview-aboutme p {
+        font-size: 20px;
+    }
+
+    .img-astro-aboutme {
+        height: 250px;
+        width: 200px;
+    }
+}
+
+/* Pour mobiles */
+@media screen and (max-width: 480px) {
+    .aboutme {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .overview-aboutme {
+        width: 100%;
+        max-height: none;
+    }
+
+    .overview-aboutme h1 {
+        font-size: 30px;
+    }
+
+    .overview-aboutme p {
+        font-size: 16px;
+    }
+
+    .img-astro-aboutme {
+        height: 200px;
+        width: 150px;
     }
 }

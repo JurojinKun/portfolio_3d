@@ -122,6 +122,8 @@ const Portfolio = () => {
     }
 
     useEffect(() => {
+        document.body.style.overflow = "auto";
+
         const setCurrentUrl = () => {
             gsap.registerPlugin(ScrollTrigger);
             gsap.to("progress", {
@@ -211,6 +213,7 @@ const Portfolio = () => {
                 backgroundColor: "#02020D",
                 backgroundClip: 'padding-box',
                 border: '1px solid rgba(2, 2, 13, 1)',
+                position: "relative"
             }}>
                 <progress max="100" value="0" />
                 <nav className={`navbar main-content${isOpen ? " blurred" : ""}`} style={{

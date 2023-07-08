@@ -1,7 +1,6 @@
 import '../css/index.css';
 
 import React from 'react';
-import AppTypewriter from "./AppTypewriter";
 import { useTranslation } from 'react-i18next';
 import { IconRoundButton } from "./ButtonsCustom";
 import DownloadIcon from '@mui/icons-material/Download';
@@ -18,23 +17,18 @@ const Overview = ({ opacity }) => {
                 {t("overview.hello")}  <span className="name">0ruj</span> <span className="wave">👋🏻</span>
             </h1>
             <p>
-                {t("overview.first_para")} 👨‍🎓🇨🇵
+                Bienvenue dans mon monde nouveau visiteur ! 🌍
             </p>
-            <p>{t("overview.second_para")} 📱</p>
-            <p>{t("overview.third_para")} 🧠</p>
-            <AppTypewriter
-                strings={[
-                    t("overview.type_writer_1"),
-                    t("overview.type_writer_2"),
-                ]}
-                wrapperClassName="typewriterWrapper"
-                cursorClassName="typewriterCursor"
-            />
-            <div style={{ display: "flex", marginBlock: "30px" }}>
+            <p>Pourquoi avoir pris le temps de créer ce monde ?
+            </p>
+            <p>Simplement afin que chacun d'un peu curieux et qui souhaite partir pour un voyage afin de mieux me connaître puisse le faire de la meilleure des façons. 🔍🕵️</p>
+            <p>Alors si tu es prêt à braver tous les dangers, attache ta ceinture et en avant toute ! 🔥</p>
+            <p>Sinon je t'ai laissé 3 petits boutons afin d'en savoir plus sur ma personne et mon travail sans se mettre en danger, n'hésite pas à y jeter un oeil aussi. 👀</p>
+            <div style={{ display: "flex", marginTop: "30px", marginBottom: "5px" }}>
                 <IconRoundButton icon={<img
                     src="/pictures/github.png"
                     alt="Icone GitHub"
-                    style={{ width: 30, height: 30, color: "red" }}
+                    style={{ width: 30, height: 30 }}
                 />} url="https://github.com/JurojinKun" />
                 <IconRoundButton icon={<LinkedInIcon style={{
                     color: "white",
@@ -50,7 +44,7 @@ const Overview = ({ opacity }) => {
             <div style={{ display: "inline-flex", alignItems: "center" }}>
                 <p style={{
                     fontSize: 23,
-                    fontWeight: "bold"
+                    fontWeight: "bold",
                 }}>{t("overview.embark")}</p>
                 <div className='field'>
                     <div className='mouse' />

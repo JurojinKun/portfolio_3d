@@ -1,9 +1,74 @@
-.skills {
+/* .skills {
     height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
-    color: white;
+    padding-left: 15px;
+    padding-right: 15px
 }
+
+.skills-content {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    overflow-y: auto;
+}
+
+.skills-sphere {
+    width: 50%;
+    height: 100%;
+    background-color: blue;
+    position: fixed;
+}
+
+.skills-details {
+    width: 50%;
+    height: 100%;
+    margin-left: 50%; 
+    background-color: red;
+}
+
+.skill-card {
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+} */
+
+.wrapper {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
   
+  .container {
+    display: flex;
+    justify-content: space-between;
+    /* position: sticky;
+    top: 0; */
+    width: 100%;
+  }
+  .container .left {
+    position: sticky;
+    z-index: 1;
+    background: white;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .container img {
+    width: 45vw;
+  }
+  .container > div {
+    height: 100%;
+    width: 45vw;
+  }
+  .container .in-in-middle {
+    height: 100vh;
+  }
