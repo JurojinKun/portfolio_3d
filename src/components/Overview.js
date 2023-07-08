@@ -17,13 +17,13 @@ const Overview = ({ opacity }) => {
                 {t("overview.hello")}  <span className="name">0ruj</span> <span className="wave">👋🏻</span>
             </h1>
             <p>
-                Bienvenue dans mon monde nouveau visiteur ! 🌍
+                {t("overview.first_para")} 🌍
             </p>
-            <p>Pourquoi avoir pris le temps de créer ce monde ?
+            <p>{t("overview.second_para")}
             </p>
-            <p>Simplement afin que chacun d'un peu curieux et qui souhaite partir pour un voyage afin de mieux me connaître puisse le faire de la meilleure des façons. 🔍🕵️</p>
-            <p>Alors si tu es prêt à braver tous les dangers, attache ta ceinture et en avant toute ! 🔥</p>
-            <p>Sinon je t'ai laissé 3 petits boutons afin d'en savoir plus sur ma personne et mon travail sans se mettre en danger, n'hésite pas à y jeter un oeil aussi. 👀</p>
+            <p>{t("overview.third_para")} 🔍🕵️</p>
+            <p>{t("overview.fourth_para")} 🔥</p>
+            <p>{t("overview.fifth_para")} 👀</p>
             <div style={{ display: "flex", marginTop: "30px", marginBottom: "5px" }}>
                 <IconRoundButton icon={<img
                     src="/pictures/github.png"
