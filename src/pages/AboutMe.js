@@ -12,7 +12,13 @@ const AboutMe = () => {
     const { t } = useTranslation();
 
     return (
-        <>
+        <div style={{
+            display: "flex",
+            width: "100%",
+            backgroundClip: "padding-box",
+            border: "1px solid rgba(2, 2, 13, 1)",
+            alignItems: "center",
+        }}>
             <StarryBackground gradientTopLeft={true} gradientBottomRight={false} />
             <div className="aboutme">
                 <h1 className="section-title">{t("about_me.title")}</h1>
@@ -37,7 +43,7 @@ const AboutMe = () => {
                     <img src={astroAboutMe} alt='About me' className="img-astro-aboutme" />
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

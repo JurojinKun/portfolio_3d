@@ -1,74 +1,62 @@
-/* .skills {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding-left: 15px;
-    padding-right: 15px
+.skills {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 .skills-content {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    flex-direction: row;
-    overflow-y: auto;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
 }
 
-.skills-sphere {
-    width: 50%;
-    height: 100%;
-    background-color: blue;
-    position: fixed;
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.skills-details {
-    width: 50%;
-    height: 100%;
-    margin-left: 50%; 
-    background-color: red;
+.container-left {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.skill-card {
-    height: 100%;
-    background-color: white;
-    border-radius: 10px;
-} */
+.container-left-in-midle {
+  width: 50%;
+  height: 300px;
+  background-color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-.wrapper {
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: space-between;
-    /* position: sticky;
-    top: 0; */
-    width: 100%;
-  }
-  .container .left {
-    position: sticky;
-    z-index: 1;
-    background: white;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .container img {
-    width: 45vw;
-  }
-  .container > div {
-    height: 100%;
-    width: 45vw;
-  }
-  .container .in-in-middle {
-    height: 100vh;
-  }
+.container-middle {
+  width: 35%;
+}
+
+.container-in-middle {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-in-in-midle {
+  display: flex;
+  margin: 50px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(26, 26, 26, 0.7);
+  border-radius: 10px;
+  height: 300px;
+  color: white;
+}

@@ -30,10 +30,22 @@
         "title": "À propos de moi",
         "type_writer_1": "Jeune développeur dans le monde de l'informatique",
         "type_writer_2": "Apprendre toujours de nouvelles choses",
-        "first_para": "Ohhh tu es déjà là?  Oui, c'est moi qui te parle, sur ta droite, je serais ton guide tout au long de ton voyage ici. Tu peux m'appeler Astr0ruj !",
+        "first_para": "Ohhh tu es déjà là ?  Oui, c'est moi qui te parle, sur ta droite, je serais ton guide tout au long de ton voyage ici. Tu peux m'appeler Astr0ruj !",
         "second_para": "Pour commencer la visite, quoi de mieux qu'une petite présentation de moi-même.",
         "third_para": "Je suis un ingénieur français de 26 ans qui a commencé sa carrière dans le monde de l'IA, du traitement d'images et de la vision par ordinateur.",
         "fourth_para": "Depuis 2 ans et demi, je suis un développeur frontend autodidacte dans le vaste monde du développement mobile et web.",
         "fifth_para": "Pourquoi ne pas apprendre le backend pour devenir bientôt un développeur full stack ?"
+    },
+    "skills": {
+        "title": "Compétences"
+    },
+    "experiences": {
+        "title": "Expériences"
+    },
+    "projects": {
+        "title": "Projets"
+    },
+    "contact_me": {
+        "title": "Me contacter"
     }
 }
