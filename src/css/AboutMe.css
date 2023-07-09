@@ -14,6 +14,17 @@
     flex-direction: row
 }
 
+.aboutme-title {
+    color: white;
+    font-size: 55px;
+    font-weight: bold;
+    padding-left: 150px;
+    padding-right: 25px;
+    padding-top: 100px;
+    padding-bottom: 45px;
+    z-index: 0;
+}
+
 .overview-aboutme {
     background-color: rgba(26, 26, 26, 0.7);
     z-index: 0;
@@ -37,12 +48,12 @@
     font-size: 22px;
     color: #47CDD6;
     font-weight: 600;
-  }
-  
-  .typewriterCursor {
+}
+
+.typewriterCursor {
     font-size: 22px;
     color: #47CDD6;
-  }
+}
 
 .img-astro-aboutme {
     height: 350px;

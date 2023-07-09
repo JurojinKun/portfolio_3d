@@ -1,4 +1,3 @@
-import "../css/Portfolio.css";
 import "../css/AboutMe.css";
 
 import React from "react";
@@ -21,7 +20,7 @@ const AboutMe = () => {
         }}>
             <StarryBackground gradientTopLeft={true} gradientBottomRight={false} />
             <div className="aboutme">
-                <h1 className="section-title">{t("about_me.title")}</h1>
+                <h1 className="aboutme-title">{t("about_me.title")}</h1>
                 <div className="aboutme-content">
                     <div className="overview-aboutme">
                         <AppTypewriter

@@ -136,14 +136,3 @@ progress::-moz-progress-bar {
 .main-content.blurred {
     filter: blur(5px);
 }
-
-.section-title {
-    color: white;
-    font-size: 55px;
-    font-weight: bold;
-    padding-left: 150px;
-    padding-right: 25px;
-    padding-top: 100px;
-    padding-bottom: 45px;
-    z-index: 0;
-}
