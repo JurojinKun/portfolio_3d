@@ -29,7 +29,6 @@ const Skills = () => {
                                 }}
                                 options={(w, TagCloudOptions) => ({
                                     radius: Math.min(400, 400, 400),
-
                                 })}
                                 onClick={(tag, ev) => alert(tag)}
                                 onClickOptions={{ passive: true }}
