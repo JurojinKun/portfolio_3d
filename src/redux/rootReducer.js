@@ -7,7 +7,7 @@ import languageReducer from './slices/languageSlice';
 const rootReducer = combineReducers({
     // values: valueReducer,
     // animation: animationReducer,
-    language: languageReducer,
+    language: languageReducer
 });
 
 export default rootReducer;

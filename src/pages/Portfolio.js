@@ -168,8 +168,8 @@
 //             });
 //         }, {
 //             root: null,
-//             rootMargin: '0px',
-//             threshold: 0.5
+//             rootMargin: '80% 0px -80% 0px',
+//             threshold: 0
 //         });
 
 //         const targets = document.querySelectorAll('.sectionElement');
@@ -344,7 +344,8 @@
 
 // export default Portfolio;
 
-import React, { useEffect, useMemo, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link, Element } from 'react-scroll';
 
@@ -358,47 +359,53 @@ const Portfolio = () => {
     const navigate = useNavigate();
     const { sectionId } = useParams();
     const sections = useMemo(() => ["aboutme", "skills", "experiences", "projects", "contactme"], []);
-    const [scrollListenerActive, setScrollListenerActive] = useState(true);
-
-    const setNewUrl = (section) => {
-        navigate(`/portfolio/${section}`, { replace: true });
-    }
 
     useEffect(() => {
         document.body.style.overflow = 'auto';
     }, []);
 
     useEffect(() => {
-        if (sectionId) {
-            setScrollListenerActive(false);
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', duration: 500 });
+        const setToInitialSection = () => {
+            if (sectionId) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', duration: 500 });
+                }
             }
-            const timeoutId = setTimeout(() => {
-                setScrollListenerActive(true);
-            }, 1000);
-            return () => clearTimeout(timeoutId);
         }
-    }, [sectionId]);
 
-    //TODO TRY WITH Intersection Observer API
-    // useEffect(() => {
-    //     const handleScroll = () => {
-    //         if (!scrollListenerActive) {
-    //             return;
-    //         }
-    //         for (let section of sections) {
-    //             const rect = document.getElementById(section).getBoundingClientRect();
-    //             if (rect.top >= 0 && rect.top < window.innerHeight / 10) {
-    //                 navigate(`/portfolio/${section}`, { replace: true });
-    //             }
-    //         }
-    //     };
+        setToInitialSection();
+    }, []);
 
-    //     window.addEventListener('scroll', handleScroll);
-    //     return () => window.removeEventListener('scroll', handleScroll);
-    // }, [navigate, sections, scrollListenerActive]);
+    useEffect(() => {
+        const observerEntering = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const section = entry.target.id;
+                        navigate(`/portfolio/${section}`, { replace: true });
+                    }
+                });
+            },
+            { threshold: 0, rootMargin: '-30% 0px -70% 0px' }
+        );
+
+        sections.forEach((section) => {
+            const element = document.getElementById(section);
+            if (element) {
+                observerEntering.observe(element);
+            }
+        });
+
+        return () => {
+            sections.forEach((section) => {
+                const element = document.getElementById(section);
+                if (element) {
+                    observerEntering.unobserve(element);
+                }
+            });
+        };
+    }, []);
 
     return (
         <div>
@@ -414,9 +421,6 @@ const Portfolio = () => {
                     spy={true}
                     smooth={true}
                     duration={500}
-                    onClick={() => {
-                        setNewUrl("aboutme")
-                    }}
                 >
                     About me
                 </Link>
@@ -429,9 +433,6 @@ const Portfolio = () => {
                     spy={true}
                     smooth={true}
                     duration={500}
-                    onClick={() => {
-                        setNewUrl("skills")
-                    }}
                 >
                     Skills
                 </Link>
@@ -444,9 +445,6 @@ const Portfolio = () => {
                     spy={true}
                     smooth={true}
                     duration={500}
-                    onClick={() => {
-                        setNewUrl("experiences")
-                    }}
                 >
                     Experiences
                 </Link>
@@ -459,9 +457,6 @@ const Portfolio = () => {
                     spy={true}
                     smooth={true}
                     duration={500}
-                    onClick={() => {
-                        setNewUrl("projects")
-                    }}
                 >
                     Projects
                 </Link>
@@ -474,9 +469,6 @@ const Portfolio = () => {
                     spy={true}
                     smooth={true}
                     duration={500}
-                    onClick={() => {
-                        setNewUrl("contactme")
-                    }}
                 >
                     Contact me
                 </Link>
