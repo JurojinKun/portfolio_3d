@@ -1,0 +1,20 @@
+.projects-title {
+    top: 0;
+    left: 0;
+    color: white;
+    font-size: 55px;
+    font-weight: bold;
+    padding-left: 150px;
+    padding-right: 25px;
+    padding-top: 30px;
+}
+
+
+.swiper .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 40vw;
+    height: 350px;
+    margin-top: 50px;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, #0006);
+}

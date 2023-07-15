@@ -33,6 +33,7 @@
     "react-vertical-timeline-component": "^3.6.0",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
+    "swiper": "^10.0.4",
     "three": "^0.152.2",
     "three-stdlib": "^2.23.4",
     "typewriter-effect": "^2.19.0",

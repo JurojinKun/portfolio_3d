@@ -1,6 +1,6 @@
 .aboutme {
     position: relative;
-    height: 100vh;
+    min-Height: 100vh;
     display: flex;
     flex-direction: column;
     padding-left: 15px;

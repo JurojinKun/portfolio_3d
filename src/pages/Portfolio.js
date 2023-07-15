@@ -88,7 +88,7 @@ const Portfolio = () => {
 
         switch (section) {
             case "aboutme":
-                currentSection = <Element name="aboutme" id="aboutme" key={"aboutme"} style={{ height: '100vh' }}>
+                currentSection = <Element name="aboutme" id="aboutme" key={"aboutme"}>
                     <AboutMe />
                 </Element>
                 break;
@@ -103,17 +103,17 @@ const Portfolio = () => {
                 </Element>
                 break;
             case "projects":
-                currentSection = <Element name="projects" id="projects" key={"projects"} style={{ height: '100vh' }}>
+                currentSection = <Element name="projects" id="projects" key={"projects"}>
                     <Projects />
                 </Element>
                 break;
             case "contactme":
-                currentSection = <Element name="contactme" id="contactme" key={"contactme"} style={{ height: '100vh' }}>
+                currentSection = <Element name="contactme" id="contactme" key={"contactme"}>
                     <ContactMe />
                 </Element>
                 break;
             default:
-                currentSection = <Element name="aboutme" id="aboutme" style={{ height: '100vh' }}>
+                currentSection = <Element name="aboutme" id="aboutme">
                     <AboutMe />
                 </Element>
                 break;

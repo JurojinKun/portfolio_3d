@@ -43,7 +43,8 @@
         "title": "Expériences"
     },
     "projects": {
-        "title": "Projets"
+        "title_pro": "Projets professionnels",
+        "title_private": "Projets personnels"
     },
     "contact_me": {
         "title": "Me contacter"

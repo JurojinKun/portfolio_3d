@@ -16,7 +16,6 @@ const AboutMe = () => {
             width: "100%",
             backgroundClip: "padding-box",
             border: "1px solid rgba(2, 2, 13, 1)",
-            alignItems: "center",
         }}>
             <StarryBackground gradientTopLeft={true} gradientBottomRight={false} />
             <div className="aboutme">
