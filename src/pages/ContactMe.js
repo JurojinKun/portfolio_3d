@@ -12,7 +12,7 @@ const ContactMe = () => {
             justifyContent: "center"
         }}>
             <StarryBackground gradientTopLeft={false} gradientBottomRight={true} />
-            <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', /*paddingTop: '60px'*/ }}>
+            <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                 <h2 style={{ color: "white" }}>Contact me</h2>
                 <p style={{ color: "white" }}>Content contact me...</p>
             </div>

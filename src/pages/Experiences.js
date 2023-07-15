@@ -8,6 +8,7 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useInView } from "react-intersection-observer";
 
 import { textVariant } from "../utils/motion";
 import starbucks from "../assets/experiences/starbucks.png";
@@ -90,6 +91,9 @@ const ExperienceCard = ({ experience }) => {
 
 const Experiences = () => {
     const { t } = useTranslation();
+    const { ref, inView } = useInView({
+        triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
+    });
 
     const experiences = [
         {
@@ -154,7 +158,7 @@ const Experiences = () => {
             border: "1px solid rgba(2, 2, 13, 1)",
             flexDirection: "column"
         }}>
-            <motion.div variants={textVariant()}>
+            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}>
                 <h1 className="experiences-title">{t("experiences.title")}</h1>
             </motion.div>
             <div className="experiences-content">

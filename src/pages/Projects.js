@@ -10,7 +10,7 @@ const Projects = () => {
             alignItems: "center",
             justifyContent: "center"
         }}>
-            <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', /*paddingTop: '60px'*/ }}>
+            <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                 <h2 style={{ color: "white" }}>Projects</h2>
                 <p style={{ color: "white" }}>Content projects...</p>
             </div>

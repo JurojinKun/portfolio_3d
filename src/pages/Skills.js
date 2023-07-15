@@ -77,7 +77,7 @@ const Skills = () => {
                         <div>
                             {contentSkills.map((skill, index) => {
                                 return (
-                                    <div className="container-in-middle">
+                                    <div key={index} className="container-in-middle">
                                         <div className="container-in-in-midle">
                                             <h2 style={{
                                                 color: "white",
