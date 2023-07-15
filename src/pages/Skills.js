@@ -8,6 +8,42 @@ import { TagCloud } from "@frank-mayer/react-tag-cloud";
 const Skills = () => {
     const { t } = useTranslation();
 
+    const skills = [
+        "VSCode",
+        "TypeScript",
+        "React",
+        "Preact",
+        "Parcel",
+        "Jest",
+        "Next",
+        "ESLint",
+        "Framer Motion",
+        "Three.js"
+    ];
+
+    const contentSkills = [
+        {
+            "title": "First skills",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum fbrughrughruhgrivnrgbruhrugntugrhgurbhhhththtcvfbgbgbgb gurgburghrugrughrugnrighrig hrigrhgirhgirghr ighrighrighrigri",
+        },
+        {
+            "title": "Second skills",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        },
+        {
+            "title": "Third skills",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        },
+        {
+            "title": "Fourth skills",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        },
+        {
+            "title": "Fifth skills",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        },
+    ];
+
     return (
         <div style={{
             display: "flex",
@@ -33,40 +69,30 @@ const Skills = () => {
                                 onClick={(tag, ev) => alert(tag)}
                                 onClickOptions={{ passive: true }}
                             >
-                                {[
-                                    "VSCode",
-                                    "TypeScript",
-                                    "React",
-                                    "Preact",
-                                    "Parcel",
-                                    "Jest",
-                                    "Next",
-                                    "ESLint",
-                                    "Framer Motion",
-                                    "Three.js",
-                                ]}
+                                {skills}
                             </TagCloud>
                         </div>
                     </div>
                     <div className="container-middle">
                         <div>
-                            <div className="container-in-middle">
-                                <div className="container-in-in-midle">
-                                    ONE
-                                </div>
-                            </div>
-                            <div className="container-in-middle">
-                                <div className="container-in-in-midle">TWO</div>
-                            </div>
-                            <div className="container-in-middle">
-                                <div className="container-in-in-midle">THREE</div>
-                            </div>
-                            <div className="container-in-middle">
-                                <div className="container-in-in-midle">FOURTH</div>
-                            </div>
-                            <div className="container-in-middle">
-                                <div className="container-in-in-midle">FIFTH</div>
-                            </div>
+                            {contentSkills.map((skill, index) => {
+                                return (
+                                    <div className="container-in-middle">
+                                        <div className="container-in-in-midle">
+                                            <h2 style={{
+                                                color: "white",
+                                                font: "24px",
+                                                fontWeight: "bold"
+                                            }}>{skill.title}</h2>
+                                            <p style={{
+                                                color: "white",
+                                                font: "16px",
+                                                fontWeight: "bold"
+                                            }}>{skill.content}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>

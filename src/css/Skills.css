@@ -33,7 +33,7 @@
   top: 0;
   left: 0;
   height: 100vh;
-  width: 65%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,7 +63,7 @@
 }
 
 .container-middle {
-  width: 35%;
+  width: 40%;
 }
 
 .container-in-middle {
@@ -77,11 +77,11 @@
   display: flex;
   margin: 50px;
   width: 100%;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(26, 26, 26, 0.7);
+  background-color: rgba(26, 26, 26, 1);
   border-radius: 10px;
   margin-top: 70px;
-  height: 300px;
   color: white;
+  flex-direction: column;
+  overflow: auto;
+  padding: 20px;
 }

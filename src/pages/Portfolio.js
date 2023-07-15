@@ -98,7 +98,7 @@ const Portfolio = () => {
                 </Element>
                 break;
             case "experiences":
-                currentSection = <Element name="experiences" id="experiences" key={"experiences"} style={{ height: '100vh' }}>
+                currentSection = <Element name="experiences" id="experiences" key={"experiences"}>
                     <Experiences />
                 </Element>
                 break;

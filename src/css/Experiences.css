@@ -1,0 +1,19 @@
+.experiences-title {
+    top: 0;
+    left: 0;
+    color: white;
+    font-size: 55px;
+    font-weight: bold;
+    padding-left: 150px;
+    padding-right: 25px;
+    padding-top: 30px;
+}
+
+.experiences-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.vertical-timeline-element-content {
+    box-shadow: 0 3px 0px 0px #47CDD6 !important;
+}
