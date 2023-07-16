@@ -113,7 +113,7 @@ const Portfolio = () => {
                 </Element>
                 break;
             default:
-                currentSection = <Element name="aboutme" id="aboutme">
+                currentSection = <Element name="aboutme" id="aboutme" key={"aboutme"}>
                     <AboutMe />
                 </Element>
                 break;

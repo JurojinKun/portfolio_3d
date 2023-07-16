@@ -1,6 +1,6 @@
 import "../css/AboutMe.css";
 
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import StarryBackground from "../components/StarryBackground";
 import astroAboutMe from '../assets/astro_about_me.png';
 import { useTranslation } from "react-i18next";
@@ -10,14 +10,33 @@ import AppTypewriter from "../components/AppTypewriter";
 const AboutMe = () => {
     const { t } = useTranslation();
 
+    const aboutmeRef = useRef();
+    const [aboutmeHeight, setAboutmeHeight] = useState(window.innerHeight);
+
+    useEffect(() => {
+        const checkHeight = () => {
+            if (aboutmeRef.current) {
+                setAboutmeHeight(aboutmeRef.current.getBoundingClientRect().height);
+            }
+        };
+
+        checkHeight();
+        window.addEventListener('resize', checkHeight);
+
+        // Cleanup
+        return () => window.removeEventListener('resize', checkHeight);
+    }, []);
+
     return (
-        <div style={{
-            display: "flex",
-            width: "100%",
-            backgroundClip: "padding-box",
-            border: "1px solid rgba(2, 2, 13, 1)",
-        }}>
-            <StarryBackground gradientTopLeft={true} gradientBottomRight={false} />
+        <div
+            ref={aboutmeRef}
+            style={{
+                display: "flex",
+                width: "100%",
+                backgroundClip: "padding-box",
+                border: "1px solid rgba(2, 2, 13, 1)",
+            }}>
+            <StarryBackground gradientTopLeft={true} gradientBottomRight={false} heightSection={aboutmeHeight} />
             <div className="aboutme">
                 <h1 className="aboutme-title">{t("about_me.title")}</h1>
                 <div className="aboutme-content">

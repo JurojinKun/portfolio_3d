@@ -81,12 +81,12 @@ const Skills = () => {
                                         <div className="container-in-in-midle">
                                             <h2 style={{
                                                 color: "white",
-                                                font: "24px",
+                                                fontSize: "24px",
                                                 fontWeight: "bold"
                                             }}>{skill.title}</h2>
                                             <p style={{
                                                 color: "white",
-                                                font: "16px",
+                                                fontSize: "16px",
                                                 fontWeight: "bold"
                                             }}>{skill.content}</p>
                                         </div>
