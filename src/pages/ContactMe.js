@@ -4,7 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import StarryBackground from "../components/StarryBackground";
-import astroContactMe from '../assets/astro_contact.png'
+import astroContactMe from '../assets/astro_contact_me.png'
+import enveloppeContactMe from "../assets/enveloppe_contact_me.png";
 
 const ContactMe = () => {
     const { t } = useTranslation();
@@ -27,16 +28,16 @@ const ContactMe = () => {
     }, []);
 
     return (
-        <div 
-        ref={contactmeRef}
-        style={{
-            display: "flex",
-            minHeight: "100vh",
-            width: "100%",
-            backgroundClip: "padding-box",
-            border: "1px solid rgba(2, 2, 13, 1)",
-            flexDirection: "column"
-        }}>
+        <div
+            ref={contactmeRef}
+            style={{
+                display: "flex",
+                minHeight: "100vh",
+                width: "100%",
+                backgroundClip: "padding-box",
+                border: "1px solid rgba(2, 2, 13, 1)",
+                flexDirection: "column"
+            }}>
             <StarryBackground gradientTopLeft={false} gradientBottomRight={true} heightSection={contactmeHeight} />
             <h1 className="contactme-title">{t("contact_me.title")}</h1>
             <div className="contactme-content">
@@ -50,7 +51,10 @@ const ContactMe = () => {
                 }}>
                    
                 </div>
-                <img src={astroContactMe} alt='Contact me' className="img-astro-contactme" />
+                <div className="image-container">
+                    <img src={astroContactMe} alt="Astro contact me" className="static-image" />
+                    <img src={enveloppeContactMe} alt="Enveloppe contact me" className="animated-image" />
+                </div>
             </div>
         </div>
     );
