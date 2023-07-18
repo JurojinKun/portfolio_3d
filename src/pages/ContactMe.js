@@ -10,6 +10,7 @@ import StarryBackground from "../components/StarryBackground";
 import astroContactMe from '../assets/astro_contact_me.png'
 import enveloppeContactMe from "../assets/enveloppe_contact_me.png";
 import { slideIn } from "../utils/motion";
+import { showAlert } from '../utils/alert';
 
 const ContactMe = () => {
     const { t } = useTranslation();
@@ -23,6 +24,7 @@ const ContactMe = () => {
     const formRef = useRef();
     const [form, setForm] = useState({
         name: "",
+        post: "",
         email: "",
         message: ""
     });
@@ -37,37 +39,41 @@ const ContactMe = () => {
         e.preventDefault();
         setLoading(true);
 
-        emailjs
-            .send(
-                "service_zlt218a",
-                "template_83neol3",
-                {
-                    form_name: form.name,
-                    to_name: "0ruj",
-                    from_email: form.email,
-                    to_email: "0rujdev@gmail.com",
-                    message: form.message,
-                },
-                "DtpSTiOwEnATpCKGO"
-            )
-            .then(
-                () => {
-                    setLoading(false);
-                    alert("Thank you. I will get back to you as soon as possible.");
+        if (form.name.trim() === "" || form.post.trim() === "" || form.email.trim() === "" || form.message.trim() === "") {
+            setLoading(false);
+            showAlert('Erreur', 'Les champs ne sont pas tous remplis.', 'error');
+        } else {
+            emailjs
+                .send(
+                    "service_zlt218a",
+                    "template_83neol3",
+                    {
+                        form_name: form.name,
+                        to_name: "0ruj",
+                        from_email: form.email,
+                        to_email: "0rujdev@gmail.com",
+                        message: form.message,
+                    },
+                    "DtpSTiOwEnATpCKGO"
+                )
+                .then(
+                    () => {
+                        setLoading(false);
+                        showAlert('Mail envoyé', 'Thank you. I will get back to you as soon as possible.', 'success');
+                        setForm({
+                            name: "",
+                            email: "",
+                            message: "",
+                        });
+                    },
+                    (error) => {
 
-                    setForm({
-                        name: "",
-                        email: "",
-                        message: "",
-                    });
-                },
-                (error) => {
-                    setLoading(false);
-
-                    console.log(error);
-                    alert("Something went wrong.");
-                }
-            );
+                        console.log(error);
+                        setLoading(false);
+                        showAlert('Erreur', 'Something went wrong', 'error');
+                    }
+                );
+        }
     };
 
     useEffect(() => {
@@ -122,7 +128,8 @@ const ContactMe = () => {
                         }}>
                             <span style={{
                                 color: "white",
-                                fontWeight: 500,
+                                fontSize: "23px",
+                                fontWeight: "bold",
                                 marginBottom: "1rem"
                             }}>Your Name</span>
                             <input
@@ -140,8 +147,28 @@ const ContactMe = () => {
                         }}>
                             <span style={{
                                 color: "white",
-                                fontWeight: 500,
+                                fontSize: "23px",
+                                fontWeight: "bold",
                                 marginBottom: "1rem"
+                            }}>Your Post</span>
+                            <input
+                                type="text"
+                                name="post"
+                                value={form.post}
+                                onChange={handleChange}
+                                placeholder="What's your post?"
+                                className="input"
+                            />
+                        </label>
+                        <label style={{
+                            display: "flex",
+                            flexDirection: "column"
+                        }}>
+                            <span style={{
+                                color: "white",
+                                marginBottom: "1rem",
+                                fontSize: "23px",
+                                fontWeight: "bold",
                             }}>Your email</span>
                             <input
                                 type="email"
@@ -158,7 +185,8 @@ const ContactMe = () => {
                         }}>
                             <span style={{
                                 color: "white",
-                                fontWeight: 500,
+                                fontSize: "23px",
+                                fontWeight: "bold",
                                 marginBottom: "1rem"
                             }}>Your Message</span>
                             <textarea
