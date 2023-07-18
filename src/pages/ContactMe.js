@@ -2,16 +2,73 @@ import "../css/ContactMe.css";
 
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import emailjs from '@emailjs/browser';
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 import StarryBackground from "../components/StarryBackground";
 import astroContactMe from '../assets/astro_contact_me.png'
 import enveloppeContactMe from "../assets/enveloppe_contact_me.png";
+import { slideIn } from "../utils/motion";
 
 const ContactMe = () => {
     const { t } = useTranslation();
 
     const contactmeRef = useRef();
     const [contactmeHeight, setContactmeHeight] = useState(window.innerHeight);
+
+    const { ref, inView } = useInView({
+        triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
+    });
+    const formRef = useRef();
+    const [form, setForm] = useState({
+        name: "",
+        email: "",
+        message: ""
+    });
+    const [loading, setLoading] = useState(false);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        emailjs
+            .send(
+                "service_zlt218a",
+                "template_83neol3",
+                {
+                    form_name: form.name,
+                    to_name: "0ruj",
+                    from_email: form.email,
+                    to_email: "0rujdev@gmail.com",
+                    message: form.message,
+                },
+                "DtpSTiOwEnATpCKGO"
+            )
+            .then(
+                () => {
+                    setLoading(false);
+                    alert("Thank you. I will get back to you as soon as possible.");
+
+                    setForm({
+                        name: "",
+                        email: "",
+                        message: "",
+                    });
+                },
+                (error) => {
+                    setLoading(false);
+
+                    console.log(error);
+                    alert("Something went wrong.");
+                }
+            );
+    };
 
     useEffect(() => {
         const checkHeight = () => {
@@ -41,20 +98,92 @@ const ContactMe = () => {
             <StarryBackground gradientTopLeft={false} gradientBottomRight={true} heightSection={contactmeHeight} />
             <h1 className="contactme-title">{t("contact_me.title")}</h1>
             <div className="contactme-content">
-                <div style={{
-                    display: "flex",
-                    height: "1200px",
-                    width: "50%",
+                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={slideIn("left", "tween", 0.2, 1)} style={{
                     zIndex: 0,
-                    backgroundColor: "red",
-                    marginBottom: "20px"
+                    backgroundColor: "rgba(26, 26, 26, 0.7)",
+                    marginBottom: "20px",
+                    flexGrow: 0.75,
+                    padding: "2rem",
+                    borderRadius: "1rem",
+                    margin: "2rem"
                 }}>
-                   
-                </div>
-                <div className="image-container">
+                    <form
+                        ref={formRef}
+                        onSubmit={handleSubmit}
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "2rem"
+                        }}
+                    >
+                        <label style={{
+                            display: "flex",
+                            flexDirection: "column"
+                        }}>
+                            <span style={{
+                                color: "white",
+                                fontWeight: 500,
+                                marginBottom: "1rem"
+                            }}>Your Name</span>
+                            <input
+                                type="text"
+                                name="name"
+                                value={form.name}
+                                onChange={handleChange}
+                                placeholder="What's your name?"
+                                className="input"
+                            />
+                        </label>
+                        <label style={{
+                            display: "flex",
+                            flexDirection: "column"
+                        }}>
+                            <span style={{
+                                color: "white",
+                                fontWeight: 500,
+                                marginBottom: "1rem"
+                            }}>Your email</span>
+                            <input
+                                type="email"
+                                name="email"
+                                value={form.email}
+                                onChange={handleChange}
+                                placeholder="What's your email?"
+                                className="input"
+                            />
+                        </label>
+                        <label style={{
+                            display: "flex",
+                            flexDirection: "column"
+                        }}>
+                            <span style={{
+                                color: "white",
+                                fontWeight: 500,
+                                marginBottom: "1rem"
+                            }}>Your Message</span>
+                            <textarea
+                                rows={7}
+                                name="message"
+                                value={form.message}
+                                onChange={handleChange}
+                                placeholder="What do you want to say?"
+                                className="input"
+                            />
+                        </label>
+
+                        <button
+                            type="submit"
+                            className="submit"
+                        >
+                            {loading ? "Sending..." : "Send"}
+                        </button>
+                    </form>
+                </motion.div>
+
+                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={slideIn("right", "tween", 0.2, 1)} className="image-container">
                     <img src={astroContactMe} alt="Astro contact me" className="static-image" />
                     <img src={enveloppeContactMe} alt="Enveloppe contact me" className="animated-image" />
-                </div>
+                </motion.div>
             </div>
         </div>
     );

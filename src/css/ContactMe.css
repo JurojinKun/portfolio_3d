@@ -11,11 +11,44 @@
 
 .contactme-content {
     display: flex;
-    height: 100%;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-evenly;
+    gap: 10px;
+    overflow: hidden;
+    flex-direction: column-reverse;
     align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 1200px) {
+    .contactme-content {
+        margin-top: 12px;
+        flex-direction: row;
+    }
+}
+
+.input {
+    background-color: red;
+    padding: 1rem 1.5rem;
+    color: white;
+    border-radius: 0.5rem;
+    outline: none;
+    border: none;
+    font-weight: 500;
+}
+
+.input::placeholder {
+    color: grey;
+}
+
+.submit {
+    background-color: purple;
+    padding: 0.75rem 2rem;
+    border-radius: 0.75rem;
+    outline: none;
+    width: fit-content;
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 blue;
+    align-self: center;
 }
 
 .image-container {
@@ -49,21 +82,25 @@
         transform: translateY(-50%);
         opacity: 1;
     }
+
     30% {
         left: 50%;
         transform: translate(-50%, -50%);
         opacity: 0;
     }
+
     55% {
         left: 50%;
         transform: translate(-50%, -50%);
         opacity: 0;
     }
+
     85% {
         left: 80%;
         transform: translateY(-50%, -50%);
         opacity: 1;
     }
+
     100% {
         left: 100%;
         transform: translateY(-50%, -50%);
@@ -72,9 +109,12 @@
 }
 
 @keyframes up-and-down {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(-70%);
     }
+
     50% {
         transform: translateY(-30%);
     }
