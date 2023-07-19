@@ -43,16 +43,17 @@ const ContactMe = () => {
             setLoading(false);
             showAlert('Erreur', 'Les champs ne sont pas tous remplis.', 'error');
         } else {
+            const concatMessage = `Bonjour/Bonsoir, je suis ${form.name}, actuellement ${form.post}.\n\n${form.message}\n\nTu peux me contacter via ${form.email}`;
             emailjs
                 .send(
                     "service_zlt218a",
                     "template_83neol3",
                     {
-                        form_name: form.name,
+                        from_name: form.name,
                         to_name: "0ruj",
                         from_email: form.email,
                         to_email: "0rujdev@gmail.com",
-                        message: form.message,
+                        message: concatMessage,
                     },
                     "DtpSTiOwEnATpCKGO"
                 )
@@ -62,12 +63,12 @@ const ContactMe = () => {
                         showAlert('Mail envoyé', 'Thank you. I will get back to you as soon as possible.', 'success');
                         setForm({
                             name: "",
+                            post: "",
                             email: "",
                             message: "",
                         });
                     },
                     (error) => {
-
                         console.log(error);
                         setLoading(false);
                         showAlert('Erreur', 'Something went wrong', 'error');
