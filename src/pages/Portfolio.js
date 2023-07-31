@@ -265,7 +265,7 @@ const Portfolio = () => {
                         <div style={{
                             pointerEvents: 'auto',
                         }}>
-                            <LanguageSwitcher />
+                            <LanguageSwitcher openingDirection={"bottom"} />
                         </div>
                     </div>
                     <GiHamburgerMenu className="icon-sidebar" onClick={() => setIsOpen(!isOpen)} size={27} style={{ color: "white", cursor: "pointer" }} />
@@ -323,7 +323,7 @@ const Portfolio = () => {
                             paddingLeft: "20px",
                             paddingRight: "20px"
                         }}>
-                            <LanguageSwitcher />
+                            <LanguageSwitcher openingDirection={"top"} />
                         </div>
 
                     </div>

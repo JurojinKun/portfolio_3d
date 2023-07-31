@@ -24,7 +24,7 @@ const FixedHeader = () => {
                 pointerEvents: 'auto',
                 paddingRight: "100px"
             }}>
-                <LanguageSwitcher />
+                <LanguageSwitcher openingDirection={"bottom"} />
             </div>
         </header>
     )

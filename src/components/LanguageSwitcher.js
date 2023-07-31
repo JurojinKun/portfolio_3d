@@ -42,7 +42,7 @@ const customStyles = {
     })
 };
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({ openingDirection }) => {
     const { t, i18n } = useTranslation();
 
     const dispatch = useDispatch();
@@ -67,7 +67,7 @@ const LanguageSwitcher = () => {
             onChange={changeLanguage}
             styles={customStyles}
             getOptionLabel={(option) => option.label}
-            menuPlacement="auto"
+            menuPlacement={openingDirection}
         />
     );
 };
