@@ -36,7 +36,7 @@ const Overview = ({ opacity }) => {
                 <IconRoundButton icon={<LinkedInIcon style={{
                     color: "white",
                     fontSize: 30,
-                }} />} url="https://www.linkedin.com/in/cl%C3%A9ment-communay-39238b12b/" />
+                }} />} url="https://www.linkedin.com/in/clément-communay" />
                 <a href="/cv/CV_Clement_Communay.pdf" download>
                     <IconRoundButton icon={<DownloadIcon style={{
                         color: "white",
