@@ -99,7 +99,6 @@ progress::-moz-progress-bar {
 .sidebar {
     position: fixed;
     width: 300px;
-    height: calc(100vh - 30px);
     top: 15px;
     right: 0;
     background-color: rgba(26, 26, 26, 1.0);

@@ -272,7 +272,9 @@ const Portfolio = () => {
                 </nav>
 
                 <div className="navbar-mobile">
-                    <div className={`sidebar ${isOpen ? "open" : ""}`}>
+                    <div className={`sidebar ${isOpen ? "open" : ""}`} style={{
+                         height: `${window.innerHeight - 30}px`
+                    }}>
                         <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
                             <span style={{ color: "white", fontSize: "30px", fontWeight: "bold", paddingLeft: "20px", fontFamily: "Poppins, sans-serif" }}>{t("portfolio.menu")}</span>
                             <FaTimes size={27} style={{ color: "white", paddingRight: "20px", cursor: "pointer" }} onClick={() => setIsOpen(!isOpen)} />
