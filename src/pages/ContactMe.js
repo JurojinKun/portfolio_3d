@@ -11,6 +11,7 @@ import astroContactMe from '../assets/astro_contact_me.png'
 import enveloppeContactMe from "../assets/enveloppe_contact_me.png";
 import { slideIn } from "../utils/motion";
 import showAlertCustom  from '../components/AlertCustom';
+import { fontTitleBold, fontBodyBold } from "../utils/fonts";
 
 const ContactMe = () => {
     const { t } = useTranslation();
@@ -103,7 +104,7 @@ const ContactMe = () => {
                 flexDirection: "column"
             }}>
             <StarryBackground gradientTopLeft={false} gradientBottomRight={true} heightSection={contactmeHeight} />
-            <h1 className="contactme-title">{t("contact_me.title")}</h1>
+            <h1 className="contactme-title" style={fontTitleBold("50px", "white")}>{t("contact_me.title")}</h1>
             <div className="contactme-content">
                 <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={slideIn("left", "tween", 0.2, 1)} style={{
                     zIndex: 0,
@@ -129,8 +130,9 @@ const ContactMe = () => {
                         }}>
                             <span style={{
                                 color: "white",
-                                fontSize: "23px",
-                                fontWeight: "bold",
+                                fontSize: "25px",
+                                fontWeight: "700",
+                                fontFamily: "Montserrat, sans-serif",
                                 marginBottom: "1rem"
                             }}>Your Name</span>
                             <input
@@ -140,6 +142,7 @@ const ContactMe = () => {
                                 onChange={handleChange}
                                 placeholder="What's your name?"
                                 className="input"
+                                style={fontBodyBold("16px", "white")}
                             />
                         </label>
                         <label style={{
@@ -148,8 +151,9 @@ const ContactMe = () => {
                         }}>
                             <span style={{
                                 color: "white",
-                                fontSize: "23px",
-                                fontWeight: "bold",
+                                fontSize: "25px",
+                                fontWeight: "700",
+                                fontFamily: "Montserrat, sans-serif",
                                 marginBottom: "1rem"
                             }}>Your Post</span>
                             <input
@@ -159,6 +163,7 @@ const ContactMe = () => {
                                 onChange={handleChange}
                                 placeholder="What's your post?"
                                 className="input"
+                                style={fontBodyBold("16px", "white")}
                             />
                         </label>
                         <label style={{
@@ -167,9 +172,10 @@ const ContactMe = () => {
                         }}>
                             <span style={{
                                 color: "white",
-                                marginBottom: "1rem",
-                                fontSize: "23px",
-                                fontWeight: "bold",
+                                fontSize: "25px",
+                                fontWeight: "700",
+                                fontFamily: "Montserrat, sans-serif",
+                                marginBottom: "1rem"
                             }}>Your email</span>
                             <input
                                 type="email"
@@ -178,6 +184,7 @@ const ContactMe = () => {
                                 onChange={handleChange}
                                 placeholder="What's your email?"
                                 className="input"
+                                style={fontBodyBold("16px", "white")}
                             />
                         </label>
                         <label style={{
@@ -186,8 +193,9 @@ const ContactMe = () => {
                         }}>
                             <span style={{
                                 color: "white",
-                                fontSize: "23px",
-                                fontWeight: "bold",
+                                fontSize: "25px",
+                                fontWeight: "700",
+                                fontFamily: "Montserrat, sans-serif",
                                 marginBottom: "1rem"
                             }}>Your Message</span>
                             <textarea
@@ -197,12 +205,14 @@ const ContactMe = () => {
                                 onChange={handleChange}
                                 placeholder="What do you want to say?"
                                 className="input"
+                                style={fontBodyBold("16px", "white")}
                             />
                         </label>
 
                         <button
                             type="submit"
                             className="submit"
+                            style={fontBodyBold("20px", "white")}
                         >
                             {loading ? "Sending..." : "Send"}
                         </button>

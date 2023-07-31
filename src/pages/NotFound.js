@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import notFoundAstro from '../assets/astro_not_found.png';
 import StarryBackground from '../components/StarryBackground';
+import { fontBodyBold } from '../utils/fonts';
 
 const NotFound = () => {
     const { t } = useTranslation();
@@ -62,10 +63,10 @@ const NotFound = () => {
                         <div id="custom-cursor"></div>
                     </div>
                 </div>
-                <div style={styles.textStyle}>
+                <div style={fontBodyBold("23px", "white")}>
                     {t("not_found.user_lost")}
                 </div>
-                <div style={styles.textStyle}>
+                <div style={fontBodyBold("23px", "white")}>
                     {t("not_found.url_not_found")}
                 </div>
             </div>
@@ -74,12 +75,6 @@ const NotFound = () => {
 }
 
 const styles = {
-    textStyle: {
-        color: 'white',
-        textAlign: "center",
-        fontSize: 23,
-        fontWeight: "bold",
-    },
     mainContainer: {
         height: '100vh',
         width: '100vw',

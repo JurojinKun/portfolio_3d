@@ -16,9 +16,6 @@
 }
 
 .aboutme-title {
-    color: white;
-    font-size: 55px;
-    font-weight: bold;
     padding-left: 150px;
     padding-right: 25px;
     padding-top: 100px;
@@ -46,13 +43,13 @@
 }
 
 .typewriterWrapper {
-    font-size: 22px;
+    font-size: 25px;
     color: #47CDD6;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .typewriterCursor {
-    font-size: 22px;
+    font-size: 25px;
     color: #47CDD6;
 }
 

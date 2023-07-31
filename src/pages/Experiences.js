@@ -15,6 +15,7 @@ import starbucks from "../assets/experiences/starbucks.png";
 import tesla from "../assets/experiences/tesla.png";
 import shopify from "../assets/experiences/shopify.png";
 import meta from "../assets/experiences/meta.png";
+import { fontTitleBold, fontBodyBold } from "../utils/fonts";
 
 const ExperienceCard = ({ experience }) => {
     return (
@@ -50,17 +51,31 @@ const ExperienceCard = ({ experience }) => {
                 <h3
                     style={{
                         color: "white",
-                        fontSize: "24px",
-                        fontWeight: "bold",
+                        fontSize: "25px",
+                        fontWeight: "700",
+                        fontFamily: "Monteserrat, sans-serif",
                         margin: 0
-                    }}>{experience.title}</h3>
+                    }}
+                    >{experience.title}</h3>
                 <p
-                    style={{ margin: 0, color: "white", fontSize: "16px", fontWeight: "bold" }}
+                    style={{
+                        color: "white",
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        fontFamily: "Monteserrat, sans-serif",
+                        margin: 0
+                    }}
                 >
                     {experience.company_name}
                 </p>
                 <p
-                    style={{ margin: 0, color: "white", fontSize: "16px", fontWeight: "bold" }}
+                    style={{
+                        color: "white",
+                        fontSize: "16px",
+                        fontWeight: "700",
+                        fontFamily: "Monteserrat, sans-serif",
+                        margin: 0
+                    }}
                 >
                     {experience.date}
                 </p>
@@ -74,12 +89,7 @@ const ExperienceCard = ({ experience }) => {
                 {experience.points.map((point, index) => (
                     <li
                         key={`experience-point-${index}`}
-                        style={{
-                            color: "white",
-                            fontSize: "14px",
-                            paddingLeft: "0.25rem",
-                            letterSpacing: "0.05em",
-                        }}
+                        style={fontBodyBold("15px", "white")}
                     >
                         {point}
                     </li>
@@ -159,7 +169,7 @@ const Experiences = () => {
             flexDirection: "column"
         }}>
             <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}>
-                <h1 className="experiences-title">{t("experiences.title")}</h1>
+                <h1 className="experiences-title" style={fontTitleBold("50px", "white")}>{t("experiences.title")}</h1>
             </motion.div>
             <div className="experiences-content">
                 <VerticalTimeline>

@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow } from "swiper/modules";
 import 'swiper/css';
 import "swiper/css/effect-coverflow";
+import { fontTitleBold } from "../utils/fonts";
 
 const ProProjects = () => {
     const slides = [
@@ -158,7 +159,9 @@ const PrivateProjects = () => {
                         }}>
                             <h2 style={{
                                 marginLeft: "10px",
-                                marginTop: "10px"
+                                marginTop: "10px",
+                                fontFamily: "Montserrat, sans-serif",
+                                fontWeight: "700"
                             }}>
                                 {slide.title}
                             </h2>
@@ -180,9 +183,9 @@ const Projects = () => {
             border: "1px solid rgba(2, 2, 13, 1)",
             flexDirection: "column"
         }}>
-            <h1 className="projects-title">{t("projects.title_pro")}</h1>
+            <h1 className="projects-title" style={fontTitleBold("50px", "white")}>{t("projects.title_pro")}</h1>
             <ProProjects />
-            <h1 className="projects-title">{t("projects.title_private")}</h1>
+            <h1 className="projects-title" style={fontTitleBold("50px", "white")}>{t("projects.title_private")}</h1>
             <PrivateProjects />
         </div>
     );
