@@ -160,7 +160,7 @@ const Portfolio = () => {
                     }
                 });
             },
-            { threshold: 0, rootMargin: '-30% 0px -70% 0px' }
+            { threshold: 0, rootMargin: '-10% 0px -90% 0px' }
         );
 
         sections.forEach((section) => {
