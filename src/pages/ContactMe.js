@@ -10,7 +10,7 @@ import StarryBackground from "../components/StarryBackground";
 import astroContactMe from '../assets/astro_contact_me.png'
 import enveloppeContactMe from "../assets/enveloppe_contact_me.png";
 import { slideIn } from "../utils/motion";
-import { showAlert } from '../utils/alert';
+import showAlertCustom  from '../components/AlertCustom';
 
 const ContactMe = () => {
     const { t } = useTranslation();
@@ -41,26 +41,26 @@ const ContactMe = () => {
 
         if (form.name.trim() === "" || form.post.trim() === "" || form.email.trim() === "" || form.message.trim() === "") {
             setLoading(false);
-            showAlert('Erreur', 'Les champs ne sont pas tous remplis.', 'error');
+            showAlertCustom('Erreur', 'Les champs ne sont pas tous remplis.', 'error');
         } else {
             const concatMessage = `Bonjour/Bonsoir, je suis ${form.name}, actuellement ${form.post}.\n\n${form.message}\n\nTu peux me contacter via ${form.email}`;
             emailjs
                 .send(
-                    "service_zlt218a",
-                    "template_83neol3",
+                    process.env.REACT_APP_SERVICE_ID,
+                    process.env.REACT_APP_TEMPLATE_ID,
                     {
                         from_name: form.name,
-                        to_name: "0ruj",
+                        to_name: process.env.REACT_APP_TO_NAME,
                         from_email: form.email,
-                        to_email: "0rujdev@gmail.com",
+                        to_email: process.env.REACT_APP_TO_EMAIL,
                         message: concatMessage,
                     },
-                    "DtpSTiOwEnATpCKGO"
+                    process.env.REACT_APP_PUBLIC_KEY_EMAILJS
                 )
                 .then(
                     () => {
                         setLoading(false);
-                        showAlert('Mail envoyé', 'Thank you. I will get back to you as soon as possible.', 'success');
+                        showAlertCustom('Mail envoyé', 'Thank you. I will get back to you as soon as possible.', 'success');
                         setForm({
                             name: "",
                             post: "",
@@ -71,7 +71,7 @@ const ContactMe = () => {
                     (error) => {
                         console.log(error);
                         setLoading(false);
-                        showAlert('Erreur', 'Something went wrong', 'error');
+                        showAlertCustom('Erreur', 'Something went wrong', 'error');
                     }
                 );
         }

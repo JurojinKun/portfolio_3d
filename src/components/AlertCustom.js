@@ -1,9 +1,9 @@
-import "../css/alert.css";
+import "../css/AlertCustom.css";
 
 import Swal from 'sweetalert2';
 
 // Fonction personnalisée pour afficher une alerte
-export function showAlert(title, text, icon) {
+const showAlertCustom = (title, text, icon) => {
     Swal.fire({
         // width: "400px",
         title: title,
@@ -19,3 +19,5 @@ export function showAlert(title, text, icon) {
         }
     });
 }
+
+export default showAlertCustom;
