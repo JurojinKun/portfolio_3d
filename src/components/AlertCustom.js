@@ -13,11 +13,15 @@ const showAlertCustom = (title, text, icon) => {
         background: "#1A1A1A",
         color: "white",
         confirmButtonColor: '#47CDD6',
-        backdrop: 'rgba(71, 205, 214, 0.1)',
         customClass: {
             title: 'alert-title',
         }
     });
+    return (
+        <div style={{
+            backdropFilter: 'blur(5px)',
+        }}/>
+    );
 }
 
 export default showAlertCustom;
