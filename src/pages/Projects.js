@@ -1,12 +1,13 @@
 import "../css/Projects.css";
 
-import React from "react";
+import React, { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow } from "swiper/modules";
 import 'swiper/css';
 import "swiper/css/effect-coverflow";
+import "swiper/css/navigation";
+
 import { fontTitleBold } from "../utils/fonts";
 
 const ProProjects = () => {
@@ -30,20 +31,33 @@ const ProProjects = () => {
         },
     ];
 
+    const sliderRef = useRef(null);
+
+    const handlePrev = useCallback(() => {
+        if (!sliderRef.current) return;
+        sliderRef.current.swiper.slidePrev();
+    }, []);
+
+    const handleNext = useCallback(() => {
+        if (!sliderRef.current) return;
+        sliderRef.current.swiper.slideNext();
+    }, []);
+
     return (
         <div style={{
             display: "flex",
             backgroundClip: "padding-box",
             border: "1px solid rgba(2, 2, 13, 1)",
-            minHeight: "650px",
+            minHeight: "550px",
             width: "100vw"
         }}>
             <Swiper
+                ref={sliderRef}
                 style={{
                     zIndex: 0
                 }}
                 effect={"coverflow"}
-                grabCursor={true}
+                grabCursor={false}
                 centeredSlides={true}
                 slidesPerView={"auto"}
                 coverflowEffect={{
@@ -54,6 +68,7 @@ const ProProjects = () => {
                     slideShadows: true,
                 }}
                 modules={[EffectCoverflow]}
+                initialSlide={1}
             >
                 {slides.map((slide, index) => (
                     <SwiperSlide
@@ -85,10 +100,11 @@ const ProProjects = () => {
                         </div>
                     </SwiperSlide>
                 ))}
+                <div className="swiper-button-prev" onClick={handlePrev}></div>
+                <div className="swiper-button-next" onClick={handleNext}></div>
             </Swiper>
         </div>
     );
-
 }
 
 const PrivateProjects = () => {

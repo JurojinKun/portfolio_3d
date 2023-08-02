@@ -15,3 +15,15 @@
     margin-top: 50px;
     -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, #0006);
 }
+
+.swiper-button-next:after, .swiper-button-prev:after {
+    color: #47CDD6;
+}
+
+.swiper-button-next {
+    right: 10px;
+}
+
+.swiper-button-prev {
+    left: 10px;
+}
