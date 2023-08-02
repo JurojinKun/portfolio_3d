@@ -75,7 +75,8 @@ const ProProjects = () => {
                         key={index}
                         style={{
                             backgroundImage: `url(${slide.bgImg})`,
-                            // alignSelf: "center",
+                            backgroundColor: "rgba(71, 205, 214, 0.3)",
+                            borderRadius: "15px"
                         }}
                         onClick={() => {
                             console.log("test");
@@ -158,6 +159,7 @@ const PrivateProjects = () => {
                         style={{
                             backgroundImage: `url(${slide.bgImg})`,
                             // alignSelf: "center",
+                            borderRadius: "15px"
                         }}
                         onClick={() => {
                             console.log("test");
