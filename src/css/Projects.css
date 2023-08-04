@@ -6,24 +6,50 @@
     padding-top: 30px;
 }
 
-
-.swiper .swiper-slide {
-    background-position: center;
-    background-size: cover;
-    width: 35vw;
-    height: 350px;
-    margin-top: 50px;
-    -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, #0006);
+.arrow-icon {
+    height: 35px;
+    width: 35px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    z-index: 1;
 }
 
-.swiper-button-next:after, .swiper-button-prev:after {
-    color: #47CDD6;
+.arrow-icon:hover {
+    background-color: rgba(71, 205, 214, 0.3)
 }
 
-.swiper-button-next {
-    right: 10px;
+.content-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(71, 205, 214, 0.5);
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    flex-direction: column;
 }
 
-.swiper-button-prev {
-    left: 10px;
+.content-slide h2 {
+    margin-left: 10px;
+    margin-top: 10px
+}
+
+.content-slide p {
+    margin: 10px;
+}
+
+.content-slide:hover {
+    opacity: 1;
 }

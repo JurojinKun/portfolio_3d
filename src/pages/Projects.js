@@ -1,47 +1,147 @@
 import "../css/Projects.css";
 
-import React, { useCallback, useRef } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow } from "swiper/modules";
-import 'swiper/css';
-import "swiper/css/effect-coverflow";
-import "swiper/css/navigation";
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import Carousel from "react-spring-3d-carousel";
+import { config } from "react-spring";
 
-import { fontTitleBold } from "../utils/fonts";
+import { fontBodyBold, fontTitleBold } from "../utils/fonts";
 
 const ProProjects = () => {
+
+    const [state, setState] = useState({
+        goToSlide: 0,
+        offsetRadius: 2,
+        showNavigation: false,
+        enableSwipe: true,
+        config: config.gentle
+    });
+
+    const [currentIndex, setCurrentIndex] = useState(0);
+
     const slides = [
         {
-            bgImg: "https://i.postimg.cc/Z0ktfskN/peter-broomfield-m3m-ln-R90u-M-unsplash.jpg",
-            title: "First project"
-
+            key: 1,
+            content:
+                <div style={{
+                    position: 'relative',
+                    height: "500px",
+                    width: "500px",
+                    borderRadius: "10px",
+                    overflow: 'hidden',
+                }}>
+                    <img src="https://i.postimg.cc/Z0ktfskN/peter-broomfield-m3m-ln-R90u-M-unsplash.jpg" alt="1" style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                        borderRadius: "10px"
+                    }} />
+                    <div className="content-slide">
+                        <h2 style={fontTitleBold("30px", "white")}>
+                            First project
+                        </h2>
+                        <p style={fontBodyBold("15px", "white")}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+                </div>
         },
         {
-            bgImg: "https://i.postimg.cc/MTTSXjbn/brandon-atchison-e-BJWhlq-WR54-unsplash.jpg",
-            title: "Second project"
+            key: 2,
+            content: <div style={{
+                position: 'relative',
+                height: "500px",
+                width: "500px",
+                borderRadius: "10px",
+                overflow: 'hidden'
+            }}>
+                <img src="https://i.postimg.cc/MTTSXjbn/brandon-atchison-e-BJWhlq-WR54-unsplash.jpg" alt="2" style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    borderRadius: "10px"
+                }} />
+                <div className="content-slide">
+                    <h2 style={fontTitleBold("30px", "white")}>
+                        Second project
+                    </h2>
+                    <p style={fontBodyBold("15px", "white")}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                </div>
+            </div>
         },
         {
-            bgImg: "https://i.postimg.cc/8cfgmQYD/campbell-3-ZUs-NJhi-Ik-unsplash.jpg",
-            title: "Third project"
+            key: 3,
+            content: <div style={{
+                position: 'relative',
+                height: "500px",
+                width: "500px",
+                borderRadius: "10px",
+                overflow: 'hidden'
+            }}>
+                <img src="https://i.postimg.cc/8cfgmQYD/campbell-3-ZUs-NJhi-Ik-unsplash.jpg" alt="3" style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    height: "500px",
+                    width: "500px",
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    borderRadius: "10px"
+                }} />
+                <div className="content-slide">
+                    <h2 style={fontTitleBold("30px", "white")}>
+                        Third project
+                    </h2>
+                    <p style={fontBodyBold("15px", "white")}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                </div>
+            </div>
         },
         {
-            bgImg: "https://i.postimg.cc/8Ck5BcmS/evgeny-tchebotarev-aiwu-Lj-LPFn-U-unsplash.jpg",
-            title: "Fourth project"
+            key: 4,
+            content: <div style={{
+                position: 'relative',
+                height: "500px",
+                width: "500px",
+                borderRadius: "10px",
+                overflow: 'hidden'
+            }}>
+                <img src="https://i.postimg.cc/8Ck5BcmS/evgeny-tchebotarev-aiwu-Lj-LPFn-U-unsplash.jpg" alt="4" style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    borderRadius: "10px"
+                }} />
+                <div className="content-slide">
+                    <h2 style={fontTitleBold("30px", "white")}>
+                        Fourth project
+                    </h2>
+                    <p style={fontBodyBold("15px", "white")}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                </div>
+            </div>
         },
-    ];
-
-    const sliderRef = useRef(null);
-
-    const handlePrev = useCallback(() => {
-        if (!sliderRef.current) return;
-        sliderRef.current.swiper.slidePrev();
-    }, []);
-
-    const handleNext = useCallback(() => {
-        if (!sliderRef.current) return;
-        sliderRef.current.swiper.slideNext();
-    }, []);
+    ].map((slide, index) => {
+        return {
+            ...slide, onClick: () => {
+                if (index !== currentIndex) {
+                    setState({ goToSlide: index });
+                    setCurrentIndex(index);
+                } else {
+                    alert("Work still in progress...");
+                }
+            }
+        };
+    });
 
     return (
         <div style={{
@@ -49,144 +149,236 @@ const ProProjects = () => {
             backgroundClip: "padding-box",
             border: "1px solid rgba(2, 2, 13, 1)",
             minHeight: "550px",
-            width: "100vw"
+            width: "100vw",
+            flexDirection: "row",
+            alignItems: "center", justifyContent: "center"
         }}>
-            <Swiper
-                ref={sliderRef}
-                style={{
-                    zIndex: 0
-                }}
-                effect={"coverflow"}
-                grabCursor={false}
-                centeredSlides={true}
-                slidesPerView={"auto"}
-                coverflowEffect={{
-                    rotate: 50,
-                    stretch: 0,
-                    depth: 100,
-                    modifier: 1,
-                    slideShadows: true,
-                }}
-                modules={[EffectCoverflow]}
-                initialSlide={1}
+            <div style={{
+                width: "20%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}>
+                <div className="arrow-icon" onClick={() => {
+                    setState({ goToSlide: currentIndex - 1 });
+                    setCurrentIndex(currentIndex - 1);
+                }}>
+                    <IoIosArrowBack color="white" size={25} />
+                </div>
+            </div>
+            <div
+                style={{ width: "60%", height: "550px", zIndex: 0 }}
             >
-                {slides.map((slide, index) => (
-                    <SwiperSlide
-                        key={index}
-                        style={{
-                            backgroundImage: `url(${slide.bgImg})`,
-                            backgroundColor: "rgba(71, 205, 214, 0.3)",
-                            borderRadius: "15px"
-                        }}
-                        onClick={() => {
-                            console.log("test");
-                        }}
-                    >
-                        <div style={{
-                            display: "flex",
-                            height: "100%",
-                            width: "100%",
-                            backgroundColor: "rgba(0, 0, 0, 0.2)",
-                            alignItems: "start",
-                            color: "white",
-                            fontSize: "25px",
-                            fontWeight: "bold"
-                        }}>
-                            <h2 style={{
-                                marginLeft: "10px",
-                                marginTop: "10px"
-                            }}>
-                                {slide.title}
-                            </h2>
-                        </div>
-                    </SwiperSlide>
-                ))}
-                <div className="swiper-button-prev" onClick={handlePrev}></div>
-                <div className="swiper-button-next" onClick={handleNext}></div>
-            </Swiper>
+                <Carousel
+                    slides={slides}
+                    goToSlide={state.goToSlide}
+                    offsetRadius={state.offsetRadius}
+                    showNavigation={state.showNavigation}
+                    enableSwipe={state.enableSwipe}
+                    animationConfig={state.config}
+                />
+            </div>
+            <div style={{
+                width: "20%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+            }}>
+                <div className="arrow-icon" onClick={() => {
+                    setState({ goToSlide: currentIndex + 1 });
+                    setCurrentIndex(currentIndex + 1);
+                }}>
+                    <IoIosArrowForward color="white" size={25} />
+                </div>
+            </div>
         </div>
     );
+
 }
 
 const PrivateProjects = () => {
-    const slides = [
+
+    const [state, setState] = useState({
+        goToSlide: 0,
+        offsetRadius: 2,
+        showNavigation: false,
+        enableSwipe: true,
+        config: config.gentle
+    });
+
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    let slides = [
         {
-            bgImg: "https://i.postimg.cc/66F8J9tr/hakon-sataoen-qyfco1nf-Mtg-unsplash.jpg",
-            title: "First project"
+            key: 1,
+            content:
+                <div style={{
+                    position: 'relative',
+                    height: "500px",
+                    width: "500px",
+                    borderRadius: "10px",
+                    overflow: 'hidden',
+                }}>
+                    <img src="https://i.postimg.cc/66F8J9tr/hakon-sataoen-qyfco1nf-Mtg-unsplash.jpg" alt="1" style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                        borderRadius: "10px"
+                    }} />
+                    <div className="content-slide">
+                        <h2 style={fontTitleBold("30px", "white")}>
+                            First project
+                        </h2>
+                        <p style={fontBodyBold("15px", "white")}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+                </div>
         },
         {
-            bgImg: "https://i.postimg.cc/ydbzRYvv/joey-banks-YApi-Wyp0lqo-unsplash.jpg",
-            title: "Second project"
+            key: 2,
+            content: <div style={{
+                position: 'relative',
+                height: "500px",
+                width: "500px",
+                borderRadius: "10px",
+                overflow: 'hidden'
+            }}>
+                <img src="https://i.postimg.cc/ydbzRYvv/joey-banks-YApi-Wyp0lqo-unsplash.jpg" alt="2" style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    borderRadius: "10px"
+                }} />
+                <div className="content-slide">
+                    <h2 style={fontTitleBold("30px", "white")}>
+                        Second project
+                    </h2>
+                    <p style={fontBodyBold("15px", "white")}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                </div>
+            </div>
         },
         {
-            bgImg: "https://i.postimg.cc/NGKKzyqG/joshua-koblin-eq-W1-MPin-EV4-unsplash.jpg",
-            title: "Third project"
+            key: 3,
+            content: <div style={{
+                position: 'relative',
+                height: "500px",
+                width: "500px",
+                borderRadius: "10px",
+                overflow: 'hidden'
+            }}>
+                <img src="https://i.postimg.cc/NGKKzyqG/joshua-koblin-eq-W1-MPin-EV4-unsplash.jpg" alt="3" style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    height: "500px",
+                    width: "500px",
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    borderRadius: "10px"
+                }} />
+                <div className="content-slide">
+                    <h2 style={fontTitleBold("30px", "white")}>
+                        Third project
+                    </h2>
+                    <p style={fontBodyBold("15px", "white")}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                </div>
+            </div>
         },
         {
-            bgImg: "https://i.postimg.cc/JhK81QJw/marcus-p-o-UBjd22g-F6w-unsplash.jpg",
-            title: "Fourth project"
+            key: 4,
+            content: <div style={{
+                position: 'relative',
+                height: "500px",
+                width: "500px",
+                borderRadius: "10px",
+                overflow: 'hidden'
+            }}>
+                <img src="https://i.postimg.cc/JhK81QJw/marcus-p-o-UBjd22g-F6w-unsplash.jpg" alt="4" style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    borderRadius: "10px"
+                }} />
+                <div className="content-slide">
+                    <h2 style={fontTitleBold("30px", "white")}>
+                        Fourth project
+                    </h2>
+                    <p style={fontBodyBold("15px", "white")}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                </div>
+            </div>
         },
-    ];
+    ].map((slide, index) => {
+        return {
+            ...slide, onClick: () => {
+                if (index !== currentIndex) {
+                    setState({ goToSlide: index });
+                    setCurrentIndex(index);
+                } else {
+                    alert("Work still in progress...");
+                }
+            }
+        };
+    });
 
     return (
         <div style={{
             display: "flex",
             backgroundClip: "padding-box",
             border: "1px solid rgba(2, 2, 13, 1)",
-            minHeight: "650px",
-            width: "100vw"
+            minHeight: "550px",
+            width: "100vw",
+            flexDirection: "row",
+            alignItems: "center", justifyContent: "center"
         }}>
-            <Swiper
-                style={{
-                    zIndex: 0
-                }}
-                effect={"coverflow"}
-                grabCursor={true}
-                centeredSlides={true}
-                slidesPerView={"auto"}
-                coverflowEffect={{
-                    rotate: 50,
-                    stretch: 0,
-                    depth: 100,
-                    modifier: 1,
-                    slideShadows: true,
-                }}
-                modules={[EffectCoverflow]}
+            <div style={{
+                width: "20%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}>
+                <div className="arrow-icon" onClick={() => {
+                    setState({ goToSlide: currentIndex - 1 });
+                    setCurrentIndex(currentIndex - 1);
+                }}>
+                    <IoIosArrowBack color="white" size={25} />
+                </div>
+            </div>
+            <div
+                style={{ width: "60%", height: "550px", zIndex: 0 }}
             >
-                {slides.map((slide, index) => (
-                    <SwiperSlide
-                        key={index}
-                        style={{
-                            backgroundImage: `url(${slide.bgImg})`,
-                            // alignSelf: "center",
-                            borderRadius: "15px"
-                        }}
-                        onClick={() => {
-                            console.log("test");
-                        }}
-                    >
-                        <div style={{
-                            display: "flex",
-                            height: "100%",
-                            width: "100%",
-                            backgroundColor: "rgba(0, 0, 0, 0.2)",
-                            alignItems: "start",
-                            color: "white",
-                            fontSize: "25px",
-                            fontWeight: "bold"
-                        }}>
-                            <h2 style={{
-                                marginLeft: "10px",
-                                marginTop: "10px",
-                                fontFamily: "Montserrat, sans-serif",
-                                fontWeight: "700"
-                            }}>
-                                {slide.title}
-                            </h2>
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+                <Carousel
+                    slides={slides}
+                    goToSlide={state.goToSlide}
+                    offsetRadius={state.offsetRadius}
+                    showNavigation={state.showNavigation}
+                    enableSwipe={state.enableSwipe}
+                    animationConfig={state.config}
+                />
+            </div>
+            <div style={{
+                width: "20%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+            }}>
+                <div className="arrow-icon" onClick={() => {
+                    setState({ goToSlide: currentIndex + 1 });
+                    setCurrentIndex(currentIndex + 1);
+                }}>
+                    <IoIosArrowForward color="white" size={25} />
+                </div>
+            </div>
         </div>
     );
 }
