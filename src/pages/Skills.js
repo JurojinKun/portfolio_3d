@@ -57,14 +57,16 @@ const Skills = () => {
                     <div className="container-left">
                         <h1 className="skills-title" style={fontTitleBold("50px", "white")}>{t("skills.title")}</h1>
                         <div className="container-left-midle">
-                            <div className="circle" />
+                        <div className="circle"/>
                             <TagCloud
-                                style={fontTitleBold("30px", "white")}
+                                style={{
+                                    ...fontTitleBold("30px", "white"),
+                                    pointerEvents: "none"
+                                }}
+                                
                                 options={(w, TagCloudOptions) => ({
-                                    radius: Math.min(400, 400, 400),
+                                    radius: Math.min(800, w.innerWidth, 800) / 2,
                                 })}
-                                // onClick={(tag, ev) => alert(tag)}
-                                // onClickOptions={{ passive: true }}
                             >
                                 {skills}
                             </TagCloud>

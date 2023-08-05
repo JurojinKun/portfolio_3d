@@ -8,7 +8,7 @@ import { config } from "react-spring";
 
 import { fontBodyBold, fontTitleBold } from "../utils/fonts";
 
-const ProProjects = () => {
+const ProProjects = ({ menuOpened }) => {
 
     const [state, setState] = useState({
         goToSlide: 0,
@@ -133,11 +133,13 @@ const ProProjects = () => {
     ].map((slide, index) => {
         return {
             ...slide, onClick: () => {
-                if (index !== currentIndex) {
-                    setState({ goToSlide: index });
-                    setCurrentIndex(index);
-                } else {
-                    alert("Work still in progress...");
+                if (!menuOpened) {
+                    if (index !== currentIndex) {
+                        setState({ goToSlide: index });
+                        setCurrentIndex(index);
+                    } else {
+                        alert("Work still in progress...");
+                    }
                 }
             }
         };
@@ -160,8 +162,10 @@ const ProProjects = () => {
                 justifyContent: "center",
             }}>
                 <div className="arrow-icon" onClick={() => {
-                    setState({ goToSlide: currentIndex - 1 });
-                    setCurrentIndex(currentIndex - 1);
+                    if (!menuOpened) {
+                        setState({ goToSlide: currentIndex - 1 });
+                        setCurrentIndex(currentIndex - 1);
+                    }
                 }}>
                     <IoIosArrowBack color="white" size={25} />
                 </div>
@@ -185,8 +189,10 @@ const ProProjects = () => {
                 justifyContent: "center"
             }}>
                 <div className="arrow-icon" onClick={() => {
-                    setState({ goToSlide: currentIndex + 1 });
-                    setCurrentIndex(currentIndex + 1);
+                    if (!menuOpened) {
+                        setState({ goToSlide: currentIndex + 1 });
+                        setCurrentIndex(currentIndex + 1);
+                    }
                 }}>
                     <IoIosArrowForward color="white" size={25} />
                 </div>
@@ -196,7 +202,7 @@ const ProProjects = () => {
 
 }
 
-const PrivateProjects = () => {
+const PrivateProjects = ({ menuOpened }) => {
 
     const [state, setState] = useState({
         goToSlide: 0,
@@ -321,11 +327,13 @@ const PrivateProjects = () => {
     ].map((slide, index) => {
         return {
             ...slide, onClick: () => {
-                if (index !== currentIndex) {
-                    setState({ goToSlide: index });
-                    setCurrentIndex(index);
-                } else {
-                    alert("Work still in progress...");
+                if (!menuOpened) {
+                    if (index !== currentIndex) {
+                        setState({ goToSlide: index });
+                        setCurrentIndex(index);
+                    } else {
+                        alert("Work still in progress...");
+                    }
                 }
             }
         };
@@ -348,8 +356,10 @@ const PrivateProjects = () => {
                 justifyContent: "center",
             }}>
                 <div className="arrow-icon" onClick={() => {
-                    setState({ goToSlide: currentIndex - 1 });
-                    setCurrentIndex(currentIndex - 1);
+                    if (!menuOpened) {
+                        setState({ goToSlide: currentIndex - 1 });
+                        setCurrentIndex(currentIndex - 1);
+                    }
                 }}>
                     <IoIosArrowBack color="white" size={25} />
                 </div>
@@ -373,8 +383,10 @@ const PrivateProjects = () => {
                 justifyContent: "center"
             }}>
                 <div className="arrow-icon" onClick={() => {
-                    setState({ goToSlide: currentIndex + 1 });
-                    setCurrentIndex(currentIndex + 1);
+                    if (!menuOpened) {
+                        setState({ goToSlide: currentIndex + 1 });
+                        setCurrentIndex(currentIndex + 1);
+                    }
                 }}>
                     <IoIosArrowForward color="white" size={25} />
                 </div>
@@ -383,7 +395,7 @@ const PrivateProjects = () => {
     );
 }
 
-const Projects = () => {
+const Projects = ({ menuOpened }) => {
     const { t } = useTranslation();
 
     return (
@@ -394,9 +406,9 @@ const Projects = () => {
             flexDirection: "column"
         }}>
             <h1 className="projects-title" style={fontTitleBold("50px", "white")}>{t("projects.title_pro")}</h1>
-            <ProProjects />
+            <ProProjects menuOpened={menuOpened} />
             <h1 className="projects-title" style={fontTitleBold("50px", "white")}>{t("projects.title_private")}</h1>
-            <PrivateProjects />
+            <PrivateProjects menuOpened={menuOpened} />
         </div>
     );
 }

@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 70px;
+  margin-top: 140px;
 }
 
 .circle {
@@ -76,9 +76,30 @@
   width: 100%;
   background-color: rgba(26, 26, 26, 1);
   border-radius: 10px;
-  margin-top: 70px;
+  margin-top: 140px;
   color: white;
   flex-direction: column;
   overflow: auto;
   padding: 20px;
+}
+
+@media (max-width: 1000px),
+(max-height: 600px) {
+  .skills-content {
+    flex-direction: column;
+  }
+  .container-left {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .container-middle {
+    width: 100%;
+  }
+  .container-in-middle {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

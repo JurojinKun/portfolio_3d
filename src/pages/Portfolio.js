@@ -105,7 +105,7 @@ const Portfolio = () => {
                 break;
             case "projects":
                 currentSection = <Element name="projects" id="projects" key={"projects"}>
-                    <Projects />
+                    <Projects menuOpened={isOpen} />
                 </Element>
                 break;
             case "contactme":
@@ -273,7 +273,7 @@ const Portfolio = () => {
 
                 <div className="navbar-mobile">
                     <div className={`sidebar ${isOpen ? "open" : ""}`} style={{
-                         height: `${window.innerHeight - 30}px`
+                        height: `${window.innerHeight - 30}px`
                     }}>
                         <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
                             <span style={{ color: "white", fontSize: "30px", fontWeight: "bold", paddingLeft: "20px", fontFamily: "Poppins, sans-serif" }}>{t("portfolio.menu")}</span>
