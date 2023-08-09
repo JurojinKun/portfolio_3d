@@ -10,16 +10,21 @@ const Skills = () => {
     const { t } = useTranslation();
 
     const skills = [
-        "VSCode",
-        "TypeScript",
-        "React",
-        "Preact",
-        "Parcel",
-        "Jest",
-        "Next",
-        "ESLint",
-        "Framer Motion",
-        "Three.js"
+        "Flutter",
+        "React native",
+        "React redux",
+        "React js",
+        "Three js",
+        "Python",
+        "C",
+        "Node js",
+        "Sequelize",
+        "MySQL",
+        "Firebase",
+        "Postman",
+        "GitHub",
+        "Bitbucket",
+        "SourceTree"
     ];
 
     const contentSkills = [
