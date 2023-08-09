@@ -20,7 +20,7 @@
 }
 
 .arrow-icon:hover {
-    background-color: rgba(71, 205, 214, 0.3)
+    background-color: rgba(71, 205, 214, 0.6)
 }
 
 .content-slide {
@@ -30,7 +30,7 @@
     display: flex;
     height: 100%;
     width: 100%;
-    background-color: rgba(71, 205, 214, 0.5);
+    background-color: rgba(29, 29, 29, 0.5);
     color: white;
     font-size: 25px;
     font-weight: bold;
