@@ -268,7 +268,9 @@ const Portfolio = () => {
                             <LanguageSwitcher openingDirection={"bottom"} />
                         </div>
                     </div>
-                    <GiHamburgerMenu className="icon-sidebar" onClick={() => setIsOpen(!isOpen)} size={27} style={{ color: "white", cursor: "pointer" }} />
+                    <div className="icon-sidebar" onClick={() => setIsOpen(!isOpen)}>
+                    <GiHamburgerMenu size={27} style={{ color: "white" }} />
+                    </div>
                 </nav>
 
                 <div className="navbar-mobile">
@@ -277,7 +279,9 @@ const Portfolio = () => {
                     }}>
                         <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
                             <span style={{ color: "white", fontSize: "30px", fontWeight: "bold", paddingLeft: "20px", fontFamily: "Poppins, sans-serif" }}>{t("portfolio.menu")}</span>
-                            <FaTimes size={27} style={{ color: "white", paddingRight: "20px", cursor: "pointer" }} onClick={() => setIsOpen(!isOpen)} />
+                            <div className="icon-menu-close" onClick={() => setIsOpen(!isOpen)}>
+                            <FaTimes size={27} style={{ color: "white" }} />
+                            </div>
                         </div>
                         <div style={{
                             overflowY: "auto",
