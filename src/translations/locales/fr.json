@@ -37,16 +37,77 @@
         "fifth_para": "Pourquoi ne pas apprendre le backend pour devenir bientôt un développeur full stack ?"
     },
     "skills": {
-        "title": "Compétences"
+        "title": "Compétences",
+        "skill_title_1": "Mes débuts dans le développement",
+        "skill_paragraph_1": "J'ai fait mes débuts dans le monde du développement à l'âge de 18 ans en apprenant le Python. \n\nCette expérience m'ayant plus, j'ai voulu continuer en intégrant un cycle préparatoire intégré et enfin une école d'ingénieur : ISEN Toulon. \nDurant ces années, j'ai pu apprendre à comprendre, à analyser et réfléchir à un code simple, compréhensible et propre en apprenant les bases du développement sur des technologies comme le C. \n\nJ'ai aussi pu en apprendre davantage en faisant notamment un stage au sein du groupe Atlantic avec l'équipe réseau et cybersécurité.",
+        "skill_title_2": "Mon apprentissage autodidacte",
+        "skill_paragraph_2": "Après une diplômation dans ma formation d'ingénieur en tant qu'ingénieur dans le traitement de l'image et l'intelligence artificielle et ne voyant pas ma future carrière dans ce domaine, j'ai décidé de m'orienter vers l'entrepreneuriat et le développement mobile et web de manière autodidacte avec le programme Pépite Toulon. \n\nJ'ai pu apprendre avec leur aide et par moi-même un peu plus sur le monde de l'entrepreneuriat et la programmation mobile avec notamment le framework Flutter durant une année.",
+        "skill_title_3": "Années de développeur front",
+        "skill_paragraph_3": "Après cette année concentrée sur ma montée en compétences autodidacte, j'ai décidé de découvrir et de m'épanouir dans le monde du travail avec un premier CDI au sein d'une start-up. \n\nCes années-là m'ont permis d'en apprendre beaucoup sur le développement front en mobile en Flutter, mais aussi dans d'autres technologies comme par exemple le React native en participant à des projets pour des clients jusqu'à devenir Lead dev front. \n\nJ'ai pu aussi de mon côté durant mon temps libre, améliorer mes compétences en faisant des projets personnels que ce soit mobile ou web.",
+        "skill_title_4": "Et pourquoi pas développeur back ?",
+        "skill_paragraph_4": "J'ai beaucoup parlé de ma montée en compétences dans le développement front, mais qu'en est-il du développement back ? \n\nJ'ai pu participé à des ajouts et modifications dans certains projets en faisant du Node js mais j'ai encore beaucoup à apprendre afin de devenir un développeur full stack.",
+        "skill_title_5": "L'avenir...",
+        "skill_paragraph_5": "Quelle aventure déjà ! Et la suite alors ? \n\nComme je l'ai dit, j'aimerai dans un futur proche, devenir un développeur full stack et par la suite de ma carrière, toujours prendre du plaisir dans ce que je fais et apprendre toujours de nouvelles choses et de nouvelles technologies."
     },
     "experiences": {
-        "title": "Expériences"
+        "title": "Expériences",
+        "title_experience_1": "Lead dev front",
+        "company_experience_1": "Digital Paca",
+        "date_experience_1": "Octobre 2021 - Aujourd'hui",
+        "point_1_experience_1": "Développement from scratch d'une solution mobile Android/iOS et web de dons de vaccins entre médecins/pharmaciens,... Référence: Sauve mon vaccin",
+        "point_2_experience_1": "Refonte/Amélioration avec design imposé par le client d'une solution mobile Android/iOS de réservation de croisières. Référence: Corsica Ferries",
+        "point_3_experience_1": "Développement from scratch d'une application mobile Android/iOS afin de visualiser les informations des tournois sportifs organisés par le client. Référence: Madewis",
+        "point_4_experience_1": "Développement from scratch d'une solution mobile Android/iOS d'un réseau social pour rencontrer des gens ayant les mêmes centres d'interêts. Référence: Hobbies",
+        "point_5_experience_1": "Développement from scratch pour un organisme français d'une solution mobile Android/iOS pour faciliter la visualisation des présents/absents lors des formations. Référence: La croix rouge française",
+        "title_experience_2": "Étudiant entrepreneur",
+        "company_experience_2": "Pépite Toulon",
+        "date_experience_2": "2020 - 2021",
+        "point_1_experience_2": "Apprentissage de manière autodidacte du développement mobile",
+        "point_2_experience_2": "Création d'une première version d'une application from scratch",
+        "title_experience_3": "Stage ingénieur",
+        "company_experience_3": "Groupe Atlantic",
+        "date_experience_3": "Juillet 2019 - Octobre 2019",
+        "point_1_experience_3": "Élaboration de la stratégie cybersécurité de l'entreprise"
     },
     "projects": {
         "title_pro": "Projets professionnels",
-        "title_private": "Projets personnels"
+        "title_private": "Projets personnels",
+        "title_project_pro_1": "Sauve mon vaccin",
+        "content_project_pro_1": "Développement from scratch d'une solution mobile Android/iOS et web en Flutter de dons de vaccins entre médecins/pharmaciens,...",
+        "title_project_pro_2": "Corsica Ferries",
+        "content_project_pro_2": "Refonte/Amélioration avec design imposé par le client d'une solution mobile Android/iOS en React native de réservation de croisières.",
+        "title_project_pro_3": "Madewis",
+        "content_project_pro_3": "Développement from scratch d'une application mobile Android/iOS en Flutter afin de visualiser les informations des tournois sportifs organisés par le client.",
+        "title_project_pro_4": "Hobbies",
+        "content_project_pro_4": "Développement from scratch d'une solution mobile Android/iOS en Flutter d'un réseau social pour rencontrer des gens ayant les mêmes centres d'interêts.",
+        "title_project_pro_5": "La croix rouge française",
+        "content_project_pro_5": "Développement from scratch pour un organisme français d'une solution mobile Android/iOS en Flutter pour faciliter la visualisation des présents/absents lors des formations.",
+        "title_project_perso_1": "Gemu",
+        "content_project_perso_1": "Version 1 d'une application de réseau social pour les personnes intéressées par l'e-sport et les jeux vidéo développée en Flutter reliée à un serveur Firebase. Pourquoi pas une version 2, affaire à suivre....",
+        "title_project_perso_2": "My youkounkoun",
+        "content_project_perso_2": "Une application dotée d'une grande variété de fonctions de base et de fonctions complexes très utiles lors de la création d'une nouvelle application. Pourquoi repartir de zéro à chaque fois ? L'application front-end est développée avec Flutter et le back-end sera développé en Node.js en lien avec la base de données MySQL.",
+        "title_project_perso_3": "Portfolio 3D",
+        "content_project_perso_3": "Site et portfolio personnel afin de montrer mon travail à tous. Ce site est développé en React js avec du Three js."
     },
     "contact_me": {
-        "title": "Me contacter"
+        "title": "Me contacter",
+        "title_name": "Your name",
+        "label_name": "What's your name ?",
+        "title_post": "Your post",
+        "label_post": "What's your post ?",
+        "title_email": "Your email",
+        "label_email": "What's your email ?",
+        "title_message": "Your message",
+        "label_message": "What do you want to say ?",
+        "send": "Send",
+        "loading_send": "Sending...",
+        "title_validate": "Mail envoyé",
+        "content_validate": "Thank you. I will get back to you as soon as possible.",
+        "title_error": "Erreur",
+        "content_error_1": "Les champs ne sont pas tous remplis.",
+        "content_error_2": "Something went wrong."
+    },
+    "wip": {
+        "label": "Work still in progress..."
     }
 }

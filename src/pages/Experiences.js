@@ -106,38 +106,38 @@ const Experiences = () => {
 
     const experiences = [
         {
-            title: "Lead dev front",
-            company_name: "Digital Paca",
+            title: t("experiences.title_experience_1"),
+            company_name: t("experiences.company_experience_1"),
             icon: dp,
             iconBg: "#E6DEDD",
-            date: "Octobre 2021 - Aujourd'hui",
+            date: t("experiences.date_experience_1"),
             points: [
-                "Développement from scratch d'une solution mobile Android/iOS et web de dons de vaccins entre médecins/pharmaciens,... Référence: Sauve mon vaccin",
-                "Refonte/Amélioration avec design imposé par le client d'une solution mobile Android/iOS de réservation de croisières. Référence: Corsica Ferries",
-                "Développement from scratch d'une application mobile Android/iOS afin de visualiser les informations des tournois sportifs organisés par le client. Référence: Madewis",
-                "Développement from scratch d'une solution mobile Android/iOS d'un réseau social pour rencontrer des gens ayant les mêmes centres d'interêts. Référence: Hobbies",
-                "Développement from scratch pour un organisme français d'une solution mobile Android/iOS pour faciliter la visualisation des présents/absents lors des formations. Référence: La croix rouge française"
+                t("experiences.point_1_experience_1"),
+                t("experiences.point_2_experience_1"),
+                t("experiences.point_3_experience_1"),
+                t("experiences.point_4_experience_1"),
+                t("experiences.point_5_experience_1")
             ],
         },
         {
-            title: "Étudiant entrepreneur",
-            company_name: "Pépite Toulon",
+            title: t("experiences.title_experience_2"),
+            company_name: t("experiences.company_experience_2"),
             icon: pepite,
             iconBg: "#E6DEDD",
-            date: "2020 - 2021",
+            date: t("experiences.date_experience_2"),
             points: [
-                "Apprentissage de manière autodidacte du développement mobile",
-                "Création d'une première version d'une application from scratch"
+                t("experiences.point_1_experience_2"),
+                t("experiences.point_2_experience_2")
             ],
         },
         {
-            title: "Stage ingénieur",
-            company_name: "Groupe Atlantic",
+            title: t("experiences.title_experience_3"),
+            company_name: t("experiences.company_experience_3"),
             icon: groupeatlantic,
             iconBg: "#E6DEDD",
-            date: "Juillet 2019 - Octobre 2019",
+            date: t("experiences.date_experience_3"),
             points: [
-                "Élaboration de la stratégie cybersécurité de l'entreprise"
+                t("experiences.point_1_experience_3")
             ],
         },
     ];

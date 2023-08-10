@@ -16,7 +16,7 @@ import gemu from '../assets/projects/gemu.jpg';
 import myyoukounkoun from '../assets/projects/myyoukounkoun.jpg';
 import portfolio from '../assets/projects/portfolio.jpg';
 
-const ProProjects = ({ menuOpened }) => {
+const ProProjects = ({ menuOpened, t }) => {
 
     const [state, setState] = useState({
         goToSlide: 0,
@@ -54,12 +54,12 @@ const ProProjects = ({ menuOpened }) => {
                             ...fontTitleBold("30px", "white"),
                             margin: "15px 15px 30px 15px"
                         }}>
-                            Sauve mon vaccin
+                            {t("projects.title_project_pro_1")}
                         </h2>
                         <p style={{
                             ...fontBodyBold("15px", "white"),
                             margin: "0px 30px 0px 30px"
-                        }}>Développement from scratch d'une solution mobile Android/iOS et web en Flutter de dons de vaccins entre médecins/pharmaciens,...</p>
+                        }}>{t("projects.content_project_pro_1")}</p>
                     </div>
                 </div>
         },
@@ -87,12 +87,12 @@ const ProProjects = ({ menuOpened }) => {
                         ...fontTitleBold("30px", "white"),
                         margin: "15px 15px 30px 15px"
                     }}>
-                        Corsica Ferries
+                        {t("projects.title_project_pro_2")}
                     </h2>
                     <p style={{
                         ...fontBodyBold("15px", "white"),
                         margin: "0px 30px 0px 30px"
-                    }}>Refonte/Amélioration avec design imposé par le client d'une solution mobile Android/iOS en React native de réservation de croisières.</p>
+                    }}>{t("projects.content_project_pro_2")}</p>
                 </div>
             </div>
         },
@@ -120,12 +120,12 @@ const ProProjects = ({ menuOpened }) => {
                         ...fontTitleBold("30px", "white"),
                         margin: "15px 15px 30px 15px"
                     }}>
-                        Madewis
+                       {t("projects.title_project_pro_3")}
                     </h2>
                     <p style={{
                         ...fontBodyBold("15px", "white"),
                         margin: "0px 30px 0px 30px"
-                    }}>Développement from scratch d'une application mobile Android/iOS en Flutter afin de visualiser les informations des tournois sportifs organisés par le client.</p>
+                    }}>{t("projects.content_project_pro_3")}</p>
                 </div>
             </div>
         },
@@ -153,12 +153,12 @@ const ProProjects = ({ menuOpened }) => {
                         ...fontTitleBold("30px", "white"),
                         margin: "15px 15px 30px 15px"
                     }}>
-                        Hobbies
+                        {t("projects.title_project_pro_4")}
                     </h2>
                     <p style={{
                         ...fontBodyBold("15px", "white"),
                         margin: "0px 30px 0px 30px"
-                    }}>Développement from scratch d'une solution mobile Android/iOS en Flutter d'un réseau social pour rencontrer des gens ayant les mêmes centres d'interêts.</p>
+                    }}>{t("projects.content_project_pro_4")}</p>
                 </div>
             </div>
         },
@@ -186,12 +186,12 @@ const ProProjects = ({ menuOpened }) => {
                         ...fontTitleBold("30px", "white"),
                         margin: "15px 15px 30px 15px"
                     }}>
-                        La croix rouge française
+                        {t("projects.title_project_pro_5")}
                     </h2>
                     <p style={{
                         ...fontBodyBold("15px", "white"),
                         margin: "0px 30px 0px 30px"
-                    }}>Développement from scratch pour un organisme français d'une solution mobile Android/iOS en Flutter pour faciliter la visualisation des présents/absents lors des formations.</p>
+                    }}>{t("projects.content_project_pro_5")}</p>
                 </div>
             </div>
         },
@@ -203,7 +203,7 @@ const ProProjects = ({ menuOpened }) => {
                         setState({ goToSlide: index });
                         setCurrentIndex(index);
                     } else {
-                        alert("Work still in progress...");
+                        alert(t("wip.label"));
                     }
                 }
             }
@@ -267,7 +267,7 @@ const ProProjects = ({ menuOpened }) => {
 
 }
 
-const PrivateProjects = ({ menuOpened }) => {
+const PrivateProjects = ({ menuOpened, t }) => {
 
     const [state, setState] = useState({
         goToSlide: 0,
@@ -305,12 +305,12 @@ const PrivateProjects = ({ menuOpened }) => {
                             ...fontTitleBold("30px", "white"),
                             margin: "15px 15px 30px 15px"
                         }}>
-                            Gemu
+                            {t("projects.title_project_perso_1")}
                         </h2>
                         <p style={{
                             ...fontBodyBold("15px", "white"),
                             margin: "0px 30px 0px 30px"
-                        }}>Version 1 d'une application de réseau social pour les personnes intéressées par l'e-sport et les jeux vidéo développée en Flutter reliée à un serveur Firebase. Pourquoi pas une version 2, affaire à suivre....</p>
+                        }}>{t("projects.content_project_perso_1")}</p>
                     </div>
                 </div>
         },
@@ -338,12 +338,12 @@ const PrivateProjects = ({ menuOpened }) => {
                         ...fontTitleBold("30px", "white"),
                         margin: "15px 15px 30px 15px"
                     }}>
-                        My youkounkoun
+                        {t("projects.title_project_perso_2")}
                     </h2>
                     <p style={{
                         ...fontBodyBold("15px", "white"),
                         margin: "0px 30px 0px 30px"
-                    }}>Une application dotée d'une grande variété de fonctions de base et de fonctions complexes très utiles lors de la création d'une nouvelle application. Pourquoi repartir de zéro à chaque fois ? L'application front-end est développée avec Flutter et le back-end sera développé en Node.js en lien avec la base de données MySQL.</p>
+                    }}>{t("projects.content_project_perso_2")}</p>
                 </div>
             </div>
         },
@@ -371,12 +371,12 @@ const PrivateProjects = ({ menuOpened }) => {
                         ...fontTitleBold("30px", "white"),
                         margin: "15px 15px 30px 15px"
                     }}>
-                        Portfolio 3D
+                        {t("projects.title_project_perso_3")}
                     </h2>
                     <p style={{
                         ...fontBodyBold("15px", "white"),
                         margin: "0px 30px 0px 30px"
-                    }}>Site et portfolio personnel afin de montrer mon travail à tous. Ce site est développé en React js avec du Three js.</p>
+                    }}>{t("projects.content_project_perso_3")}</p>
                 </div>
             </div>
         },
@@ -388,7 +388,7 @@ const PrivateProjects = ({ menuOpened }) => {
                         setState({ goToSlide: index });
                         setCurrentIndex(index);
                     } else {
-                        alert("Work still in progress...");
+                        alert(t("wip.label"));
                     }
                 }
             }
@@ -462,9 +462,9 @@ const Projects = ({ menuOpened }) => {
             flexDirection: "column"
         }}>
             <h1 className="projects-title" style={fontTitleBold("50px", "white")}>{t("projects.title_pro")}</h1>
-            <ProProjects menuOpened={menuOpened} />
+            <ProProjects menuOpened={menuOpened} t={t} />
             <h1 className="projects-title" style={fontTitleBold("50px", "white")}>{t("projects.title_private")}</h1>
-            <PrivateProjects menuOpened={menuOpened} />
+            <PrivateProjects menuOpened={menuOpened} t={t} />
         </div>
     );
 }

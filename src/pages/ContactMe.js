@@ -42,7 +42,7 @@ const ContactMe = () => {
 
         if (form.name.trim() === "" || form.post.trim() === "" || form.email.trim() === "" || form.message.trim() === "") {
             setLoading(false);
-            showAlertCustom('Erreur', 'Les champs ne sont pas tous remplis.', 'error');
+            showAlertCustom(t("contact_me.title_error"), t("contact_me.content_error_1"), 'error');
         } else {
             const concatMessage = `Bonjour/Bonsoir, je suis ${form.name}, actuellement ${form.post}.\n\n${form.message}\n\nTu peux me contacter via ${form.email}`;
             emailjs
@@ -61,7 +61,7 @@ const ContactMe = () => {
                 .then(
                     () => {
                         setLoading(false);
-                        showAlertCustom('Mail envoyé', 'Thank you. I will get back to you as soon as possible.', 'success');
+                        showAlertCustom(t("contact_me.title_validate"), t("contact_me.content_validate"), 'success');
                         setForm({
                             name: "",
                             post: "",
@@ -72,7 +72,7 @@ const ContactMe = () => {
                     (error) => {
                         console.log(error);
                         setLoading(false);
-                        showAlertCustom('Erreur', 'Something went wrong', 'error');
+                        showAlertCustom(t("contact_me.title_error"), t("contact_me.content_error_2"), 'error');
                     }
                 );
         }
@@ -134,13 +134,13 @@ const ContactMe = () => {
                                 fontWeight: "700",
                                 fontFamily: "Montserrat, sans-serif",
                                 marginBottom: "1rem"
-                            }}>Your Name</span>
+                            }}>{t("contact_me.title_name")}</span>
                             <input
                                 type="text"
                                 name="name"
                                 value={form.name}
                                 onChange={handleChange}
-                                placeholder="What's your name?"
+                                placeholder={t("contact_me.label_name")}
                                 className="input"
                                 style={fontBodyBold("16px", "white")}
                             />
@@ -155,13 +155,13 @@ const ContactMe = () => {
                                 fontWeight: "700",
                                 fontFamily: "Montserrat, sans-serif",
                                 marginBottom: "1rem"
-                            }}>Your Post</span>
+                            }}>{t("contact_me.title_post")}</span>
                             <input
                                 type="text"
                                 name="post"
                                 value={form.post}
                                 onChange={handleChange}
-                                placeholder="What's your post?"
+                                placeholder={t("contact_me.label_post")}
                                 className="input"
                                 style={fontBodyBold("16px", "white")}
                             />
@@ -176,13 +176,13 @@ const ContactMe = () => {
                                 fontWeight: "700",
                                 fontFamily: "Montserrat, sans-serif",
                                 marginBottom: "1rem"
-                            }}>Your email</span>
+                            }}>{t("contact_me.title_email")}</span>
                             <input
                                 type="email"
                                 name="email"
                                 value={form.email}
                                 onChange={handleChange}
-                                placeholder="What's your email?"
+                                placeholder={t("contact_me.label_email")}
                                 className="input"
                                 style={fontBodyBold("16px", "white")}
                             />
@@ -197,13 +197,13 @@ const ContactMe = () => {
                                 fontWeight: "700",
                                 fontFamily: "Montserrat, sans-serif",
                                 marginBottom: "1rem"
-                            }}>Your Message</span>
+                            }}>{t("contact_me.title_message")}</span>
                             <textarea
                                 rows={7}
                                 name="message"
                                 value={form.message}
                                 onChange={handleChange}
-                                placeholder="What do you want to say?"
+                                placeholder={t("contact_me.label_message")}
                                 className="input"
                                 style={fontBodyBold("16px", "white")}
                             />
@@ -214,7 +214,7 @@ const ContactMe = () => {
                             className="submit"
                             style={fontBodyBold("20px", "white")}
                         >
-                            {loading ? "Sending..." : "Send"}
+                            {loading ? t("contact_me.loading_send") : t("contact_me.send")}
                         </button>
                     </form>
                 </motion.div>
