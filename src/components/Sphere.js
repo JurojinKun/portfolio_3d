@@ -12,7 +12,15 @@ const SphereCustom = ({ scroll }) => {
     const meshRef = useRef();
     const lightRef = useRef();
 
-    const [color, setColor] = useState('white');
+    const startColor = new Color('#47CDD6');
+    const endColor = new Color('#9D4DC4');
+
+    const getColor = (elapsedTime) => {
+        const proportion = Math.abs(Math.sin(elapsedTime * 0.1));
+        return new Color().copy(startColor).lerp(endColor, proportion);
+      };
+
+    const [color, setColor] = useState(getColor(0));
     const [satellitePositions, setSatellitePositions] = useState(Array(6).fill([0, 0, 0]));
     const [satellitesVisible, setSatellitesVisible] = useState(false);
 
@@ -24,7 +32,8 @@ const SphereCustom = ({ scroll }) => {
             meshRef.current.rotation.z += 0.0003;
 
             // Change sphere color over time
-            setColor(new Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`));
+            // setColor(new Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`));
+            setColor(getColor(elapsedTime));
 
             if (scroll.offset > 0) {
                 const startPosition = [1.5, -1, 7];
