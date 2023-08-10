@@ -106,42 +106,38 @@ const Experiences = () => {
 
     const experiences = [
         {
-            title: "Full stack Developer",
-            company_name: "Meta",
+            title: "Lead dev front",
+            company_name: "Digital Paca",
             icon: dp,
             iconBg: "#E6DEDD",
-            date: "Jan 2023 - Present",
+            date: "Octobre 2021 - Aujourd'hui",
             points: [
-                "Developing and maintaining web applications using React.js and other related technologies.",
-                "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-                "Implementing responsive design and ensuring cross-browser compatibility.",
-                "Participating in code reviews and providing constructive feedback to other developers.",
+                "Développement from scratch d'une solution mobile Android/iOS et web de dons de vaccins entre médecins/pharmaciens,... Référence: Sauve mon vaccin",
+                "Refonte/Amélioration avec design imposé par le client d'une solution mobile Android/iOS de réservation de croisières. Référence: Corsica Ferries",
+                "Développement from scratch d'une application mobile Android/iOS afin de visualiser les informations des tournois sportifs organisés par le client. Référence: Madewis",
+                "Développement from scratch d'une solution mobile Android/iOS d'un réseau social pour rencontrer des gens ayant les mêmes centres d'interêts. Référence: Hobbies",
+                "Développement from scratch pour un organisme français d'une solution mobile Android/iOS pour faciliter la visualisation des présents/absents lors des formations. Référence: La croix rouge française"
             ],
         },
         {
-            title: "Web Developer",
-            company_name: "Shopify",
+            title: "Étudiant entrepreneur",
+            company_name: "Pépite Toulon",
             icon: pepite,
             iconBg: "#E6DEDD",
-            date: "Jan 2022 - Jan 2023",
+            date: "2020 - 2021",
             points: [
-                "Developing and maintaining web applications using React.js and other related technologies.",
-                "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-                "Implementing responsive design and ensuring cross-browser compatibility.",
-                "Participating in code reviews and providing constructive feedback to other developers.",
+                "Apprentissage de manière autodidacte du développement mobile",
+                "Création d'une première version d'une application from scratch"
             ],
         },
         {
-            title: "React Native Developer",
-            company_name: "Tesla",
+            title: "Stage ingénieur",
+            company_name: "Groupe Atlantic",
             icon: groupeatlantic,
             iconBg: "#E6DEDD",
-            date: "Jan 2021 - Feb 2022",
+            date: "Juillet 2019 - Octobre 2019",
             points: [
-                "Developing and maintaining web applications using React.js and other related technologies.",
-                "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-                "Implementing responsive design and ensuring cross-browser compatibility.",
-                "Participating in code reviews and providing constructive feedback to other developers.",
+                "Élaboration de la stratégie cybersécurité de l'entreprise"
             ],
         },
     ];
