@@ -91,23 +91,23 @@
     },
     "contact_me": {
         "title": "Me contacter",
-        "title_name": "Your name",
-        "label_name": "What's your name ?",
-        "title_post": "Your post",
-        "label_post": "What's your post ?",
-        "title_email": "Your email",
-        "label_email": "What's your email ?",
-        "title_message": "Your message",
-        "label_message": "What do you want to say ?",
-        "send": "Send",
-        "loading_send": "Sending...",
+        "title_name": "Votre nom",
+        "label_name": "Quel est votre nom ?",
+        "title_post": "Votre poste",
+        "label_post": "Quel est votre poste ?",
+        "title_email": "Votre email",
+        "label_email": "Quel est votre email ?",
+        "title_message": "Votre message",
+        "label_message": "Que voulez-vous dire ?",
+        "send": "Envoyer",
+        "loading_send": "Envoi en cours...",
         "title_validate": "Mail envoyé",
-        "content_validate": "Thank you. I will get back to you as soon as possible.",
+        "content_validate": "Merci. Je vous répondrai dans les plus brefs délais.",
         "title_error": "Erreur",
         "content_error_1": "Les champs ne sont pas tous remplis.",
-        "content_error_2": "Something went wrong."
+        "content_error_2": "Quelque chose n'a pas fonctionné."
     },
     "wip": {
-        "label": "Work still in progress..."
+        "label": "Travaux encore en cours..."
     }
 }
