@@ -1,3 +1,5 @@
+import "../css/Home3D.css";
+
 import React from 'react';
 
 import LanguageSwitcher from './LanguageSwitcher';
@@ -17,13 +19,14 @@ const FixedHeader = () => {
                 >
                     <CanvasPicture />
                 </div>
-                <h2>0ruj | 3D Portfolio</h2>
+                <h2 
+                className="title-header">0ruj | 3D Portfolio</h2>
             </div>
             <div style={{
                 pointerEvents: 'auto',
                 paddingRight: "100px"
             }}>
-                <LanguageSwitcher />
+                <LanguageSwitcher openingDirection={"bottom"} />
             </div>
         </header>
     )

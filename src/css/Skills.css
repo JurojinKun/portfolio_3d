@@ -1,74 +1,215 @@
-/* .skills {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding-left: 15px;
-    padding-right: 15px
+/*Fonts styles*/
+.fontTitleNormalSkills {
+  font-family: 'Poppins';
+  font-weight: 400;
+  color: white;
+  font-size: 20px;
+}
+
+.fontTitleBoldSkills {
+  font-family: 'Poppins';
+  font-weight: 700;
+  color: white;
+  font-size: 20px;
+}
+
+.fontTitleExtraBoldSkills {
+  font-family: 'Poppins';
+  font-weight: 800;
+  color: white;
+  font-size: 20px;
+}
+
+.fontBodyNormalSkills {
+  font-family: 'Montserrat';
+  font-weight: 400;
+  color: white;
+  font-size: 20px;
+}
+
+.fontBodyBoldSkills {
+  font-family: 'Montserrat';
+  font-weight: 700;
+  color: white;
+  font-size: 20px;
+}
+
+.fontBodyExtraBoldSkills {
+  font-family: 'Montserrat';
+  font-weight: 800;
+  color: white;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .fontTitleNormalSkills {
+    font-size: 17px;
+  }
+
+  .fontTitleBoldSkills {
+    font-size: 17px;
+  }
+
+  .fontTitleExtraBoldSkills {
+    font-size: 17px;
+  }
+
+  .fontBodyNormalSkills {
+    font-size: 17px;
+  }
+
+  .fontBodyBoldSkills {
+    font-size: 17px;
+  }
+
+  .fontBodyExtraBoldSkills {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fontTitleNormalSkills {
+    font-size: 15px;
+  }
+
+  .fontTitleBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontTitleExtraBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyNormalSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyExtraBoldSkills {
+    font-size: 15px;
+  }
+}
+
+/*Screen styles*/
+.skills {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 .skills-content {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    flex-direction: row;
-    overflow-y: auto;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
 }
 
-.skills-sphere {
-    width: 50%;
-    height: 100%;
-    background-color: blue;
-    position: fixed;
+.skills-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 150px;
+  padding-right: 25px;
+  padding-top: 30px;
+  color: white;
+  font-family: "Poppins";
+  font-weight: 800;
+  font-size: 40px;
 }
 
-.skills-details {
-    width: 50%;
-    height: 100%;
-    margin-left: 50%; 
-    background-color: red;
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.skill-card {
-    height: 100%;
-    background-color: white;
-    border-radius: 10px;
-} */
+.container-left {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-.wrapper {
-    height: 100vh;
-    margin: 0;
-    display: flex;
+.container-left-midle {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 140px;
+}
+
+.circle {
+  width: 30%;
+  height: 30%;
+  background: rgba(71, 205, 214, 0.7);
+  border-radius: 60%;
+  filter: blur(100px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container-middle {
+  width: 40%;
+}
+
+.container-in-middle {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-in-in-midle {
+  display: flex;
+  margin: 50px;
+  width: 100%;
+  background-color: rgba(26, 26, 26, 1);
+  border-radius: 10px;
+  margin-top: 140px;
+  color: white;
+  flex-direction: column;
+  overflow: auto;
+  padding: 20px;
+}
+
+.tagcloud-skill {
+  font-family: 'Poppins';
+  font-weight: 700;
+  color: white;
+  font-size: 23px;
+}
+
+@media (max-width: 1000px),
+(max-height: 600px) {
+  .skills-content {
     flex-direction: column;
+  }
+
+  .container-left {
     position: relative;
+    width: 100%;
+    height: auto;
   }
-  
-  .container {
-    display: flex;
-    justify-content: space-between;
-    /* position: sticky;
-    top: 0; */
+
+  .container-middle {
     width: 100%;
   }
-  .container .left {
-    position: sticky;
-    z-index: 1;
-    background: white;
-    top: 0;
-    left: 0;
-    height: 100vh;
+
+  .container-in-middle {
+    min-height: 100px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
   }
-  .container img {
-    width: 45vw;
-  }
-  .container > div {
-    height: 100%;
-    width: 45vw;
-  }
-  .container .in-in-middle {
-    height: 100vh;
-  }
+}

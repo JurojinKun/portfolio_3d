@@ -1,59 +1,97 @@
-import "../css/Portfolio.css";
 import "../css/Skills.css";
 
 import React from "react";
+import { useTranslation } from "react-i18next";
+
+import { TagCloud } from "@frank-mayer/react-tag-cloud";
 
 const Skills = () => {
-    // const [imgSource, setImgSrc] = useState("https://placeimg.com/250/100/arch");
-    // const leftDivRef = useRef(null);
+    const { t } = useTranslation();
 
-    // useEffect(() => {
-    //     window.addEventListener("scroll", handleScroll);
-    //     return () => window.removeEventListener("scroll", handleScroll);
-    // }, []);
+    const skills = [
+        "Flutter",
+        "React native",
+        "React redux",
+        "React js",
+        "Three js",
+        "Python",
+        "C",
+        "Node js",
+        "Sequelize",
+        "MySQL",
+        "Firebase",
+        "Postman",
+        "GitHub",
+        "Bitbucket",
+        "SourceTree"
+    ];
 
-    // const handleScroll = (e) => {
-    //     const leftDiv = leftDivRef.current;
-    //     if (leftDiv) {
-    //         const scrollTop = 0 - leftDiv.getBoundingClientRect().top;
-    //         if (scrollTop < 300) {
-    //             setImgSrc("https://placeimg.com/250/100/arch");
-    //         } else if (scrollTop < 600) {
-    //             setImgSrc("https://placeimg.com/250/100/nature");
-    //         } else {
-    //             setImgSrc("https://placeimg.com/250/100/tech");
-    //         }
-    //     }
-    // };
-
+    const contentSkills = [
+        {
+            title: t("skills.skill_title_1"),
+            content: t("skills.skill_paragraph_1"),
+        },
+        {
+            title: t("skills.skill_title_2"),
+            content: t("skills.skill_paragraph_2"),
+        },
+        {
+            title: t("skills.skill_title_3"),
+            content: t("skills.skill_paragraph_3"),
+        },
+        {
+            title: t("skills.skill_title_4"),
+            content: t("skills.skill_paragraph_4"),
+        },
+        {
+            title: t("skills.skill_title_5"),
+            content: t("skills.skill_paragraph_5"),
+        },
+    ];
 
     return (
-        // <div className="yourPage">
-        //     <h1 className="title">Your Title</h1>
-        //     <div className="content">
-        //         <div className="fixedDiv">Fixed content</div>
-        //         <div className="scrollableDiv">
-        //             {cardsArray.map((card, index) => (
-        //                 <div key={index} className="card">
-        //                     {card}
-        //                 </div>
-        //             ))}
-        //         </div>
-        //     </div>
-        // </div>
-
-        <div className="wrapper">
-            {/* <h1 style={{ color: "white" }}>Down here starts scrolling effect</h1>
-            <div className="left">
-                <img src={imgSource} alt="placeholder" />
-            </div>
-            <div className="middle">
-                <div className="in-middle">
-                    <div className="in-in-middle">ONE</div>
-                    <div className="in-in-middle">TWO</div>
-                    <div className="in-in-middle">THREE</div>
+        <div style={{
+            display: "flex",
+            width: "100%",
+            backgroundClip: "padding-box",
+            border: "1px solid rgba(2, 2, 13, 1)",
+        }}>
+            <div className="skills">
+                <div className="skills-content">
+                    <div className="container-left">
+                        <h1 className="skills-title">{t("skills.title")}</h1>
+                        <div className="container-left-midle">
+                        <div className="circle"/>
+                            <TagCloud
+                            className="tagcloud-skill"
+                                style={{
+                                    pointerEvents: "none"
+                                }}
+                                
+                                options={(w, TagCloudOptions) => ({
+                                    radius: Math.min(800, w.innerWidth, 800) / 2,
+                                })}
+                            >
+                                {skills}
+                            </TagCloud>
+                        </div>
+                    </div>
+                    <div className="container-middle">
+                        <div>
+                            {contentSkills.map((skill, index) => {
+                                return (
+                                    <div key={index} className="container-in-middle">
+                                        <div className="container-in-in-midle">
+                                            <h2 className="fontBodyBoldSkills">{skill.title}</h2>
+                                            <p className="fontBodyNormalSkills" dangerouslySetInnerHTML={{ __html: skill.content.replace(/\n/g, '<br>') }}/>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
-            </div> */}
+            </div>
         </div>
     );
 };

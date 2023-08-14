@@ -1,0 +1,143 @@
+/*Fonts styles*/
+.fontTitleNormalProjects {
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleBoldProjects  {
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleExtraBoldProjects  {
+    font-family: 'Poppins';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyNormalProjects  {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyBoldProjects  {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyExtraBoldProjects  {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .fontTitleNormalProjects  {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldProjects  {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldProjects  {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalProjects  {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldProjects  {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldProjects  {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalProjects  {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldProjects  {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldProjects  {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalProjects  {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldProjects  {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldProjects  {
+        font-size: 15px;
+    }
+}
+
+/*Screen styles*/
+.projects-title {
+    top: 0;
+    left: 0;
+    padding-left: 150px;
+    padding-right: 25px;
+    padding-top: 30px;
+    color: white;
+    font-family: "Poppins";
+    font-weight: 800;
+    font-size: 40px;
+}
+
+.arrow-icon {
+    height: 35px;
+    width: 35px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+.arrow-icon:hover {
+    background-color: rgba(71, 205, 214, 0.3)
+}
+
+.content-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(29, 29, 29, 0.5);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.content-slide:hover {
+    opacity: 1;
+}

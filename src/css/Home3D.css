@@ -1,0 +1,273 @@
+/*Fonts styles*/
+.fontTitleNormalHome3D {
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: white;
+    font-size: 23px;
+}
+
+.fontTitleBoldHome3D {
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: white;
+    font-size: 23px;
+}
+
+.fontTitleExtraBoldHome3D {
+    font-family: 'Poppins';
+    font-weight: 800;
+    color: white;
+    font-size: 23px;
+}
+
+.fontBodyNormalHome3D {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+    font-size: 24px;
+}
+
+.fontBodyBoldHome3D {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: white;
+    font-size: 23px;
+}
+
+.fontBodyExtraBoldHome3D {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    color: white;
+    font-size: 23px;
+}
+
+@media (max-width: 768px) {
+    .fontTitleNormalHome3D {
+        font-size: 20px;
+    }
+
+    .fontTitleBoldHome3D {
+        font-size: 20px;
+    }
+
+    .fontTitleExtraBoldHome3D {
+        font-size: 20px;
+    }
+
+    .fontBodyNormalHome3D {
+        font-size: 20px;
+    }
+
+    .fontBodyBoldHome3D {
+        font-size: 20px;
+    }
+
+    .fontBodyExtraBoldHome3D {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalHome3D {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldHome3D {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldHome3D {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalHome3D {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldHome3D {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldHome3D {
+        font-size: 17px;
+    }
+}
+
+/*Screen styles*/
+.App-header {
+    position: absolute;
+    height: 80px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.title-header {
+    font-family: 'Poppins';
+    font-weight: 00;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.parent {
+    position: relative;
+    background-color: #02020D;
+    background-clip: padding-box;
+    border: 1px solid rgba(2, 2, 13, 1);
+    height: 100vh;
+    width: 100vw;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.overview-content {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    background-color: transparent;
+    border-radius: 15px;
+    padding: 15px;
+    width: 600px;
+}
+
+.hello-title {
+    color: white;
+    font-size: 28px;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.name {
+    color: #47CDD6;
+    font-size: 28px;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.wave {
+    animation-name: wave;
+    animation-duration: 2.1s;
+    animation-iteration-count: infinite;
+    transform-origin: 70% 70%;
+    display: inline-block;
+}
+
+.field {
+    margin: 10px;
+}
+
+.scroll-content {
+    color: white;
+    font-size: 24px;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.mouse {
+    width: 25px;
+    height: 50px;
+    border: 3px solid #fff;
+    border-radius: 60px;
+    position: relative;
+}
+
+.mouse::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 1;
+    animation: wheel 2s infinite;
+    -webkit-animation: wheel 2s infinite;
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    10% {
+        transform: rotate(14deg);
+    }
+
+    20% {
+        transform: rotate(-8deg);
+    }
+
+    30% {
+        transform: rotate(14deg);
+    }
+
+    40% {
+        transform: rotate(-4deg);
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
+
+    60% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes wheel {
+    0% {
+        opacity: 1;
+        bottom: 5px;
+    }
+
+    50% {
+        opacity: 1;
+        bottom: 35px;
+    }
+
+    100% {
+        opacity: 1;
+        bottom: 5px;
+    }
+}
+
+@-webkit-keyframes wheel {
+    0% {
+        opacity: 1;
+        bottom: 5px;
+    }
+
+    50% {
+        opacity: 1;
+        bottom: 35px;
+    }
+
+    100% {
+        opacity: 1;
+        bottom: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .title-header {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title-header {
+        font-size: 15px;
+    }
+}

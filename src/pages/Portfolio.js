@@ -1,44 +1,33 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../css/Portfolio.css";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Link as ScrollLink, Element, scroller, animateScroll as scroll } from "react-scroll";
-import { useTranslation } from "react-i18next";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Link, Element } from 'react-scroll';
+import { useTranslation } from 'react-i18next';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaTimes } from 'react-icons/fa';
 import { BiMask, BiBrain, BiPhone } from 'react-icons/bi';
 import { MdOutlineScience, MdComputer } from 'react-icons/md';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
-import NotFound from "./NotFound";
-import LanguageSwitcher from '../components/LanguageSwitcher';
-import profilePicture from '../assets/profile_picture.png';
 import AboutMe from "./AboutMe";
 import Skills from "./Skills";
 import Experiences from "./Experiences";
 import Projects from "./Projects";
 import ContactMe from "./ContactMe";
+import NotFound from "./NotFound";
+import LanguageSwitcher from '../components/LanguageSwitcher';
+import profilePicture from '../assets/profile_picture.png';
 
 const Portfolio = () => {
-
     const { t } = useTranslation();
-
-    let { sectionId } = useParams();
-    let navigate = useNavigate();
-
-    const validSectionIds = useMemo(() => ["aboutme", "skills", "experiences", "projects", "contactme"], []);
-
+    const navigate = useNavigate();
+    const { sectionId } = useParams();
+    const sections = useMemo(() => ["aboutme", "skills", "experiences", "projects", "contactme"], []);
     const [isCurrentSection, setIsCurrentSection] = useState(sectionId === null || sectionId === undefined ? "aboutme" : sectionId);
-    const [scrollPosition, setScrollPosition] = useState(0);
-
     const [isOpen, setIsOpen] = useState(false);
-
-    const setNewCurrentUrl = (currentSection) => {
-        if (currentSection && currentSection !== isCurrentSection) {
-            setIsCurrentSection(currentSection);
-        }
-    }
 
     const nameSection = (section) => {
         let titleBtn;
@@ -91,7 +80,7 @@ const Portfolio = () => {
                 break;
         }
 
-        return iconSection
+        return iconSection;
     }
 
     const sectionPart = (section) => {
@@ -99,22 +88,34 @@ const Portfolio = () => {
 
         switch (section) {
             case "aboutme":
-                currentSection = <AboutMe />
+                currentSection = <Element name="aboutme" id="aboutme" key={"aboutme"}>
+                    <AboutMe />
+                </Element>
                 break;
             case "skills":
-                currentSection = <Skills />
+                currentSection = <Element name="skills" id="skills" key={"skills"}>
+                    <Skills />
+                </Element>
                 break;
             case "experiences":
-                currentSection = <Experiences />
+                currentSection = <Element name="experiences" id="experiences" key={"experiences"}>
+                    <Experiences />
+                </Element>
                 break;
             case "projects":
-                currentSection = <Projects />
+                currentSection = <Element name="projects" id="projects" key={"projects"}>
+                    <Projects menuOpened={isOpen} />
+                </Element>
                 break;
             case "contactme":
-                currentSection = <ContactMe />
+                currentSection = <Element name="contactme" id="contactme" key={"contactme"}>
+                    <ContactMe />
+                </Element>
                 break;
             default:
-                currentSection = <AboutMe />
+                currentSection = <Element name="aboutme" id="aboutme" key={"aboutme"}>
+                    <AboutMe />
+                </Element>
                 break;
         }
 
@@ -122,72 +123,61 @@ const Portfolio = () => {
     }
 
     useEffect(() => {
-        document.body.style.overflow = "auto";
-
-        const setCurrentUrl = () => {
-            gsap.registerPlugin(ScrollTrigger);
-            gsap.to("progress", {
-                value: 100,
-                ease: 'none',
-                scrollTrigger: { scrub: 0.5 }
-            });
-
-            if (isCurrentSection) {
-                if (validSectionIds.includes(isCurrentSection)) {
-                    scroller.scrollTo(isCurrentSection, {
-                        duration: 800,
-                        delay: 0,
-                        smooth: 'easeInOutQuart'
-                    });
-                }
-            } else {
-                scroll.scrollToTop();
+        const setProgressBar = () => {
+            if (isCurrentSection && sections.includes(isCurrentSection)) {
+                gsap.registerPlugin(ScrollTrigger);
+                gsap.to("progress", {
+                    value: 100,
+                    ease: 'none',
+                    scrollTrigger: { scrub: 0.5 }
+                });
             }
         }
 
-        const handleScroll = () => {
-            setScrollPosition(window.scrollY);
-        };
+        const setToInitialSection = () => {
+            if (isCurrentSection && sections.includes(isCurrentSection)) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', duration: 500, delay: 0 });
+                }
+            }
+        }
 
-        setCurrentUrl();
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        document.body.style.overflow = 'auto';
+        setProgressBar();
+        setTimeout(setToInitialSection, 100);
     }, []);
 
     useEffect(() => {
-        const setNewCurrentUrlObserver = (currentSection) => {
-            if (currentSection && currentSection !== isCurrentSection) {
-                navigate(`/portfolio/${currentSection}`, { replace: true });
-                setIsCurrentSection(currentSection);
-            }
-        }
+        const observerEntering = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const section = entry.target.id;
+                        navigate(`/portfolio/${section}`, { replace: true });
+                        setIsCurrentSection(section);
+                    }
+                });
+            },
+            { threshold: 0, rootMargin: '-10% 0px -90% 0px' }
+        );
 
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setNewCurrentUrlObserver(entry.target.id);
-                }
-            });
-        }, {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5
+        sections.forEach((section) => {
+            const element = document.getElementById(section);
+            if (element) {
+                observerEntering.observe(element);
+            }
         });
 
-        const targets = document.querySelectorAll('.sectionElement');
-        targets.forEach(target => observer.observe(target));
-
         return () => {
-            targets.forEach(target => observer.unobserve(target));
+            sections.forEach((section) => {
+                const element = document.getElementById(section);
+                if (element) {
+                    observerEntering.unobserve(element);
+                }
+            });
         };
-    }, [isCurrentSection, navigate]);
-
+    }, []);
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(min-width: 1250px)');
@@ -208,27 +198,25 @@ const Portfolio = () => {
     }, [isOpen]);
 
     return (
-        !validSectionIds.includes(isCurrentSection) && isCurrentSection ?
-            <NotFound /> : <div style={{
-                backgroundColor: "#02020D",
-                backgroundClip: 'padding-box',
-                border: '1px solid rgba(2, 2, 13, 1)',
-                position: "relative"
-            }}>
+        !sections.includes(isCurrentSection) && isCurrentSection ?
+            <NotFound /> :
+            <div className="portfolio">
                 <progress max="100" value="0" />
+
                 <nav className={`navbar main-content${isOpen ? " blurred" : ""}`} style={{
-                    backgroundColor: scrollPosition > 10 ? 'rgba(2, 2, 13, 0.5)' : 'transparent',
-                    backdropFilter: scrollPosition > 10 ? 'blur(5px)' : 'none'
+                    // backgroundColor: scrollPosition > 10 ? 'rgba(2, 2, 13, 0.5)' : 'transparent',
+                    // backdropFilter: scrollPosition > 10 ? 'blur(5px)' : 'none'
+                    backgroundColor: 'rgba(2, 2, 13, 0.5)',
+                    backdropFilter: 'blur(10px)'
                 }}>
                     {!isOpen ?
-                        <ScrollLink
-                            key={validSectionIds[0]}
-                            to={validSectionIds[0]}
+                        <Link
+                            activeClass="active"
+                            key={sections[0]}
+                            to={sections[0]}
+                            spy={true}
                             smooth={true}
-                            duration={800}
-                            onClick={() => {
-                                setNewCurrentUrl(validSectionIds[0]);
-                            }}
+                            duration={500}
                             style={{
                                 paddingLeft: "50px"
                             }}
@@ -243,9 +231,9 @@ const Portfolio = () => {
                                 <img src={profilePicture} alt='Profile pic' style={{
                                     width: "40px",
                                 }} />
-                                <h3 style={{ fontSize: 20, paddingLeft: "10px" }}>0ruj | 3D Portfolio</h3>
+                                <h3 className="title-portfolio">0ruj | 3D Portfolio</h3>
                             </div>
-                        </ScrollLink>
+                        </Link>
                         : <div style={{
                             color: "white",
                             cursor: "default",
@@ -257,52 +245,62 @@ const Portfolio = () => {
                             <img src={profilePicture} alt='Profile pic' style={{
                                 width: "40px",
                             }} />
-                            <h3 style={{ fontSize: 20, paddingLeft: "10px" }}>0ruj | 3D Portfolio</h3>
+                            <h3 className="title-portfolio">0ruj | 3D Portfolio</h3>
                         </div>}
 
                     <div className="navbar-desktop">
-                        {validSectionIds.map((section) => (
-                            <ScrollLink
+                        {sections.map((section) => (
+                            <Link
+                                activeClass="active"
                                 key={section}
                                 to={section}
+                                spy={true}
                                 smooth={true}
-                                duration={800}
-                                onClick={() => {
-                                    setNewCurrentUrl(section);
-                                }}
+                                duration={500}
                             >
-                                <span className={`sectionSpan ${isCurrentSection === section ? "active" : "default"}`}>{nameSection(section)}</span>
-                            </ScrollLink>
+                                <span className={`fontTitleBoldPortfolio sectionSpan ${isCurrentSection === section ? "active" : "default"}`}>{nameSection(section)}</span>
+                            </Link>
                         ))}
                         <div style={{
                             pointerEvents: 'auto',
                         }}>
-                            <LanguageSwitcher />
+                            <LanguageSwitcher openingDirection={"bottom"} />
                         </div>
                     </div>
-                    <GiHamburgerMenu className="icon-sidebar" onClick={() => setIsOpen(!isOpen)} size={27} style={{ color: "white", cursor: "pointer" }} />
+                    <div className="icon-sidebar" onClick={() => setIsOpen(!isOpen)}>
+                    <GiHamburgerMenu size={27} style={{ color: "white" }} />
+                    </div>
                 </nav>
 
                 <div className="navbar-mobile">
-                    <div className={`sidebar ${isOpen ? "open" : ""}`}>
+                    <div className={`sidebar ${isOpen ? "open" : ""}`} style={{
+                        height: `${window.innerHeight - 30}px`
+                    }}>
                         <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
-                            <span style={{ color: "white", fontSize: "25px", fontWeight: "bold", paddingLeft: "20px" }}>{t("portfolio.menu")}</span>
-                            <FaTimes size={27} style={{ color: "white", paddingRight: "20px", cursor: "pointer" }} onClick={() => setIsOpen(!isOpen)} />
+                            <span className="title-menu">{t("portfolio.menu")}</span>
+                            <div className="icon-menu-close" onClick={() => setIsOpen(!isOpen)}>
+                            <FaTimes size={27} style={{ color: "white" }} />
+                            </div>
                         </div>
                         <div style={{
                             overflowY: "auto",
                             display: "flex", height: "100%", flexDirection: "column", paddingLeft: "10px",
                             paddingRight: "10px"
                         }}>
-                            {validSectionIds.map((section) => (
-                                <ScrollLink key={section}
+                            {sections.map((section) => (
+                                <Link
+                                    activeClass="active"
+                                    key={section}
                                     to={section}
+                                    spy={true}
                                     smooth={true}
-                                    duration={800} onClick={() => {
-                                        setNewCurrentUrl(section);
-                                        setIsOpen(false);
-                                    }}
+                                    duration={500}
                                     className={`sectionSpanSidebar ${isCurrentSection === section ? "active" : "default"}`}
+                                    onClick={() => {
+                                        if (isOpen) {
+                                            setIsOpen(false);
+                                        }
+                                    }}
                                     style={{
                                         marginTop: "35px",
                                         marginBottom: "35px",
@@ -313,14 +311,9 @@ const Portfolio = () => {
                                     }} >
                                     {iconSectionSidebar(section)}
                                     <span
-                                        style={{
-                                            padding: "15px",
-                                            fontSize: "20px",
-                                            fontWeight: "bold",
-                                            textDecoration: "none",
-                                        }}
+                                        className="menu-section"
                                     >{nameSection(section)}</span>
-                                </ScrollLink>
+                                </Link>
                             ))}
                         </div>
                         <div style={{
@@ -329,7 +322,7 @@ const Portfolio = () => {
                             paddingLeft: "20px",
                             paddingRight: "20px"
                         }}>
-                            <LanguageSwitcher />
+                            <LanguageSwitcher openingDirection={"top"} />
                         </div>
 
                     </div>
@@ -339,14 +332,11 @@ const Portfolio = () => {
                     if (isOpen) {
                         setIsOpen(false);
                     }
-                }} >
-                    {validSectionIds.map((section) => (
-                        <Element key={section} name={section} id={section} className='sectionElement'>
-                            {sectionPart(section)}
-                        </Element>
-                    ))}
+                }}>
+                    {sections.map((section) => {
+                        return sectionPart(section);
+                    })}
                 </div>
-
             </div>
     );
 }

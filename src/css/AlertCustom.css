@@ -1,0 +1,17 @@
+.alert-title {
+    color: white;
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.alert-container {
+    color: white;
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.swal2-container {
+    backdrop-filter: blur(10px);
+}

@@ -20,7 +20,9 @@ const customStyles = {
     singleValue: (provided) => ({
         ...provided,
         color: '#fff',
-        fontWeight: 'bold'
+        fontSize: "15px",
+        fontWeight: '800',
+        fontFamily: "Poppins",
     }),
     menu: (provided) => ({
         ...provided,
@@ -34,11 +36,13 @@ const customStyles = {
         ...provided,
         color: state.isSelected || state.isFocused ? '#47CDD6' : '#fff',
         backgroundColor: state.isSelected ? '#1a1a1a' : state.isFocused ? '#333' : '#2a2a2a',
-        fontWeight: 'bold'
+        fontSize: "15px",
+        fontWeight: '800',
+        fontFamily: "Poppins",
     })
 };
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({ openingDirection }) => {
     const { t, i18n } = useTranslation();
 
     const dispatch = useDispatch();
@@ -63,7 +67,7 @@ const LanguageSwitcher = () => {
             onChange={changeLanguage}
             styles={customStyles}
             getOptionLabel={(option) => option.label}
-            menuPlacement="auto"
+            menuPlacement={openingDirection}
         />
     );
 };
