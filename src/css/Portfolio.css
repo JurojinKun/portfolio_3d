@@ -1,3 +1,99 @@
+/*Fonts styles*/
+.fontTitleNormalPortfolio {
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleBoldPortfolio {
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleExtraBoldPortfolio {
+    font-family: 'Poppins';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyNormalPortfolio {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyBoldPortfolio {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyExtraBoldPortfolio {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .fontTitleNormalPortfolio {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldPortfolio {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldPortfolio {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalPortfolio {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldPortfolio {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldPortfolio {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalPortfolio {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldPortfolio {
+        font-size: 15px;
+    }
+}
+
+/*Screen styles*/
 .portfolio {
     margin: 0;
     padding: 0;
@@ -5,6 +101,29 @@
     flex-direction: column;
     position: relative;
     background-color: #02020D;
+}
+
+.title-portfolio {
+    font-size: 20px;
+    padding-left: 10px;
+    font-family: "Poppins";
+    font-weight: 700
+}
+
+.title-menu {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 20px;
+    font-family: "Poppins"
+}
+
+.menu-section {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Poppins";
+    text-decoration: none;
 }
 
 .sectionSpan {

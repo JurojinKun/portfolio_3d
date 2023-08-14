@@ -1,3 +1,99 @@
+/*Fonts styles*/
+.fontTitleNormalSkills {
+  font-family: 'Poppins';
+  font-weight: 400;
+  color: white;
+  font-size: 20px;
+}
+
+.fontTitleBoldSkills {
+  font-family: 'Poppins';
+  font-weight: 700;
+  color: white;
+  font-size: 20px;
+}
+
+.fontTitleExtraBoldSkills {
+  font-family: 'Poppins';
+  font-weight: 800;
+  color: white;
+  font-size: 20px;
+}
+
+.fontBodyNormalSkills {
+  font-family: 'Montserrat';
+  font-weight: 400;
+  color: white;
+  font-size: 20px;
+}
+
+.fontBodyBoldSkills {
+  font-family: 'Montserrat';
+  font-weight: 700;
+  color: white;
+  font-size: 20px;
+}
+
+.fontBodyExtraBoldSkills {
+  font-family: 'Montserrat';
+  font-weight: 800;
+  color: white;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .fontTitleNormalSkills {
+    font-size: 17px;
+  }
+
+  .fontTitleBoldSkills {
+    font-size: 17px;
+  }
+
+  .fontTitleExtraBoldSkills {
+    font-size: 17px;
+  }
+
+  .fontBodyNormalSkills {
+    font-size: 17px;
+  }
+
+  .fontBodyBoldSkills {
+    font-size: 17px;
+  }
+
+  .fontBodyExtraBoldSkills {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fontTitleNormalSkills {
+    font-size: 15px;
+  }
+
+  .fontTitleBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontTitleExtraBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyNormalSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyExtraBoldSkills {
+    font-size: 15px;
+  }
+}
+
+/*Screen styles*/
 .skills {
   display: flex;
   width: 100%;
@@ -17,6 +113,10 @@
   padding-left: 150px;
   padding-right: 25px;
   padding-top: 30px;
+  color: white;
+  font-family: "Poppins";
+  font-weight: 800;
+  font-size: 40px;
 }
 
 .container {
@@ -83,19 +183,29 @@
   padding: 20px;
 }
 
+.tagcloud-skill {
+  font-family: 'Poppins';
+  font-weight: 700;
+  color: white;
+  font-size: 23px;
+}
+
 @media (max-width: 1000px),
 (max-height: 600px) {
   .skills-content {
     flex-direction: column;
   }
+
   .container-left {
     position: relative;
     width: 100%;
     height: auto;
   }
+
   .container-middle {
     width: 100%;
   }
+
   .container-in-middle {
     min-height: 100px;
     display: flex;

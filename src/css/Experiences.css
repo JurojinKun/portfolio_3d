@@ -1,9 +1,109 @@
+/*Fonts styles*/
+.fontTitleNormalExperiences {
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleBoldExperiences {
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleExtraBoldExperiences {
+    font-family: 'Poppins';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyNormalExperiences {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyBoldExperiences {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyExtraBoldExperiences {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .fontTitleNormalExperiences {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldExperiences {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldExperiences {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalExperiences {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldExperiences {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldExperiences {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalExperiences {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldExperiences {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldExperiences {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalExperiences {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldExperiences {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldExperiences {
+        font-size: 15px;
+    }
+}
+
+/*Screen styles*/
 .experiences-title {
     top: 0;
     left: 0;
     padding-left: 150px;
     padding-right: 25px;
     padding-top: 30px;
+    color: white;
+    font-family: "Poppins";
+    font-weight: 800;
+    font-size: 40px;
 }
 
 .experiences-content {

@@ -14,15 +14,12 @@ import { textVariant } from "../utils/motion";
 import dp from "../assets/experiences/dp.png";
 import pepite from "../assets/experiences/pepite.png";
 import groupeatlantic from "../assets/experiences/groupe-atlantic.png";
-import { fontTitleBold, fontBodyBold } from "../utils/fonts";
 
 const ExperienceCard = ({ experience }) => {
     return (
         <VerticalTimelineElement
             contentStyle={{
                 background: "#1A1A1A",
-                color: "white",
-                fontWeight: "bold",
             }}
             contentArrowStyle={{ borderRight: "7px solid  #47CDD6" }}
             iconStyle={{ background: experience.iconBg }}
@@ -48,31 +45,23 @@ const ExperienceCard = ({ experience }) => {
         >
             <div>
                 <h3
+                    className="fontBodyBoldExperiences"
                     style={{
-                        color: "white",
-                        fontSize: "25px",
-                        fontWeight: "700",
-                        fontFamily: "Monteserrat, sans-serif",
                         margin: 0
                     }}
-                    >{experience.title}</h3>
+                >{experience.title}</h3>
                 <p
+                    className="fontBodyBoldExperiences"
                     style={{
-                        color: "white",
-                        fontSize: "20px",
-                        fontWeight: "700",
-                        fontFamily: "Monteserrat, sans-serif",
-                        margin: 0
+                        margin: 0,
+                        fontWeight: "bold"
                     }}
                 >
                     {experience.company_name}
                 </p>
                 <p
+                    className="fontBodyBoldExperiences"
                     style={{
-                        color: "white",
-                        fontSize: "16px",
-                        fontWeight: "700",
-                        fontFamily: "Monteserrat, sans-serif",
                         margin: 0
                     }}
                 >
@@ -88,7 +77,7 @@ const ExperienceCard = ({ experience }) => {
                 {experience.points.map((point, index) => (
                     <li
                         key={`experience-point-${index}`}
-                        style={fontBodyBold("15px", "white")}
+                        className="fontBodyNormalExperiences"
                     >
                         {point}
                     </li>
@@ -151,7 +140,7 @@ const Experiences = () => {
             flexDirection: "column"
         }}>
             <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}>
-                <h1 className="experiences-title" style={fontTitleBold("50px", "white")}>{t("experiences.title")}</h1>
+                <h1 className="experiences-title">{t("experiences.title")}</h1>
             </motion.div>
             <div className="experiences-content">
                 <VerticalTimeline>

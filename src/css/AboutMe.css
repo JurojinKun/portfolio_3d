@@ -1,3 +1,99 @@
+/*Fonts styles*/
+.fontTitleNormalAboutMe {
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleBoldAboutMe {
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleExtraBoldAboutMe {
+    font-family: 'Poppins';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyNormalAboutMe {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyBoldAboutMe {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyExtraBoldAboutMe {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .fontTitleNormalAboutMe {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldAboutMe {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldAboutMe {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalAboutMe {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldAboutMe {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldAboutMe {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalAboutMe {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldAboutMe {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldAboutMe {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalAboutMe {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldAboutMe {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldAboutMe {
+        font-size: 15px;
+    }
+}
+
+/*Screen styles*/
 .aboutme {
     position: relative;
     min-Height: 100vh;
@@ -21,6 +117,10 @@
     padding-top: 100px;
     padding-bottom: 45px;
     z-index: 0;
+    color: white;
+    font-family: "Poppins";
+    font-weight: 800;
+    font-size: 40px;
 }
 
 .overview-aboutme {
@@ -31,25 +131,16 @@
     padding: 25px 25px 0 25px;
 }
 
-.overview-aboutme h1 {
-    font-size: 55px;
-    color: white;
-}
-
-.overview-aboutme p {
-    font-size: 22px;
-    font-weight: 600;
-    color: white;
-}
-
 .typewriterWrapper {
-    font-size: 25px;
+    font-family: "Montserrat";
+    font-size: 20px;
     color: #47CDD6;
     font-weight: 700;
 }
 
 .typewriterCursor {
-    font-size: 25px;
+    font-family: "Montserrat";
+    font-size: 20px;
     color: #47CDD6;
 }
 
@@ -75,7 +166,7 @@
     }
 }
 
-/* Pour tablettes */
+/* Pour tablettes
 @media screen and (max-width: 768px) {
     .aboutme {
         flex-direction: column;
@@ -99,9 +190,9 @@
         height: 250px;
         width: 200px;
     }
-}
+}*/
 
-/* Pour mobiles */
+/* Pour mobiles
 @media screen and (max-width: 480px) {
     .aboutme {
         flex-direction: column;
@@ -125,4 +216,4 @@
         height: 200px;
         width: 150px;
     }
-}
+} */

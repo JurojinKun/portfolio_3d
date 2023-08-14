@@ -11,7 +11,6 @@ import astroContactMe from '../assets/astro_contact_me.png'
 import enveloppeContactMe from "../assets/enveloppe_contact_me.png";
 import { slideIn } from "../utils/motion";
 import showAlertCustom  from '../components/AlertCustom';
-import { fontTitleBold, fontBodyBold } from "../utils/fonts";
 
 const ContactMe = () => {
     const { t } = useTranslation();
@@ -104,7 +103,7 @@ const ContactMe = () => {
                 flexDirection: "column"
             }}>
             <StarryBackground gradientTopLeft={false} gradientBottomRight={true} heightSection={contactmeHeight} />
-            <h1 className="contactme-title" style={fontTitleBold("50px", "white")}>{t("contact_me.title")}</h1>
+            <h1 className="contactme-title">{t("contact_me.title")}</h1>
             <div className="contactme-content">
                 <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={slideIn("left", "tween", 0.2, 1)} style={{
                     zIndex: 0,
@@ -128,11 +127,7 @@ const ContactMe = () => {
                             display: "flex",
                             flexDirection: "column"
                         }}>
-                            <span style={{
-                                color: "white",
-                                fontSize: "25px",
-                                fontWeight: "700",
-                                fontFamily: "Montserrat, sans-serif",
+                            <span className="fontBodyBoldContactMe" style={{
                                 marginBottom: "1rem"
                             }}>{t("contact_me.title_name")}</span>
                             <input
@@ -141,19 +136,14 @@ const ContactMe = () => {
                                 value={form.name}
                                 onChange={handleChange}
                                 placeholder={t("contact_me.label_name")}
-                                className="input"
-                                style={fontBodyBold("16px", "white")}
+                                className="input fontBodyNormalContactMe"
                             />
                         </label>
                         <label style={{
                             display: "flex",
                             flexDirection: "column"
                         }}>
-                            <span style={{
-                                color: "white",
-                                fontSize: "25px",
-                                fontWeight: "700",
-                                fontFamily: "Montserrat, sans-serif",
+                            <span className="fontBodyBoldContactMe" style={{
                                 marginBottom: "1rem"
                             }}>{t("contact_me.title_post")}</span>
                             <input
@@ -162,19 +152,14 @@ const ContactMe = () => {
                                 value={form.post}
                                 onChange={handleChange}
                                 placeholder={t("contact_me.label_post")}
-                                className="input"
-                                style={fontBodyBold("16px", "white")}
+                                className="input fontBodyNormalContactMe"
                             />
                         </label>
                         <label style={{
                             display: "flex",
                             flexDirection: "column"
                         }}>
-                            <span style={{
-                                color: "white",
-                                fontSize: "25px",
-                                fontWeight: "700",
-                                fontFamily: "Montserrat, sans-serif",
+                            <span className="fontBodyBoldContactMe" style={{
                                 marginBottom: "1rem"
                             }}>{t("contact_me.title_email")}</span>
                             <input
@@ -183,19 +168,14 @@ const ContactMe = () => {
                                 value={form.email}
                                 onChange={handleChange}
                                 placeholder={t("contact_me.label_email")}
-                                className="input"
-                                style={fontBodyBold("16px", "white")}
+                                className="input fontBodyNormalContactMe"
                             />
                         </label>
                         <label style={{
                             display: "flex",
                             flexDirection: "column"
                         }}>
-                            <span style={{
-                                color: "white",
-                                fontSize: "25px",
-                                fontWeight: "700",
-                                fontFamily: "Montserrat, sans-serif",
+                            <span className="fontBodyBoldContactMe" style={{
                                 marginBottom: "1rem"
                             }}>{t("contact_me.title_message")}</span>
                             <textarea
@@ -204,15 +184,13 @@ const ContactMe = () => {
                                 value={form.message}
                                 onChange={handleChange}
                                 placeholder={t("contact_me.label_message")}
-                                className="input"
-                                style={fontBodyBold("16px", "white")}
+                                className="input fontBodyNormalContactMe"
                             />
                         </label>
 
                         <button
                             type="submit"
-                            className="submit"
-                            style={fontBodyBold("20px", "white")}
+                            className="submit fontBodyBoldContactMe"
                         >
                             {loading ? t("contact_me.loading_send") : t("contact_me.send")}
                         </button>

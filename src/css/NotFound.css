@@ -1,3 +1,128 @@
+/*Fonts styles*/
+.fontTitleNormalNotFound {
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleBoldNotFound {
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleExtraBoldNotFound {
+    font-family: 'Poppins';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyNormalNotFound {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyBoldNotFound {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyExtraBoldNotFound {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .fontTitleNormalNotFound {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldNotFound {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldNotFound {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalNotFound {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldNotFound {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldNotFound {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalNotFound {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldNotFound {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldNotFound {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalNotFound {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldNotFound {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldNotFound {
+        font-size: 15px;
+    }
+}
+
+/*Screen style*/
+.mainContainer {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: #02020D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-clip: padding-box;
+    border: 1px solid rgba(2, 2, 13, 1);
+}
+
+.innerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 50px
+}
+
+.notFoundAstro {
+    height: 250px;
+    width: 160px;
+    padding-inline: 30px;
+    z-index: 1
+}
+
 .black_hole {
     position: relative;
     width: 200px;
@@ -135,4 +260,40 @@
         repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, 1) 4px, rgba(255, 255, 255, 1) 4px) 0% 0% / 25% 25%,
         linear-gradient(270deg, #47CDD6, rgba(157, 77, 196, 1)) 0% 0% / 1400% 1400%;
     animation: gradient 5s ease infinite, shake 0.4s infinite, animateBackground 3s linear infinite;
+}
+
+@media (max-width: 768px) {
+    .black_hole {
+        width: 150px;
+        height: 150px;
+    }
+
+    .bug-cursor {
+        width: 20px;
+        height: 20px;
+    }
+
+    .notFoundAstro {
+        height: 200px;
+        width: 125px;
+        padding-inline: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .black_hole {
+        width: 100px;
+        height: 100px;
+    }
+
+    .bug-cursor {
+        width: 15px;
+        height: 15px;
+    }
+
+    .notFoundAstro {
+        height: 150px;
+        width: 100px;
+        padding-inline: 15px;
+    }
 }

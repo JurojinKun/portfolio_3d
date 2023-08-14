@@ -6,7 +6,6 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Carousel from "react-spring-3d-carousel";
 import { config } from "react-spring";
 
-import { fontBodyBold, fontTitleBold } from "../utils/fonts";
 import smv from '../assets/projects/smv.jpg';
 import corsica from '../assets/projects/corsica.jpg';
 import madewis from '../assets/projects/madewis.jpg';
@@ -50,14 +49,14 @@ const ProProjects = ({ menuOpened, t }) => {
                         borderRadius: "10px"
                     }} />
                     <div className="content-slide">
-                        <h2 style={{
-                            ...fontTitleBold("30px", "white"),
+                        <h2 className="fontBodyBoldProjects" style={{
                             margin: "15px 15px 30px 15px"
                         }}>
                             {t("projects.title_project_pro_1")}
                         </h2>
-                        <p style={{
-                            ...fontBodyBold("15px", "white"),
+                        <p
+                        className="fontBodyNormalProjects"
+                        style={{
                             margin: "0px 30px 0px 30px"
                         }}>{t("projects.content_project_pro_1")}</p>
                     </div>
@@ -83,14 +82,16 @@ const ProProjects = ({ menuOpened, t }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 style={{
-                        ...fontTitleBold("30px", "white"),
+                    <h2
+                    className="fontBodyBoldProjects"
+                    style={{
                         margin: "15px 15px 30px 15px"
                     }}>
                         {t("projects.title_project_pro_2")}
                     </h2>
-                    <p style={{
-                        ...fontBodyBold("15px", "white"),
+                    <p 
+                    className="fontBodyNormalProjects"
+                    style={{
                         margin: "0px 30px 0px 30px"
                     }}>{t("projects.content_project_pro_2")}</p>
                 </div>
@@ -116,14 +117,16 @@ const ProProjects = ({ menuOpened, t }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 style={{
-                        ...fontTitleBold("30px", "white"),
+                    <h2 
+                    className="fontBodyBoldProjects"
+                    style={{
                         margin: "15px 15px 30px 15px"
                     }}>
                        {t("projects.title_project_pro_3")}
                     </h2>
-                    <p style={{
-                        ...fontBodyBold("15px", "white"),
+                    <p 
+                    className="fontBodyNormalProjects"
+                    style={{
                         margin: "0px 30px 0px 30px"
                     }}>{t("projects.content_project_pro_3")}</p>
                 </div>
@@ -149,14 +152,16 @@ const ProProjects = ({ menuOpened, t }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 style={{
-                        ...fontTitleBold("30px", "white"),
+                    <h2 
+                    className="fontBodyBoldProjects"
+                    style={{
                         margin: "15px 15px 30px 15px"
                     }}>
                         {t("projects.title_project_pro_4")}
                     </h2>
-                    <p style={{
-                        ...fontBodyBold("15px", "white"),
+                    <p 
+                    className="fontBodyNormalProjects"
+                    style={{
                         margin: "0px 30px 0px 30px"
                     }}>{t("projects.content_project_pro_4")}</p>
                 </div>
@@ -182,14 +187,16 @@ const ProProjects = ({ menuOpened, t }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 style={{
-                        ...fontTitleBold("30px", "white"),
+                    <h2 
+                    className="fontBodyBoldProjects"
+                    style={{
                         margin: "15px 15px 30px 15px"
                     }}>
                         {t("projects.title_project_pro_5")}
                     </h2>
-                    <p style={{
-                        ...fontBodyBold("15px", "white"),
+                    <p 
+                    className="fontBodyNormalProjects"
+                    style={{
                         margin: "0px 30px 0px 30px"
                     }}>{t("projects.content_project_pro_5")}</p>
                 </div>
@@ -301,14 +308,16 @@ const PrivateProjects = ({ menuOpened, t }) => {
                         borderRadius: "10px"
                     }} />
                     <div className="content-slide">
-                        <h2 style={{
-                            ...fontTitleBold("30px", "white"),
+                        <h2 
+                        className="fontBodyBoldProjects"
+                        style={{
                             margin: "15px 15px 30px 15px"
                         }}>
                             {t("projects.title_project_perso_1")}
                         </h2>
-                        <p style={{
-                            ...fontBodyBold("15px", "white"),
+                        <p 
+                        className="fontBodyNormalProjects"
+                        style={{
                             margin: "0px 30px 0px 30px"
                         }}>{t("projects.content_project_perso_1")}</p>
                     </div>
@@ -334,14 +343,16 @@ const PrivateProjects = ({ menuOpened, t }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 style={{
-                        ...fontTitleBold("30px", "white"),
+                    <h2 
+                    className="fontBodyBoldProjects"
+                    style={{
                         margin: "15px 15px 30px 15px"
                     }}>
                         {t("projects.title_project_perso_2")}
                     </h2>
-                    <p style={{
-                        ...fontBodyBold("15px", "white"),
+                    <p 
+                    className="fontBodyNormalProjects"
+                    style={{
                         margin: "0px 30px 0px 30px"
                     }}>{t("projects.content_project_perso_2")}</p>
                 </div>
@@ -367,14 +378,16 @@ const PrivateProjects = ({ menuOpened, t }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 style={{
-                        ...fontTitleBold("30px", "white"),
+                    <h2 
+                    className="fontBodyBoldProjects"
+                    style={{
                         margin: "15px 15px 30px 15px"
                     }}>
                         {t("projects.title_project_perso_3")}
                     </h2>
-                    <p style={{
-                        ...fontBodyBold("15px", "white"),
+                    <p 
+                    className="fontBodyNormalProjects"
+                    style={{
                         margin: "0px 30px 0px 30px"
                     }}>{t("projects.content_project_perso_3")}</p>
                 </div>
@@ -461,9 +474,9 @@ const Projects = ({ menuOpened }) => {
             border: "1px solid rgba(2, 2, 13, 1)",
             flexDirection: "column"
         }}>
-            <h1 className="projects-title" style={fontTitleBold("50px", "white")}>{t("projects.title_pro")}</h1>
+            <h1 className="projects-title">{t("projects.title_pro")}</h1>
             <ProProjects menuOpened={menuOpened} t={t} />
-            <h1 className="projects-title" style={fontTitleBold("50px", "white")}>{t("projects.title_private")}</h1>
+            <h1 className="projects-title">{t("projects.title_private")}</h1>
             <PrivateProjects menuOpened={menuOpened} t={t} />
         </div>
     );

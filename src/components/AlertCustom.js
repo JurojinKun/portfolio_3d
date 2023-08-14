@@ -15,6 +15,7 @@ const showAlertCustom = (title, text, icon) => {
         confirmButtonColor: '#47CDD6',
         customClass: {
             title: 'alert-title',
+            container: 'alert-container'
         }
     });
     return (

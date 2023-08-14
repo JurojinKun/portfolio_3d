@@ -1,9 +1,109 @@
+/*Fonts styles*/
+.fontTitleNormalContactMe {
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleBoldContactMe {
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleExtraBoldContactMe {
+    font-family: 'Poppins';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyNormalContactMe {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyBoldContactMe {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyExtraBoldContactMe {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .fontTitleNormalContactMe {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldContactMe {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldContactMe {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalContactMe {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldContactMe {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldContactMe {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalContactMe {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldContactMe {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldContactMe {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalContactMe {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldContactMe {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldContactMe {
+        font-size: 15px;
+    }
+}
+
+/*Screen styles*/
 .contactme-title {
     top: 0;
     left: 0;
     padding-left: 150px;
     padding-right: 25px;
     padding-top: 30px;
+    color: white;
+    font-family: "Poppins";
+    font-weight: 800;
+    font-size: 40px;
 }
 
 .contactme-content {

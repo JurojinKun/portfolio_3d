@@ -1,4 +1,5 @@
-import '../css/index.css';
+import '../css/Home3D.css';
+
 import MainSceneCanvas from '../canvas/MainSceneCanvas';
 import StarsCanvas from '../canvas/StarsCanvas';
 import FixedHeader from '../components/FixedHeader';

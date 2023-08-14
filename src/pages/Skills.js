@@ -4,7 +4,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { TagCloud } from "@frank-mayer/react-tag-cloud";
-import { fontTitleBold, fontBodyBold, fontBodyNormal } from "../utils/fonts";
 
 const Skills = () => {
     const { t } = useTranslation();
@@ -60,12 +59,12 @@ const Skills = () => {
             <div className="skills">
                 <div className="skills-content">
                     <div className="container-left">
-                        <h1 className="skills-title" style={fontTitleBold("50px", "white")}>{t("skills.title")}</h1>
+                        <h1 className="skills-title">{t("skills.title")}</h1>
                         <div className="container-left-midle">
                         <div className="circle"/>
                             <TagCloud
+                            className="tagcloud-skill"
                                 style={{
-                                    ...fontTitleBold("30px", "white"),
                                     pointerEvents: "none"
                                 }}
                                 
@@ -83,8 +82,8 @@ const Skills = () => {
                                 return (
                                     <div key={index} className="container-in-middle">
                                         <div className="container-in-in-midle">
-                                            <h2 style={fontBodyBold("25px", "white")}>{skill.title}</h2>
-                                            <p style={fontBodyNormal("20px", "white")} dangerouslySetInnerHTML={{ __html: skill.content.replace(/\n/g, '<br>') }}/>
+                                            <h2 className="fontBodyBoldSkills">{skill.title}</h2>
+                                            <p className="fontBodyNormalSkills" dangerouslySetInnerHTML={{ __html: skill.content.replace(/\n/g, '<br>') }}/>
                                         </div>
                                     </div>
                                 );

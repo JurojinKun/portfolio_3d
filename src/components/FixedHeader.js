@@ -1,8 +1,9 @@
+import "../css/Home3D.css";
+
 import React from 'react';
 
 import LanguageSwitcher from './LanguageSwitcher';
 import CanvasPicture from '../canvas/PictureCanvas';
-import { fontTitleBold } from '../utils/fonts';
 
 const FixedHeader = () => {
     return (
@@ -18,7 +19,8 @@ const FixedHeader = () => {
                 >
                     <CanvasPicture />
                 </div>
-                <h2 style={fontTitleBold("26px", "white")}>0ruj | 3D Portfolio</h2>
+                <h2 
+                className="title-header">0ruj | 3D Portfolio</h2>
             </div>
             <div style={{
                 pointerEvents: 'auto',

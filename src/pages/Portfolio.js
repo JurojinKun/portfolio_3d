@@ -20,7 +20,6 @@ import ContactMe from "./ContactMe";
 import NotFound from "./NotFound";
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import profilePicture from '../assets/profile_picture.png';
-import { fontTitleBold } from "../utils/fonts";
 
 const Portfolio = () => {
     const { t } = useTranslation();
@@ -232,7 +231,7 @@ const Portfolio = () => {
                                 <img src={profilePicture} alt='Profile pic' style={{
                                     width: "40px",
                                 }} />
-                                <h3 style={{ fontSize: "20px", paddingLeft: "10px", fontFamily: "Poppins, sans-serif", fontWeight: "700" }}>0ruj | 3D Portfolio</h3>
+                                <h3 className="title-portfolio">0ruj | 3D Portfolio</h3>
                             </div>
                         </Link>
                         : <div style={{
@@ -246,7 +245,7 @@ const Portfolio = () => {
                             <img src={profilePicture} alt='Profile pic' style={{
                                 width: "40px",
                             }} />
-                            <h3 style={{ fontSize: 20, paddingLeft: "10px", fontFamily: "Poppins, sans-serif", fontWeight: "700" }}>0ruj | 3D Portfolio</h3>
+                            <h3 className="title-portfolio">0ruj | 3D Portfolio</h3>
                         </div>}
 
                     <div className="navbar-desktop">
@@ -259,7 +258,7 @@ const Portfolio = () => {
                                 smooth={true}
                                 duration={500}
                             >
-                                <span className={`sectionSpan ${isCurrentSection === section ? "active" : "default"}`} style={fontTitleBold("20px")}>{nameSection(section)}</span>
+                                <span className={`fontTitleBoldPortfolio sectionSpan ${isCurrentSection === section ? "active" : "default"}`}>{nameSection(section)}</span>
                             </Link>
                         ))}
                         <div style={{
@@ -278,7 +277,7 @@ const Portfolio = () => {
                         height: `${window.innerHeight - 30}px`
                     }}>
                         <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
-                            <span style={{ color: "white", fontSize: "30px", fontWeight: "bold", paddingLeft: "20px", fontFamily: "Poppins, sans-serif" }}>{t("portfolio.menu")}</span>
+                            <span className="title-menu">{t("portfolio.menu")}</span>
                             <div className="icon-menu-close" onClick={() => setIsOpen(!isOpen)}>
                             <FaTimes size={27} style={{ color: "white" }} />
                             </div>
@@ -312,13 +311,7 @@ const Portfolio = () => {
                                     }} >
                                     {iconSectionSidebar(section)}
                                     <span
-                                        style={{
-                                            padding: "15px",
-                                            fontSize: "20px",
-                                            fontWeight: "bold",
-                                            fontFamily: "Poppins, sans-serif",
-                                            textDecoration: "none",
-                                        }}
+                                        className="menu-section"
                                     >{nameSection(section)}</span>
                                 </Link>
                             ))}
