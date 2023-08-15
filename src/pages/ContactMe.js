@@ -9,8 +9,8 @@ import { useInView } from "react-intersection-observer";
 import StarryBackground from "../components/StarryBackground";
 import astroContactMe from '../assets/astro_contact_me.png'
 import enveloppeContactMe from "../assets/enveloppe_contact_me.png";
-import { slideIn } from "../utils/motion";
-import showAlertCustom  from '../components/AlertCustom';
+import { textVariant } from "../utils/motion";
+import showAlertCustom from '../components/AlertCustom';
 
 const ContactMe = () => {
     const { t } = useTranslation();
@@ -20,6 +20,7 @@ const ContactMe = () => {
 
     const { ref, inView } = useInView({
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
+        threshold: 0.5
     });
     const formRef = useRef();
     const [form, setForm] = useState({
@@ -103,105 +104,106 @@ const ContactMe = () => {
                 flexDirection: "column"
             }}>
             <StarryBackground gradientTopLeft={false} gradientBottomRight={true} heightSection={contactmeHeight} />
-            <h1 className="contactme-title">{t("contact_me.title")}</h1>
-            <div className="contactme-content">
-                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={slideIn("left", "tween", 0.2, 1)} style={{
-                    zIndex: 0,
-                    backgroundColor: "rgba(26, 26, 26, 0.7)",
-                    marginBottom: "20px",
-                    flexGrow: 0.75,
-                    padding: "2rem",
-                    borderRadius: "1rem",
-                    margin: "2rem"
-                }}>
-                    <form
-                        ref={formRef}
-                        onSubmit={handleSubmit}
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "2rem"
-                        }}
-                    >
-                        <label style={{
-                            display: "flex",
-                            flexDirection: "column"
-                        }}>
-                            <span className="fontBodyBoldContactMe" style={{
-                                marginBottom: "1rem"
-                            }}>{t("contact_me.title_name")}</span>
-                            <input
-                                type="text"
-                                name="name"
-                                value={form.name}
-                                onChange={handleChange}
-                                placeholder={t("contact_me.label_name")}
-                                className="input fontBodyNormalContactMe"
-                            />
-                        </label>
-                        <label style={{
-                            display: "flex",
-                            flexDirection: "column"
-                        }}>
-                            <span className="fontBodyBoldContactMe" style={{
-                                marginBottom: "1rem"
-                            }}>{t("contact_me.title_post")}</span>
-                            <input
-                                type="text"
-                                name="post"
-                                value={form.post}
-                                onChange={handleChange}
-                                placeholder={t("contact_me.label_post")}
-                                className="input fontBodyNormalContactMe"
-                            />
-                        </label>
-                        <label style={{
-                            display: "flex",
-                            flexDirection: "column"
-                        }}>
-                            <span className="fontBodyBoldContactMe" style={{
-                                marginBottom: "1rem"
-                            }}>{t("contact_me.title_email")}</span>
-                            <input
-                                type="email"
-                                name="email"
-                                value={form.email}
-                                onChange={handleChange}
-                                placeholder={t("contact_me.label_email")}
-                                className="input fontBodyNormalContactMe"
-                            />
-                        </label>
-                        <label style={{
-                            display: "flex",
-                            flexDirection: "column"
-                        }}>
-                            <span className="fontBodyBoldContactMe" style={{
-                                marginBottom: "1rem"
-                            }}>{t("contact_me.title_message")}</span>
-                            <textarea
-                                rows={7}
-                                name="message"
-                                value={form.message}
-                                onChange={handleChange}
-                                placeholder={t("contact_me.label_message")}
-                                className="input fontBodyNormalContactMe"
-                            />
-                        </label>
-
-                        <button
-                            type="submit"
-                            className="submit fontBodyBoldContactMe"
+            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}>
+                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}><h1 className="contactme-title">{t("contact_me.title")}</h1></motion.div>
+                <div className="contactme-content">
+                    <div style={{
+                        zIndex: 0,
+                        backgroundColor: "rgba(26, 26, 26, 0.7)",
+                        marginBottom: "20px",
+                        flexGrow: 0.75,
+                        padding: "2rem",
+                        borderRadius: "1rem",
+                        margin: "2rem"
+                    }}>
+                        <form
+                            ref={formRef}
+                            onSubmit={handleSubmit}
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "2rem"
+                            }}
                         >
-                            {loading ? t("contact_me.loading_send") : t("contact_me.send")}
-                        </button>
-                    </form>
-                </motion.div>
+                            <label style={{
+                                display: "flex",
+                                flexDirection: "column"
+                            }}>
+                                <span className="fontBodyBoldContactMe" style={{
+                                    marginBottom: "1rem"
+                                }}>{t("contact_me.title_name")}</span>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={form.name}
+                                    onChange={handleChange}
+                                    placeholder={t("contact_me.label_name")}
+                                    className="input fontBodyNormalContactMe"
+                                />
+                            </label>
+                            <label style={{
+                                display: "flex",
+                                flexDirection: "column"
+                            }}>
+                                <span className="fontBodyBoldContactMe" style={{
+                                    marginBottom: "1rem"
+                                }}>{t("contact_me.title_post")}</span>
+                                <input
+                                    type="text"
+                                    name="post"
+                                    value={form.post}
+                                    onChange={handleChange}
+                                    placeholder={t("contact_me.label_post")}
+                                    className="input fontBodyNormalContactMe"
+                                />
+                            </label>
+                            <label style={{
+                                display: "flex",
+                                flexDirection: "column"
+                            }}>
+                                <span className="fontBodyBoldContactMe" style={{
+                                    marginBottom: "1rem"
+                                }}>{t("contact_me.title_email")}</span>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={form.email}
+                                    onChange={handleChange}
+                                    placeholder={t("contact_me.label_email")}
+                                    className="input fontBodyNormalContactMe"
+                                />
+                            </label>
+                            <label style={{
+                                display: "flex",
+                                flexDirection: "column"
+                            }}>
+                                <span className="fontBodyBoldContactMe" style={{
+                                    marginBottom: "1rem"
+                                }}>{t("contact_me.title_message")}</span>
+                                <textarea
+                                    rows={7}
+                                    name="message"
+                                    value={form.message}
+                                    onChange={handleChange}
+                                    placeholder={t("contact_me.label_message")}
+                                    className="input fontBodyNormalContactMe"
+                                />
+                            </label>
 
-                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={slideIn("right", "tween", 0.2, 1)} className="image-container">
-                    <img src={astroContactMe} alt="Astro contact me" className="static-image" />
-                    <img src={enveloppeContactMe} alt="Enveloppe contact me" className="animated-image" />
-                </motion.div>
-            </div>
+                            <button
+                                type="submit"
+                                className="submit fontBodyBoldContactMe"
+                            >
+                                {loading ? t("contact_me.loading_send") : t("contact_me.send")}
+                            </button>
+                        </form>
+                    </div>
+                    <div className="image-container">
+                        <img src={astroContactMe} alt="Astro contact me" className="static-image" />
+                        <img src={enveloppeContactMe} alt="Enveloppe contact me" className="animated-image" />
+                    </div>
+                </div>
+            </motion.div>
         </div>
     );
 }

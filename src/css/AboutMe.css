@@ -96,7 +96,7 @@
 /*Screen styles*/
 .aboutme {
     position: relative;
-    min-Height: 100vh;
+    min-Height: 103vh;
     display: flex;
     flex-direction: column;
     padding-left: 15px;
@@ -108,7 +108,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    flex-direction: row
+    flex-direction: row;
 }
 
 .aboutme-title {

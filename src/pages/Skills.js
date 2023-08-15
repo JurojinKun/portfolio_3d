@@ -2,11 +2,19 @@ import "../css/Skills.css";
 
 import React from "react";
 import { useTranslation } from "react-i18next";
-
 import { TagCloud } from "@frank-mayer/react-tag-cloud";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+
+import { textVariant, slideIn } from "../utils/motion";
 
 const Skills = () => {
     const { t } = useTranslation();
+
+    const { ref, inView } = useInView({
+        triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
+        threshold: 0.1
+    });
 
     const skills = [
         "Flutter",
@@ -57,24 +65,24 @@ const Skills = () => {
             border: "1px solid rgba(2, 2, 13, 1)",
         }}>
             <div className="skills">
-                <div className="skills-content">
+                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="skills-content">
                     <div className="container-left">
                         <h1 className="skills-title">{t("skills.title")}</h1>
-                        <div className="container-left-midle">
-                        <div className="circle"/>
+                        <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={slideIn("left", "tween", 0.2, 1)} className="container-left-midle">
+                            <div className="circle" />
                             <TagCloud
-                            className="tagcloud-skill"
+                                className="tagcloud-skill"
                                 style={{
                                     pointerEvents: "none"
                                 }}
-                                
+
                                 options={(w, TagCloudOptions) => ({
                                     radius: Math.min(800, w.innerWidth, 800) / 2,
                                 })}
                             >
                                 {skills}
                             </TagCloud>
-                        </div>
+                        </motion.div>
                     </div>
                     <div className="container-middle">
                         <div>
@@ -83,14 +91,14 @@ const Skills = () => {
                                     <div key={index} className="container-in-middle">
                                         <div className="container-in-in-midle">
                                             <h2 className="fontBodyBoldSkills">{skill.title}</h2>
-                                            <p className="fontBodyNormalSkills" dangerouslySetInnerHTML={{ __html: skill.content.replace(/\n/g, '<br>') }}/>
+                                            <p className="fontBodyNormalSkills" dangerouslySetInnerHTML={{ __html: skill.content.replace(/\n/g, '<br>') }} />
                                         </div>
                                     </div>
                                 );
                             })}
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </div>
     );

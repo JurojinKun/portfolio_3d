@@ -4,16 +4,26 @@ import React, { useRef, useState, useEffect } from "react";
 import StarryBackground from "../components/StarryBackground";
 import astroAboutMe from '../assets/astro_about_me.png';
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 import AppTypewriter from "../components/AppTypewriter";
+import { textVariant } from "../utils/motion";
 
 const AboutMe = () => {
     const { t } = useTranslation();
+
+    const { ref, inView } = useInView({
+        triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
+        threshold: 0.5,
+    });
 
     const aboutmeRef = useRef();
     const [aboutmeHeight, setAboutmeHeight] = useState(window.innerHeight);
 
     useEffect(() => {
+        console.log(inView);
+
         const checkHeight = () => {
             if (aboutmeRef.current) {
                 setAboutmeHeight(aboutmeRef.current.getBoundingClientRect().height);
@@ -25,7 +35,7 @@ const AboutMe = () => {
 
         // Cleanup
         return () => window.removeEventListener('resize', checkHeight);
-    }, []);
+    }, [inView]);
 
     return (
         <div
@@ -37,8 +47,8 @@ const AboutMe = () => {
                 border: "1px solid rgba(2, 2, 13, 1)",
             }}>
             <StarryBackground gradientTopLeft={true} gradientBottomRight={false} heightSection={aboutmeHeight} />
-            <div className="aboutme">
-                <h1 className="aboutme-title">{t("about_me.title")}</h1>
+            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="aboutme">
+                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}><h1 className="aboutme-title">{t("about_me.title")}</h1></motion.div>
                 <div className="aboutme-content">
                     <div className="overview-aboutme">
                         <AppTypewriter
@@ -59,7 +69,7 @@ const AboutMe = () => {
                     </div>
                     <img src={astroAboutMe} alt='About me' className="img-astro-aboutme" />
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 }

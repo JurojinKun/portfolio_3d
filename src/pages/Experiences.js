@@ -91,6 +91,7 @@ const Experiences = () => {
     const { t } = useTranslation();
     const { ref, inView } = useInView({
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
+        threshold: 0.5
     });
 
     const experiences = [
