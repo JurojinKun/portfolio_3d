@@ -93,6 +93,58 @@
     }
 }
 
+@media (max-height: 768px) {
+    .fontTitleNormalNotFound {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldNotFound {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldNotFound {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalNotFound {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldNotFound {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldNotFound {
+        font-size: 17px;
+    }
+}
+
+@media (max-height: 480px) {
+    .fontTitleNormalNotFound {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldNotFound {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldNotFound {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalNotFound {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldNotFound {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldNotFound {
+        font-size: 15px;
+    }
+}
+
 /*Screen style*/
 .mainContainer {
     height: 100vh;
@@ -113,7 +165,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 50px
+    margin: 1%
 }
 
 .notFoundAstro {
@@ -281,6 +333,42 @@
 }
 
 @media (max-width: 480px) {
+    .black_hole {
+        width: 100px;
+        height: 100px;
+    }
+
+    .bug-cursor {
+        width: 15px;
+        height: 15px;
+    }
+
+    .notFoundAstro {
+        height: 150px;
+        width: 100px;
+        padding-inline: 15px;
+    }
+}
+
+@media (max-height: 768px) {
+    .black_hole {
+        width: 150px;
+        height: 150px;
+    }
+
+    .bug-cursor {
+        width: 20px;
+        height: 20px;
+    }
+
+    .notFoundAstro {
+        height: 200px;
+        width: 125px;
+        padding-inline: 20px;
+    }
+}
+
+@media (max-height: 480px) {
     .black_hole {
         width: 100px;
         height: 100px;
