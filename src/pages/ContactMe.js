@@ -25,6 +25,7 @@ const ContactMe = () => {
     const formRef = useRef();
     const [form, setForm] = useState({
         name: "",
+        firstname: "",
         post: "",
         email: "",
         message: ""
@@ -40,17 +41,18 @@ const ContactMe = () => {
         e.preventDefault();
         setLoading(true);
 
-        if (form.name.trim() === "" || form.post.trim() === "" || form.email.trim() === "" || form.message.trim() === "") {
+        if (form.name.trim() === "" || form.firstname.trim() === "" || form.post.trim() === "" || form.email.trim() === "" || form.message.trim() === "") {
             setLoading(false);
             showAlertCustom(t("contact_me.title_error"), t("contact_me.content_error_1"), 'error');
         } else {
-            const concatMessage = `Bonjour/Bonsoir, je suis ${form.name}, actuellement ${form.post}.\n\n${form.message}\n\nTu peux me contacter via ${form.email}`;
+            const identity = form.name + form.firstname;
+            const concatMessage = `Bonjour/Bonsoir, je suis ${form.name} ${form.firstname}, actuellement ${form.post}.\n\n${form.message}\n\nTu peux me contacter via ${form.email}`;
             emailjs
                 .send(
                     process.env.REACT_APP_SERVICE_ID,
                     process.env.REACT_APP_TEMPLATE_ID,
                     {
-                        from_name: form.name,
+                        from_name: identity,
                         to_name: process.env.REACT_APP_TO_NAME,
                         from_email: form.email,
                         to_email: process.env.REACT_APP_TO_EMAIL,
@@ -64,6 +66,7 @@ const ContactMe = () => {
                         showAlertCustom(t("contact_me.title_validate"), t("contact_me.content_validate"), 'success');
                         setForm({
                             name: "",
+                            firstname: "",
                             post: "",
                             email: "",
                             message: "",
@@ -138,6 +141,22 @@ const ContactMe = () => {
                                     value={form.name}
                                     onChange={handleChange}
                                     placeholder={t("contact_me.label_name")}
+                                    className="input fontBodyNormalContactMe"
+                                />
+                            </label>
+                            <label style={{
+                                display: "flex",
+                                flexDirection: "column"
+                            }}>
+                                <span className="fontBodyBoldContactMe" style={{
+                                    marginBottom: "1rem"
+                                }}>{t("contact_me.title_firstname")}</span>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={form.firstname}
+                                    onChange={handleChange}
+                                    placeholder={t("contact_me.label_firstname")}
                                     className="input fontBodyNormalContactMe"
                                 />
                             </label>

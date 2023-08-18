@@ -8,23 +8,19 @@ import CanvasPicture from '../canvas/PictureCanvas';
 const FixedHeader = () => {
     return (
         <header className="App-header">
-            <div style={{
-                display: "flex",
-                alignItems: "center", 
-                paddingLeft: "100px" 
-            }}>
-                <div style={{
-                    pointerEvents: 'auto'
-                }}
-                >
-                    <CanvasPicture />
-                </div>
-                <h2 
-                className="title-header">0ruj | 3D Portfolio</h2>
+            <div
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    paddingLeft: "4%"
+                }}>
+                <CanvasPicture />
+                <h2
+                    className="title-header">0ruj | 3D Portfolio</h2>
             </div>
             <div style={{
                 pointerEvents: 'auto',
-                paddingRight: "100px"
+                paddingRight: "4%"
             }}>
                 <LanguageSwitcher openingDirection={"bottom"} />
             </div>

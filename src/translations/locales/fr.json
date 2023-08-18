@@ -93,6 +93,8 @@
         "title": "Me contacter",
         "title_name": "Votre nom",
         "label_name": "Quel est votre nom ?",
+        "title_firstname": "Votre prénom",
+        "label_firstname": "Quel est votre prénom ?",
         "title_post": "Votre poste",
         "label_post": "Quel est votre poste ?",
         "title_email": "Votre email",

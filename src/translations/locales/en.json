@@ -93,6 +93,8 @@
         "title": "Contact me",
         "title_name": "Your name",
         "label_name": "What's your name ?",
+        "title_firstname": "Your firstname",
+        "label_firstname": "What's your firstname ?",
         "title_post": "Your post",
         "label_post": "What's your post ?",
         "title_email": "Your email",

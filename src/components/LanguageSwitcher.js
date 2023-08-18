@@ -1,3 +1,5 @@
+import "../css/Home3D.css";
+
 import React from 'react';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
@@ -20,9 +22,6 @@ const customStyles = {
     singleValue: (provided) => ({
         ...provided,
         color: '#fff',
-        fontSize: "15px",
-        fontWeight: '800',
-        fontFamily: "Poppins",
     }),
     menu: (provided) => ({
         ...provided,
@@ -36,9 +35,6 @@ const customStyles = {
         ...provided,
         color: state.isSelected || state.isFocused ? '#47CDD6' : '#fff',
         backgroundColor: state.isSelected ? '#1a1a1a' : state.isFocused ? '#333' : '#2a2a2a',
-        fontSize: "15px",
-        fontWeight: '800',
-        fontFamily: "Poppins",
     })
 };
 
@@ -61,7 +57,7 @@ const LanguageSwitcher = ({ openingDirection }) => {
     };
 
     return (
-        <Select
+        <Select className='language-switcher'
             value={languageOptions.find(option => !!selectedLanguage ? option.value === selectedLanguage : option.value === i18n.language.split('-')[0])}
             options={languageOptions}
             onChange={changeLanguage}
