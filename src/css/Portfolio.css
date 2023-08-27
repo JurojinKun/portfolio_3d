@@ -41,58 +41,6 @@
     font-size: 20px;
 }
 
-@media (max-width: 768px) {
-    .fontTitleNormalPortfolio {
-        font-size: 17px;
-    }
-
-    .fontTitleBoldPortfolio {
-        font-size: 17px;
-    }
-
-    .fontTitleExtraBoldPortfolio {
-        font-size: 17px;
-    }
-
-    .fontBodyNormalPortfolio {
-        font-size: 17px;
-    }
-
-    .fontBodyBoldPortfolio {
-        font-size: 17px;
-    }
-
-    .fontBodyExtraBoldPortfolio {
-        font-size: 17px;
-    }
-}
-
-@media (max-width: 480px) {
-    .fontTitleNormalPortfolio {
-        font-size: 15px;
-    }
-
-    .fontTitleBoldPortfolio {
-        font-size: 15px;
-    }
-
-    .fontTitleExtraBoldPortfolio {
-        font-size: 15px;
-    }
-
-    .fontBodyNormalPortfolio {
-        font-size: 15px;
-    }
-
-    .fontBodyBoldPortfolio {
-        font-size: 15px;
-    }
-
-    .fontBodyExtraBoldPortfolio {
-        font-size: 15px;
-    }
-}
-
 /*Screen styles*/
 .portfolio {
     margin: 0;
@@ -128,7 +76,6 @@
 
 .sectionSpan {
     padding: 15px;
-    font-size: 20px;
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
@@ -204,7 +151,7 @@ progress::-moz-progress-bar {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-right: 50px
+    padding-right: 2%
 }
 
 .navbar-mobile {
@@ -217,8 +164,9 @@ progress::-moz-progress-bar {
 
 .sidebar {
     position: fixed;
-    width: 300px;
-    top: 15px;
+    width: 30%;
+    height: 100%;
+    top: 1%;
     right: 0;
     background-color: rgba(26, 26, 26, 1.0);
     display: flex;
@@ -239,7 +187,7 @@ progress::-moz-progress-bar {
     display: flex;
     height: 45px;
     width: 45px;
-    margin-right: 10px;
+    margin-right: 2%;
     cursor: pointer;
     align-items: center;
     justify-content: center;
@@ -250,6 +198,10 @@ progress::-moz-progress-bar {
     width: 45px;
     border-radius: 60px;
     background-color: rgba(71, 205, 214, 0.3)
+}
+
+.main-content.blurred {
+    filter: blur(5px);
 }
 
 @media (max-width: 1300px) {
@@ -265,7 +217,7 @@ progress::-moz-progress-bar {
         display: flex;
         height: 45px;
         width: 45px;
-        margin-right: 30px;
+        margin-right: 2%;
         right: 0;
         align-items: center;
         justify-content: center;
@@ -280,6 +232,60 @@ progress::-moz-progress-bar {
     }
 }
 
-.main-content.blurred {
-    filter: blur(5px);
+@media (min-width: 481px) and (max-width: 824px) {
+    .fontTitleNormalPortfolio {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldPortfolio {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldPortfolio {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalPortfolio {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldPortfolio {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldPortfolio {
+        font-size: 17px;
+    }
+    .sidebar {
+        width: 60%;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalPortfolio {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldPortfolio {
+        font-size: 15px;
+    }
+    .sidebar {
+        width: 60%;
+    }
 }
