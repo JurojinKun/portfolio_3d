@@ -41,110 +41,6 @@
     font-size: 23px;
 }
 
-@media (max-width: 768px) {
-    .fontTitleNormalHome3D {
-        font-size: 20px;
-    }
-
-    .fontTitleBoldHome3D {
-        font-size: 20px;
-    }
-
-    .fontTitleExtraBoldHome3D {
-        font-size: 20px;
-    }
-
-    .fontBodyNormalHome3D {
-        font-size: 20px;
-    }
-
-    .fontBodyBoldHome3D {
-        font-size: 20px;
-    }
-
-    .fontBodyExtraBoldHome3D {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .fontTitleNormalHome3D {
-        font-size: 17px;
-    }
-
-    .fontTitleBoldHome3D {
-        font-size: 17px;
-    }
-
-    .fontTitleExtraBoldHome3D {
-        font-size: 17px;
-    }
-
-    .fontBodyNormalHome3D {
-        font-size: 17px;
-    }
-
-    .fontBodyBoldHome3D {
-        font-size: 17px;
-    }
-
-    .fontBodyExtraBoldHome3D {
-        font-size: 17px;
-    }
-}
-
-@media (max-height: 768px) {
-    .fontTitleNormalHome3D {
-        font-size: 20px;
-    }
-
-    .fontTitleBoldHome3D {
-        font-size: 20px;
-    }
-
-    .fontTitleExtraBoldHome3D {
-        font-size: 20px;
-    }
-
-    .fontBodyNormalHome3D {
-        font-size: 20px;
-    }
-
-    .fontBodyBoldHome3D {
-        font-size: 20px;
-    }
-
-    .fontBodyExtraBoldHome3D {
-        font-size: 20px;
-    }
-}
-
-@media (max-height: 480px) {
-    .fontTitleNormalHome3D {
-        font-size: 17px;
-    }
-
-    .fontTitleBoldHome3D {
-        font-size: 17px;
-    }
-
-    .fontTitleExtraBoldHome3D {
-        font-size: 17px;
-    }
-
-    .fontBodyNormalHome3D {
-        font-size: 17px;
-    }
-
-    .fontBodyBoldHome3D {
-        font-size: 17px;
-    }
-
-    .fontBodyExtraBoldHome3D {
-        font-size: 17px;
-    }
-}
-
 /*Screen styles*/
 .App-header {
     position: absolute;
@@ -186,7 +82,7 @@
 
 .overview-content {
     width: 50%;
-    margin-top: 100px;
+    margin-top: 130px;
     margin-left: 5%;
 }
 
@@ -320,13 +216,42 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 824px),
+(min-height: 501px) and (max-height: 700px) {
+    .fontTitleNormalHome3D {
+        font-size: 20px;
+    }
+
+    .fontTitleBoldHome3D {
+        font-size: 20px;
+    }
+
+    .fontTitleExtraBoldHome3D {
+        font-size: 20px;
+    }
+
+    .fontBodyNormalHome3D {
+        font-size: 20px;
+    }
+
+    .fontBodyBoldHome3D {
+        font-size: 20px;
+    }
+
+    .fontBodyExtraBoldHome3D {
+        font-size: 20px;
+    }
+
     .title-header {
         font-size: 18px;
     }
 
     .language-switcher {
         font-size: 15px;
+    }
+
+    .overview-content {
+        margin-top: 110px;
     }
 
     .overview-content {
@@ -367,29 +292,29 @@
             opacity: 1;
             bottom: 5px;
         }
-    
+
         50% {
             opacity: 1;
             bottom: 25px;
         }
-    
+
         100% {
             opacity: 1;
             bottom: 5px;
         }
     }
-    
+
     @-webkit-keyframes wheel {
         0% {
             opacity: 1;
             bottom: 5px;
         }
-    
+
         50% {
             opacity: 1;
             bottom: 25px;
         }
-    
+
         100% {
             opacity: 1;
             bottom: 5px;
@@ -397,13 +322,42 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px),
+(max-height: 500px) {
+    .fontTitleNormalHome3D {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldHome3D {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldHome3D {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalHome3D {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldHome3D {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldHome3D {
+        font-size: 17px;
+    }
+
     .title-header {
         font-size: 15px;
     }
 
     .language-switcher {
         font-size: 12px;
+    }
+
+    .overview-content {
+        margin-top: 90px;
     }
 
     .overview-content {
@@ -444,104 +398,32 @@
             opacity: 1;
             bottom: 5px;
         }
-    
+
         50% {
             opacity: 1;
             bottom: 20px;
         }
-    
+
         100% {
             opacity: 1;
             bottom: 5px;
         }
     }
-    
+
     @-webkit-keyframes wheel {
         0% {
             opacity: 1;
             bottom: 5px;
         }
-    
+
         50% {
             opacity: 1;
             bottom: 20px;
         }
-    
+
         100% {
             opacity: 1;
             bottom: 5px;
         }
-    }
-}
-
-@media (max-height: 768px) {
-    .title-header {
-        font-size: 18px;
-    }
-
-    .language-switcher {
-        font-size: 15px;
-    }
-
-    .overview-content {
-        width: 70%;
-    }
-
-    .hello-title {
-        font-size: 25px;
-    }
-
-    .name {
-        font-size: 25px;
-    }
-
-    .scroll-content {
-        font-size: 21px;
-    }
-
-    .mouse {
-        width: 20px;
-        height: 40px;
-    }
-
-    .mouse::before {
-        width: 10px;
-        height: 10px;
-    }
-}
-
-@media (max-height: 480px) {
-    .title-header {
-        font-size: 15px;
-    }
-
-    .language-switcher {
-        font-size: 12px;
-    }
-
-    .overview-content {
-        width: 90%;
-    }
-
-    .hello-title {
-        font-size: 22px;
-    }
-
-    .name {
-        font-size: 22px;
-    }
-
-    .scroll-content {
-        font-size: 18px;
-    }
-
-    .mouse {
-        width: 15px;
-        height: 30px;
-    }
-
-    .mouse::before {
-        width: 8px;
-        height: 8px;
     }
 }
