@@ -45,7 +45,7 @@ const ContactMe = () => {
             setLoading(false);
             showAlertCustom(t("contact_me.title_error"), t("contact_me.content_error_1"), 'error');
         } else {
-            const identity = form.name + form.firstname;
+            const identity = form.name + " " + form.firstname;
             const concatMessage = `Bonjour/Bonsoir, je suis ${form.name} ${form.firstname}, actuellement ${form.post}.\n\n${form.message}\n\nTu peux me contacter via ${form.email}`;
             emailjs
                 .send(
@@ -153,7 +153,7 @@ const ContactMe = () => {
                                 }}>{t("contact_me.title_firstname")}</span>
                                 <input
                                     type="text"
-                                    name="name"
+                                    name="firstname"
                                     value={form.firstname}
                                     onChange={handleChange}
                                     placeholder={t("contact_me.label_firstname")}
@@ -174,6 +174,7 @@ const ContactMe = () => {
                                     onChange={handleChange}
                                     placeholder={t("contact_me.label_post")}
                                     className="input fontBodyNormalContactMe"
+                                    autoComplete="off"
                                 />
                             </label>
                             <label style={{
@@ -206,6 +207,7 @@ const ContactMe = () => {
                                     onChange={handleChange}
                                     placeholder={t("contact_me.label_message")}
                                     className="input fontBodyNormalContactMe"
+                                    autoComplete="off"
                                 />
                             </label>
 
