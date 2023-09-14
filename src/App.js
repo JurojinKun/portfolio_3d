@@ -1,7 +1,8 @@
-import "./translations/i18n";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useEffect } from "react";
 
+import "./translations/i18n";
+import './config'
 import Home3D from "./pages/Home3D";
 import Portfolio from "./pages/Portfolio";
 import NotFound from "./pages/NotFound";

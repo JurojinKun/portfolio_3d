@@ -22,8 +22,6 @@ const AboutMe = () => {
     const [aboutmeHeight, setAboutmeHeight] = useState(window.innerHeight);
 
     useEffect(() => {
-        console.log(inView);
-
         const checkHeight = () => {
             if (aboutmeRef.current) {
                 setAboutmeHeight(aboutmeRef.current.getBoundingClientRect().height);

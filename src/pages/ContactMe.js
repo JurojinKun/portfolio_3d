@@ -73,7 +73,7 @@ const ContactMe = () => {
                         });
                     },
                     (error) => {
-                        console.log(error);
+                        console.log(error)
                         setLoading(false);
                         showAlertCustom(t("contact_me.title_error"), t("contact_me.content_error_2"), 'error');
                     }
