@@ -1,0 +1,291 @@
+/*Fonts styles*/
+.fontTitleNormalPortfolio {
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleBoldPortfolio {
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleExtraBoldPortfolio {
+    font-family: 'Poppins';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyNormalPortfolio {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyBoldPortfolio {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyExtraBoldPortfolio {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+/*Screen styles*/
+.portfolio {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #02020D;
+}
+
+.title-portfolio {
+    font-size: 20px;
+    padding-left: 10px;
+    font-family: "Poppins";
+    font-weight: 700
+}
+
+.title-menu {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 20px;
+    font-family: "Poppins"
+}
+
+.menu-section {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Poppins";
+    text-decoration: none;
+}
+
+.sectionSpan {
+    padding: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sectionSpan.default {
+    color: white;
+}
+
+.sectionSpan.default:hover {
+    color: #47CDD6;
+}
+
+.sectionSpan.active {
+    color: #47CDD6;
+}
+
+.sectionSpanSidebar {
+    cursor: pointer;
+}
+
+.sectionSpanSidebar.default {
+    color: white;
+}
+
+.sectionSpanSidebar.default:hover {
+    color: #47CDD6;
+}
+
+.sectionSpanSidebar.active {
+    color: #47CDD6;
+}
+
+progress {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border: none;
+    background: transparent;
+}
+
+progress::-webkit-progress-bar {
+    background: transparent;
+}
+
+progress::-webkit-progress-value {
+    background-color: #47CDD6;
+}
+
+progress::-moz-progress-bar {
+    background: #47CDD6;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    z-index: 2;
+    transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.navbar-desktop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 2%
+}
+
+.navbar-mobile {
+    display: none;
+}
+
+.icon-sidebar {
+    display: none;
+}
+
+.sidebar {
+    position: fixed;
+    width: 30%;
+    height: 100%;
+    top: 1%;
+    right: 0;
+    background-color: rgba(26, 26, 26, 1.0);
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+    box-shadow: 0px 10px 20px rgba(71, 205, 214, 0.4), 0px 6px 5px rgba(71, 205, 214, 0.2);
+}
+
+.icon-menu-close {
+    display: flex;
+    height: 45px;
+    width: 45px;
+    margin-right: 2%;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-menu-close:hover {
+    height: 45px;
+    width: 45px;
+    border-radius: 60px;
+    background-color: rgba(71, 205, 214, 0.3)
+}
+
+.main-content.blurred {
+    filter: blur(5px);
+}
+
+@media (max-width: 1300px) {
+    .navbar-desktop {
+        display: none;
+    }
+
+    .navbar-mobile {
+        display: flex;
+    }
+
+    .icon-sidebar {
+        display: flex;
+        height: 45px;
+        width: 45px;
+        margin-right: 2%;
+        right: 0;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer
+    }
+
+    .icon-sidebar:hover {
+        height: 45px;
+        width: 45px;
+        border-radius: 60px;
+        background-color: rgba(71, 205, 214, 0.3)
+    }
+}
+
+@media (min-width: 481px) and (max-width: 824px) {
+    .fontTitleNormalPortfolio {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldPortfolio {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldPortfolio {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalPortfolio {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldPortfolio {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldPortfolio {
+        font-size: 17px;
+    }
+    .sidebar {
+        width: 60%;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalPortfolio {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldPortfolio {
+        font-size: 15px;
+    }
+    .sidebar {
+        width: 60%;
+    }
+}

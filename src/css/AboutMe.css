@@ -1,0 +1,172 @@
+/*Fonts styles*/
+.fontTitleNormalAboutMe {
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleBoldAboutMe {
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontTitleExtraBoldAboutMe {
+    font-family: 'Poppins';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyNormalAboutMe {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyBoldAboutMe {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.fontBodyExtraBoldAboutMe {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    color: white;
+    font-size: 20px;
+}
+
+/*Screen styles*/
+.aboutme {
+    position: relative;
+    min-Height: 103vh;
+    display: flex;
+    flex-direction: column;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.aboutme-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+.aboutme-title {
+    padding: 70px 5% 2% 5%;
+    z-index: 0;
+    color: white;
+    font-family: "Poppins";
+    font-weight: 800;
+    font-size: 40px;
+}
+
+.overview-aboutme {
+    background-color: rgba(26, 26, 26, 0.7);
+    z-index: 0;
+    border-radius: 10px;
+    width: 45%;
+    padding: 25px 25px 0 25px;
+}
+
+.typewriterWrapper {
+    font-family: "Montserrat";
+    font-size: 20px;
+    color: #47CDD6;
+    font-weight: 700;
+}
+
+.typewriterCursor {
+    font-family: "Montserrat";
+    font-size: 20px;
+    color: #47CDD6;
+}
+
+.img-astro-aboutme {
+    height: 325px;
+    width: 275px;
+    z-index: 0;
+    position: relative;
+    animation: bounce 6s infinite;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(30px);
+    }
+
+    50% {
+        transform: translateY(-30px);
+    }
+
+    100% {
+        transform: translateY(30px);
+    }
+}
+
+@media (min-width: 481px) and (max-width: 824px) {
+    .fontTitleNormalAboutMe {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldAboutMe {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldAboutMe {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalAboutMe {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldAboutMe {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldAboutMe {
+        font-size: 17px;
+    }
+    .aboutme-content {
+        flex-direction: column-reverse;
+    }
+    .overview-aboutme {
+        width: 75%;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalAboutMe {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldAboutMe {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldAboutMe {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalAboutMe {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldAboutMe {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldAboutMe {
+        font-size: 15px;
+    }
+    .aboutme-content {
+        flex-direction: column-reverse;
+    }
+}
