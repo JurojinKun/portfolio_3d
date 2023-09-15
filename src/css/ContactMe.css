@@ -122,6 +122,7 @@
     }
 }
 
+/* Style par défaut pour .input */
 .input {
     background-color: #2a2a2a;
     padding: 1rem 1.5rem;
@@ -133,6 +134,17 @@
 
 .input::placeholder {
     color: grey;
+}
+
+/* Surcharge de l'apparence par défaut de l'auto-complétion */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+    -webkit-text-fill-color: white !important;
+    caret-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0 30px #2a2a2a inset !important;
 }
 
 .submit {
