@@ -76,7 +76,7 @@ const Overview = ({ opacity }) => {
                     </div>
                 </div>
                 <p className='fontBodyNormalHome3D'>{t("overview.fifth_para")} 👀</p>
-                <div style={{ display: 'flex',  marginTop: "5%", width: "40%"}}>
+                <div style={{ display: 'flex',  marginTop: "30px", width: "40%"}}>
                     <IconRoundButton icon={<ResponsiveGitHubIcon className='icon-contact' />} url="https://github.com/JurojinKun" title={"GitHub"} />
                     <IconRoundButton icon={<ResponsiveLinkedInIcon className='icon-contact' />} url="https://www.linkedin.com/in/clément-communay" title={"LinkedIn"} />
                     <IconRoundButton icon={<ResponsiveDownloadIcon className='icon-contact' />} url="/cv/CV_Clement_Communay.pdf" title={"CV"} />
