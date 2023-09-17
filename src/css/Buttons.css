@@ -1,20 +1,52 @@
-.round-btn {
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px 0 5px;
+    align-items: center;
+  }
+  
+  .roundButton {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 50%; 
+    margin-bottom: 10px;
     border: none;
+    cursor: pointer;
     box-shadow: 0 0 5px #47CDD6;
     background-color: #1A1B1B;
     transition: background-color 0.3s ease;
-    margin-right: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
-.round-btn:hover {
-    background-color: #47CDD6
+.roundButton:hover {
+    background-color: #47CDD6;
+  }
+
+@media (hover: hover) {
+    .roundButton:hover {
+        background-color: #47CDD6;
+    }
 }
+  
+.titleContainer {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background-color: #47CDD6;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-size: 'Poppins';
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center; 
+  }
+  
+.roundButton:hover + .titleContainer {
+    opacity: 1;
+  }
 
 .text-btn {
     padding: 10px 40px;

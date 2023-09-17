@@ -64,6 +64,7 @@ const LanguageSwitcher = ({ openingDirection }) => {
             styles={customStyles}
             getOptionLabel={(option) => option.label}
             menuPlacement={openingDirection}
+            isSearchable={false}
         />
     );
 };

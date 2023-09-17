@@ -11,9 +11,12 @@ const App = () => {
 
   useEffect(() => {
     const loadingScreen = document.getElementById('loading-screen');
+    const portfolio = document.getElementById('root');
     if (loadingScreen && loadingScreen.style.display !== 'none') {
       setTimeout(() => {
+        sessionStorage.setItem('isSessionActive', 'true');
         loadingScreen.style.display = 'none';
+        portfolio.style.display = 'flex';
       }, 1000);
     }
   }, []);

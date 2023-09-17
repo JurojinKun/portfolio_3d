@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Color } from 'three';
 
@@ -18,11 +18,25 @@ const SphereCustom = ({ scroll }) => {
     const getColor = (elapsedTime) => {
         const proportion = Math.abs(Math.sin(elapsedTime * 0.1));
         return new Color().copy(startColor).lerp(endColor, proportion);
-      };
+    };
 
     const [color, setColor] = useState(getColor(0));
     const [satellitePositions, setSatellitePositions] = useState(Array(6).fill([0, 0, 0]));
     const [satellitesVisible, setSatellitesVisible] = useState(false);
+
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useFrame(({ clock }) => {
         const elapsedTime = clock.getElapsedTime();
@@ -37,7 +51,14 @@ const SphereCustom = ({ scroll }) => {
 
             if (scroll.offset > 0) {
                 const startPosition = [1.5, -1, 7];
-                const endPosition = [0, 0.1, 3.0];
+                var endPosition;
+                if (windowWidth <= 600) {
+                    endPosition = [0, 0.1, -3.5];
+                } else if (windowWidth <= 1000) {
+                    endPosition = [0, 0.1, 0.5];
+                } else {
+                    endPosition = [0, 0.1, 2.5];
+                }
 
                 // Linear interpolation between start and end positions based on offset
                 meshRef.current.position.x = (startPosition[0] + scroll.offset * (endPosition[0] - startPosition[0]));
@@ -56,7 +77,7 @@ const SphereCustom = ({ scroll }) => {
                     // Calculate satellite positions and update the state
                     const newPositions = satellitePositions.map((_, index) => {
                         const angle = (2 * Math.PI / satellitePositions.length) * index + elapsedTime * 0.03;
-                        const distance = 2.3;
+                        const distance = 2.5;
                         return [
                             distance * Math.cos(angle),
                             distance * Math.sin(angle),

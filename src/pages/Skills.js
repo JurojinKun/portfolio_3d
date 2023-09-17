@@ -19,17 +19,17 @@ const Skills = () => {
     const skills = [
         "Flutter",
         "React native",
-        "React redux",
-        "React js",
-        "Three js",
         "Python",
+        "Three js",
         "C",
         "Node js",
         "Sequelize",
         "MySQL",
         "Firebase",
+        "React redux",
         "Postman",
         "GitHub",
+        "React js",
         "Bitbucket",
         "SourceTree"
     ];
