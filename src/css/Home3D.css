@@ -477,3 +477,9 @@
         }
     }
 }
+
+@media (max-width: 370px) {
+    .title-header {
+        display: none;
+    }
+}
