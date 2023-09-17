@@ -1,17 +1,23 @@
 import React from 'react';
 import '../css/Buttons.css';
 
-const IconRoundButton = ({ icon, url }) => {
+const IconRoundButton = ({ icon, url, title }) => {
+
     const handleClick = () => {
         window.open(url, '_blank');
     };
 
     return (
-        url === undefined || url === null ? <button className="round-btn">
-            {icon}
-        </button> : <button className="round-btn" onClick={handleClick}>
-            {icon}
-        </button>
+        <div className="container">
+            {url === undefined || url === null ? <button className='roundButton'>{icon}</button> : url.startsWith("http://") || url.startsWith("https://") ? <button className="roundButton" onClick={handleClick}> {icon}
+            </button> : <a href={url} download className='roundButton'>
+                {icon}
+            </a>
+            }
+            {title && <div className="titleContainer">
+                {title}
+            </div>}
+        </div>
     );
 }
 
