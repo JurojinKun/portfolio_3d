@@ -12,12 +12,12 @@ const ResponsiveDownloadIcon = styled(DownloadIcon)(({ theme }) => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
+        width: theme.spacing(2.5),
+        height: theme.spacing(2.5),
     },
     [theme.breakpoints.down('xs')]: {
-        width: theme.spacing(1),
-        height: theme.spacing(1),
+        width: theme.spacing(2),
+        height: theme.spacing(2),
     },
 }));
 
@@ -25,12 +25,12 @@ const ResponsiveLinkedInIcon = styled(LinkedInIcon)(({ theme }) => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
+        width: theme.spacing(2.5),
+        height: theme.spacing(2.5),
     },
     [theme.breakpoints.down('xs')]: {
-        width: theme.spacing(1),
-        height: theme.spacing(1),
+        width: theme.spacing(2),
+        height: theme.spacing(2),
     },
 }));
 
@@ -38,12 +38,12 @@ const ResponsiveGitHubIcon = styled(GitHubIcon)(({ theme }) => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
+        width: theme.spacing(2.5),
+        height: theme.spacing(2.5),
     },
     [theme.breakpoints.down('xs')]: {
-        width: theme.spacing(1),
-        height: theme.spacing(1),
+        width: theme.spacing(2),
+        height: theme.spacing(2),
     },
 }));
 
