@@ -24,7 +24,7 @@
     font-family: 'Montserrat';
     font-weight: 400;
     color: white;
-    font-size: 24px;
+    font-size: 23px;
 }
 
 .fontBodyBoldHome3D {
@@ -82,20 +82,20 @@
 
 .overview-content {
     width: 50%;
-    margin-top: 130px;
+    margin-top: 140px;
     margin-left: 5%;
 }
 
 .hello-title {
     color: white;
-    font-size: 28px;
+    font-size: 26px;
     font-family: 'Montserrat';
     font-weight: 600;
 }
 
 .name {
     color: #47CDD6;
-    font-size: 28px;
+    font-size: 26px;
     font-family: 'Montserrat';
     font-weight: 600;
 }
@@ -143,9 +143,67 @@
 }
 
 .icon-contact {
-    height: 25px;
-    width: 25px;
     color: white;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px 0 5px;
+    align-items: center;
+  }
+  
+  .roundButton {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; 
+    margin-bottom: 10px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 5px #47CDD6;
+    background-color: #1A1B1B;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.roundButton:hover {
+    background-color: #47CDD6;
+  }
+
+@media (hover: hover) {
+    .roundButton:hover {
+        background-color: #47CDD6;
+    }
+}
+  
+.titleContainer {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background-color: #47CDD6;
+    color: #1A1B1B;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-size: 'Poppins';
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center; 
+  }
+  
+.roundButton:hover + .titleContainer {
+    opacity: 1;
+  }
+
+  .roundButton:hover .icon-contact {
+    color: #1A1B1B;
+}
+
+.container-btns {
+    display: flex;
+    margin-top: 30px;
+    width: 50%;
 }
 
 @keyframes wave {
@@ -251,19 +309,16 @@
     }
 
     .overview-content {
-        margin-top: 110px;
-    }
-
-    .overview-content {
-        width: 70%;
+        margin-top: 120px;
+        width: 90%;
     }
 
     .hello-title {
-        font-size: 25px;
+        font-size: 23px;
     }
 
     .name {
-        font-size: 25px;
+        font-size: 23px;
     }
 
     .scroll-content {
@@ -280,11 +335,17 @@
         height: 10px;
     }
 
-    .icon-contact {
-        font-size: 10px;
-        height: 20px;
-        width: 20px;
-        color: white;
+    .roundButton {
+        width: 40px;
+        height: 40px;
+    }
+
+    .titleContainer {
+        font-size: 14px;
+    }
+
+    .container-btns {
+        width: 60%;
     }
 
     @keyframes wheel {
@@ -357,19 +418,16 @@
     }
 
     .overview-content {
-        margin-top: 90px;
-    }
-
-    .overview-content {
+        margin-top: 100px;
         width: 90%;
     }
 
     .hello-title {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .name {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .scroll-content {
@@ -386,11 +444,17 @@
         height: 8px;
     }
 
-    .icon-contact {
-        font-size: 10px;
-        height: 15px;
-        width: 15px;
-        color: white;
+    .roundButton {
+        width: 30px;
+        height: 30px;
+    }
+
+    .titleContainer {
+        font-size: 13px;
+    }
+
+    .container-btns {
+        width: 80%;
     }
 
     @keyframes wheel {
@@ -425,5 +489,11 @@
             opacity: 1;
             bottom: 5px;
         }
+    }
+}
+
+@media (max-width: 370px) {
+    .title-header {
+        display: none;
     }
 }

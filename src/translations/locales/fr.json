@@ -2,10 +2,8 @@
     "overview": {
         "hello": "Salut, je suis",
         "first_para": "Bienvenue dans mon monde nouveau visiteur !",
-        "second_para": "Dans un premier temps, tu te poses peut-être la question de pourquoi avoir pris le temps de créer ce monde ?",
-        "third_para": "Simplement afin que chacun d'un peu curieux et qui souhaite partir pour un voyage afin de mieux me connaître puisse le faire de la meilleure des façons.",
-        "fourth_para": "Alors si tu es prêt à braver tous les dangers, attache ta ceinture et en avant toute !",
-        "fifth_para": "Sinon je t'ai laissé 3 petits boutons afin d'en savoir plus sur ma personne et mon travail sans se mettre en danger, n'hésite pas à y jeter un oeil aussi.",
+        "second_para": "Si tu es prêt à braver tous les dangers, attache ta ceinture et en avant toute !",
+        "third_para": "N'hésite pas à jeter un oeil sur les boutons pour en savoir plus sur moi et mon travail.",
         "embark": "Scrolle et embarque pour une visite"
     },
     "languages": {
