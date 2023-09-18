@@ -16,8 +16,8 @@ const ResponsiveDownloadIcon = styled(DownloadIcon)(({ theme }) => ({
         height: theme.spacing(2.5),
     },
     [theme.breakpoints.down('xs')]: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
+        width: theme.spacing(1.5),
+        height: theme.spacing(1.5),
     },
 }));
 
@@ -29,8 +29,8 @@ const ResponsiveLinkedInIcon = styled(LinkedInIcon)(({ theme }) => ({
         height: theme.spacing(2.5),
     },
     [theme.breakpoints.down('xs')]: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
+        width: theme.spacing(1.5),
+        height: theme.spacing(1.5),
     },
 }));
 
@@ -42,8 +42,8 @@ const ResponsiveGitHubIcon = styled(GitHubIcon)(({ theme }) => ({
         height: theme.spacing(2.5),
     },
     [theme.breakpoints.down('xs')]: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
+        width: theme.spacing(1.5),
+        height: theme.spacing(1.5),
     },
 }));
 
@@ -65,18 +65,15 @@ const Overview = ({ opacity }) => {
                 <p className='fontBodyNormalHome3D'>
                     {t("overview.first_para")} 🌍
                 </p>
-                <p className='fontBodyNormalHome3D'>{t("overview.second_para")}
-                </p>
-                <p className='fontBodyNormalHome3D'>{t("overview.third_para")} 🔍🕵️</p>
-                <p className='fontBodyNormalHome3D'>{t("overview.fourth_para")} 🔥</p>
+                <p className='fontBodyNormalHome3D'>{t("overview.second_para")} 🔥</p>
                 <div style={{ display: "inline-flex", alignItems: "center" }}>
                     <p className='scroll-content'>{t("overview.embark")}</p>
                     <div className='field'>
                         <div className='mouse' />
                     </div>
                 </div>
-                <p className='fontBodyNormalHome3D'>{t("overview.fifth_para")} 👀</p>
-                <div style={{ display: 'flex',  marginTop: "30px", width: "40%"}}>
+                <p className='fontBodyNormalHome3D'>{t("overview.third_para")} 👀</p>
+                <div className='container-btns'>
                     <IconRoundButton icon={<ResponsiveGitHubIcon className='icon-contact' />} url="https://github.com/JurojinKun" title={"GitHub"} />
                     <IconRoundButton icon={<ResponsiveLinkedInIcon className='icon-contact' />} url="https://www.linkedin.com/in/clément-communay" title={"LinkedIn"} />
                     <IconRoundButton icon={<ResponsiveDownloadIcon className='icon-contact' />} url="/cv/CV_Clement_Communay.pdf" title={"CV"} />

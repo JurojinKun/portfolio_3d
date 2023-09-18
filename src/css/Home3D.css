@@ -3,42 +3,42 @@
     font-family: 'Poppins';
     font-weight: 400;
     color: white;
-    font-size: 21px;
+    font-size: 23px;
 }
 
 .fontTitleBoldHome3D {
     font-family: 'Poppins';
     font-weight: 700;
     color: white;
-    font-size: 21px;
+    font-size: 23px;
 }
 
 .fontTitleExtraBoldHome3D {
     font-family: 'Poppins';
     font-weight: 800;
     color: white;
-    font-size: 21px;
+    font-size: 23px;
 }
 
 .fontBodyNormalHome3D {
     font-family: 'Montserrat';
     font-weight: 400;
     color: white;
-    font-size: 21px;
+    font-size: 23px;
 }
 
 .fontBodyBoldHome3D {
     font-family: 'Montserrat';
     font-weight: 700;
     color: white;
-    font-size: 21px;
+    font-size: 23px;
 }
 
 .fontBodyExtraBoldHome3D {
     font-family: 'Montserrat';
     font-weight: 800;
     color: white;
-    font-size: 21px;
+    font-size: 23px;
 }
 
 /*Screen styles*/
@@ -82,7 +82,7 @@
 
 .overview-content {
     width: 50%;
-    margin-top: 120px;
+    margin-top: 140px;
     margin-left: 5%;
 }
 
@@ -200,6 +200,12 @@
     color: #1A1B1B;
 }
 
+.container-btns {
+    display: flex;
+    margin-top: 30px;
+    width: 50%;
+}
+
 @keyframes wave {
     0% {
         transform: rotate(0deg);
@@ -271,27 +277,27 @@
 @media (min-width: 481px) and (max-width: 824px),
 (min-height: 501px) and (max-height: 700px) {
     .fontTitleNormalHome3D {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .fontTitleBoldHome3D {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .fontTitleExtraBoldHome3D {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .fontBodyNormalHome3D {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .fontBodyBoldHome3D {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .fontBodyExtraBoldHome3D {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .title-header {
@@ -303,7 +309,7 @@
     }
 
     .overview-content {
-        margin-top: 110px;
+        margin-top: 120px;
         width: 90%;
     }
 
@@ -336,6 +342,10 @@
 
     .titleContainer {
         font-size: 14px;
+    }
+
+    .container-btns {
+        width: 60%;
     }
 
     @keyframes wheel {
@@ -376,27 +386,27 @@
 @media (max-width: 480px),
 (max-height: 500px) {
     .fontTitleNormalHome3D {
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .fontTitleBoldHome3D {
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .fontTitleExtraBoldHome3D {
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .fontBodyNormalHome3D {
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .fontBodyBoldHome3D {
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .fontBodyExtraBoldHome3D {
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .title-header {
@@ -441,6 +451,10 @@
 
     .titleContainer {
         font-size: 13px;
+    }
+
+    .container-btns {
+        width: 80%;
     }
 
     @keyframes wheel {

@@ -2,10 +2,8 @@
     "overview": {
         "hello": "Hi, I'm",
         "first_para": "Welcome to my world, new visitor !",
-        "second_para": "At first, you might be wondering why you took the time to create this world at all.",
-        "third_para": "Simply so that anyone who's a little curious and wants to set off on a journey to get to know me better can do so in the best possible way.",
-        "fourth_para": "So if you're ready to brave any danger, fasten your seatbelt and let's get moving !",
-        "fifth_para": "Otherwise I've left you 3 little buttons so you can find out more about me and my work without putting yourself in danger, so don't hesitate to have a look too.",
+        "second_para": "If you're ready to brave any danger, fasten your seatbelt and get moving !",
+        "third_para": "Feel free to take a look at the buttons to find out more about me and my work.",
         "embark": "Scroll and embark on a tour"
     },
     "languages": {
