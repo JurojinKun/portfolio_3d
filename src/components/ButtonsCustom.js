@@ -34,7 +34,9 @@ const IconRoundButton = ({ icon, url, title }) => {
                         <div className="roundButton"
                             onClick={handleClick}
                             onMouseEnter={() => setHovered(true)}
-                            onMouseLeave={() => setHovered(false)}>
+                            onMouseLeave={() => setHovered(false)}
+                            onTouchStart={() => setHovered(true)}
+                            onTouchEnd={() => setHovered(false)}>
                             {icon}
                         </div>
                     </div>
@@ -49,7 +51,9 @@ const IconRoundButton = ({ icon, url, title }) => {
                         <a href={url} download
                             className='roundButton'
                             onMouseEnter={() => setHovered(true)}
-                            onMouseLeave={() => setHovered(false)}>
+                            onMouseLeave={() => setHovered(false)}
+                            onTouchStart={() => setHovered(true)}
+                            onTouchEnd={() => setHovered(false)}>
                             {icon}
                         </a>
                     </div>
