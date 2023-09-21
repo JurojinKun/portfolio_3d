@@ -61,22 +61,22 @@ const Portfolio = () => {
 
         switch (section) {
             case "aboutme":
-                iconSection = <BiMask size={25} />
+                iconSection = <BiMask className="icon-menu-section" />
                 break;
             case "skills":
-                iconSection = <BiBrain size={25} />
+                iconSection = <BiBrain className="icon-menu-section" />
                 break;
             case "experiences":
-                iconSection = <MdOutlineScience size={25} />
+                iconSection = <MdOutlineScience className="icon-menu-section" />
                 break;
             case "projects":
-                iconSection = <MdComputer size={25} />
+                iconSection = <MdComputer className="icon-menu-section" />
                 break;
             case "contactme":
-                iconSection = <BiPhone size={25} />
+                iconSection = <BiPhone className="icon-menu-section" />
                 break;
             default:
-                iconSection = <MdComputer size={25} />
+                iconSection = <MdComputer className="icon-menu-section" />
                 break;
         }
 
@@ -180,7 +180,7 @@ const Portfolio = () => {
     }, []);
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(min-width: 1250px)');
+        const mediaQuery = window.matchMedia('(min-width: 1301px)');
 
         const handleWindowSizeChange = () => {
             if (mediaQuery.matches && isOpen) {
@@ -211,22 +211,18 @@ const Portfolio = () => {
                 }}>
                     {!isOpen ?
                         <Link
-                            activeClass="active"
                             key={sections[0]}
                             to={sections[0]}
                             spy={true}
                             smooth={true}
                             duration={500}
-                            style={{
-                                paddingLeft: "50px"
-                            }}
+                            className="link-title"
                         >
                             <div style={{
-                                color: "white",
-                                cursor: "pointer",
                                 display: "flex",
                                 flexDirection: "row",
-                                alignItems: "center"
+                                alignItems: "center",
+                                justifyContent: "center"
                             }}>
                                 <img src={profilePicture} alt='Profile pic' style={{
                                     width: "40px",
@@ -234,14 +230,7 @@ const Portfolio = () => {
                                 <h3 className="title-portfolio">0ruj | 3D Portfolio</h3>
                             </div>
                         </Link>
-                        : <div style={{
-                            color: "white",
-                            cursor: "default",
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            paddingLeft: "50px"
-                        }}>
+                        : <div className="link-title">
                             <img src={profilePicture} alt='Profile pic' style={{
                                 width: "40px",
                             }} />
@@ -267,8 +256,8 @@ const Portfolio = () => {
                             <LanguageSwitcher openingDirection={"bottom"} />
                         </div>
                     </div>
-                    <div className="icon-sidebar" onClick={() => setIsOpen(!isOpen)}>
-                    <GiHamburgerMenu size={27} style={{ color: "white" }} />
+                    <div className="icon-sidebar-hover" onClick={() => setIsOpen(!isOpen)}>
+                        <GiHamburgerMenu className="icon-sidebar" />
                     </div>
                 </nav>
 
@@ -278,14 +267,13 @@ const Portfolio = () => {
                     }}>
                         <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
                             <span className="title-menu">{t("portfolio.menu")}</span>
-                            <div className="icon-menu-close" onClick={() => setIsOpen(!isOpen)}>
-                            <FaTimes size={27} style={{ color: "white" }} />
+                            <div className="icon-menu-close-hover" onClick={() => setIsOpen(!isOpen)}>
+                                <FaTimes className="icon-menu-close" />
                             </div>
                         </div>
                         <div style={{
-                            overflowY: "auto",
-                            display: "flex", height: "100%", flexDirection: "column", paddingLeft: "10px",
-                            paddingRight: "10px"
+                            overflow: "auto",
+                            display: "flex", height: "100%", flexDirection: "column"
                         }}>
                             {sections.map((section) => (
                                 <Link

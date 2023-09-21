@@ -51,27 +51,21 @@
     background-color: #02020D;
 }
 
+.link-title {
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: "center";
+    padding-left: 3%;
+}
+
 .title-portfolio {
     font-size: 20px;
     padding-left: 10px;
     font-family: "Poppins";
     font-weight: 700
-}
-
-.title-menu {
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
-    padding-left: 20px;
-    font-family: "Poppins"
-}
-
-.menu-section {
-    padding: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: "Poppins";
-    text-decoration: none;
 }
 
 .sectionSpan {
@@ -151,7 +145,7 @@ progress::-moz-progress-bar {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-right: 2%
+    padding-right: 3%
 }
 
 .navbar-mobile {
@@ -162,11 +156,15 @@ progress::-moz-progress-bar {
     display: none;
 }
 
+.icon-sidebar-hover {
+    display: none;
+}
+
 .sidebar {
     position: fixed;
     width: 30%;
     height: 100%;
-    top: 1%;
+    top: 2%;
     right: 0;
     background-color: rgba(26, 26, 26, 1.0);
     display: flex;
@@ -183,21 +181,47 @@ progress::-moz-progress-bar {
     box-shadow: 0px 10px 20px rgba(71, 205, 214, 0.4), 0px 6px 5px rgba(71, 205, 214, 0.2);
 }
 
+.title-menu {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 20px;
+    font-family: "Poppins"
+}
+
 .icon-menu-close {
+    color: white;
+    height: 30px;
+    width: 30px;
+}
+
+.icon-menu-close-hover {
     display: flex;
     height: 45px;
     width: 45px;
-    margin-right: 2%;
     cursor: pointer;
     align-items: center;
     justify-content: center;
 }
 
-.icon-menu-close:hover {
+.icon-menu-close-hover:hover {
     height: 45px;
     width: 45px;
     border-radius: 60px;
     background-color: rgba(71, 205, 214, 0.3)
+}
+
+.menu-section {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Poppins";
+    text-decoration: none;
+}
+
+.icon-menu-section {
+    height: 25px;
+    width: 25px;
 }
 
 .main-content.blurred {
@@ -214,19 +238,24 @@ progress::-moz-progress-bar {
     }
 
     .icon-sidebar {
+        color: white;
+        display: flex;
+        height: 30px;
+        width: 30px;
+    }
+
+    .icon-sidebar-hover {
         display: flex;
         height: 45px;
         width: 45px;
-        margin-right: 2%;
+        margin-right: 3%;
         right: 0;
         align-items: center;
         justify-content: center;
         cursor: pointer
     }
 
-    .icon-sidebar:hover {
-        height: 45px;
-        width: 45px;
+    .icon-sidebar-hover:hover {
         border-radius: 60px;
         background-color: rgba(71, 205, 214, 0.3)
     }
@@ -256,6 +285,7 @@ progress::-moz-progress-bar {
     .fontBodyExtraBoldPortfolio {
         font-size: 17px;
     }
+
     .sidebar {
         width: 60%;
     }
@@ -285,7 +315,47 @@ progress::-moz-progress-bar {
     .fontBodyExtraBoldPortfolio {
         font-size: 15px;
     }
-    .sidebar {
-        width: 60%;
+
+    .title-portfolio {
+        font-size: 15px;
     }
+
+    .icon-sidebar {
+        height: 25px;
+        width: 25px;
+    }
+
+    .icon-sidebar-hover {
+        height: 40px;
+        width: 40px;
+    }
+
+    .sidebar {
+        width: 70%;
+    }
+
+    .title-menu {
+        font-size: 20px;
+    }
+    
+    .icon-menu-close {
+        height: 25px;
+        width: 25px;
+    }
+    
+    .icon-menu-close-hover {
+        height: 40px;
+        width: 40px;
+    }
+    
+    .menu-section {
+        font-size: 15px;
+    }
+    
+    .icon-menu-section {
+        height: 20px;
+        width: 20px;
+    }
+    
+
 }

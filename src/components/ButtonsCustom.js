@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/Home3D.css';
 
 const IconRoundButton = ({ icon, url, title }) => {
+
+    const [isHovered, setHovered] = useState(false);
 
     const handleClick = () => {
         window.open(url, '_blank');
@@ -9,12 +11,50 @@ const IconRoundButton = ({ icon, url, title }) => {
 
     return (
         <div className="container">
-            {url === undefined || url === null ? <button className='roundButton'>{icon}</button> : url.startsWith("http://") || url.startsWith("https://") ? <button className="roundButton" onClick={handleClick}> {icon}
-            </button> : <a href={url} download className='roundButton'>
-                {icon}
-            </a>
+            {url === undefined || url === null ?
+                <div className='element'>
+                    <div className='black-hole'>
+                        <span />
+                        <span />
+                        <span />
+                        <span />
+                    </div>
+                    <div className="roundButton">
+                        {icon}
+                    </div>
+                </div>
+                : url.startsWith("http://") || url.startsWith("https://") ?
+                    <div className='element'>
+                        <div className='black-hole'>
+                            <span />
+                            <span />
+                            <span />
+                            <span />
+                        </div>
+                        <div className="roundButton"
+                            onClick={handleClick}
+                            onMouseEnter={() => setHovered(true)}
+                            onMouseLeave={() => setHovered(false)}>
+                            {icon}
+                        </div>
+                    </div>
+                    :
+                    <div className='element'>
+                        <div className='black-hole'>
+                            <span />
+                            <span />
+                            <span />
+                            <span />
+                        </div>
+                        <a href={url} download
+                            className='roundButton'
+                            onMouseEnter={() => setHovered(true)}
+                            onMouseLeave={() => setHovered(false)}>
+                            {icon}
+                        </a>
+                    </div>
             }
-            {title && <div className="titleContainer">
+            {title && <div className={`titleContainer ${isHovered ? 'visible' : ''}`}>
                 {title}
             </div>}
         </div>
