@@ -204,10 +204,6 @@ const Portfolio = () => {
                 <progress max="100" value="0" />
 
                 <nav className={`navbar main-content${isOpen ? " blurred" : ""}`} style={{
-                    // backgroundColor: scrollPosition > 10 ? 'rgba(2, 2, 13, 0.5)' : 'transparent',
-                    // backdropFilter: scrollPosition > 10 ? 'blur(5px)' : 'none'
-                    backgroundColor: 'rgba(2, 2, 13, 0.5)',
-                    backdropFilter: 'blur(10px)'
                 }}>
                     {!isOpen ?
                         <Link
@@ -283,19 +279,14 @@ const Portfolio = () => {
                                     spy={true}
                                     smooth={true}
                                     duration={500}
-                                    className={`sectionSpanSidebar ${isCurrentSection === section ? "active" : "default"}`}
+                                    className={`sectionSpanSidebar ${isCurrentSection === section ? "active" : "default"} sectionSpanDim`}
                                     onClick={() => {
                                         if (isOpen) {
                                             setIsOpen(false);
                                         }
                                     }}
                                     style={{
-                                        marginTop: "35px",
-                                        marginBottom: "35px",
-                                        paddingLeft: "15px",
-                                        height: "30px",
-                                        display: "flex",
-                                        alignItems: "center"
+                                        
                                     }} >
                                     {iconSectionSidebar(section)}
                                     <span
@@ -316,7 +307,9 @@ const Portfolio = () => {
                     </div>
                 </div>
 
-                <div className={`main-content${isOpen ? " blurred" : ""}`} onClick={() => {
+                <div className={`main-content${isOpen ? " blurred" : ""}`} style={{
+                    backgroundColor: "#02020D"
+                }} onClick={() => {
                     if (isOpen) {
                         setIsOpen(false);
                     }
