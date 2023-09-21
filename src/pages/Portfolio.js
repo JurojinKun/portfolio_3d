@@ -204,7 +204,11 @@ const Portfolio = () => {
                 <progress max="100" value="0" />
 
                 <nav className={`navbar main-content${isOpen ? " blurred" : ""}`} style={{
-                }}>
+                }} onClick={() => {
+                    if (isOpen) {
+                        setIsOpen(false);
+                    }
+                }} >
                     {!isOpen ?
                         <Link
                             key={sections[0]}
@@ -218,7 +222,8 @@ const Portfolio = () => {
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
-                                justifyContent: "center"
+                                justifyContent: "center",
+                                cursor: "pointer"
                             }}>
                                 <img src={profilePicture} alt='Profile pic' style={{
                                     width: "40px",
@@ -286,7 +291,7 @@ const Portfolio = () => {
                                         }
                                     }}
                                     style={{
-                                        
+
                                     }} >
                                     {iconSectionSidebar(section)}
                                     <span
