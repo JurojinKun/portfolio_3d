@@ -48,7 +48,7 @@ const AboutMe = () => {
             <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="aboutme">
                 <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="aboutme-title">
                 {t("about_me.title")}
-                <p>En savoir un peu plus sur moi...</p>
+                <p>{t("about_me.subtitle")}</p>
                 </motion.div>
                 <div className="aboutme-content">
                     <div className="overview-aboutme">
