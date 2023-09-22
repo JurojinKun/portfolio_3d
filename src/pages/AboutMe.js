@@ -46,7 +46,10 @@ const AboutMe = () => {
             }}>
             <StarryBackground gradientTopLeft={true} gradientBottomRight={false} heightSection={aboutmeHeight} />
             <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="aboutme">
-                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}><h1 className="aboutme-title">{t("about_me.title")}</h1></motion.div>
+                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="aboutme-title">
+                {t("about_me.title")}
+                <p>En savoir un peu plus sur moi...</p>
+                </motion.div>
                 <div className="aboutme-content">
                     <div className="overview-aboutme">
                         <AppTypewriter
