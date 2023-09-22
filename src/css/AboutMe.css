@@ -59,7 +59,7 @@
     font-weight: 800;
     font-size: 40px;
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
 }
 
