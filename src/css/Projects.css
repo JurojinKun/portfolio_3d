@@ -41,69 +41,41 @@
     font-size: 20px;
 }
 
-@media (max-width: 768px) {
-    .fontTitleNormalProjects  {
-        font-size: 17px;
-    }
-
-    .fontTitleBoldProjects  {
-        font-size: 17px;
-    }
-
-    .fontTitleExtraBoldProjects  {
-        font-size: 17px;
-    }
-
-    .fontBodyNormalProjects  {
-        font-size: 17px;
-    }
-
-    .fontBodyBoldProjects  {
-        font-size: 17px;
-    }
-
-    .fontBodyExtraBoldProjects  {
-        font-size: 17px;
-    }
-}
-
-@media (max-width: 480px) {
-    .fontTitleNormalProjects  {
-        font-size: 15px;
-    }
-
-    .fontTitleBoldProjects  {
-        font-size: 15px;
-    }
-
-    .fontTitleExtraBoldProjects  {
-        font-size: 15px;
-    }
-
-    .fontBodyNormalProjects  {
-        font-size: 15px;
-    }
-
-    .fontBodyBoldProjects  {
-        font-size: 15px;
-    }
-
-    .fontBodyExtraBoldProjects  {
-        font-size: 15px;
-    }
-}
-
 /*Screen styles*/
+.projects {
+    display: flex;
+    background-clip: padding-box;
+    border: 1px solid rgba(2, 2, 13, 1);
+    flex-direction: column;
+}
+
+.projects-content-pro {
+    padding-top: 69px;
+}
+
+.projects-content-perso {
+    padding-top: 69px;
+    padding-bottom: 20px;
+}
+
 .projects-title {
-    top: 0;
-    left: 0;
-    padding-left: 150px;
-    padding-right: 25px;
-    padding-top: 30px;
+    z-index: 0;
+    margin: 60px 6% 40px 6%;
     color: white;
     font-family: "Poppins";
     font-weight: 800;
     font-size: 40px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.projects-title p {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    color: white;
+    font-size: 20px;
+    margin: 0;
 }
 
 .arrow-icon {
@@ -140,4 +112,74 @@
 
 .content-slide:hover {
     opacity: 1;
+}
+
+@media (min-width: 481px) and (max-width: 824px) {
+    .fontTitleNormalProjects  {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldProjects  {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldProjects  {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalProjects  {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldProjects  {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldProjects  {
+        font-size: 17px;
+    }
+
+    .projects-title {
+        margin: 50px 6% 40px 6%;
+        font-size: 32.5px;
+    }
+    
+    .projects-title p {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalProjects  {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldProjects  {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldProjects  {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalProjects  {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldProjects  {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldProjects  {
+        font-size: 15px;
+    }
+
+    .projects-title {
+        margin: 40px 6% 40px 6%;
+        font-size: 25px;
+    }
+    
+    .projects-title p {
+        font-size: 15px;
+    }
 }

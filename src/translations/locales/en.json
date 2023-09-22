@@ -71,7 +71,9 @@
     },
     "projects": {
         "title_pro": "Professional projects",
+        "subtitle_pro": "A few references from completed projects...",
         "title_private": "Personal projects",
+        "subtitle_private": "A few other projects in my spare time...",
         "title_project_pro_1": "Sauve mon vaccin",
         "content_project_pro_1": "Development from scratch of an Android/iOS mobile and web Flutter solution for donations of vaccines between doctors/pharmacists,...",
         "title_project_pro_2": "Corsica Ferries",

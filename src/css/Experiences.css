@@ -82,7 +82,7 @@
     box-shadow: 0 3px 0px 0px #47CDD6 !important;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 824px) {
     .fontTitleNormalExperiences {
         font-size: 17px;
     }

@@ -62,10 +62,10 @@ const ProProjects = ({ menuOpened, t }) => {
                             {t("projects.title_project_pro_1")}
                         </h2>
                         <p
-                        className="fontBodyNormalProjects"
-                        style={{
-                            margin: "0px 30px 0px 30px"
-                        }}>{t("projects.content_project_pro_1")}</p>
+                            className="fontBodyNormalProjects"
+                            style={{
+                                margin: "0px 30px 0px 30px"
+                            }}>{t("projects.content_project_pro_1")}</p>
                     </div>
                 </div>
         },
@@ -90,17 +90,17 @@ const ProProjects = ({ menuOpened, t }) => {
                 }} />
                 <div className="content-slide">
                     <h2
-                    className="fontBodyBoldProjects"
-                    style={{
-                        margin: "15px 15px 30px 15px"
-                    }}>
+                        className="fontBodyBoldProjects"
+                        style={{
+                            margin: "15px 15px 30px 15px"
+                        }}>
                         {t("projects.title_project_pro_2")}
                     </h2>
-                    <p 
-                    className="fontBodyNormalProjects"
-                    style={{
-                        margin: "0px 30px 0px 30px"
-                    }}>{t("projects.content_project_pro_2")}</p>
+                    <p
+                        className="fontBodyNormalProjects"
+                        style={{
+                            margin: "0px 30px 0px 30px"
+                        }}>{t("projects.content_project_pro_2")}</p>
                 </div>
             </div>
         },
@@ -124,18 +124,18 @@ const ProProjects = ({ menuOpened, t }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 
-                    className="fontBodyBoldProjects"
-                    style={{
-                        margin: "15px 15px 30px 15px"
-                    }}>
-                       {t("projects.title_project_pro_3")}
+                    <h2
+                        className="fontBodyBoldProjects"
+                        style={{
+                            margin: "15px 15px 30px 15px"
+                        }}>
+                        {t("projects.title_project_pro_3")}
                     </h2>
-                    <p 
-                    className="fontBodyNormalProjects"
-                    style={{
-                        margin: "0px 30px 0px 30px"
-                    }}>{t("projects.content_project_pro_3")}</p>
+                    <p
+                        className="fontBodyNormalProjects"
+                        style={{
+                            margin: "0px 30px 0px 30px"
+                        }}>{t("projects.content_project_pro_3")}</p>
                 </div>
             </div>
         },
@@ -159,18 +159,18 @@ const ProProjects = ({ menuOpened, t }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 
-                    className="fontBodyBoldProjects"
-                    style={{
-                        margin: "15px 15px 30px 15px"
-                    }}>
+                    <h2
+                        className="fontBodyBoldProjects"
+                        style={{
+                            margin: "15px 15px 30px 15px"
+                        }}>
                         {t("projects.title_project_pro_4")}
                     </h2>
-                    <p 
-                    className="fontBodyNormalProjects"
-                    style={{
-                        margin: "0px 30px 0px 30px"
-                    }}>{t("projects.content_project_pro_4")}</p>
+                    <p
+                        className="fontBodyNormalProjects"
+                        style={{
+                            margin: "0px 30px 0px 30px"
+                        }}>{t("projects.content_project_pro_4")}</p>
                 </div>
             </div>
         },
@@ -194,18 +194,18 @@ const ProProjects = ({ menuOpened, t }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 
-                    className="fontBodyBoldProjects"
-                    style={{
-                        margin: "15px 15px 30px 15px"
-                    }}>
+                    <h2
+                        className="fontBodyBoldProjects"
+                        style={{
+                            margin: "15px 15px 30px 15px"
+                        }}>
                         {t("projects.title_project_pro_5")}
                     </h2>
-                    <p 
-                    className="fontBodyNormalProjects"
-                    style={{
-                        margin: "0px 30px 0px 30px"
-                    }}>{t("projects.content_project_pro_5")}</p>
+                    <p
+                        className="fontBodyNormalProjects"
+                        style={{
+                            margin: "0px 30px 0px 30px"
+                        }}>{t("projects.content_project_pro_5")}</p>
                 </div>
             </div>
         },
@@ -232,7 +232,7 @@ const ProProjects = ({ menuOpened, t }) => {
             minHeight: "550px",
             width: "100vw",
             flexDirection: "row",
-            alignItems: "center", 
+            alignItems: "center",
             justifyContent: "center"
         }}>
             <div style={{
@@ -282,7 +282,7 @@ const ProProjects = ({ menuOpened, t }) => {
 
 }
 
-const PrivateProjects = ({ menuOpened, t  }) => {
+const PrivateProjects = ({ menuOpened, t }) => {
 
     const { ref, inView } = useInView({
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
@@ -321,18 +321,18 @@ const PrivateProjects = ({ menuOpened, t  }) => {
                         borderRadius: "10px"
                     }} />
                     <div className="content-slide">
-                        <h2 
-                        className="fontBodyBoldProjects"
-                        style={{
-                            margin: "15px 15px 30px 15px"
-                        }}>
+                        <h2
+                            className="fontBodyBoldProjects"
+                            style={{
+                                margin: "15px 15px 30px 15px"
+                            }}>
                             {t("projects.title_project_perso_1")}
                         </h2>
-                        <p 
-                        className="fontBodyNormalProjects"
-                        style={{
-                            margin: "0px 30px 0px 30px"
-                        }}>{t("projects.content_project_perso_1")}</p>
+                        <p
+                            className="fontBodyNormalProjects"
+                            style={{
+                                margin: "0px 30px 0px 30px"
+                            }}>{t("projects.content_project_perso_1")}</p>
                     </div>
                 </div>
         },
@@ -356,18 +356,18 @@ const PrivateProjects = ({ menuOpened, t  }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 
-                    className="fontBodyBoldProjects"
-                    style={{
-                        margin: "15px 15px 30px 15px"
-                    }}>
+                    <h2
+                        className="fontBodyBoldProjects"
+                        style={{
+                            margin: "15px 15px 30px 15px"
+                        }}>
                         {t("projects.title_project_perso_2")}
                     </h2>
-                    <p 
-                    className="fontBodyNormalProjects"
-                    style={{
-                        margin: "0px 30px 0px 30px"
-                    }}>{t("projects.content_project_perso_2")}</p>
+                    <p
+                        className="fontBodyNormalProjects"
+                        style={{
+                            margin: "0px 30px 0px 30px"
+                        }}>{t("projects.content_project_perso_2")}</p>
                 </div>
             </div>
         },
@@ -391,18 +391,18 @@ const PrivateProjects = ({ menuOpened, t  }) => {
                     borderRadius: "10px"
                 }} />
                 <div className="content-slide">
-                    <h2 
-                    className="fontBodyBoldProjects"
-                    style={{
-                        margin: "15px 15px 30px 15px"
-                    }}>
+                    <h2
+                        className="fontBodyBoldProjects"
+                        style={{
+                            margin: "15px 15px 30px 15px"
+                        }}>
                         {t("projects.title_project_perso_3")}
                     </h2>
-                    <p 
-                    className="fontBodyNormalProjects"
-                    style={{
-                        margin: "0px 30px 0px 30px"
-                    }}>{t("projects.content_project_perso_3")}</p>
+                    <p
+                        className="fontBodyNormalProjects"
+                        style={{
+                            margin: "0px 30px 0px 30px"
+                        }}>{t("projects.content_project_perso_3")}</p>
                 </div>
             </div>
         },
@@ -485,16 +485,21 @@ const Projects = ({ menuOpened }) => {
     });
 
     return (
-        <div style={{
-            display: "flex",
-            backgroundClip: "padding-box",
-            border: "1px solid rgba(2, 2, 13, 1)",
-            flexDirection: "column"
-        }}>
-            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}><h1 className="projects-title">{t("projects.title_pro")}</h1></motion.div>
-            <ProProjects menuOpened={menuOpened} t={t}/>
-            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}><h1 className="projects-title">{t("projects.title_private")}</h1></motion.div>
-            <PrivateProjects menuOpened={menuOpened} t={t} />
+        <div className="projects">
+            <div className="projects-content-pro">
+                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="projects-title">
+                    {t("projects.title_pro")}
+                    <p>{t("projects.subtitle_pro")}</p>
+                </motion.div>
+                <ProProjects menuOpened={menuOpened} t={t} />
+            </div>
+            <div className="projects-content-perso">
+                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="projects-title">
+                    {t("projects.title_private")}
+                    <p>{t("projects.subtitle_private")}</p>
+                </motion.div>
+                <PrivateProjects menuOpened={menuOpened} t={t} />
+            </div>
         </div>
     );
 }
