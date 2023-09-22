@@ -93,6 +93,7 @@
     },
     "contact_me": {
         "title": "Contact me",
+        "subtitle": "Don't hesitate to ask me any questions or give me any feedback...",
         "title_name": "Your name",
         "label_name": "What's your name ?",
         "title_firstname": "Your firstname",
