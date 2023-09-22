@@ -50,6 +50,7 @@
     },
     "experiences": {
         "title": "Expériences",
+        "subtitle": "Ce que j'ai pu faire jusqu'à présent...",
         "title_experience_1": "Lead dev front",
         "company_experience_1": "Digital Paca",
         "date_experience_1": "Octobre 2021 - Aujourd'hui",

@@ -41,6 +41,47 @@
     font-size: 20px;
 }
 
+/*Screen styles*/
+.experiences {
+    display: flex;
+    width: 100%;
+    background-clip: padding-box;
+    border: 1px solid rgba(2, 2, 13, 1);
+    flex-direction: column;
+    padding-top: 69px;
+}
+
+.experiences-title {
+    z-index: 0;
+    margin: 60px 6% 40px 6%;
+    color: white;
+    font-family: "Poppins";
+    font-weight: 800;
+    font-size: 40px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.experiences-title p {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    color: white;
+    font-size: 20px;
+    margin: 0;
+}
+
+.experiences-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 6% 20px 6%;
+}
+
+.vertical-timeline-element-content {
+    box-shadow: 0 3px 0px 0px #47CDD6 !important;
+}
+
 @media (max-width: 768px) {
     .fontTitleNormalExperiences {
         font-size: 17px;
@@ -63,6 +104,15 @@
     }
 
     .fontBodyExtraBoldExperiences {
+        font-size: 17px;
+    }
+
+    .experiences-title {
+        margin: 50px 6% 40px 6%;
+        font-size: 32.5px;
+    }
+    
+    .experiences-title p {
         font-size: 17px;
     }
 }
@@ -91,26 +141,13 @@
     .fontBodyExtraBoldExperiences {
         font-size: 15px;
     }
-}
 
-/*Screen styles*/
-.experiences-title {
-    top: 0;
-    left: 0;
-    padding-left: 150px;
-    padding-right: 25px;
-    padding-top: 30px;
-    color: white;
-    font-family: "Poppins";
-    font-weight: 800;
-    font-size: 40px;
-}
-
-.experiences-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.vertical-timeline-element-content {
-    box-shadow: 0 3px 0px 0px #47CDD6 !important;
+    .experiences-title {
+        margin: 40px 6% 40px 6%;
+        font-size: 25px;
+    }
+    
+    .experiences-title p {
+        font-size: 15px;
+    }
 }

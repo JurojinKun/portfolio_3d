@@ -53,7 +53,7 @@
 
 .aboutme-title {
     z-index: 0;
-    margin: 60px 6% 20px 6%;
+    margin: 60px 6% 40px 6%;
     color: white;
     font-family: "Poppins";
     font-weight: 800;
@@ -150,7 +150,7 @@
 
     .aboutme-title {
         font-size: 32.5px;
-        margin: 50px 6% 20px 6%;
+        margin: 50px 6% 40px 6%;
     }
 
     .aboutme-title p {
@@ -222,7 +222,7 @@
 
     .aboutme-title {
         font-size: 25px;
-        margin: 40px 6% 20px 6%;
+        margin: 40px 6% 40px 6%;
     }
 
     .aboutme-title p {
