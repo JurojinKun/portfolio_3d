@@ -44,34 +44,46 @@
 /*Screen styles*/
 .aboutme {
     position: relative;
-    min-Height: 103vh;
+    min-Height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding-left: 2%;
-    padding-right: 2%;
-}
-
-.aboutme-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: row;
+    padding-top: 69px;
 }
 
 .aboutme-title {
-    padding: 70px 5% 2% 5%;
     z-index: 0;
+    margin: 10px 3% 10px 3%;
     color: white;
     font-family: "Poppins";
     font-weight: 800;
     font-size: 40px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.aboutme-title p {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    color: white;
+    font-size: 20px;
+    margin: 0;
+}
+
+.aboutme-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
 }
 
 .overview-aboutme {
     background-color: rgba(26, 26, 26, 0.7);
     z-index: 0;
     border-radius: 10px;
-    width: 45%;
+    width: 50%;
     padding: 25px 25px 0 25px;
 }
 
@@ -134,11 +146,50 @@
     .fontBodyExtraBoldAboutMe {
         font-size: 17px;
     }
+
+    .aboutme-title {
+        font-size: 32.5px;
+    }
+    
+    .aboutme-title p {
+        font-size: 17px;
+    }
+
     .aboutme-content {
         flex-direction: column-reverse;
     }
+
     .overview-aboutme {
-        width: 75%;
+        width: 80%;
+    }
+
+    .typewriterWrapper {
+        font-size: 17px;
+    }
+    
+    .typewriterCursor {
+        font-size: 17px;
+    }
+
+    .img-astro-aboutme {
+        height: 275px;
+        width: 240px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    @keyframes bounce {
+        0% {
+            transform: translateY(20px);
+        }
+    
+        50% {
+            transform: translateY(-20px);
+        }
+    
+        100% {
+            transform: translateY(20px);
+        }
     }
 }
 
@@ -166,7 +217,49 @@
     .fontBodyExtraBoldAboutMe {
         font-size: 15px;
     }
+
+    .aboutme-title {
+        font-size: 25px;
+    }
+    
+    .aboutme-title p {
+        font-size: 15px;
+    }
+
     .aboutme-content {
         flex-direction: column-reverse;
+    }
+
+    .overview-aboutme {
+        width: 80%;
+    }
+
+    .typewriterWrapper {
+        font-size: 15px;
+    }
+    
+    .typewriterCursor {
+        font-size: 15px;
+    }
+
+    .img-astro-aboutme {
+        height: 225px;
+        width: 200px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    @keyframes bounce {
+        0% {
+            transform: translateY(20px);
+        }
+    
+        50% {
+            transform: translateY(-20px);
+        }
+    
+        100% {
+            transform: translateY(20px);
+        }
     }
 }
