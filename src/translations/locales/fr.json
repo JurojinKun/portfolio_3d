@@ -37,6 +37,7 @@
     },
     "skills": {
         "title": "Compétences",
+        "subtitle": "Un résumé de ce que je sais faire...",
         "skill_title_1": "Mes débuts dans le développement",
         "skill_paragraph_1": "J'ai fait mes débuts dans le monde du développement à l'âge de 18 ans en apprenant le Python. \n\nCette expérience m'ayant plus, j'ai voulu continuer en intégrant un cycle préparatoire intégré et enfin une école d'ingénieur : ISEN Toulon. \nDurant ces années, j'ai pu apprendre à comprendre, à analyser et réfléchir à un code simple, compréhensible et propre en apprenant les bases du développement sur des technologies comme le C. \n\nJ'ai aussi pu en apprendre davantage en faisant notamment un stage au sein du groupe Atlantic avec l'équipe réseau et cybersécurité.",
         "skill_title_2": "Mon apprentissage autodidacte",

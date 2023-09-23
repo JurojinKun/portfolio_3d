@@ -67,7 +67,10 @@ const Skills = () => {
             <div className="skills">
                 <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="skills-content">
                     <div className="container-left">
-                        <h1 className="skills-title">{t("skills.title")}</h1>
+                        <div className="skills-title">
+                        {t("skills.title")}
+                        <p>{t("skills.subtitle")}</p>
+                        </div>
                         <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={slideIn("left", "tween", 0.2, 1)} className="container-left-midle">
                             <div className="circle" />
                             <TagCloud

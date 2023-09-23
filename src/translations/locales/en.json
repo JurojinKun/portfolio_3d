@@ -37,6 +37,7 @@
     },
     "skills": {
         "title": "Skills",
+        "subtitle": "A summary of what I know how to do...",
         "skill_title_1": "My beginnings in development",
         "skill_paragraph_1": "I made my debut in the world of development at the age of 18 by learning Python. \n\nI liked this experience so much that I decided to continue my studies by enrolling in an integrated preparatory cycle and finally in an engineering school: ISEN Toulon. \nDuring these years, I was able to learn to understand, analyse and think about simple, understandable and clean code by learning the basics of development on technologies such as C. \n\nI was also able to learn more by doing a work placement with the Atlantic group in the network and cybersecurity team.",
         "skill_title_2": "My self-taught apprenticeship",
