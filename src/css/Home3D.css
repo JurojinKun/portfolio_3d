@@ -144,7 +144,7 @@
 
 .container-btns {
     display: flex;
-    margin-top: 30px;
+    margin-top: 40px;
     width: 50%;
 }
 
@@ -156,7 +156,9 @@
     display: flex;
     flex-direction: column;
     margin: 0 5px 0 5px;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .element {
