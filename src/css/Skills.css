@@ -41,58 +41,6 @@
   font-size: 20px;
 }
 
-@media (max-width: 768px) {
-  .fontTitleNormalSkills {
-    font-size: 17px;
-  }
-
-  .fontTitleBoldSkills {
-    font-size: 17px;
-  }
-
-  .fontTitleExtraBoldSkills {
-    font-size: 17px;
-  }
-
-  .fontBodyNormalSkills {
-    font-size: 17px;
-  }
-
-  .fontBodyBoldSkills {
-    font-size: 17px;
-  }
-
-  .fontBodyExtraBoldSkills {
-    font-size: 17px;
-  }
-}
-
-@media (max-width: 480px) {
-  .fontTitleNormalSkills {
-    font-size: 15px;
-  }
-
-  .fontTitleBoldSkills {
-    font-size: 15px;
-  }
-
-  .fontTitleExtraBoldSkills {
-    font-size: 15px;
-  }
-
-  .fontBodyNormalSkills {
-    font-size: 15px;
-  }
-
-  .fontBodyBoldSkills {
-    font-size: 15px;
-  }
-
-  .fontBodyExtraBoldSkills {
-    font-size: 15px;
-  }
-}
-
 /*Screen styles*/
 .skills {
   display: flex;
@@ -188,7 +136,7 @@
   font-family: 'Poppins';
   font-weight: 700;
   color: white;
-  font-size: 23px;
+  font-size: 20px;
 }
 
 @media (max-width: 1000px),
@@ -212,5 +160,83 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 824px) {
+  .fontTitleNormalSkills {
+    font-size: 17px;
+  }
+
+  .fontTitleBoldSkills {
+    font-size: 17px;
+  }
+
+  .fontTitleExtraBoldSkills {
+    font-size: 17px;
+  }
+
+  .fontBodyNormalSkills {
+    font-size: 17px;
+  }
+
+  .fontBodyBoldSkills {
+    font-size: 17px;
+  }
+
+  .fontBodyExtraBoldSkills {
+    font-size: 17px;
+  }
+
+  .skills-title {
+    margin: 50px 6% 40px 6%;
+    font-size: 32.5px;
+  }
+  
+  .skills-title p {
+    font-size: 17px;
+  }
+
+  .tagcloud-skill {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fontTitleNormalSkills {
+    font-size: 15px;
+  }
+
+  .fontTitleBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontTitleExtraBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyNormalSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyExtraBoldSkills {
+    font-size: 15px;
+  }
+
+  .skills-title {
+    margin: 40px 6% 40px 6%;
+    font-size: 25px;
+  }
+  
+  .skills-title p {
+    font-size: 15px;
+  }
+
+  .tagcloud-skill {
+    font-size: 15px;
   }
 }

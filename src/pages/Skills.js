@@ -1,6 +1,6 @@
 import "../css/Skills.css";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { TagCloud } from "@frank-mayer/react-tag-cloud";
 import { motion } from "framer-motion";
@@ -15,6 +15,20 @@ const Skills = () => {
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
         threshold: 0.1
     });
+
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const skills = [
         "Flutter",
@@ -80,7 +94,7 @@ const Skills = () => {
                                 }}
 
                                 options={(w, TagCloudOptions) => ({
-                                    radius: Math.min(800, w.innerWidth, 800) / 2,
+                                    radius: Math.min(800, windowWidth, 800) / 2,
                                 })}
                             >
                                 {skills}

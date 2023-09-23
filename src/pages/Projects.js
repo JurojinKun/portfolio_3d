@@ -21,12 +21,13 @@ import { textVariant, fadeIn } from "../utils/motion";
 const ProProjects = ({ menuOpened, t }) => {
 
     const { ref, inView } = useInView({
-        triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
+        triggerOnce: true,
+        threshold: 0.5
     });
 
     const [state, setState] = useState({
         goToSlide: 0,
-        offsetRadius: 2,
+        offsetRadius: 1,
         showNavigation: false,
         enableSwipe: true,
         config: config.gentle
@@ -40,6 +41,7 @@ const ProProjects = ({ menuOpened, t }) => {
             content:
                 <div style={{
                     position: 'relative',
+                    display: "flex",
                     height: "400px",
                     width: "450px",
                     borderRadius: "10px",
@@ -214,7 +216,12 @@ const ProProjects = ({ menuOpened, t }) => {
             ...slide, onClick: () => {
                 if (!menuOpened) {
                     if (index !== currentIndex) {
-                        setState({ goToSlide: index });
+                        setState({
+                            goToSlide: index, offsetRadius: 1,
+                            showNavigation: false,
+                            enableSwipe: true,
+                            config: config.gentle
+                        });
                         setCurrentIndex(index);
                     } else {
                         alert(t("wip.label"));
@@ -229,21 +236,29 @@ const ProProjects = ({ menuOpened, t }) => {
             display: "flex",
             backgroundClip: "padding-box",
             border: "1px solid rgba(2, 2, 13, 1)",
-            minHeight: "550px",
+            // minHeight: "550px",
+            height: "550px",
             width: "100vw",
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center"
         }}>
             <div style={{
+                height: "100%",
                 width: "20%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                backgroundColor: "red"
             }}>
                 <div className="arrow-icon" onClick={() => {
                     if (!menuOpened) {
-                        setState({ goToSlide: currentIndex - 1 });
+                        setState({
+                            goToSlide: currentIndex - 1, offsetRadius: 1,
+                            showNavigation: false,
+                            enableSwipe: true,
+                            config: config.gentle
+                        });
                         setCurrentIndex(currentIndex - 1);
                     }
                 }}>
@@ -251,7 +266,7 @@ const ProProjects = ({ menuOpened, t }) => {
                 </div>
             </div>
             <div
-                style={{ width: "60%", height: "550px", zIndex: 0 }}
+                style={{ width: "60%", height: "100%", zIndex: 0, backgroundColor: "purple" }}
             >
                 <Carousel
                     slides={slides}
@@ -263,14 +278,21 @@ const ProProjects = ({ menuOpened, t }) => {
                 />
             </div>
             <div style={{
+                height: "100%",
                 width: "20%",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                backgroundColor: "pink"
             }}>
                 <div className="arrow-icon" onClick={() => {
                     if (!menuOpened) {
-                        setState({ goToSlide: currentIndex + 1 });
+                        setState({
+                            goToSlide: currentIndex + 1, offsetRadius: 1,
+                            showNavigation: false,
+                            enableSwipe: true,
+                            config: config.gentle
+                        });
                         setCurrentIndex(currentIndex + 1);
                     }
                 }}>
@@ -291,7 +313,7 @@ const PrivateProjects = ({ menuOpened, t }) => {
 
     const [state, setState] = useState({
         goToSlide: 0,
-        offsetRadius: 2,
+        offsetRadius: 1,
         showNavigation: false,
         enableSwipe: true,
         config: config.gentle
@@ -411,7 +433,13 @@ const PrivateProjects = ({ menuOpened, t }) => {
             ...slide, onClick: () => {
                 if (!menuOpened) {
                     if (index !== currentIndex) {
-                        setState({ goToSlide: index });
+                        setState({
+                            goToSlide: index,
+                            offsetRadius: 1,
+                            showNavigation: false,
+                            enableSwipe: true,
+                            config: config.gentle
+                        });
                         setCurrentIndex(index);
                     } else {
                         alert(t("wip.label"));
@@ -439,7 +467,13 @@ const PrivateProjects = ({ menuOpened, t }) => {
             }}>
                 <div className="arrow-icon" onClick={() => {
                     if (!menuOpened) {
-                        setState({ goToSlide: currentIndex - 1 });
+                        setState({
+                            goToSlide: currentIndex - 1,
+                            offsetRadius: 1,
+                            showNavigation: false,
+                            enableSwipe: true,
+                            config: config.gentle
+                        });
                         setCurrentIndex(currentIndex - 1);
                     }
                 }}>
@@ -466,7 +500,13 @@ const PrivateProjects = ({ menuOpened, t }) => {
             }}>
                 <div className="arrow-icon" onClick={() => {
                     if (!menuOpened) {
-                        setState({ goToSlide: currentIndex + 1 });
+                        setState({
+                            goToSlide: currentIndex + 1,
+                            offsetRadius: 1,
+                            showNavigation: false,
+                            enableSwipe: true,
+                            config: config.gentle
+                        });
                         setCurrentIndex(currentIndex + 1);
                     }
                 }}>
@@ -482,6 +522,7 @@ const Projects = ({ menuOpened }) => {
 
     const { ref, inView } = useInView({
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
+        threshold: 0.5
     });
 
     return (
