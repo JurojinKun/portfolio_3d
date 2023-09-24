@@ -39,175 +39,76 @@ const ProProjects = ({ menuOpened, t }) => {
         {
             key: 1,
             content:
-                <div style={{
-                    position: 'relative',
-                    display: "flex",
-                    height: "400px",
-                    width: "450px",
-                    borderRadius: "10px",
-                    overflow: 'hidden',
-                }}>
+                <div className="slide">
                     <img src={smv} alt="1" style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center',
-                        borderRadius: "10px"
+                        objectFit: "cover",
+                        objectPosition: "center"
                     }} />
                     <div className="content-slide">
-                        <h2 className="fontBodyBoldProjects" style={{
-                            margin: "15px 15px 30px 15px"
-                        }}>
+                        <h2>
                             {t("projects.title_project_pro_1")}
                         </h2>
-                        <p
-                            className="fontBodyNormalProjects"
-                            style={{
-                                margin: "0px 30px 0px 30px"
-                            }}>{t("projects.content_project_pro_1")}</p>
+                        <p>{t("projects.content_project_pro_1")}</p>
                     </div>
                 </div>
         },
         {
             key: 2,
-            content: <div style={{
-                position: 'relative',
-                height: "400px",
-                width: "450px",
-                borderRadius: "10px",
-                overflow: 'hidden'
-            }}>
+            content: <div className="slide">
                 <img src={corsica} alt="2" style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    borderRadius: "10px"
+                    objectFit: "cover",
+                    objectPosition: "center"
                 }} />
                 <div className="content-slide">
-                    <h2
-                        className="fontBodyBoldProjects"
-                        style={{
-                            margin: "15px 15px 30px 15px"
-                        }}>
+                    <h2>
                         {t("projects.title_project_pro_2")}
                     </h2>
-                    <p
-                        className="fontBodyNormalProjects"
-                        style={{
-                            margin: "0px 30px 0px 30px"
-                        }}>{t("projects.content_project_pro_2")}</p>
+                    <p>{t("projects.content_project_pro_2")}</p>
                 </div>
             </div>
         },
         {
             key: 3,
-            content: <div style={{
-                position: 'relative',
-                height: "400px",
-                width: "450px",
-                borderRadius: "10px",
-                overflow: 'hidden'
-            }}>
+            content: <div className="slide">
                 <img src={madewis} alt="3" style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    borderRadius: "10px"
+                    objectFit: "cover",
+                    objectPosition: "center"
                 }} />
                 <div className="content-slide">
-                    <h2
-                        className="fontBodyBoldProjects"
-                        style={{
-                            margin: "15px 15px 30px 15px"
-                        }}>
+                    <h2>
                         {t("projects.title_project_pro_3")}
                     </h2>
-                    <p
-                        className="fontBodyNormalProjects"
-                        style={{
-                            margin: "0px 30px 0px 30px"
-                        }}>{t("projects.content_project_pro_3")}</p>
+                    <p>{t("projects.content_project_pro_3")}</p>
                 </div>
             </div>
         },
         {
             key: 4,
-            content: <div style={{
-                position: 'relative',
-                height: "400px",
-                width: "450px",
-                borderRadius: "10px",
-                overflow: 'hidden'
-            }}>
+            content: <div className="slide">
                 <img src={hobbies} alt="4" style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    borderRadius: "10px"
+                    objectFit: "cover",
+                    objectPosition: "center"
                 }} />
                 <div className="content-slide">
-                    <h2
-                        className="fontBodyBoldProjects"
-                        style={{
-                            margin: "15px 15px 30px 15px"
-                        }}>
+                    <h2>
                         {t("projects.title_project_pro_4")}
                     </h2>
-                    <p
-                        className="fontBodyNormalProjects"
-                        style={{
-                            margin: "0px 30px 0px 30px"
-                        }}>{t("projects.content_project_pro_4")}</p>
+                    <p>{t("projects.content_project_pro_4")}</p>
                 </div>
             </div>
         },
         {
             key: 5,
-            content: <div style={{
-                position: 'relative',
-                height: "400px",
-                width: "450px",
-                borderRadius: "10px",
-                overflow: 'hidden'
-            }}>
+            content: <div className="slide">
                 <img src={croixrouge} alt="5" style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    borderRadius: "10px"
+                    objectFit: "cover",
+                    objectPosition: "center"
                 }} />
                 <div className="content-slide">
-                    <h2
-                        className="fontBodyBoldProjects"
-                        style={{
-                            margin: "15px 15px 30px 15px"
-                        }}>
+                    <h2>
                         {t("projects.title_project_pro_5")}
                     </h2>
-                    <p
-                        className="fontBodyNormalProjects"
-                        style={{
-                            margin: "0px 30px 0px 30px"
-                        }}>{t("projects.content_project_pro_5")}</p>
+                    <p>{t("projects.content_project_pro_5")}</p>
                 </div>
             </div>
         },
@@ -232,26 +133,9 @@ const ProProjects = ({ menuOpened, t }) => {
     });
 
     return (
-        <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={fadeIn("top", "tween", 0.2, 1)} style={{
-            display: "flex",
-            backgroundClip: "padding-box",
-            border: "1px solid rgba(2, 2, 13, 1)",
-            // minHeight: "550px",
-            height: "550px",
-            width: "100vw",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center"
-        }}>
-            <div style={{
-                height: "100%",
-                width: "20%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "red"
-            }}>
-                <div className="arrow-icon" onClick={() => {
+        <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={fadeIn("top", "tween", 0.2, 1)} className="container-caroussel">
+            <div className="container-arrow-icon">
+                <div className="arrow-icon-hover" onClick={() => {
                     if (!menuOpened) {
                         setState({
                             goToSlide: currentIndex - 1, offsetRadius: 1,
@@ -262,11 +146,11 @@ const ProProjects = ({ menuOpened, t }) => {
                         setCurrentIndex(currentIndex - 1);
                     }
                 }}>
-                    <IoIosArrowBack color="white" size={25} />
+                    <IoIosArrowBack className="arrow-icon" />
                 </div>
             </div>
             <div
-                style={{ width: "60%", height: "100%", zIndex: 0, backgroundColor: "purple" }}
+                className="container-slides"
             >
                 <Carousel
                     slides={slides}
@@ -277,15 +161,8 @@ const ProProjects = ({ menuOpened, t }) => {
                     animationConfig={state.config}
                 />
             </div>
-            <div style={{
-                height: "100%",
-                width: "20%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "pink"
-            }}>
-                <div className="arrow-icon" onClick={() => {
+            <div className="container-arrow-icon">
+                <div className="arrow-icon-hover" onClick={() => {
                     if (!menuOpened) {
                         setState({
                             goToSlide: currentIndex + 1, offsetRadius: 1,
@@ -296,7 +173,7 @@ const ProProjects = ({ menuOpened, t }) => {
                         setCurrentIndex(currentIndex + 1);
                     }
                 }}>
-                    <IoIosArrowForward color="white" size={25} />
+                    <IoIosArrowForward className="arrow-icon" />
                 </div>
             </div>
         </motion.div>
@@ -325,106 +202,46 @@ const PrivateProjects = ({ menuOpened, t }) => {
         {
             key: 1,
             content:
-                <div style={{
-                    position: 'relative',
-                    height: "400px",
-                    width: "450px",
-                    borderRadius: "10px",
-                    overflow: 'hidden',
-                }}>
+                <div className="slide">
                     <img src={gemu} alt="1" style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center',
-                        borderRadius: "10px"
-                    }} />
+                    objectFit: "cover",
+                    objectPosition: "center"
+                }} />
                     <div className="content-slide">
-                        <h2
-                            className="fontBodyBoldProjects"
-                            style={{
-                                margin: "15px 15px 30px 15px"
-                            }}>
+                        <h2>
                             {t("projects.title_project_perso_1")}
                         </h2>
-                        <p
-                            className="fontBodyNormalProjects"
-                            style={{
-                                margin: "0px 30px 0px 30px"
-                            }}>{t("projects.content_project_perso_1")}</p>
+                        <p>{t("projects.content_project_perso_1")}</p>
                     </div>
                 </div>
         },
         {
             key: 2,
-            content: <div style={{
-                position: 'relative',
-                height: "400px",
-                width: "450px",
-                borderRadius: "10px",
-                overflow: 'hidden'
-            }}>
+            content: <div className="slide">
                 <img src={myyoukounkoun} alt="2" style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    borderRadius: "10px"
+                    objectFit: "cover",
+                    objectPosition: "center"
                 }} />
                 <div className="content-slide">
-                    <h2
-                        className="fontBodyBoldProjects"
-                        style={{
-                            margin: "15px 15px 30px 15px"
-                        }}>
+                    <h2>
                         {t("projects.title_project_perso_2")}
                     </h2>
-                    <p
-                        className="fontBodyNormalProjects"
-                        style={{
-                            margin: "0px 30px 0px 30px"
-                        }}>{t("projects.content_project_perso_2")}</p>
+                    <p>{t("projects.content_project_perso_2")}</p>
                 </div>
             </div>
         },
         {
             key: 3,
-            content: <div style={{
-                position: 'relative',
-                height: "400px",
-                width: "450px",
-                borderRadius: "10px",
-                overflow: 'hidden'
-            }}>
+            content: <div className="slide">
                 <img src={portfolio} alt="3" style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    borderRadius: "10px"
+                    objectFit: "cover",
+                    objectPosition: "center"
                 }} />
                 <div className="content-slide">
-                    <h2
-                        className="fontBodyBoldProjects"
-                        style={{
-                            margin: "15px 15px 30px 15px"
-                        }}>
+                    <h2>
                         {t("projects.title_project_perso_3")}
                     </h2>
-                    <p
-                        className="fontBodyNormalProjects"
-                        style={{
-                            margin: "0px 30px 0px 30px"
-                        }}>{t("projects.content_project_perso_3")}</p>
+                    <p>{t("projects.content_project_perso_3")}</p>
                 </div>
             </div>
         },
@@ -450,22 +267,9 @@ const PrivateProjects = ({ menuOpened, t }) => {
     });
 
     return (
-        <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={fadeIn("bottom", "tween", 0.2, 1)} style={{
-            display: "flex",
-            backgroundClip: "padding-box",
-            border: "1px solid rgba(2, 2, 13, 1)",
-            minHeight: "550px",
-            width: "100vw",
-            flexDirection: "row",
-            alignItems: "center", justifyContent: "center"
-        }}>
-            <div style={{
-                width: "20%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-            }}>
-                <div className="arrow-icon" onClick={() => {
+        <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={fadeIn("bottom", "tween", 0.2, 1)} className="container-caroussel">
+            <div className="container-arrow-icon">
+                <div className="arrow-icon-hover" onClick={() => {
                     if (!menuOpened) {
                         setState({
                             goToSlide: currentIndex - 1,
@@ -477,11 +281,11 @@ const PrivateProjects = ({ menuOpened, t }) => {
                         setCurrentIndex(currentIndex - 1);
                     }
                 }}>
-                    <IoIosArrowBack color="white" size={25} />
+                    <IoIosArrowBack className="arrow-icon" />
                 </div>
             </div>
             <div
-                style={{ width: "60%", height: "550px", zIndex: 0 }}
+                className="container-slides"
             >
                 <Carousel
                     slides={slides}
@@ -492,13 +296,8 @@ const PrivateProjects = ({ menuOpened, t }) => {
                     animationConfig={state.config}
                 />
             </div>
-            <div style={{
-                width: "20%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-            }}>
-                <div className="arrow-icon" onClick={() => {
+            <div className="container-arrow-icon">
+                <div className="arrow-icon-hover" onClick={() => {
                     if (!menuOpened) {
                         setState({
                             goToSlide: currentIndex + 1,
@@ -510,7 +309,7 @@ const PrivateProjects = ({ menuOpened, t }) => {
                         setCurrentIndex(currentIndex + 1);
                     }
                 }}>
-                    <IoIosArrowForward color="white" size={25} />
+                    <IoIosArrowForward className="arrow-icon" />
                 </div>
             </div>
         </motion.div>

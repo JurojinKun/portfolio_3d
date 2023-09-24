@@ -6,35 +6,35 @@
     font-size: 20px;
 }
 
-.fontTitleBoldProjects  {
+.fontTitleBoldProjects {
     font-family: 'Poppins';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
-.fontTitleExtraBoldProjects  {
+.fontTitleExtraBoldProjects {
     font-family: 'Poppins';
     font-weight: 800;
     color: white;
     font-size: 20px;
 }
 
-.fontBodyNormalProjects  {
+.fontBodyNormalProjects {
     font-family: 'Montserrat';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
-.fontBodyBoldProjects  {
+.fontBodyBoldProjects {
     font-family: 'Montserrat';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
-.fontBodyExtraBoldProjects  {
+.fontBodyExtraBoldProjects {
     font-family: 'Montserrat';
     font-weight: 800;
     color: white;
@@ -78,9 +78,27 @@
     margin: 0;
 }
 
-.arrow-icon {
-    height: 35px;
-    width: 35px;
+.container-caroussel {
+    display: flex;
+    background-clip: padding-box;
+    border: 1px solid rgba(2, 2, 13, 1);
+    min-height: 550px;
+    width: 100vw;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container-arrow-icon {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-icon-hover {
+    height: 55px;
+    width: 55px;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -91,8 +109,35 @@
     z-index: 1;
 }
 
-.arrow-icon:hover {
+.arrow-icon {
+    height: 35px;
+    width: 35px;
+    color: white;
+}
+
+.arrow-icon-hover:hover {
     background-color: rgba(71, 205, 214, 0.3)
+}
+
+.container-slides {
+    width: 50%;
+    z-index: 0;
+}
+
+.slide {
+    position: relative;
+    display: flex;
+    height: 450px;
+    width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.slide img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
 }
 
 .content-slide {
@@ -114,28 +159,45 @@
     opacity: 1;
 }
 
+.content-slide h2 {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 23px;
+    color: white;
+    margin: 30px 15px 15px 15px;
+}
+
+.content-slide p {
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 20px;
+    color: white;
+    margin: 15px 15px 30px 15px;
+    overflow: hidden;
+}
+
 @media (min-width: 481px) and (max-width: 824px) {
-    .fontTitleNormalProjects  {
+    .fontTitleNormalProjects {
         font-size: 17px;
     }
 
-    .fontTitleBoldProjects  {
+    .fontTitleBoldProjects {
         font-size: 17px;
     }
 
-    .fontTitleExtraBoldProjects  {
+    .fontTitleExtraBoldProjects {
         font-size: 17px;
     }
 
-    .fontBodyNormalProjects  {
+    .fontBodyNormalProjects {
         font-size: 17px;
     }
 
-    .fontBodyBoldProjects  {
+    .fontBodyBoldProjects {
         font-size: 17px;
     }
 
-    .fontBodyExtraBoldProjects  {
+    .fontBodyExtraBoldProjects {
         font-size: 17px;
     }
 
@@ -143,34 +205,34 @@
         margin: 50px 6% 40px 6%;
         font-size: 32.5px;
     }
-    
+
     .projects-title p {
         font-size: 17px;
     }
 }
 
 @media (max-width: 480px) {
-    .fontTitleNormalProjects  {
+    .fontTitleNormalProjects {
         font-size: 15px;
     }
 
-    .fontTitleBoldProjects  {
+    .fontTitleBoldProjects {
         font-size: 15px;
     }
 
-    .fontTitleExtraBoldProjects  {
+    .fontTitleExtraBoldProjects {
         font-size: 15px;
     }
 
-    .fontBodyNormalProjects  {
+    .fontBodyNormalProjects {
         font-size: 15px;
     }
 
-    .fontBodyBoldProjects  {
+    .fontBodyBoldProjects {
         font-size: 15px;
     }
 
-    .fontBodyExtraBoldProjects  {
+    .fontBodyExtraBoldProjects {
         font-size: 15px;
     }
 
@@ -178,7 +240,7 @@
         margin: 40px 6% 40px 6%;
         font-size: 25px;
     }
-    
+
     .projects-title p {
         font-size: 15px;
     }
