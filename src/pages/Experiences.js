@@ -133,15 +133,10 @@ const Experiences = () => {
     ];
 
     return (
-        <div style={{
-            display: "flex",
-            width: "100%",
-            backgroundClip: "padding-box",
-            border: "1px solid rgba(2, 2, 13, 1)",
-            flexDirection: "column"
-        }}>
-            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}>
-                <h1 className="experiences-title">{t("experiences.title")}</h1>
+        <div className="experiences">
+            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="experiences-title">
+            {t("experiences.title")}
+            <p>{t("experiences.subtitle")}</p>
             </motion.div>
             <div className="experiences-content">
                 <VerticalTimeline>

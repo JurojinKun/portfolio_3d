@@ -41,85 +41,51 @@
     font-size: 20px;
 }
 
-@media (max-width: 768px) {
-    .fontTitleNormalContactMe {
-        font-size: 17px;
-    }
-
-    .fontTitleBoldContactMe {
-        font-size: 17px;
-    }
-
-    .fontTitleExtraBoldContactMe {
-        font-size: 17px;
-    }
-
-    .fontBodyNormalContactMe {
-        font-size: 17px;
-    }
-
-    .fontBodyBoldContactMe {
-        font-size: 17px;
-    }
-
-    .fontBodyExtraBoldContactMe {
-        font-size: 17px;
-    }
-}
-
-@media (max-width: 480px) {
-    .fontTitleNormalContactMe {
-        font-size: 15px;
-    }
-
-    .fontTitleBoldContactMe {
-        font-size: 15px;
-    }
-
-    .fontTitleExtraBoldContactMe {
-        font-size: 15px;
-    }
-
-    .fontBodyNormalContactMe {
-        font-size: 15px;
-    }
-
-    .fontBodyBoldContactMe {
-        font-size: 15px;
-    }
-
-    .fontBodyExtraBoldContactMe {
-        font-size: 15px;
-    }
-}
-
 /*Screen styles*/
+.contactme {
+    position: relative;
+    min-Height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 69px;
+}
+
 .contactme-title {
-    top: 0;
-    left: 0;
-    padding-left: 150px;
-    padding-right: 25px;
-    padding-top: 30px;
+    z-index: 0;
+    margin: 60px 6% 40px 6%;
     color: white;
     font-family: "Poppins";
     font-weight: 800;
     font-size: 40px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.contactme-title p {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    color: white;
+    font-size: 20px;
+    margin: 0;
 }
 
 .contactme-content {
     display: flex;
-    gap: 10px;
-    overflow: hidden;
-    flex-direction: column-reverse;
+    height: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    margin: 0 6% 20px 6%;
 }
 
-@media (min-width: 1200px) {
-    .contactme-content {
-        margin-top: 12px;
-        flex-direction: row;
-    }
+.form-contactme {
+    z-index: 0;
+    background-color: rgba(26, 26, 26, 0.7);
+    border-radius: 10px;
+    width: 50%;
+    padding: 25px 25px 25px 25px;
 }
 
 /* Style par défaut pour .input */
@@ -220,7 +186,6 @@
 }
 
 @keyframes up-and-down {
-
     0%,
     100% {
         transform: translateY(-70%);
@@ -228,5 +193,123 @@
 
     50% {
         transform: translateY(-30%);
+    }
+}
+
+@media (min-width: 481px) and (max-width: 824px) {
+    .fontTitleNormalContactMe {
+        font-size: 17px;
+    }
+
+    .fontTitleBoldContactMe {
+        font-size: 17px;
+    }
+
+    .fontTitleExtraBoldContactMe {
+        font-size: 17px;
+    }
+
+    .fontBodyNormalContactMe {
+        font-size: 17px;
+    }
+
+    .fontBodyBoldContactMe {
+        font-size: 17px;
+    }
+
+    .fontBodyExtraBoldContactMe {
+        font-size: 17px;
+    }
+
+    .contactme-title {
+        margin: 50px 6% 40px 6%;
+        font-size: 32.5px;
+    }
+
+    .contactme-title p {
+        font-size: 17px;
+    }
+
+    .contactme-content {
+        flex-direction: column-reverse;
+    }
+
+    .form-contactme {
+        width: 80%;
+        padding: 15px 15px 15px 15px;
+    }
+
+    .image-container {
+        width: 350px;
+        height: 350px;
+    }
+    
+    .static-image {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .animated-image {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fontTitleNormalContactMe {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldContactMe {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldContactMe {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalContactMe {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldContactMe {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldContactMe {
+        font-size: 15px;
+    }
+
+    .contactme-title {
+        margin: 40px 6% 40px 6%;
+        font-size: 25px;
+    }
+
+    .contactme-title p {
+        font-size: 15px;
+    }
+
+    .contactme-content {
+        flex-direction: column-reverse;
+    }
+
+    .form-contactme {
+        width: 90%;
+        padding: 10px 10px 10px 10px;
+    }
+
+    .image-container {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .static-image {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .animated-image {
+        width: 80px;
+        height: 80px;
     }
 }

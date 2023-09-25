@@ -253,6 +253,7 @@ const Portfolio = () => {
                         ))}
                         <div style={{
                             pointerEvents: 'auto',
+                           padding: "0 0 0 15px"
                         }}>
                             <LanguageSwitcher openingDirection={"bottom"} />
                         </div>

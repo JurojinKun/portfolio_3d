@@ -41,7 +41,142 @@
   font-size: 20px;
 }
 
-@media (max-width: 768px) {
+/*Screen styles*/
+.skills {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  /* padding-top: 69px; */
+}
+
+.skills-content {
+  display: flex;
+  width: 100%;
+}
+
+.skills-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  font-family: "Poppins";
+  font-weight: 800;
+  font-size: 40px;
+  padding-top: 69px;
+  margin: 60px 12% 40px 12%;
+}
+
+.skills-title p {
+  font-family: 'Montserrat';
+  font-weight: 500;
+  color: white;
+  font-size: 20px;
+  margin: 0;
+}
+
+.container-left {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-left-midle {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 209px;
+}
+
+.circle {
+  width: 40%;
+  height: 40%;
+  background: rgba(71, 205, 214, 0.7);
+  border-radius: 60%;
+  filter: blur(100px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container-middle {
+  width: 50%;
+  padding-top: 69px;
+}
+
+.container-in-middle {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.container-in-in-midle {
+  display: flex;
+  width: 80%;
+  background-color: rgba(26, 26, 26, 1);
+  border-radius: 10px;
+  color: white;
+  flex-direction: column;
+  overflow: auto;
+  padding: 20px;
+}
+
+.tagcloud-skill {
+  font-family: 'Poppins';
+  font-weight: 700;
+  color: white;
+  font-size: 20px;
+}
+
+@media (min-height: 701px) and (max-height: 850px) {
+  .skills-title {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 1300px),
+(max-height: 700px) {
+  .skills-content {
+    flex-direction: column;
+  }
+
+  .skills-title {
+    margin: 60px 6% 40px 6%;
+  }
+
+  .container-left {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .container-middle {
+    width: 100%;
+    height: 100%;
+    padding-top: 0;
+  }
+
+  .container-in-middle {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 824px) {
   .fontTitleNormalSkills {
     font-size: 17px;
   }
@@ -64,6 +199,24 @@
 
   .fontBodyExtraBoldSkills {
     font-size: 17px;
+  }
+
+  .skills-title {
+    margin: 50px 6% 40px 6%;
+    font-size: 32.5px;
+  }
+
+  .skills-title p {
+    font-size: 17px;
+  }
+
+  .tagcloud-skill {
+    font-size: 17px;
+  }
+
+  .circle {
+    width: 50%;
+    height: 50%;
   }
 }
 
@@ -91,125 +244,22 @@
   .fontBodyExtraBoldSkills {
     font-size: 15px;
   }
-}
 
-/*Screen styles*/
-.skills {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-}
-
-.skills-content {
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-}
-
-.skills-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding-left: 150px;
-  padding-right: 25px;
-  padding-top: 40px;
-  color: white;
-  font-family: "Poppins";
-  font-weight: 800;
-  font-size: 40px;
-}
-
-.container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.container-left {
-  position: sticky;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.container-left-midle {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 140px;
-}
-
-.circle {
-  width: 30%;
-  height: 30%;
-  background: rgba(71, 205, 214, 0.7);
-  border-radius: 60%;
-  filter: blur(100px);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.container-middle {
-  width: 40%;
-}
-
-.container-in-middle {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.container-in-in-midle {
-  display: flex;
-  margin: 50px;
-  width: 100%;
-  background-color: rgba(26, 26, 26, 1);
-  border-radius: 10px;
-  margin-top: 140px;
-  color: white;
-  flex-direction: column;
-  overflow: auto;
-  padding: 20px;
-}
-
-.tagcloud-skill {
-  font-family: 'Poppins';
-  font-weight: 700;
-  color: white;
-  font-size: 23px;
-}
-
-@media (max-width: 1000px),
-(max-height: 600px) {
-  .skills-content {
-    flex-direction: column;
+  .skills-title {
+    margin: 40px 6% 40px 6%;
+    font-size: 25px;
   }
 
-  .container-left {
-    position: relative;
-    width: 100%;
-    height: auto;
+  .skills-title p {
+    font-size: 15px;
   }
 
-  .container-middle {
-    width: 100%;
+  .tagcloud-skill {
+    font-size: 15px;
   }
 
-  .container-in-middle {
-    min-height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .circle {
+    width: 60%;
+    height: 60%;
   }
 }

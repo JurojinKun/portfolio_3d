@@ -22,6 +22,7 @@ const ContactMe = () => {
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
         threshold: 0.5
     });
+
     const formRef = useRef();
     const [form, setForm] = useState({
         name: "",
@@ -93,32 +94,25 @@ const ContactMe = () => {
 
         // Cleanup
         return () => window.removeEventListener('resize', checkHeight);
-    }, []);
+    }, [inView]);
 
     return (
         <div
             ref={contactmeRef}
             style={{
                 display: "flex",
-                minHeight: "100vh",
                 width: "100%",
                 backgroundClip: "padding-box",
-                border: "1px solid rgba(2, 2, 13, 1)",
-                flexDirection: "column"
+                border: "1px solid rgba(2, 2, 13, 1)"
             }}>
             <StarryBackground gradientTopLeft={false} gradientBottomRight={true} heightSection={contactmeHeight} />
-            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}>
-                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)}><h1 className="contactme-title">{t("contact_me.title")}</h1></motion.div>
+            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="contactme">
+                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="contactme-title">
+                    {t("contact_me.title")}
+                    <p>{t("contact_me.subtitle")}</p>
+                </motion.div>
                 <div className="contactme-content">
-                    <div style={{
-                        zIndex: 0,
-                        backgroundColor: "rgba(26, 26, 26, 0.7)",
-                        marginBottom: "20px",
-                        flexGrow: 0.75,
-                        padding: "2rem",
-                        borderRadius: "1rem",
-                        margin: "2rem"
-                    }}>
+                    <div className="form-contactme">
                         <form
                             ref={formRef}
                             onSubmit={handleSubmit}

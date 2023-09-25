@@ -27,7 +27,7 @@
     "about_me": {
         "title": "About me",
         "subtitle": "Find out more about me...",
-        "type_writer_1": "Young developper in the IT world",
+        "type_writer_1": "Developer in the IT world",
         "type_writer_2": "Always learning new things",
         "first_para": "Ohhh, you're here already ? Yes, it's me speaking to you, on your right, I'll be your guide throughout your journey here. You can call me Astr0ruj !",
         "second_para": "To begin the visit, what better way than with a little introduction to myself.",
@@ -37,6 +37,7 @@
     },
     "skills": {
         "title": "Skills",
+        "subtitle": "A summary of what I know how to do...",
         "skill_title_1": "My beginnings in development",
         "skill_paragraph_1": "I made my debut in the world of development at the age of 18 by learning Python. \n\nI liked this experience so much that I decided to continue my studies by enrolling in an integrated preparatory cycle and finally in an engineering school: ISEN Toulon. \nDuring these years, I was able to learn to understand, analyse and think about simple, understandable and clean code by learning the basics of development on technologies such as C. \n\nI was also able to learn more by doing a work placement with the Atlantic group in the network and cybersecurity team.",
         "skill_title_2": "My self-taught apprenticeship",
@@ -50,6 +51,7 @@
     },
     "experiences": {
         "title": "Experiences",
+        "subtitle": "What I've been able to do so far...",
         "title_experience_1": "Lead dev front",
         "company_experience_1": "Digital Paca",
         "date_experience_1": "October 2021 - Today",
@@ -70,7 +72,9 @@
     },
     "projects": {
         "title_pro": "Professional projects",
+        "subtitle_pro": "A few references from completed projects...",
         "title_private": "Personal projects",
+        "subtitle_private": "A few other projects in my spare time...",
         "title_project_pro_1": "Sauve mon vaccin",
         "content_project_pro_1": "Development from scratch of an Android/iOS mobile and web Flutter solution for donations of vaccines between doctors/pharmacists,...",
         "title_project_pro_2": "Corsica Ferries",
@@ -90,6 +94,7 @@
     },
     "contact_me": {
         "title": "Contact me",
+        "subtitle": "Don't hesitate to ask me any questions or give me any feedback...",
         "title_name": "Your name",
         "label_name": "What's your name ?",
         "title_firstname": "Your firstname",

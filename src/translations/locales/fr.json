@@ -27,7 +27,7 @@
     "about_me": {
         "title": "À propos de moi",
         "subtitle": "En savoir un peu plus sur moi...",
-        "type_writer_1": "Jeune développeur dans le monde de l'informatique",
+        "type_writer_1": "Développeur dans le monde de l'IT",
         "type_writer_2": "Apprendre toujours de nouvelles choses",
         "first_para": "Ohhh tu es déjà là ?  Oui, c'est moi qui te parle, sur ta droite, je serais ton guide tout au long de ton voyage ici. Tu peux m'appeler Astr0ruj !",
         "second_para": "Pour commencer la visite, quoi de mieux qu'une petite présentation de moi-même.",
@@ -37,6 +37,7 @@
     },
     "skills": {
         "title": "Compétences",
+        "subtitle": "Un résumé de ce que je sais faire...",
         "skill_title_1": "Mes débuts dans le développement",
         "skill_paragraph_1": "J'ai fait mes débuts dans le monde du développement à l'âge de 18 ans en apprenant le Python. \n\nCette expérience m'ayant plus, j'ai voulu continuer en intégrant un cycle préparatoire intégré et enfin une école d'ingénieur : ISEN Toulon. \nDurant ces années, j'ai pu apprendre à comprendre, à analyser et réfléchir à un code simple, compréhensible et propre en apprenant les bases du développement sur des technologies comme le C. \n\nJ'ai aussi pu en apprendre davantage en faisant notamment un stage au sein du groupe Atlantic avec l'équipe réseau et cybersécurité.",
         "skill_title_2": "Mon apprentissage autodidacte",
@@ -50,6 +51,7 @@
     },
     "experiences": {
         "title": "Expériences",
+        "subtitle": "Ce que j'ai pu faire jusqu'à présent...",
         "title_experience_1": "Lead dev front",
         "company_experience_1": "Digital Paca",
         "date_experience_1": "Octobre 2021 - Aujourd'hui",
@@ -70,7 +72,9 @@
     },
     "projects": {
         "title_pro": "Projets professionnels",
+        "subtitle_pro": "Quelques références de projets réalisés...",
         "title_private": "Projets personnels",
+        "subtitle_private": "Quelques autres projets durant mon temps libre...",
         "title_project_pro_1": "Sauve mon vaccin",
         "content_project_pro_1": "Développement from scratch d'une solution mobile Android/iOS et web en Flutter de dons de vaccins entre médecins/pharmaciens,...",
         "title_project_pro_2": "Corsica Ferries",
@@ -90,6 +94,7 @@
     },
     "contact_me": {
         "title": "Me contacter",
+        "subtitle": "N'hésite pas à me poser la moindre question ou à me faire un retour...",
         "title_name": "Votre nom",
         "label_name": "Quel est votre nom ?",
         "title_firstname": "Votre prénom",
