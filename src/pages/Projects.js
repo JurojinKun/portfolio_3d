@@ -7,6 +7,7 @@ import Carousel from "react-spring-3d-carousel";
 import { config } from "react-spring";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { isMobile } from 'react-device-detect';
 
 import smv from '../assets/projects/smv.jpg';
 import corsica from '../assets/projects/corsica.jpg';
@@ -44,7 +45,7 @@ const ProProjects = ({ menuOpened, t }) => {
                         objectFit: "cover",
                         objectPosition: "center"
                     }} />
-                    <div className="content-slide">
+                    <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
                         <h2>
                             {t("projects.title_project_pro_1")}
                         </h2>
@@ -59,7 +60,7 @@ const ProProjects = ({ menuOpened, t }) => {
                     objectFit: "cover",
                     objectPosition: "center"
                 }} />
-                <div className="content-slide">
+                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
                     <h2>
                         {t("projects.title_project_pro_2")}
                     </h2>
@@ -74,7 +75,7 @@ const ProProjects = ({ menuOpened, t }) => {
                     objectFit: "cover",
                     objectPosition: "center"
                 }} />
-                <div className="content-slide">
+                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
                     <h2>
                         {t("projects.title_project_pro_3")}
                     </h2>
@@ -89,7 +90,7 @@ const ProProjects = ({ menuOpened, t }) => {
                     objectFit: "cover",
                     objectPosition: "center"
                 }} />
-                <div className="content-slide">
+                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
                     <h2>
                         {t("projects.title_project_pro_4")}
                     </h2>
@@ -104,7 +105,7 @@ const ProProjects = ({ menuOpened, t }) => {
                     objectFit: "cover",
                     objectPosition: "center"
                 }} />
-                <div className="content-slide">
+                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
                     <h2>
                         {t("projects.title_project_pro_5")}
                     </h2>
@@ -135,7 +136,7 @@ const ProProjects = ({ menuOpened, t }) => {
     return (
         <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={fadeIn("top", "tween", 0.2, 1)} className="container-caroussel">
             <div className="container-arrow-icon">
-                <div className="arrow-icon-hover" onClick={() => {
+                <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
                     if (!menuOpened) {
                         setState({
                             goToSlide: currentIndex - 1, offsetRadius: 1,
@@ -162,7 +163,7 @@ const ProProjects = ({ menuOpened, t }) => {
                 />
             </div>
             <div className="container-arrow-icon">
-                <div className="arrow-icon-hover" onClick={() => {
+                <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
                     if (!menuOpened) {
                         setState({
                             goToSlide: currentIndex + 1, offsetRadius: 1,
@@ -207,7 +208,7 @@ const PrivateProjects = ({ menuOpened, t }) => {
                     objectFit: "cover",
                     objectPosition: "center"
                 }} />
-                    <div className="content-slide">
+                    <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
                         <h2>
                             {t("projects.title_project_perso_1")}
                         </h2>
@@ -222,7 +223,7 @@ const PrivateProjects = ({ menuOpened, t }) => {
                     objectFit: "cover",
                     objectPosition: "center"
                 }} />
-                <div className="content-slide">
+                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
                     <h2>
                         {t("projects.title_project_perso_2")}
                     </h2>
@@ -237,7 +238,7 @@ const PrivateProjects = ({ menuOpened, t }) => {
                     objectFit: "cover",
                     objectPosition: "center"
                 }} />
-                <div className="content-slide">
+                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
                     <h2>
                         {t("projects.title_project_perso_3")}
                     </h2>
@@ -269,7 +270,7 @@ const PrivateProjects = ({ menuOpened, t }) => {
     return (
         <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={fadeIn("bottom", "tween", 0.2, 1)} className="container-caroussel">
             <div className="container-arrow-icon">
-                <div className="arrow-icon-hover" onClick={() => {
+                <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
                     if (!menuOpened) {
                         setState({
                             goToSlide: currentIndex - 1,
@@ -297,7 +298,7 @@ const PrivateProjects = ({ menuOpened, t }) => {
                 />
             </div>
             <div className="container-arrow-icon">
-                <div className="arrow-icon-hover" onClick={() => {
+                <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
                     if (!menuOpened) {
                         setState({
                             goToSlide: currentIndex + 1,
