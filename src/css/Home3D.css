@@ -185,12 +185,12 @@
 }
 
 .roundButton:hover {
-    background-color: #47CDD6;
+    background-color: #5DADD2;
 }
 
 @media (hover: hover) {
     .roundButton:hover {
-        background-color: #47CDD6;
+        background-color: #5DADD2;
     }
 }
 
@@ -237,7 +237,7 @@
 .titleContainer {
     opacity: 0;
     transition: opacity 0.3s ease;
-    background-color: #47CDD6;
+    background-color: #5DADD2;
     color: #1A1B1B;
     padding: 10px;
     border-radius: 10px;
