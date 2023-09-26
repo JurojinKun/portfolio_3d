@@ -82,7 +82,7 @@
 
 .overview-content {
     width: 50%;
-    margin-top: 140px;
+    margin-top: 100px;
     margin-left: 5%;
 }
 
@@ -117,6 +117,7 @@
     font-size: 24px;
     font-family: 'Space Mono';
     font-weight: 600;
+    text-align: center;
 }
 
 .mouse {
@@ -354,7 +355,7 @@
     }
 
     .overview-content {
-        margin-top: 120px;
+        margin-top: 80px;
         width: 90%;
     }
 
@@ -463,7 +464,7 @@
     }
 
     .overview-content {
-        margin-top: 100px;
+        margin-top: 70px;
         width: 90%;
     }
 
