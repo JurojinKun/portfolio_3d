@@ -114,6 +114,6 @@
         "content_error_2": "Quelque chose n'a pas fonctionné."
     },
     "wip": {
-        "label": "Travaux encore en cours..."
+        "label": "En cours de développement..."
     }
 }

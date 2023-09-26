@@ -114,6 +114,6 @@
         "content_error_2": "Something went wrong."
     },
     "wip": {
-        "label": "Work still in progress..."
+        "label": "Currently in development..."
     }
 }
