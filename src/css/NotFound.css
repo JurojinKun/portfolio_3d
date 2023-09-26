@@ -1,42 +1,42 @@
 /*Fonts styles*/
 .fontTitleNormalNotFound {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
 .fontTitleBoldNotFound {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontTitleExtraBoldNotFound {
-    font-family: 'Poppins';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyNormalNotFound {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyBoldNotFound {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyExtraBoldNotFound {
-    font-family: 'Montserrat';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 20px;
 }

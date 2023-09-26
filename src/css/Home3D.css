@@ -1,42 +1,42 @@
 /*Fonts styles*/
 .fontTitleNormalHome3D {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 23px;
 }
 
 .fontTitleBoldHome3D {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 23px;
 }
 
 .fontTitleExtraBoldHome3D {
-    font-family: 'Poppins';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 23px;
 }
 
 .fontBodyNormalHome3D {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 23px;
 }
 
 .fontBodyBoldHome3D {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 23px;
 }
 
 .fontBodyExtraBoldHome3D {
-    font-family: 'Montserrat';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 23px;
 }
@@ -55,18 +55,18 @@
 }
 
 .title-header {
-    font-family: 'Poppins';
-    font-weight: 00;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
     margin-left: 10px;
 }
 
 .language-switcher {
     font-size: 15px;
-    font-weight: 800;
-    font-family: "Poppins";
+    font-weight: 700;
+    font-family: "Space Mono";
 }
 
 .parent {
@@ -89,14 +89,14 @@
 .hello-title {
     color: white;
     font-size: 26px;
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 600;
 }
 
 .name {
     color: #47CDD6;
     font-size: 26px;
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 600;
 }
 
@@ -115,7 +115,7 @@
 .scroll-content {
     color: white;
     font-size: 24px;
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 600;
 }
 
@@ -241,7 +241,7 @@
     padding: 10px;
     border-radius: 10px;
     font-size: 15px;
-    font-size: 'Poppins';
+    font-size: 'Space Mono';
     font-weight: 700;
     white-space: nowrap;
     text-align: center;
@@ -346,7 +346,7 @@
     }
 
     .title-header {
-        font-size: 18px;
+        font-size: 17px;
     }
 
     .language-switcher {
@@ -537,7 +537,7 @@
     }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 440px) {
     .title-header {
         display: none;
     }

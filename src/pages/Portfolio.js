@@ -180,7 +180,7 @@ const Portfolio = () => {
     }, []);
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(min-width: 1301px)');
+        const mediaQuery = window.matchMedia('(min-width: 1401px)');
 
         const handleWindowSizeChange = () => {
             if (mediaQuery.matches && isOpen) {

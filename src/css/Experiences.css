@@ -1,42 +1,42 @@
 /*Fonts styles*/
 .fontTitleNormalExperiences {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
 .fontTitleBoldExperiences {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontTitleExtraBoldExperiences {
-    font-family: 'Poppins';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyNormalExperiences {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyBoldExperiences {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyExtraBoldExperiences {
-    font-family: 'Montserrat';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 20px;
 }
@@ -55,8 +55,8 @@
     z-index: 0;
     margin: 60px 6% 40px 6%;
     color: white;
-    font-family: "Poppins";
-    font-weight: 800;
+    font-family: "Space Mono";
+    font-weight: 700;
     font-size: 40px;
     display: flex;
     align-items: flex-start;
@@ -64,8 +64,8 @@
 }
 
 .experiences-title p {
-    font-family: 'Montserrat';
-    font-weight: 500;
+    font-family: 'Space Mono';
+    font-weight: 400;
     color: white;
     font-size: 20px;
     margin: 0;

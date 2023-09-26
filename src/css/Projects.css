@@ -1,42 +1,42 @@
 /*Fonts styles*/
 .fontTitleNormalProjects {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
 .fontTitleBoldProjects {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontTitleExtraBoldProjects {
-    font-family: 'Poppins';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyNormalProjects {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyBoldProjects {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyExtraBoldProjects {
-    font-family: 'Montserrat';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 20px;
 }
@@ -62,8 +62,8 @@
     z-index: 0;
     margin: 60px 6% 40px 6%;
     color: white;
-    font-family: "Poppins";
-    font-weight: 800;
+    font-family: "Space Mono";
+    font-weight: 700;
     font-size: 40px;
     display: flex;
     align-items: flex-start;
@@ -71,8 +71,8 @@
 }
 
 .projects-title p {
-    font-family: 'Montserrat';
-    font-weight: 500;
+    font-family: 'Space Mono';
+    font-weight: 400;
     color: white;
     font-size: 20px;
     margin: 0;
@@ -172,7 +172,7 @@
 }
 
 .content-slide h2 {
-    font-family: "Montserrat";
+    font-family: "Space Mono";
     font-weight: 700;
     font-size: 23px;
     color: white;
@@ -180,7 +180,7 @@
 }
 
 .content-slide p {
-    font-family: "Montserrat";
+    font-family: "Space Mono";
     font-weight: 400;
     font-size: 20px;
     color: white;
@@ -203,7 +203,7 @@
 }
 
 .content-slide-mobile h2 {
-    font-family: "Montserrat";
+    font-family: "Space Mono";
     font-weight: 700;
     font-size: 23px;
     color: white;
@@ -211,7 +211,7 @@
 }
 
 .content-slide-mobile p {
-    font-family: "Montserrat";
+    font-family: "Space Mono";
     font-weight: 400;
     font-size: 20px;
     color: white;

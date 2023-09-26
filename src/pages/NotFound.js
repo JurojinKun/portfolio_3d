@@ -65,7 +65,8 @@ const NotFound = () => {
                 <div
                 className='fontBodyBoldNotFound'
                 style={{
-                    textAlign: "center"
+                    textAlign: "center",
+                    zIndex: 1
                 }}>
                     {t("not_found.url_not_found")}
                 </div>
