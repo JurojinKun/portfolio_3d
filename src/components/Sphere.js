@@ -52,7 +52,9 @@ const SphereCustom = ({ scroll }) => {
             if (scroll.offset > 0) {
                 const startPosition = [1.5, -1, 7];
                 var endPosition;
-                if (windowWidth <= 600) {
+                if (windowWidth <= 400) {
+                    endPosition = [0, 0.1, -5.5]
+                } else if (windowWidth <= 600) {
                     endPosition = [0, 0.1, -3.5];
                 } else if (windowWidth <= 1000) {
                     endPosition = [0, 0.1, 0.5];

@@ -162,7 +162,7 @@
     }
 
     .overview-aboutme {
-        width: 80%; 
+        width: 80%;
         padding: 15px 15px 0 15px;
     }
 
@@ -195,7 +195,79 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 371px) and (max-width: 480px) {
+    .fontTitleNormalAboutMe {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldAboutMe {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldAboutMe {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalAboutMe {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldAboutMe {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldAboutMe {
+        font-size: 15px;
+    }
+
+    .aboutme-title {
+        font-size: 25px;
+        margin: 40px 6% 40px 6%;
+    }
+
+    .aboutme-title p {
+        font-size: 15px;
+    }
+
+    .aboutme-content {
+        flex-direction: column-reverse;
+    }
+
+    .overview-aboutme {
+        width: 90%;
+        padding: 10px 10px 0 10px;
+    }
+
+    .typewriterWrapper {
+        font-size: 15px;
+    }
+
+    .typewriterCursor {
+        font-size: 15px;
+    }
+
+    .img-astro-aboutme {
+        height: 225px;
+        width: 200px;
+        padding-bottom: 20px;
+    }
+
+    @keyframes bounce {
+        0% {
+            transform: translateY(20px);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+
+        100% {
+            transform: translateY(20px);
+        }
+    }
+}
+
+@media (max-width: 370px) {
     .fontTitleNormalAboutMe {
         font-size: 15px;
     }

@@ -220,7 +220,51 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 371px) and (max-width: 480px) {
+  .fontTitleNormalSkills {
+    font-size: 15px;
+  }
+
+  .fontTitleBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontTitleExtraBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyNormalSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyExtraBoldSkills {
+    font-size: 15px;
+  }
+
+  .skills-title {
+    margin: 40px 6% 40px 6%;
+    font-size: 25px;
+  }
+
+  .skills-title p {
+    font-size: 15px;
+  }
+
+  .tagcloud-skill {
+    font-size: 15px;
+  }
+
+  .circle {
+    width: 60%;
+    height: 60%;
+  }
+}
+
+@media (max-width: 370px) {
   .fontTitleNormalSkills {
     font-size: 15px;
   }

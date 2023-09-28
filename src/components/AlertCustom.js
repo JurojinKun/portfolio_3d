@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 // Fonction personnalisée pour afficher une alerte
 const showAlertCustom = (title, text, icon) => {
     Swal.fire({
-        // width: "400px",
         title: title,
         text: text,
         icon: icon,
@@ -15,7 +14,8 @@ const showAlertCustom = (title, text, icon) => {
         confirmButtonColor: '#47CDD6',
         customClass: {
             title: 'alert-title',
-            container: 'alert-container'
+            popup: 'alert-content',
+            confirmButton: 'alert-action'
         }
     });
     return (

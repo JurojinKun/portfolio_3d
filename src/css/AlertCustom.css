@@ -1,17 +1,63 @@
 .alert-title {
-    color: white;
     font-family: "Space Mono";
     font-weight: 700;
     font-size: 23px;
 }
 
-.alert-container {
-    color: white;
+.alert-content {
+    font-family: "Space Mono";
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.alert-action {
     font-family: "Space Mono";
     font-weight: 700;
-    font-size: 20px;
+    font-size: 23px;
 }
 
 .swal2-container {
     backdrop-filter: blur(10px);
+}
+
+@media (min-width: 481px) and (max-width: 824px) {
+    .alert-title {
+        font-size: 22px;
+    }
+    
+    .alert-content {
+        font-size: 18px;
+    }
+
+    .alert-action {
+        font-size: 21px;
+    }
+}
+
+@media (min-width: 371px) and (max-width: 480px) {
+    .alert-title {
+        font-size: 21px;
+    }
+    
+    .alert-content {
+        font-size: 15px;
+    }
+
+    .alert-action {
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 370px) {
+    .alert-title {
+        font-size: 20px;
+    }
+    
+    .alert-content {
+        font-size: 13px;
+    }
+
+    .alert-action {
+        font-size: 16px;
+    }
 }

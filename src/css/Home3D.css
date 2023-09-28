@@ -320,8 +320,8 @@
     }
 }
 
-@media (min-width: 481px) and (max-width: 824px),
-(min-height: 501px) and (max-height: 700px) {
+@media (min-width: 551px) and (max-width: 824px),
+(min-height: 601px) and (max-height: 700px) {
     .fontTitleNormalHome3D {
         font-size: 20px;
     }
@@ -429,8 +429,8 @@
     }
 }
 
-@media (max-width: 480px),
-(max-height: 500px) {
+@media (min-width: 371px) and (max-width: 550px),
+(min-height: 501px) and (max-height: 600px) {
     .fontTitleNormalHome3D {
         font-size: 17px;
     }
@@ -501,6 +501,115 @@
 
     .container-btns {
         width: 80%;
+    }
+
+    @keyframes wheel {
+        0% {
+            opacity: 1;
+            bottom: 5px;
+        }
+
+        50% {
+            opacity: 1;
+            bottom: 20px;
+        }
+
+        100% {
+            opacity: 1;
+            bottom: 5px;
+        }
+    }
+
+    @-webkit-keyframes wheel {
+        0% {
+            opacity: 1;
+            bottom: 5px;
+        }
+
+        50% {
+            opacity: 1;
+            bottom: 20px;
+        }
+
+        100% {
+            opacity: 1;
+            bottom: 5px;
+        }
+    }
+}
+
+@media (max-width: 370px),
+(max-height: 500px) {
+    .fontTitleNormalHome3D {
+        font-size: 13px;
+    }
+
+    .fontTitleBoldHome3D {
+        font-size: 13px;
+    }
+
+    .fontTitleExtraBoldHome3D {
+        font-size: 13px;
+    }
+
+    .fontBodyNormalHome3D {
+        font-size: 13px;
+    }
+
+    .fontBodyBoldHome3D {
+        font-size: 13px;
+    }
+
+    .fontBodyExtraBoldHome3D {
+        font-size: 13px;
+    }
+
+    .title-header {
+        font-size: 13px;
+    }
+
+    .language-switcher {
+        font-size: 12px;
+    }
+
+    .overview-content {
+        margin-top: 70px;
+        width: 95%;
+    }
+
+    .hello-title {
+        font-size: 15px;
+    }
+
+    .name {
+        font-size: 15px;
+    }
+
+    .scroll-content {
+        font-size: 15px;
+    }
+
+    .mouse {
+        width: 15px;
+        height: 30px;
+    }
+
+    .mouse::before {
+        width: 8px;
+        height: 8px;
+    }
+
+    .element {
+        width: 30px;
+        height: 30px;
+    }
+
+    .titleContainer {
+        font-size: 12px;
+    }
+
+    .container-btns {
+        width: 90%;
     }
 
     @keyframes wheel {

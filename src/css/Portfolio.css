@@ -309,7 +309,79 @@ progress::-moz-progress-bar {
     }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 371px) and (max-width: 480px) {
+    .fontTitleNormalPortfolio {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldPortfolio {
+        font-size: 15px;
+    }
+
+    .title-portfolio {
+        font-size: 15px;
+    }
+
+    .icon-sidebar {
+        height: 25px;
+        width: 25px;
+    }
+
+    .icon-sidebar-hover {
+        height: 40px;
+        width: 40px;
+    }
+
+    .sidebar {
+        width: 70%;
+    }
+
+    .title-menu {
+        font-size: 20px;
+    }
+
+    .icon-menu-close {
+        height: 25px;
+        width: 25px;
+    }
+
+    .icon-menu-close-hover {
+        height: 40px;
+        width: 40px;
+    }
+
+    .menu-section {
+        font-size: 15px;
+    }
+
+    .icon-menu-section {
+        height: 20px;
+        width: 20px;
+    }
+
+    .sectionSpanDim {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 370px) {
     .fontTitleNormalPortfolio {
         font-size: 15px;
     }

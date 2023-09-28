@@ -242,8 +242,8 @@
     }
 
     .bug-cursor {
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
     }
 
     .notFoundAstro {
@@ -254,8 +254,8 @@
 }
 
 
-@media (max-width: 480px),
-(max-height: 500px) {
+@media (min-width: 371px) and (max-width: 480px),
+(min-height: 301px) and (max-height: 500px) {
     .fontTitleNormalNotFound {
         font-size: 15px;
     }
@@ -286,13 +286,56 @@
     }
 
     .bug-cursor {
-        width: 15px;
-        height: 15px;
+        width: 20px;
+        height: 20px;
     }
 
     .notFoundAstro {
         height: 150px;
         width: 100px;
         padding-inline: 15px;
+    }
+}
+
+@media (max-width: 370px),
+(max-height: 300px) {
+    .fontTitleNormalNotFound {
+        font-size: 13px;
+    }
+
+    .fontTitleBoldNotFound {
+        font-size: 13px;
+    }
+
+    .fontTitleExtraBoldNotFound {
+        font-size: 13px;
+    }
+
+    .fontBodyNormalNotFound {
+        font-size: 13px;
+    }
+
+    .fontBodyBoldNotFound {
+        font-size: 13px;
+    }
+
+    .fontBodyExtraBoldNotFound {
+        font-size: 13px;
+    }
+
+    .black_hole {
+        width: 75px;
+        height: 75px;
+    }
+
+    .bug-cursor {
+        width: 15px;
+        height: 15px;
+    }
+
+    .notFoundAstro {
+        height: 125px;
+        width: 75px;
+        padding-inline: 10px;
     }
 }
