@@ -25,6 +25,11 @@ const SphereCustom = ({ scroll }) => {
     const [satellitesVisible, setSatellitesVisible] = useState(false);
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const windowMappings = [
+        { limit: 400, value: [0, 0.1, -5.5] },
+        { limit: 600, value: [0, 0.1, -3.5] },
+        { limit: 1000, value: [0, 0.1, 0.5] }
+    ];
 
     useEffect(() => {
         const handleResize = () => {
@@ -51,15 +56,13 @@ const SphereCustom = ({ scroll }) => {
 
             if (scroll.offset > 0) {
                 const startPosition = [1.5, -1, 7];
-                var endPosition;
-                if (windowWidth <= 400) {
-                    endPosition = [0, 0.1, -5.5]
-                } else if (windowWidth <= 600) {
-                    endPosition = [0, 0.1, -3.5];
-                } else if (windowWidth <= 1000) {
-                    endPosition = [0, 0.1, 0.5];
-                } else {
-                    endPosition = [0, 0.1, 2.5];
+                let endPosition = [0, 0.1, 2.5];
+                
+                for (let mapping of windowMappings) {
+                    if (windowWidth <= mapping.limit) {
+                        endPosition = mapping.value;
+                        break;
+                    }
                 }
 
                 // Linear interpolation between start and end positions based on offset

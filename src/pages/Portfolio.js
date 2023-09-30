@@ -29,6 +29,8 @@ const Portfolio = () => {
     const [isCurrentSection, setIsCurrentSection] = useState(sectionId === null || sectionId === undefined ? "aboutme" : sectionId);
     const [isOpen, setIsOpen] = useState(false);
 
+    const [threshold, setThreshold] = useState(0.4);
+
     const nameSection = (section) => {
         let titleBtn;
 
@@ -109,7 +111,7 @@ const Portfolio = () => {
                 break;
             case "contactme":
                 currentSection = <Element name="contactme" id="contactme" key={"contactme"}>
-                    <ContactMe />
+                    <ContactMe threshold={threshold} />
                 </Element>
                 break;
             default:
@@ -196,6 +198,27 @@ const Portfolio = () => {
             mediaQuery.removeEventListener('change', handleWindowSizeChange);
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        const updateThreshold = () => {
+            const width = window.innerWidth;
+            if (width > 1200) { // Desktop
+                setThreshold(0.4);
+            } else if (width > 768) { // Tablette
+                setThreshold(0.2);
+            } else { // Smartphone
+                setThreshold(0.1);
+            }
+        };
+
+        updateThreshold();
+        window.addEventListener('resize', updateThreshold);
+
+        // Cleanup
+        return () => {
+            window.removeEventListener('resize', updateThreshold);
+        }
+    }, []);
 
     return (
         !sections.includes(isCurrentSection) && isCurrentSection ?
