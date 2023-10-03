@@ -91,7 +91,7 @@ const Portfolio = () => {
         switch (section) {
             case "aboutme":
                 currentSection = <Element name="aboutme" id="aboutme" key={"aboutme"}>
-                    <AboutMe />
+                    <AboutMe threshold={threshold} />
                 </Element>
                 break;
             case "skills":
@@ -101,12 +101,12 @@ const Portfolio = () => {
                 break;
             case "experiences":
                 currentSection = <Element name="experiences" id="experiences" key={"experiences"}>
-                    <Experiences />
+                    <Experiences threshold={threshold} />
                 </Element>
                 break;
             case "projects":
                 currentSection = <Element name="projects" id="projects" key={"projects"}>
-                    <Projects menuOpened={isOpen} />
+                    <Projects menuOpened={isOpen} threshold={threshold} />
                 </Element>
                 break;
             case "contactme":
