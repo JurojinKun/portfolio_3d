@@ -145,9 +145,28 @@ const Portfolio = () => {
             }
         }
 
+        const updateThreshold = () => {
+            const width = window.innerWidth;
+            if (width > 1200) { // Desktop
+                setThreshold(0.4);
+            } else if (width > 768) { // Tablette
+                setThreshold(0.2);
+            } else { // Smartphone
+                setThreshold(0.1);
+            }
+        };
+
+        document.title = "0ruj | 3D Portfolio";
         document.body.style.overflow = 'auto';
         setProgressBar();
         setTimeout(setToInitialSection, 100);
+        updateThreshold();
+        window.addEventListener('resize', updateThreshold);
+
+        // Cleanup
+        return () => {
+            window.removeEventListener('resize', updateThreshold);
+        }
     }, []);
 
     useEffect(() => {
@@ -198,27 +217,6 @@ const Portfolio = () => {
             mediaQuery.removeEventListener('change', handleWindowSizeChange);
         }
     }, [isOpen]);
-
-    useEffect(() => {
-        const updateThreshold = () => {
-            const width = window.innerWidth;
-            if (width > 1200) { // Desktop
-                setThreshold(0.4);
-            } else if (width > 768) { // Tablette
-                setThreshold(0.2);
-            } else { // Smartphone
-                setThreshold(0.1);
-            }
-        };
-
-        updateThreshold();
-        window.addEventListener('resize', updateThreshold);
-
-        // Cleanup
-        return () => {
-            window.removeEventListener('resize', updateThreshold);
-        }
-    }, []);
 
     return (
         !sections.includes(isCurrentSection) && isCurrentSection ?
