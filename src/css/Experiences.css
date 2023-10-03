@@ -1,42 +1,42 @@
 /*Fonts styles*/
 .fontTitleNormalExperiences {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
 .fontTitleBoldExperiences {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontTitleExtraBoldExperiences {
-    font-family: 'Poppins';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyNormalExperiences {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyBoldExperiences {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyExtraBoldExperiences {
-    font-family: 'Montserrat';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 20px;
 }
@@ -55,8 +55,8 @@
     z-index: 0;
     margin: 60px 6% 40px 6%;
     color: white;
-    font-family: "Poppins";
-    font-weight: 800;
+    font-family: "Space Mono";
+    font-weight: 700;
     font-size: 40px;
     display: flex;
     align-items: flex-start;
@@ -64,8 +64,8 @@
 }
 
 .experiences-title p {
-    font-family: 'Montserrat';
-    font-weight: 500;
+    font-family: 'Space Mono';
+    font-weight: 400;
     color: white;
     font-size: 20px;
     margin: 0;
@@ -111,13 +111,13 @@
         margin: 50px 6% 40px 6%;
         font-size: 32.5px;
     }
-    
+
     .experiences-title p {
         font-size: 17px;
     }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 371px) and (max-width: 480px) {
     .fontTitleNormalExperiences {
         font-size: 15px;
     }
@@ -146,7 +146,42 @@
         margin: 40px 6% 40px 6%;
         font-size: 25px;
     }
-    
+
+    .experiences-title p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 370px) {
+    .fontTitleNormalExperiences {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldExperiences {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldExperiences {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalExperiences {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldExperiences {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldExperiences {
+        font-size: 15px;
+    }
+
+    .experiences-title {
+        margin: 40px 6% 40px 6%;
+        font-size: 25px;
+    }
+
     .experiences-title p {
         font-size: 15px;
     }

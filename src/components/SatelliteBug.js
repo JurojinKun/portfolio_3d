@@ -37,7 +37,7 @@ const SatelliteBug = ({ color, visible, position }) => {
                 color="white"
                 textAlign="center"
                 fontWeight="bold"
-                font="/fonts/Poppins-Bold.ttf"
+                font="/fonts/SpaceMono-Bold.ttf"
                 onClick={() => navigate("/notfound")}
             >
                 {"ERR 404"}

@@ -12,7 +12,7 @@ import enveloppeContactMe from "../assets/enveloppe_contact_me.png";
 import { textVariant } from "../utils/motion";
 import showAlertCustom from '../components/AlertCustom';
 
-const ContactMe = () => {
+const ContactMe = ({ threshold }) => {
     const { t } = useTranslation();
 
     const contactmeRef = useRef();
@@ -20,7 +20,7 @@ const ContactMe = () => {
 
     const { ref, inView } = useInView({
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
-        threshold: 0.5
+        threshold: threshold
     });
 
     const formRef = useRef();
@@ -93,7 +93,9 @@ const ContactMe = () => {
         window.addEventListener('resize', checkHeight);
 
         // Cleanup
-        return () => window.removeEventListener('resize', checkHeight);
+        return () => {
+            window.removeEventListener('resize', checkHeight);
+        }
     }, [inView]);
 
     return (

@@ -1,42 +1,42 @@
 /*Fonts styles*/
 .fontTitleNormalContactMe {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
 .fontTitleBoldContactMe {
-    font-family: 'Poppins';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontTitleExtraBoldContactMe {
-    font-family: 'Poppins';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyNormalContactMe {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 400;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyBoldContactMe {
-    font-family: 'Montserrat';
+    font-family: 'Space Mono';
     font-weight: 700;
     color: white;
     font-size: 20px;
 }
 
 .fontBodyExtraBoldContactMe {
-    font-family: 'Montserrat';
-    font-weight: 800;
+    font-family: 'Space Mono';
+    font-weight: 700;
     color: white;
     font-size: 20px;
 }
@@ -55,8 +55,8 @@
     z-index: 0;
     margin: 60px 6% 40px 6%;
     color: white;
-    font-family: "Poppins";
-    font-weight: 800;
+    font-family: "Space Mono";
+    font-weight: 700;
     font-size: 40px;
     display: flex;
     align-items: flex-start;
@@ -64,8 +64,8 @@
 }
 
 .contactme-title p {
-    font-family: 'Montserrat';
-    font-weight: 500;
+    font-family: 'Space Mono';
+    font-weight: 400;
     color: white;
     font-size: 20px;
     margin: 0;
@@ -146,7 +146,6 @@
 .animated-image {
     position: absolute;
     top: 50%;
-    left: -25%;
     width: 120px;
     height: 120px;
     opacity: 0;
@@ -155,7 +154,7 @@
 
 @keyframes slide-in-out {
     0% {
-        left: -5%;
+        left: 0%;
         transform: translateY(-50%);
         opacity: 1;
     }
@@ -186,6 +185,7 @@
 }
 
 @keyframes up-and-down {
+
     0%,
     100% {
         transform: translateY(-70%);
@@ -243,19 +243,19 @@
         width: 350px;
         height: 350px;
     }
-    
+
     .static-image {
         width: 300px;
         height: 300px;
     }
-    
+
     .animated-image {
         width: 100px;
         height: 100px;
     }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 371px) and (max-width: 480px) {
     .fontTitleNormalContactMe {
         font-size: 15px;
     }
@@ -302,12 +302,71 @@
         width: 300px;
         height: 300px;
     }
-    
+
     .static-image {
         width: 250px;
         height: 250px;
     }
-    
+
+    .animated-image {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 370px) {
+    .fontTitleNormalContactMe {
+        font-size: 15px;
+    }
+
+    .fontTitleBoldContactMe {
+        font-size: 15px;
+    }
+
+    .fontTitleExtraBoldContactMe {
+        font-size: 15px;
+    }
+
+    .fontBodyNormalContactMe {
+        font-size: 15px;
+    }
+
+    .fontBodyBoldContactMe {
+        font-size: 15px;
+    }
+
+    .fontBodyExtraBoldContactMe {
+        font-size: 15px;
+    }
+
+    .contactme-title {
+        margin: 40px 6% 40px 6%;
+        font-size: 25px;
+    }
+
+    .contactme-title p {
+        font-size: 15px;
+    }
+
+    .contactme-content {
+        flex-direction: column-reverse;
+    }
+
+    .form-contactme {
+        width: 90%;
+        padding: 10px 10px 10px 10px;
+    }
+
+    .image-container {
+        width: 300px;
+        height: 300px;
+    }
+
+    .static-image {
+        width: 250px;
+        height: 250px;
+    }
+
     .animated-image {
         width: 80px;
         height: 80px;

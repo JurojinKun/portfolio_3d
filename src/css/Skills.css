@@ -1,42 +1,42 @@
 /*Fonts styles*/
 .fontTitleNormalSkills {
-  font-family: 'Poppins';
+  font-family: 'Space Mono';
   font-weight: 400;
   color: white;
   font-size: 20px;
 }
 
 .fontTitleBoldSkills {
-  font-family: 'Poppins';
+  font-family: 'Space Mono';
   font-weight: 700;
   color: white;
   font-size: 20px;
 }
 
 .fontTitleExtraBoldSkills {
-  font-family: 'Poppins';
-  font-weight: 800;
+  font-family: 'Space Mono';
+  font-weight: 700;
   color: white;
   font-size: 20px;
 }
 
 .fontBodyNormalSkills {
-  font-family: 'Montserrat';
+  font-family: 'Space Mono';
   font-weight: 400;
   color: white;
   font-size: 20px;
 }
 
 .fontBodyBoldSkills {
-  font-family: 'Montserrat';
+  font-family: 'Space Mono';
   font-weight: 700;
   color: white;
   font-size: 20px;
 }
 
 .fontBodyExtraBoldSkills {
-  font-family: 'Montserrat';
-  font-weight: 800;
+  font-family: 'Space Mono';
+  font-weight: 700;
   color: white;
   font-size: 20px;
 }
@@ -59,16 +59,16 @@
   top: 0;
   left: 0;
   color: white;
-  font-family: "Poppins";
-  font-weight: 800;
+  font-family: "Space Mono";
+  font-weight: 700;
   font-size: 40px;
   padding-top: 69px;
   margin: 60px 12% 40px 12%;
 }
 
 .skills-title p {
-  font-family: 'Montserrat';
-  font-weight: 500;
+  font-family: 'Space Mono';
+  font-weight: 400;
   color: white;
   font-size: 20px;
   margin: 0;
@@ -133,13 +133,13 @@
 }
 
 .tagcloud-skill {
-  font-family: 'Poppins';
+  font-family: 'Space Mono';
   font-weight: 700;
   color: white;
   font-size: 20px;
 }
 
-@media (min-height: 701px) and (max-height: 850px) {
+@media (min-height: 701px) and (max-height: 850px) and (min-width: 1301px) {
   .skills-title {
     padding-top: 0;
   }
@@ -220,7 +220,51 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 371px) and (max-width: 480px) {
+  .fontTitleNormalSkills {
+    font-size: 15px;
+  }
+
+  .fontTitleBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontTitleExtraBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyNormalSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyBoldSkills {
+    font-size: 15px;
+  }
+
+  .fontBodyExtraBoldSkills {
+    font-size: 15px;
+  }
+
+  .skills-title {
+    margin: 40px 6% 40px 6%;
+    font-size: 25px;
+  }
+
+  .skills-title p {
+    font-size: 15px;
+  }
+
+  .tagcloud-skill {
+    font-size: 15px;
+  }
+
+  .circle {
+    width: 60%;
+    height: 60%;
+  }
+}
+
+@media (max-width: 370px) {
   .fontTitleNormalSkills {
     font-size: 15px;
   }

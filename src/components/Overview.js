@@ -54,10 +54,13 @@ const Overview = ({ opacity }) => {
         <div style={{
             height: "100vh",
             width: "100vw",
-            backgroundColor: "transparent",
+            display: "flex",
+            flexDirection: "column",
+            position: "relative"
         }}>
             <div className='overview-content' style={{
                 opacity: opacity,
+                flex: 1
             }}>
                 <p className='hello-title'>
                     {t("overview.hello")}  <span className="name">0ruj</span> <span className="wave">👋🏻</span>
@@ -66,17 +69,25 @@ const Overview = ({ opacity }) => {
                     {t("overview.first_para")} 🌍
                 </p>
                 <p className='fontBodyNormalHome3D'>{t("overview.second_para")} 🔥</p>
-                <div style={{ display: "inline-flex", alignItems: "center" }}>
-                    <p className='scroll-content'>{t("overview.embark")}</p>
-                    <div className='field'>
-                        <div className='mouse' />
-                    </div>
-                </div>
                 <p className='fontBodyNormalHome3D'>{t("overview.third_para")} 👀</p>
                 <div className='container-btns'>
                     <IconRoundButton icon={<ResponsiveGitHubIcon className='icon-contact' />} url="https://github.com/JurojinKun" title={"GitHub"} />
                     <IconRoundButton icon={<ResponsiveLinkedInIcon className='icon-contact' />} url="https://www.linkedin.com/in/clément-communay" title={"LinkedIn"} />
                     <IconRoundButton icon={<ResponsiveDownloadIcon className='icon-contact' />} url="/cv/CV_Clement_Communay.pdf" title={"CV"} />
+                </div>
+            </div>
+            <div style={{
+                opacity: opacity,
+                display: "flex",
+                alignItems: "end",
+                justifyContent: "center",
+                margin: "0 5% 0 5%"
+            }}>
+                <div style={{ display: "inline-flex", alignItems: "center" }}>
+                    <p className='scroll-content'>{t("overview.embark")}</p>
+                    <div className='field'>
+                        <div className='mouse' />
+                    </div>
                 </div>
             </div>
         </div>

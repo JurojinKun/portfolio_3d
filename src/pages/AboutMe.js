@@ -10,12 +10,12 @@ import { useInView } from "react-intersection-observer";
 import AppTypewriter from "../components/AppTypewriter";
 import { textVariant } from "../utils/motion";
 
-const AboutMe = () => {
+const AboutMe = ({ threshold }) => {
     const { t } = useTranslation();
 
     const { ref, inView } = useInView({
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
-        threshold: 0.5,
+        threshold: threshold,
     });
 
     const aboutmeRef = useRef();

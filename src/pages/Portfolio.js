@@ -29,6 +29,8 @@ const Portfolio = () => {
     const [isCurrentSection, setIsCurrentSection] = useState(sectionId === null || sectionId === undefined ? "aboutme" : sectionId);
     const [isOpen, setIsOpen] = useState(false);
 
+    const [threshold, setThreshold] = useState(0.4);
+
     const nameSection = (section) => {
         let titleBtn;
 
@@ -89,7 +91,7 @@ const Portfolio = () => {
         switch (section) {
             case "aboutme":
                 currentSection = <Element name="aboutme" id="aboutme" key={"aboutme"}>
-                    <AboutMe />
+                    <AboutMe threshold={threshold} />
                 </Element>
                 break;
             case "skills":
@@ -99,17 +101,17 @@ const Portfolio = () => {
                 break;
             case "experiences":
                 currentSection = <Element name="experiences" id="experiences" key={"experiences"}>
-                    <Experiences />
+                    <Experiences threshold={threshold} />
                 </Element>
                 break;
             case "projects":
                 currentSection = <Element name="projects" id="projects" key={"projects"}>
-                    <Projects menuOpened={isOpen} />
+                    <Projects menuOpened={isOpen} threshold={threshold} />
                 </Element>
                 break;
             case "contactme":
                 currentSection = <Element name="contactme" id="contactme" key={"contactme"}>
-                    <ContactMe />
+                    <ContactMe threshold={threshold} />
                 </Element>
                 break;
             default:
@@ -143,9 +145,28 @@ const Portfolio = () => {
             }
         }
 
+        const updateThreshold = () => {
+            const width = window.innerWidth;
+            if (width > 1200) { // Desktop
+                setThreshold(0.4);
+            } else if (width > 768) { // Tablette
+                setThreshold(0.2);
+            } else { // Smartphone
+                setThreshold(0.1);
+            }
+        };
+
+        document.title = "0ruj | 3D Portfolio";
         document.body.style.overflow = 'auto';
         setProgressBar();
         setTimeout(setToInitialSection, 100);
+        updateThreshold();
+        window.addEventListener('resize', updateThreshold);
+
+        // Cleanup
+        return () => {
+            window.removeEventListener('resize', updateThreshold);
+        }
     }, []);
 
     useEffect(() => {
@@ -180,7 +201,7 @@ const Portfolio = () => {
     }, []);
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(min-width: 1301px)');
+        const mediaQuery = window.matchMedia('(min-width: 1401px)');
 
         const handleWindowSizeChange = () => {
             if (mediaQuery.matches && isOpen) {

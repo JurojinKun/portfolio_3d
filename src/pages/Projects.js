@@ -19,11 +19,11 @@ import myyoukounkoun from '../assets/projects/myyoukounkoun.jpg';
 import portfolio from '../assets/projects/portfolio.jpg';
 import { textVariant, fadeIn } from "../utils/motion";
 
-const ProProjects = ({ menuOpened, t }) => {
+const ProProjects = ({ menuOpened, t, threshold }) => {
 
     const { ref, inView } = useInView({
         triggerOnce: true,
-        threshold: 0.5
+        threshold: threshold
     });
 
     const [state, setState] = useState({
@@ -134,59 +134,64 @@ const ProProjects = ({ menuOpened, t }) => {
     });
 
     return (
-        <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={fadeIn("top", "tween", 0.2, 1)} className="container-caroussel">
-            <div className="container-arrow-icon">
-                <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
-                    if (!menuOpened) {
-                        setState({
-                            goToSlide: currentIndex - 1, offsetRadius: 1,
-                            showNavigation: false,
-                            enableSwipe: true,
-                            config: config.gentle
-                        });
-                        setCurrentIndex(currentIndex - 1);
-                    }
-                }}>
-                    <IoIosArrowBack className="arrow-icon" />
+        <>
+            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="projects-title">
+                {t("projects.title_pro")}
+                <p>{t("projects.subtitle_pro")}</p>
+            </motion.div>
+            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={fadeIn("top", "tween", 0.2, 1)} className="container-caroussel">
+                <div className="container-arrow-icon">
+                    <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
+                        if (!menuOpened) {
+                            setState({
+                                goToSlide: currentIndex - 1, offsetRadius: 1,
+                                showNavigation: false,
+                                enableSwipe: true,
+                                config: config.gentle
+                            });
+                            setCurrentIndex(currentIndex - 1);
+                        }
+                    }}>
+                        <IoIosArrowBack className="arrow-icon" />
+                    </div>
                 </div>
-            </div>
-            <div
-                className="container-slides"
-            >
-                <Carousel
-                    slides={slides}
-                    goToSlide={state.goToSlide}
-                    offsetRadius={state.offsetRadius}
-                    showNavigation={state.showNavigation}
-                    enableSwipe={state.enableSwipe}
-                    animationConfig={state.config}
-                />
-            </div>
-            <div className="container-arrow-icon">
-                <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
-                    if (!menuOpened) {
-                        setState({
-                            goToSlide: currentIndex + 1, offsetRadius: 1,
-                            showNavigation: false,
-                            enableSwipe: true,
-                            config: config.gentle
-                        });
-                        setCurrentIndex(currentIndex + 1);
-                    }
-                }}>
-                    <IoIosArrowForward className="arrow-icon" />
+                <div
+                    className="container-slides"
+                >
+                    <Carousel
+                        slides={slides}
+                        goToSlide={state.goToSlide}
+                        offsetRadius={state.offsetRadius}
+                        showNavigation={state.showNavigation}
+                        enableSwipe={state.enableSwipe}
+                        animationConfig={state.config}
+                    />
                 </div>
-            </div>
-        </motion.div>
+                <div className="container-arrow-icon">
+                    <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
+                        if (!menuOpened) {
+                            setState({
+                                goToSlide: currentIndex + 1, offsetRadius: 1,
+                                showNavigation: false,
+                                enableSwipe: true,
+                                config: config.gentle
+                            });
+                            setCurrentIndex(currentIndex + 1);
+                        }
+                    }}>
+                        <IoIosArrowForward className="arrow-icon" />
+                    </div>
+                </div>
+            </motion.div></>
     );
 
 }
 
-const PrivateProjects = ({ menuOpened, t }) => {
+const PrivateProjects = ({ menuOpened, t, threshold }) => {
 
     const { ref, inView } = useInView({
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
-        threshold: 0.5
+        threshold: threshold
     });
 
     const [state, setState] = useState({
@@ -205,9 +210,9 @@ const PrivateProjects = ({ menuOpened, t }) => {
             content:
                 <div className="slide">
                     <img src={gemu} alt="1" style={{
-                    objectFit: "cover",
-                    objectPosition: "center"
-                }} />
+                        objectFit: "cover",
+                        objectPosition: "center"
+                    }} />
                     <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
                         <h2>
                             {t("projects.title_project_perso_1")}
@@ -268,78 +273,71 @@ const PrivateProjects = ({ menuOpened, t }) => {
     });
 
     return (
-        <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={fadeIn("bottom", "tween", 0.2, 1)} className="container-caroussel">
-            <div className="container-arrow-icon">
-                <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
-                    if (!menuOpened) {
-                        setState({
-                            goToSlide: currentIndex - 1,
-                            offsetRadius: 1,
-                            showNavigation: false,
-                            enableSwipe: true,
-                            config: config.gentle
-                        });
-                        setCurrentIndex(currentIndex - 1);
-                    }
-                }}>
-                    <IoIosArrowBack className="arrow-icon" />
+        <>
+            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="projects-title">
+                {t("projects.title_private")}
+                <p>{t("projects.subtitle_private")}</p>
+            </motion.div>
+            <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={fadeIn("bottom", "tween", 0.2, 1)} className="container-caroussel">
+                <div className="container-arrow-icon">
+                    <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
+                        if (!menuOpened) {
+                            setState({
+                                goToSlide: currentIndex - 1,
+                                offsetRadius: 1,
+                                showNavigation: false,
+                                enableSwipe: true,
+                                config: config.gentle
+                            });
+                            setCurrentIndex(currentIndex - 1);
+                        }
+                    }}>
+                        <IoIosArrowBack className="arrow-icon" />
+                    </div>
                 </div>
-            </div>
-            <div
-                className="container-slides"
-            >
-                <Carousel
-                    slides={slides}
-                    goToSlide={state.goToSlide}
-                    offsetRadius={state.offsetRadius}
-                    showNavigation={state.showNavigation}
-                    enableSwipe={state.enableSwipe}
-                    animationConfig={state.config}
-                />
-            </div>
-            <div className="container-arrow-icon">
-                <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
-                    if (!menuOpened) {
-                        setState({
-                            goToSlide: currentIndex + 1,
-                            offsetRadius: 1,
-                            showNavigation: false,
-                            enableSwipe: true,
-                            config: config.gentle
-                        });
-                        setCurrentIndex(currentIndex + 1);
-                    }
-                }}>
-                    <IoIosArrowForward className="arrow-icon" />
+                <div
+                    className="container-slides"
+                >
+                    <Carousel
+                        slides={slides}
+                        goToSlide={state.goToSlide}
+                        offsetRadius={state.offsetRadius}
+                        showNavigation={state.showNavigation}
+                        enableSwipe={state.enableSwipe}
+                        animationConfig={state.config}
+                    />
                 </div>
-            </div>
-        </motion.div>
+                <div className="container-arrow-icon">
+                    <div className={isMobile ? "arrow-icon-hover-mobile" : "arrow-icon-hover"} onClick={() => {
+                        if (!menuOpened) {
+                            setState({
+                                goToSlide: currentIndex + 1,
+                                offsetRadius: 1,
+                                showNavigation: false,
+                                enableSwipe: true,
+                                config: config.gentle
+                            });
+                            setCurrentIndex(currentIndex + 1);
+                        }
+                    }}>
+                        <IoIosArrowForward className="arrow-icon" />
+                    </div>
+                </div>
+            </motion.div>
+        </>
     );
 }
 
-const Projects = ({ menuOpened }) => {
+const Projects = ({ menuOpened, threshold }) => {
     const { t } = useTranslation();
-
-    const { ref, inView } = useInView({
-        triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
-        threshold: 0.5
-    });
 
     return (
         <div className="projects">
             <div className="projects-content-pro">
-                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="projects-title">
-                    {t("projects.title_pro")}
-                    <p>{t("projects.subtitle_pro")}</p>
-                </motion.div>
-                <ProProjects menuOpened={menuOpened} t={t} />
+                <ProProjects menuOpened={menuOpened} t={t} threshold={threshold} />
             </div>
             <div className="projects-content-perso">
-                <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="projects-title">
-                    {t("projects.title_private")}
-                    <p>{t("projects.subtitle_private")}</p>
-                </motion.div>
-                <PrivateProjects menuOpened={menuOpened} t={t} />
+                <PrivateProjects menuOpened={menuOpened} t={t} threshold={threshold} />
             </div>
         </div>
     );

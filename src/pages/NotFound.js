@@ -10,6 +10,8 @@ const NotFound = () => {
     const { t } = useTranslation();
 
     useEffect(() => {
+        document.title = "0ruj | 3D Portfolio";
+
         document.body.style.overflow = "hidden";
 
         const cursor = document.getElementById('custom-cursor');
@@ -40,7 +42,7 @@ const NotFound = () => {
             element.removeEventListener('mouseout', removeBugEffect);
         };
     }, []);
-
+      
     return (
         <>
             <StarryBackground gradientTopLeft={true} gradientBottomRight={true} />
@@ -65,7 +67,8 @@ const NotFound = () => {
                 <div
                 className='fontBodyBoldNotFound'
                 style={{
-                    textAlign: "center"
+                    textAlign: "center",
+                    zIndex: 1
                 }}>
                     {t("not_found.url_not_found")}
                 </div>
