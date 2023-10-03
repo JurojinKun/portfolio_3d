@@ -393,55 +393,55 @@
 
 @media (max-width: 370px) {
     .fontTitleNormalProjects {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontTitleBoldProjects {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontTitleExtraBoldProjects {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyNormalProjects {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyBoldProjects {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyExtraBoldProjects {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .projects-title {
         margin: 40px 6% 40px 6%;
-        font-size: 25px;
+        font-size: 22px;
     }
 
     .projects-title p {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .container-caroussel {
-        min-height: 275px;
+        min-height: 250px;
     }
 
     .arrow-icon-hover {
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
     }
 
     .arrow-icon-hover-mobile {
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
     }
 
     .arrow-icon {
-        height: 20px;
-        width: 20px;
+        height: 15px;
+        width: 15px;
     }
 
     .container-slides {
@@ -449,17 +449,17 @@
     }
 
     .slide {
-        height: 225px;
-        width: 250px;
+        height: 200px;
+        width: 200px;
     }
 
     .content-slide h2 {
-        font-size: 18px;
+        font-size: 15px;
         margin: 20px 10px 10px 10px;
     }
 
     .content-slide p {
-        font-size: 15px;
+        font-size: 12px;
         margin: 10px 10px 20px 10px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -467,12 +467,12 @@
     }
 
     .content-slide-mobile h2 {
-        font-size: 18px;
+        font-size: 15px;
         margin: 20px 10px 10px 10px;
     }
 
     .content-slide-mobile p {
-        font-size: 15px;
+        font-size: 12px;
         margin: 10px 10px 20px 10px;
         overflow: hidden;
         text-overflow: ellipsis;

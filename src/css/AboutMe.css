@@ -249,7 +249,7 @@
     .img-astro-aboutme {
         height: 225px;
         width: 200px;
-        padding-bottom: 20px;
+        padding-bottom: 30px;
     }
 
     @keyframes bounce {
@@ -269,36 +269,36 @@
 
 @media (max-width: 370px) {
     .fontTitleNormalAboutMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontTitleBoldAboutMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontTitleExtraBoldAboutMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyNormalAboutMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyBoldAboutMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyExtraBoldAboutMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .aboutme-title {
-        font-size: 25px;
+        font-size: 22px;
         margin: 40px 6% 40px 6%;
     }
 
     .aboutme-title p {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .aboutme-content {
@@ -311,17 +311,17 @@
     }
 
     .typewriterWrapper {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .typewriterCursor {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .img-astro-aboutme {
-        height: 225px;
-        width: 200px;
-        padding-bottom: 20px;
+        height: 200px;
+        width: 175px;
+        padding-bottom: 40px;
     }
 
     @keyframes bounce {

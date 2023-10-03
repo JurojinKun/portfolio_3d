@@ -316,36 +316,36 @@
 
 @media (max-width: 370px) {
     .fontTitleNormalContactMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontTitleBoldContactMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontTitleExtraBoldContactMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyNormalContactMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyBoldContactMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyExtraBoldContactMe {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .contactme-title {
         margin: 40px 6% 40px 6%;
-        font-size: 25px;
+        font-size: 22px;
     }
 
     .contactme-title p {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .contactme-content {
@@ -358,17 +358,17 @@
     }
 
     .image-container {
-        width: 300px;
-        height: 300px;
-    }
-
-    .static-image {
         width: 250px;
         height: 250px;
     }
 
+    .static-image {
+        width: 200px;
+        height: 200px;
+    }
+
     .animated-image {
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
     }
 }
