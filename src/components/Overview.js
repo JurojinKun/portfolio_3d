@@ -56,8 +56,8 @@ const Overview = ({ opacity }) => {
             width: "100vw",
             display: "flex",
             flexDirection: "column",
-            position: "relative"
-        }}>
+            position: "relative",
+        }} className='safeArea'>
             <div className='overview-content' style={{
                 opacity: opacity,
                 flex: 1

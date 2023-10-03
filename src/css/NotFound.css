@@ -300,27 +300,27 @@
 @media (max-width: 370px),
 (max-height: 300px) {
     .fontTitleNormalNotFound {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .fontTitleBoldNotFound {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .fontTitleExtraBoldNotFound {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .fontBodyNormalNotFound {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .fontBodyBoldNotFound {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .fontBodyExtraBoldNotFound {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .black_hole {

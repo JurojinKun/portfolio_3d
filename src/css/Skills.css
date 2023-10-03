@@ -259,51 +259,51 @@
   }
 
   .circle {
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 50%;
   }
 }
 
 @media (max-width: 370px) {
   .fontTitleNormalSkills {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .fontTitleBoldSkills {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .fontTitleExtraBoldSkills {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .fontBodyNormalSkills {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .fontBodyBoldSkills {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .fontBodyExtraBoldSkills {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .skills-title {
     margin: 40px 6% 40px 6%;
-    font-size: 25px;
+    font-size: 22px;
   }
 
   .skills-title p {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .tagcloud-skill {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .circle {
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 50%;
   }
 }

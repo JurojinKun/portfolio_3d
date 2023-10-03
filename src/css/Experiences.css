@@ -154,35 +154,35 @@
 
 @media (max-width: 370px) {
     .fontTitleNormalExperiences {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontTitleBoldExperiences {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontTitleExtraBoldExperiences {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyNormalExperiences {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyBoldExperiences {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyExtraBoldExperiences {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .experiences-title {
         margin: 40px 6% 40px 6%;
-        font-size: 25px;
+        font-size: 22px;
     }
 
     .experiences-title p {
-        font-size: 15px;
+        font-size: 12px;
     }
 }

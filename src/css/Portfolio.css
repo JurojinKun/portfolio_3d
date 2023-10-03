@@ -383,31 +383,31 @@ progress::-moz-progress-bar {
 
 @media (max-width: 370px) {
     .fontTitleNormalPortfolio {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontTitleBoldPortfolio {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontTitleExtraBoldPortfolio {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyNormalPortfolio {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyBoldPortfolio {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .fontBodyExtraBoldPortfolio {
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .title-portfolio {
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .icon-sidebar {
