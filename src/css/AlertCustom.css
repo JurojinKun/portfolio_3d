@@ -34,7 +34,7 @@
     }
 }
 
-@media (min-width: 371px) and (max-width: 480px) {
+@media (min-width: 391px) and (max-width: 480px) {
     .alert-title {
         font-size: 21px;
     }
@@ -48,7 +48,7 @@
     }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 390px) {
     .alert-title {
         font-size: 20px;
     }

@@ -94,6 +94,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 5px 0 5px;
 }
 
 .arrow-icon-hover {
@@ -302,7 +303,7 @@
     }
 }
 
-@media (min-width: 371px) and (max-width: 480px) {
+@media (min-width: 391px) and (max-width: 480px) {
     .fontTitleNormalProjects {
         font-size: 15px;
     }
@@ -391,7 +392,7 @@
     }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 390px) {
     .fontTitleNormalProjects {
         font-size: 12px;
     }

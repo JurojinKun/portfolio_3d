@@ -99,7 +99,7 @@
 .circle {
   width: 40%;
   height: 40%;
-  background: rgba(71, 205, 214, 0.7);
+  background: rgba(71, 205, 214, 0.9);
   border-radius: 60%;
   filter: blur(100px);
   position: absolute;
@@ -220,7 +220,7 @@
   }
 }
 
-@media (min-width: 371px) and (max-width: 480px) {
+@media (min-width: 391px) and (max-width: 480px) {
   .fontTitleNormalSkills {
     font-size: 15px;
   }
@@ -259,12 +259,12 @@
   }
 
   .circle {
-    width: 50%;
-    height: 50%;
+    width: 60%;
+    height: 60%;
   }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 390px) {
   .fontTitleNormalSkills {
     font-size: 12px;
   }
@@ -303,7 +303,7 @@
   }
 
   .circle {
-    width: 50%;
-    height: 50%;
+    width: 60%;
+    height: 60%;
   }
 }

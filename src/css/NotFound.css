@@ -254,7 +254,7 @@
 }
 
 
-@media (min-width: 371px) and (max-width: 480px),
+@media (min-width: 391px) and (max-width: 480px),
 (min-height: 301px) and (max-height: 500px) {
     .fontTitleNormalNotFound {
         font-size: 15px;
@@ -297,7 +297,7 @@
     }
 }
 
-@media (max-width: 370px),
+@media (max-width: 390px),
 (max-height: 300px) {
     .fontTitleNormalNotFound {
         font-size: 12px;

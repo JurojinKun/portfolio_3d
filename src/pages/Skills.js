@@ -13,7 +13,7 @@ const Skills = () => {
 
     const { ref, inView } = useInView({
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
-        threshold: 0.1
+        threshold: 0.05
     });
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
