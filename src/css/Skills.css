@@ -99,8 +99,8 @@
 .circle {
   width: 40%;
   height: 40%;
-  background: rgba(71, 205, 214, 0.9);
-  border-radius: 60%;
+  background: rgba(71, 205, 214, 0.8);
+  border-radius: 50%;
   filter: blur(100px);
   position: absolute;
   top: 50%;
@@ -217,6 +217,7 @@
   .circle {
     width: 50%;
     height: 50%;
+    filter: blur(80px);
   }
 }
 
@@ -259,8 +260,9 @@
   }
 
   .circle {
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 50%;
+    filter: blur(60px);
   }
 }
 
@@ -303,7 +305,8 @@
   }
 
   .circle {
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 50%;
+    filter: blur(40px);
   }
 }
