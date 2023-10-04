@@ -309,7 +309,7 @@ progress::-moz-progress-bar {
     }
 }
 
-@media (min-width: 371px) and (max-width: 480px) {
+@media (min-width: 391px) and (max-width: 480px) {
     .fontTitleNormalPortfolio {
         font-size: 15px;
     }
@@ -381,7 +381,7 @@ progress::-moz-progress-bar {
     }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 390px) {
     .fontTitleNormalPortfolio {
         font-size: 12px;
     }
