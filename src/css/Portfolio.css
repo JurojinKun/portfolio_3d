@@ -253,6 +253,7 @@ progress::-moz-progress-bar {
 
     .navbar-mobile {
         display: flex;
+        overflow: hidden;
     }
 
     .icon-sidebar {

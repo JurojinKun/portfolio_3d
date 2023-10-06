@@ -145,57 +145,31 @@
 
 .animated-image {
     position: absolute;
-    top: 50%;
+    top: 5%;
+    right: 0%;
     width: 120px;
     height: 120px;
-    opacity: 0;
-    animation: slide-in-out 5s linear infinite, up-and-down 2s ease-in-out infinite;
+    opacity: 1;
+    animation-name: fadeAnimation, shineEffect;
+    animation-duration: 4s, 2s;
+    animation-iteration-count: infinite, infinite;
+    animation-delay: 0s, 0s;
 }
 
-@keyframes slide-in-out {
-    0% {
-        left: 0%;
-        transform: translateY(-50%);
-        opacity: 1;
+@keyframes fadeAnimation {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes shineEffect {
+    0%, 100% {
+        filter: brightness(1.25);
     }
-
-    30% {
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-    }
-
-    55% {
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-    }
-
-    85% {
-        left: 80%;
-        transform: translateY(-50%, -50%);
-        opacity: 1;
-    }
-
-    100% {
-        left: 100%;
-        transform: translateY(-50%, -50%);
-        opacity: 0;
-    }
-}
-
-@keyframes up-and-down {
-
-    0%,
-    100% {
-        transform: translateY(-70%);
-    }
-
     50% {
-        transform: translateY(-30%);
+        filter: brightness(1);
     }
 }
-
+  
 @media (min-width: 481px) and (max-width: 824px) {
     .fontTitleNormalContactMe {
         font-size: 17px;
@@ -370,5 +344,7 @@
     .animated-image {
         width: 60px;
         height: 60px;
+        top: 10%;
+        right: 2%;
     }
 }

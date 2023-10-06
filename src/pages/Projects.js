@@ -18,6 +18,7 @@ import gemu from '../assets/projects/gemu.jpg';
 import myyoukounkoun from '../assets/projects/myyoukounkoun.jpg';
 import portfolio from '../assets/projects/portfolio.jpg';
 import { textVariant, fadeIn } from "../utils/motion";
+import Slide from "../components/Slide";
 
 const ProProjects = ({ menuOpened, t, threshold }) => {
 
@@ -39,79 +40,23 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
     const slides = [
         {
             key: 1,
-            content:
-                <div className="slide">
-                    <img src={smv} alt="1" style={{
-                        objectFit: "cover",
-                        objectPosition: "center"
-                    }} />
-                    <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
-                        <h2>
-                            {t("projects.title_project_pro_1")}
-                        </h2>
-                        <p>{t("projects.content_project_pro_1")}</p>
-                    </div>
-                </div>
+            content: <Slide isMobile={isMobile} img={smv} alt={"smv"} title={t("projects.title_project_pro_1")} content={t("projects.content_project_pro_1")} />
         },
         {
             key: 2,
-            content: <div className="slide">
-                <img src={corsica} alt="2" style={{
-                    objectFit: "cover",
-                    objectPosition: "center"
-                }} />
-                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
-                    <h2>
-                        {t("projects.title_project_pro_2")}
-                    </h2>
-                    <p>{t("projects.content_project_pro_2")}</p>
-                </div>
-            </div>
+            content: <Slide isMobile={isMobile} img={corsica} alt={"corsica"} title={t("projects.title_project_pro_2")} content={t("projects.content_project_pro_2")} />
         },
         {
             key: 3,
-            content: <div className="slide">
-                <img src={madewis} alt="3" style={{
-                    objectFit: "cover",
-                    objectPosition: "center"
-                }} />
-                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
-                    <h2>
-                        {t("projects.title_project_pro_3")}
-                    </h2>
-                    <p>{t("projects.content_project_pro_3")}</p>
-                </div>
-            </div>
+            content: <Slide isMobile={isMobile} img={madewis} alt={"madewis"} title={t("projects.title_project_pro_3")} content={t("projects.content_project_pro_3")} />
         },
         {
             key: 4,
-            content: <div className="slide">
-                <img src={hobbies} alt="4" style={{
-                    objectFit: "cover",
-                    objectPosition: "center"
-                }} />
-                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
-                    <h2>
-                        {t("projects.title_project_pro_4")}
-                    </h2>
-                    <p>{t("projects.content_project_pro_4")}</p>
-                </div>
-            </div>
+            content: <Slide isMobile={isMobile} img={hobbies} alt={"hobbies"} title={t("projects.title_project_pro_4")} content={t("projects.content_project_pro_4")} />
         },
         {
             key: 5,
-            content: <div className="slide">
-                <img src={croixrouge} alt="5" style={{
-                    objectFit: "cover",
-                    objectPosition: "center"
-                }} />
-                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
-                    <h2>
-                        {t("projects.title_project_pro_5")}
-                    </h2>
-                    <p>{t("projects.content_project_pro_5")}</p>
-                </div>
-            </div>
+            content: <Slide isMobile={isMobile} img={croixrouge} alt={"croixrouge"} title={t("projects.title_project_pro_5")} content={t("projects.content_project_pro_5")} />
         },
     ].map((slide, index) => {
         return {
@@ -207,49 +152,15 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
     let slides = [
         {
             key: 1,
-            content:
-                <div className="slide">
-                    <img src={gemu} alt="1" style={{
-                        objectFit: "cover",
-                        objectPosition: "center"
-                    }} />
-                    <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
-                        <h2>
-                            {t("projects.title_project_perso_1")}
-                        </h2>
-                        <p>{t("projects.content_project_perso_1")}</p>
-                    </div>
-                </div>
+            content: <Slide isMobile={isMobile} img={gemu} alt={"gemu"} title={t("projects.title_project_perso_1")} content={t("projects.content_project_perso_1")} />
         },
         {
             key: 2,
-            content: <div className="slide">
-                <img src={myyoukounkoun} alt="2" style={{
-                    objectFit: "cover",
-                    objectPosition: "center"
-                }} />
-                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
-                    <h2>
-                        {t("projects.title_project_perso_2")}
-                    </h2>
-                    <p>{t("projects.content_project_perso_2")}</p>
-                </div>
-            </div>
+            content: <Slide isMobile={isMobile} img={myyoukounkoun} alt={"myyoukounkoun"} title={t("projects.title_project_perso_2")} content={t("projects.content_project_perso_2")} />
         },
         {
             key: 3,
-            content: <div className="slide">
-                <img src={portfolio} alt="3" style={{
-                    objectFit: "cover",
-                    objectPosition: "center"
-                }} />
-                <div className={isMobile ? "content-slide-mobile" : "content-slide"}>
-                    <h2>
-                        {t("projects.title_project_perso_3")}
-                    </h2>
-                    <p>{t("projects.content_project_perso_3")}</p>
-                </div>
-            </div>
+            content: <Slide isMobile={isMobile} img={portfolio} alt={"portfolio"} title={t("projects.title_project_perso_3")} content={t("projects.content_project_perso_3")} />
         },
     ].map((slide, index) => {
         return {

@@ -374,8 +374,6 @@
         font-size: 15px;
         margin: 10px 10px 20px 10px;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
 
     .content-slide-mobile h2 {
@@ -387,8 +385,6 @@
         font-size: 15px;
         margin: 10px 10px 20px 10px;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
 }
 
@@ -463,8 +459,6 @@
         font-size: 12px;
         margin: 10px 10px 20px 10px;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
 
     .content-slide-mobile h2 {
@@ -476,7 +470,5 @@
         font-size: 12px;
         margin: 10px 10px 20px 10px;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
 }
