@@ -11,19 +11,21 @@ const NotFound = () => {
 
     const notFoundRef = useRef();
     const [notFoundHeight, setNotFoundHeight] = useState(window.innerHeight);
+    const [notFoundWidth, setNotFoundWidth] = useState(window.innerWidth);
 
     useEffect(() => {
-        const checkHeight = () => {
+        const checkDimensions = () => {
             if (notFoundRef.current) {
                 setNotFoundHeight(notFoundRef.current.getBoundingClientRect().height);
+                setNotFoundWidth(notFoundRef.current.getBoundingClientRect().width);
             }
         };
 
-        checkHeight();
-        window.addEventListener('resize', checkHeight);
+        checkDimensions();
+        window.addEventListener('resize', checkDimensions);
 
         // Cleanup
-        return () => window.removeEventListener('resize', checkHeight);
+        return () => window.removeEventListener('resize', checkDimensions);
     }, []);
 
     useEffect(() => {
@@ -69,7 +71,7 @@ const NotFound = () => {
                 backgroundClip: "padding-box",
                 border: "1px solid rgba(2, 2, 13, 1)",
             }}>
-            <StarryBackground gradientTopLeft={true} gradientBottomRight={true} heightSection={notFoundHeight} />
+            <StarryBackground gradientTopLeft={true} gradientBottomRight={true} heightSection={notFoundHeight} widthSection={notFoundWidth} />
             <div className="mainContainer">
                 <div className="innerContainer">
                     <img src={notFoundAstro} alt='Not Found' className="notFoundAstro" />
