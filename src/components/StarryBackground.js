@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const StarryBackground = ({ gradientTopLeft, gradientBottomRight, heightSection }) => {
+const StarryBackground = ({ gradientTopLeft, gradientBottomRight, heightSection, widthSection }) => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -8,7 +8,7 @@ const StarryBackground = ({ gradientTopLeft, gradientBottomRight, heightSection 
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
 
-            canvas.width = window.innerWidth;
+            canvas.width = widthSection !== null && widthSection !== undefined ? widthSection : window.innerWidth;
             canvas.height = heightSection !== null && heightSection !== undefined ? heightSection : window.innerHeight;
 
             // Création des étoiles statiques avec des tailles et des opacités variées
@@ -74,14 +74,13 @@ const StarryBackground = ({ gradientTopLeft, gradientBottomRight, heightSection 
         };
 
         drawCanvas();
-
         window.addEventListener('resize', drawCanvas);
 
         // Cleanup
         return () => {
             window.removeEventListener('resize', drawCanvas);
         };
-    }, [gradientBottomRight, gradientTopLeft, heightSection]);
+    }, [gradientBottomRight, gradientTopLeft, heightSection, widthSection]);
 
     return <canvas ref={canvasRef} style={{ position: 'absolute', zIndex: 0 }} />;
 };

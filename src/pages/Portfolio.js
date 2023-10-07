@@ -160,6 +160,7 @@ const Portfolio = () => {
         document.body.style.overflow = 'auto';
         setProgressBar();
         setTimeout(setToInitialSection, 100);
+        
         updateThreshold();
         window.addEventListener('resize', updateThreshold);
 
