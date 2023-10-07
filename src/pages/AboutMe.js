@@ -20,19 +20,21 @@ const AboutMe = ({ threshold }) => {
 
     const aboutmeRef = useRef();
     const [aboutmeHeight, setAboutmeHeight] = useState(window.innerHeight);
+    const [aboutmeWidth, setAboutmeWidth] = useState(window.innerWidth);
 
     useEffect(() => {
-        const checkHeight = () => {
+        const checkDimensions = () => {
             if (aboutmeRef.current) {
                 setAboutmeHeight(aboutmeRef.current.getBoundingClientRect().height);
+                setAboutmeWidth(aboutmeRef.current.getBoundingClientRect().width);
             }
         };
 
-        checkHeight();
-        window.addEventListener('resize', checkHeight);
+        checkDimensions();
+        window.addEventListener('resize', checkDimensions);
 
         // Cleanup
-        return () => window.removeEventListener('resize', checkHeight);
+        return () => window.removeEventListener('resize', checkDimensions);
     }, [inView]);
 
     return (
@@ -44,7 +46,7 @@ const AboutMe = ({ threshold }) => {
                 backgroundClip: "padding-box",
                 border: "1px solid rgba(2, 2, 13, 1)",
             }}>
-            <StarryBackground gradientTopLeft={true} gradientBottomRight={false} heightSection={aboutmeHeight} />
+            <StarryBackground gradientTopLeft={true} gradientBottomRight={false} heightSection={aboutmeHeight} widthSection={aboutmeWidth} />
             <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="aboutme">
                 <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="aboutme-title">
                 {t("about_me.title")}
