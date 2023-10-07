@@ -1,6 +1,6 @@
 import '../css/NotFound.css';
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from 'react-i18next';
 
 import notFoundAstro from '../assets/astro_not_found.png';
@@ -8,6 +8,23 @@ import StarryBackground from '../components/StarryBackground';
 
 const NotFound = () => {
     const { t } = useTranslation();
+
+    const notFoundRef = useRef();
+    const [notFoundHeight, setNotFoundHeight] = useState(window.innerHeight);
+
+    useEffect(() => {
+        const checkHeight = () => {
+            if (notFoundRef.current) {
+                setNotFoundHeight(notFoundRef.current.getBoundingClientRect().height);
+            }
+        };
+
+        checkHeight();
+        window.addEventListener('resize', checkHeight);
+
+        // Cleanup
+        return () => window.removeEventListener('resize', checkHeight);
+    }, []);
 
     useEffect(() => {
         document.title = "0ruj | 3D Portfolio";
@@ -42,10 +59,17 @@ const NotFound = () => {
             element.removeEventListener('mouseout', removeBugEffect);
         };
     }, []);
-      
+
     return (
-        <>
-            <StarryBackground gradientTopLeft={true} gradientBottomRight={true} />
+        <div
+            ref={notFoundRef}
+            style={{
+                display: "flex",
+                width: "100%",
+                backgroundClip: "padding-box",
+                border: "1px solid rgba(2, 2, 13, 1)",
+            }}>
+            <StarryBackground gradientTopLeft={true} gradientBottomRight={true} heightSection={notFoundHeight} />
             <div className="mainContainer">
                 <div className="innerContainer">
                     <img src={notFoundAstro} alt='Not Found' className="notFoundAstro" />
@@ -65,15 +89,15 @@ const NotFound = () => {
                     {t("not_found.user_lost")}
                 </div>
                 <div
-                className='fontBodyBoldNotFound'
-                style={{
-                    textAlign: "center",
-                    zIndex: 1
-                }}>
+                    className='fontBodyBoldNotFound'
+                    style={{
+                        textAlign: "center",
+                        zIndex: 1
+                    }}>
                     {t("not_found.url_not_found")}
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 
