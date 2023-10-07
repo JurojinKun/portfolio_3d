@@ -17,6 +17,7 @@ const ContactMe = ({ threshold }) => {
 
     const contactmeRef = useRef();
     const [contactmeHeight, setContactmeHeight] = useState(window.innerHeight);
+    const [contactmeWidth, setContactmeWidth] = useState(window.innerWidth);
 
     const { ref, inView } = useInView({
         triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
@@ -83,18 +84,19 @@ const ContactMe = ({ threshold }) => {
     };
 
     useEffect(() => {
-        const checkHeight = () => {
+        const checkDimensions = () => {
             if (contactmeRef.current) {
                 setContactmeHeight(contactmeRef.current.getBoundingClientRect().height);
+                setContactmeWidth(contactmeRef.current.getBoundingClientRect().width);
             }
         };
 
-        checkHeight();
-        window.addEventListener('resize', checkHeight);
+        checkDimensions();
+        window.addEventListener('resize', checkDimensions);
 
         // Cleanup
         return () => {
-            window.removeEventListener('resize', checkHeight);
+            window.removeEventListener('resize', checkDimensions);
         }
     }, [inView]);
 
@@ -107,7 +109,7 @@ const ContactMe = ({ threshold }) => {
                 backgroundClip: "padding-box",
                 border: "1px solid rgba(2, 2, 13, 1)"
             }}>
-            <StarryBackground gradientTopLeft={false} gradientBottomRight={true} heightSection={contactmeHeight} />
+            <StarryBackground gradientTopLeft={false} gradientBottomRight={true} heightSection={contactmeHeight} widthSection={contactmeWidth} />
             <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="contactme">
                 <motion.div ref={ref} animate={inView ? "show" : "hidden"} initial="hidden" variants={textVariant(0.2)} className="contactme-title">
                     {t("contact_me.title")}
