@@ -373,7 +373,9 @@
     .content-slide p {
         font-size: 15px;
         margin: 10px 10px 20px 10px;
-        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
     }
 
     .content-slide-mobile h2 {
@@ -384,7 +386,9 @@
     .content-slide-mobile p {
         font-size: 15px;
         margin: 10px 10px 20px 10px;
-        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
     }
 }
 
@@ -458,7 +462,9 @@
     .content-slide p {
         font-size: 12px;
         margin: 10px 10px 20px 10px;
-        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
     }
 
     .content-slide-mobile h2 {
@@ -469,6 +475,8 @@
     .content-slide-mobile p {
         font-size: 12px;
         margin: 10px 10px 20px 10px;
-        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
     }
 }
