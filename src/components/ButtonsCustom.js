@@ -1,5 +1,7 @@
-import React, { useState, useRef } from 'react';
 import '../css/Home3D.css';
+
+import React, { useState, useRef } from 'react';
+import { isMobile } from 'react-device-detect';
 
 const IconRoundButton = ({ icon, url, title }) => {
 
@@ -10,16 +12,11 @@ const IconRoundButton = ({ icon, url, title }) => {
         window.open(url, '_blank');
     };
 
-    const handleTouchStart = () => {
-        console.log("handle touch start");
+    const handleTouchMoble = () => {
         setIsHovered(true);
         if (touchEndTimeout.current) {
             clearTimeout(touchEndTimeout.current);
         }
-    };
-
-    const handleTouchEnd = () => {
-        console.log("handle touch end");
         touchEndTimeout.current = setTimeout(() => {
             setIsHovered(false);
         }, 2000);  // Ce délai permet de garder le label visible pendant 2 secondes après le toucher
@@ -49,10 +46,19 @@ const IconRoundButton = ({ icon, url, title }) => {
                         </div>
                         <div className={isHovered ? 'roundButton-hovered' : 'roundButton-not-hovered'}
                             onClick={handleClick}
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                            onTouchStart={() => handleTouchStart}
-                            onTouchEnd={() => handleTouchEnd}>
+                            onMouseEnter={() => {
+                                if (isMobile) {
+                                    handleTouchMoble();
+                                } else {
+                                    setIsHovered(true);
+                                }
+                            }}
+                            onMouseLeave={() => {
+                                if (!isMobile) {
+                                    setIsHovered(false);
+                                }
+                            }}
+                        >
                             {icon}
                         </div>
                     </div>
@@ -66,10 +72,18 @@ const IconRoundButton = ({ icon, url, title }) => {
                         </div>
                         <a href={url} download
                             className={isHovered ? 'roundButton-hovered' : 'roundButton-not-hovered'}
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                            onTouchStart={() => handleTouchStart}
-                            onTouchEnd={() => handleTouchEnd}
+                            onMouseEnter={() => {
+                                if (isMobile) {
+                                    handleTouchMoble();
+                                } else {
+                                    setIsHovered(true);
+                                }
+                            }}
+                            onMouseLeave={() => {
+                                if (!isMobile) {
+                                    setIsHovered(false);
+                                }
+                            }}
                         >
                             {icon}
                         </a>
