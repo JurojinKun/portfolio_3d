@@ -237,7 +237,7 @@
     margin-bottom: 10px;
 }
 
-.roundButton {
+.roundButton-not-hovered {
     position: absolute;
     z-index: 2;
     border-radius: 50%;
@@ -252,18 +252,41 @@
     justify-content: center;
 }
 
-.roundButton:hover {
+.roundButton-hovered {
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    border: none;
+    cursor: pointer;
     background-color: #5DADD2;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@media (hover: hover) {
-    .roundButton:hover {
-        background-color: #5DADD2;
-    }
-}
-
-.roundButton:hover .icon-contact {
+.roundButton-hovered .icon-contact {
     color: #1A1B1B;
+}
+
+.titleContainer {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background-color: #5DADD2;
+    color: #1A1B1B;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-size: 'Space Mono';
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.titleContainer.visible {
+    opacity: 1;
 }
 
 .black-hole span {
@@ -300,24 +323,6 @@
     100% {
         transform: rotate(360deg);
     }
-}
-
-.titleContainer {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    background-color: #5DADD2;
-    color: #1A1B1B;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 15px;
-    font-size: 'Space Mono';
-    font-weight: 700;
-    white-space: nowrap;
-    text-align: center;
-}
-
-.titleContainer.visible {
-    opacity: 1;
 }
 
 @media (min-width: 551px) and (max-width: 824px),
