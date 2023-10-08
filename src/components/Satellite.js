@@ -109,7 +109,7 @@ const Satellite = ({ color, visible, position, index }) => {
         textAlign="center"
         fontWeight="bold"
         font="/fonts/SpaceMono-Bold.ttf"
-        onClick={() => onSatelliteClick(index)}
+        onClick={visible && (() => onSatelliteClick(index))}
       >
         {satelliteName(index)}
       </Text>
