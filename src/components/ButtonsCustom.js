@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/Home3D.css';
 
 const IconRoundButton = ({ icon, url, title }) => {
@@ -8,6 +8,20 @@ const IconRoundButton = ({ icon, url, title }) => {
     const handleClick = () => {
         window.open(url, '_blank');
     };
+
+    useEffect(() => {
+        const handleScroll = () => {
+          if (isHovered) {
+            setHovered(false);
+          }
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+    
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, [isHovered]);
 
     return (
         <div className="container">
