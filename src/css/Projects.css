@@ -220,6 +220,86 @@
     overflow: hidden;
 }
 
+/*new part animated presence*/
+.overlay-animated-content-slide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(2, 2, 13, 0.5);
+    z-index: 999;
+}
+
+.animated-content-slide {
+    position: fixed;
+    height: 50%;
+    width: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: rgba(26, 27, 27, 0.5);
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.animated-content-slide::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    bottom: -5px;
+    left: -5px;
+    background: inherit;
+    background-color: rgba(26, 27, 27, 0.6);
+    background-blend-mode: overlay;
+    filter: blur(5px);
+    z-index: -1;
+}
+
+.icon-close {
+    color: white;
+    height: 30px;
+    width: 30px;
+}
+
+.icon-close-hover {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 60px;
+    background-color: rgba(2, 2, 13, 0.3)
+}
+
+.icon-close-hover:hover {
+    height: 45px;
+    width: 45px;
+    border-radius: 60px;
+    background-color: rgba(2, 2, 13, 0.6)
+}
+
+.title-animated-content-slide {
+    font-family: "Space Mono";
+    font-weight: 700;
+    font-size: 40px;
+    color: white;
+    text-align: center;
+}
+
 @media (min-width: 481px) and (max-width: 824px) {
     .fontTitleNormalProjects {
         font-size: 17px;
