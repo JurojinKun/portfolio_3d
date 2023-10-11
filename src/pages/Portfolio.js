@@ -157,7 +157,8 @@ const Portfolio = () => {
         };
 
         document.title = "0ruj | 3D Portfolio";
-        document.body.style.overflow = 'auto';
+        document.body.style.overflowX = 'hidden';
+        document.body.style.overflowY = 'auto';
         setProgressBar();
         setTimeout(setToInitialSection, 100);
         

@@ -20,6 +20,7 @@ const FixedHeader = () => {
             </div>
             <div style={{
                 pointerEvents: 'auto',
+                paddingLeft: "25px",
                 paddingRight: "4%"
             }}>
                 <LanguageSwitcher openingDirection={"bottom"} />
