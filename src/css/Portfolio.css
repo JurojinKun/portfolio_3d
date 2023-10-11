@@ -49,6 +49,7 @@
     flex-direction: column;
     position: relative;
     background-color: #02020D;
+    overflow-x: hidden;
 }
 
 .link-title {
