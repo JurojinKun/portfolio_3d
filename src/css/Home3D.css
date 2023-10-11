@@ -69,6 +69,18 @@
     font-family: "Space Mono";
 }
 
+.span-language {
+    display: flex; 
+    align-items: center;
+    justify-content: start;
+}
+
+.flag {
+    height: 16px;
+    width: 16px;
+    margin-right: 6px;
+}
+
 .parent {
     position: relative;
     background-color: #02020D;
@@ -658,5 +670,17 @@
     .title-header {
         font-size: 13px;
         width: min-content;
+    }
+
+    .language {
+        display: none;
+    }
+
+    .span-language {
+        justify-content: center;
+    }
+    
+    .flag {
+        margin-right: 0;
     }
 }

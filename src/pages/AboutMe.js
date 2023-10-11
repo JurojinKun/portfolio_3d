@@ -65,7 +65,7 @@ const AboutMe = ({ threshold }) => {
                         <p className="fontBodyNormalAboutMe">{t("about_me.first_para")} 🧑‍🚀</p>
                         <p className="fontBodyNormalAboutMe">{t("about_me.second_para")} 🚀</p>
                         <p className="fontBodyNormalAboutMe">
-                            {t("about_me.third_para")} 👨‍🎓🇨🇵
+                            {t("about_me.third_para")} 👨‍🎓
                         </p>
                         <p className="fontBodyNormalAboutMe">{t("about_me.fourth_para")} 📱</p>
                         <p className="fontBodyNormalAboutMe">{t("about_me.fifth_para")} 🧠</p>
