@@ -6,14 +6,7 @@ const ErrorModal = ({ error }) => {
 
     var language = window.navigator.language || window.navigator.userLanguage;
 
-    console.log("error:" + error);
-    console.log("error message: " + error.message);
-    if (error.stack != null) {
-        console.log("error stack: " + error.stack)
-    }
-
-    // && error.stack && error.stack.includes("react-three-fiber")
-    if (error.message.includes("Cannot read properties of null (reading 'indexOf')")) {
+    if (error.message.includes("Cannot read properties of null (reading 'indexOf')") && error.stack && (error.stack.includes("at new Zf") || error.stack.includes("at Te") || error.stack.includes("at new e") || error.stack.includes("at react-three-fiber"))) {
         return (
             <div className="error-modal">
                 <div className="error-modal-content">
