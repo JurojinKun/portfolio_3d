@@ -1,0 +1,48 @@
+/* ErrorModal.css */
+.error-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(2, 2, 13, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.error-modal-content {
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: rgba(26, 26, 26, 1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.error-modal-content h3 {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: 'Space Mono';
+    font-weight: 700;
+    font-size: auto;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.error-modal-content p {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: 'Space Mono';
+    font-weight: 400;
+    font-size: auto;
+    text-align: center;
+}
