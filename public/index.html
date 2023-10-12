@@ -111,9 +111,7 @@
   <div id="root" style="height: 100%; display: none;"></div>
   <script>
     var language = window.navigator.language || window.navigator.userLanguage;
-    var loadingTextElement = document.getElementById('loading-text');
-
-    console.log(language);
+    var loadingTextElement = document.getElementById('loading-text');    
 
     if (language.startsWith("fr")) {
       loadingTextElement.textContent = "Chargement";
