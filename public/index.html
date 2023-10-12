@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="google" content="notranslate">
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
@@ -11,7 +10,7 @@
   <meta name="description" content="This is my personal portfolio" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <title>0ruj | 3D Portfolio</title>
+  <title translate="no">0ruj | 3D Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,700,800&display=swap" />
@@ -113,6 +112,8 @@
   <script>
     var language = window.navigator.language || window.navigator.userLanguage;
     var loadingTextElement = document.getElementById('loading-text');
+
+    console.log(language);
 
     if (language.startsWith("fr")) {
       loadingTextElement.textContent = "Chargement";
