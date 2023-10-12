@@ -3,10 +3,17 @@ import '../css/ErrorModal.css';
 import React from 'react';
 
 const ErrorModal = ({ error }) => {
-    
+
     var language = window.navigator.language || window.navigator.userLanguage;
 
-    if (error.message.includes("Cannot read properties of null (reading 'indexOf')") && error.stack && error.stack.includes("react-three-fiber")) {
+    console.log("error:" + error);
+    console.log("error message: " + error.message);
+    if (error.stack != null) {
+        console.log("error stack: " + error.stack)
+    }
+
+    // && error.stack && error.stack.includes("react-three-fiber")
+    if (error.message.includes("Cannot read properties of null (reading 'indexOf')")) {
         return (
             <div className="error-modal">
                 <div className="error-modal-content">
