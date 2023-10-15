@@ -216,8 +216,6 @@ progress::-moz-progress-bar {
 }
 
 .icon-menu-close-hover:hover {
-    height: 45px;
-    width: 45px;
     border-radius: 60px;
     background-color: rgba(71, 205, 214, 0.3)
 }

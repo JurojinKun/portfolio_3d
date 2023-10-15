@@ -290,7 +290,7 @@ const Portfolio = () => {
                     <div className={`sidebar ${isOpen ? "open" : ""}`} style={{
                         height: `${window.innerHeight - 30}px`
                     }}>
-                        <div style={{ display: "flex", height: "auto", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between", margin: "20px 0 20px 0" }}>
+                        <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between", margin: "20px 0 20px 0" }}>
                             <span className="title-menu">{t("portfolio.menu")}</span>
                             <div className="icon-menu-close-hover" onClick={() => setIsOpen(!isOpen)}>
                                 <FaTimes className="icon-menu-close" />
