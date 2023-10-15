@@ -5,9 +5,10 @@ import { useTranslation } from "react-i18next";
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Carousel from "react-spring-3d-carousel";
 import { config } from "react-spring";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { isMobile } from 'react-device-detect';
+import { FaTimes } from 'react-icons/fa';
 
 import smv from '../assets/projects/smv.jpg';
 import corsica from '../assets/projects/corsica.jpg';
@@ -36,26 +37,42 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
     });
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [selectedId, setSelectedId] = useState(null);
 
     const slides = [
         {
             key: 1,
+            img: smv,
+            titleSlide: t("projects.title_project_pro_1"),
+            contentSlide: t("projects.content_project_pro_1"),
             content: <Slide isMobile={isMobile} img={smv} alt={"smv"} title={t("projects.title_project_pro_1")} content={t("projects.content_project_pro_1")} />
         },
         {
             key: 2,
+            img: corsica,
+            titleSlide: t("projects.title_project_pro_2"),
+            contentSlide: t("projects.content_project_pro_2"),
             content: <Slide isMobile={isMobile} img={corsica} alt={"corsica"} title={t("projects.title_project_pro_2")} content={t("projects.content_project_pro_2")} />
         },
         {
             key: 3,
+            img: madewis,
+            titleSlide: t("projects.title_project_pro_3"),
+            contentSlide: t("projects.content_project_pro_3"),
             content: <Slide isMobile={isMobile} img={madewis} alt={"madewis"} title={t("projects.title_project_pro_3")} content={t("projects.content_project_pro_3")} />
         },
         {
             key: 4,
+            img: hobbies,
+            titleSlide: t("projects.title_project_pro_4"),
+            contentSlide: t("projects.content_project_pro_4"),
             content: <Slide isMobile={isMobile} img={hobbies} alt={"hobbies"} title={t("projects.title_project_pro_4")} content={t("projects.content_project_pro_4")} />
         },
         {
             key: 5,
+            img: croixrouge,
+            titleSlide: t("projects.title_project_pro_5"),
+            contentSlide: t("projects.content_project_pro_5"),
             content: <Slide isMobile={isMobile} img={croixrouge} alt={"croixrouge"} title={t("projects.title_project_pro_5")} content={t("projects.content_project_pro_5")} />
         },
     ].map((slide, index) => {
@@ -71,7 +88,7 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
                         });
                         setCurrentIndex(index);
                     } else {
-                        alert(t("wip.label"));
+                        // setSelectedId(slide.key);
                     }
                 }
             }
@@ -127,7 +144,28 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
                         <IoIosArrowForward className="arrow-icon" />
                     </div>
                 </div>
-            </motion.div></>
+            </motion.div>
+
+            {selectedId && (
+                <div className="overlay-animated-content-slide"></div>
+            )}
+            <AnimatePresence>
+                {selectedId && (
+                    <motion.div className="animated-content-slide"
+                        layoutId={selectedId}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.6, ease: "easeInOut" }}
+                        style={{ backgroundImage: `url(${slides[currentIndex].img})` }}>
+                        <motion.div className="icon-close-hover" onClick={() => setSelectedId(null)}>
+                            <FaTimes className="icon-close" />
+                        </motion.div>
+                        <motion.div className="title-animated-content-slide">{slides[currentIndex].titleSlide}</motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     );
 
 }
@@ -148,18 +186,28 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
     });
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [selectedId, setSelectedId] = useState(null);
 
     let slides = [
         {
             key: 1,
+            img: gemu,
+            titleSlide: t("projects.title_project_perso_1"),
+            contentSlide: t("projects.content_project_perso_1"),
             content: <Slide isMobile={isMobile} img={gemu} alt={"gemu"} title={t("projects.title_project_perso_1")} content={t("projects.content_project_perso_1")} />
         },
         {
             key: 2,
+            img: myyoukounkoun,
+            titleSlide: t("projects.title_project_perso_2"),
+            contentSlide: t("projects.content_project_perso_2"),
             content: <Slide isMobile={isMobile} img={myyoukounkoun} alt={"myyoukounkoun"} title={t("projects.title_project_perso_2")} content={t("projects.content_project_perso_2")} />
         },
         {
             key: 3,
+            img: portfolio,
+            titleSlide: t("projects.title_project_perso_3"),
+            contentSlide: t("projects.content_project_perso_3"),
             content: <Slide isMobile={isMobile} img={portfolio} alt={"portfolio"} title={t("projects.title_project_perso_3")} content={t("projects.content_project_perso_3")} />
         },
     ].map((slide, index) => {
@@ -176,7 +224,7 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
                         });
                         setCurrentIndex(index);
                     } else {
-                        alert(t("wip.label"));
+                        // setSelectedId(slide.key);
                     }
                 }
             }
@@ -235,6 +283,26 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
                     </div>
                 </div>
             </motion.div>
+
+            {selectedId && (
+                <div className="overlay-animated-content-slide"></div>
+            )}
+            <AnimatePresence>
+                {selectedId && (
+                    <motion.div className="animated-content-slide"
+                        layoutId={selectedId}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.6, ease: "easeInOut" }}
+                        style={{ backgroundImage: `url(${slides[currentIndex].img})` }}>
+                        <motion.div className="icon-close-hover" onClick={() => setSelectedId(null)}>
+                            <FaTimes className="icon-close" />
+                        </motion.div>
+                        <motion.div className="title-animated-content-slide">{slides[currentIndex].titleSlide}</motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 }

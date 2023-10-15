@@ -14,7 +14,7 @@ const ErrorModal = ({ error }) => {
                 <img src={astroHelp} alt='Error modal' className="img-astro-help" />
                 <div className="error-modal-content">
                     <h3>{language.startsWith("fr") ? "Une erreur est survenue" : "An error has occurred"}</h3>
-                    <p>{language.startsWith("fr") ? "Si vous avez un bloqueur sur votre navigateur, veuillez essayer de le désactiver et rafraîchir la page" : "If you have a blocker on your browser, please try to deactivate it and refresh the page"}</p>
+                    <p>{language.startsWith("fr") ? "Si tu as un bloqueur sur ton navigateur, essaye de le désactiver et de rafraîchir la page" : "If you have a blocker on your browser, please try to deactivate it and refresh the page"}</p>
                 </div>
             </div>
         );
