@@ -69,6 +69,18 @@
     font-family: "Space Mono";
 }
 
+.span-language {
+    display: flex; 
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.flag {
+    height: 16px;
+    width: 16px;
+    margin-right: 6px;
+}
+
 .parent {
     position: relative;
     background-color: #02020D;
@@ -214,7 +226,10 @@
 .container-btns {
     display: flex;
     margin-top: 40px;
-    width: 50%;
+    width: auto;
+    max-width: 60%;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .icon-contact {
@@ -224,10 +239,10 @@
 .container {
     display: flex;
     flex-direction: column;
-    margin: 0 15px 0 15px;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 100%;
+    margin: 0 5px 0 5px;
+    width: 150px;
 }
 
 .element {
@@ -397,7 +412,7 @@
 
     .container-btns {
         margin-top: 35px;
-        width: 60%;
+        max-width: 70%;
     }
 
     @keyframes wheel {
@@ -507,7 +522,7 @@
 
     .container-btns {
         margin-top: 30px;
-        width: 50%;
+        max-width: 80%;
     }
 
     @keyframes wheel {
@@ -613,7 +628,7 @@
 
     .container-btns {
         margin-top: 20px;
-        width: 45%;
+        max-width: 80%;
     }
 
     @keyframes wheel {
@@ -655,5 +670,17 @@
     .title-header {
         font-size: 13px;
         width: min-content;
+    }
+
+    .language {
+        display: none;
+    }
+
+    .span-language {
+        justify-content: center;
+    }
+    
+    .flag {
+        margin-right: 0;
     }
 }

@@ -2,6 +2,7 @@ import "../css/Home3D.css";
 
 import React from 'react';
 import Select from 'react-select';
+import ReactCountryFlag from "react-country-flag"
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLanguage } from '../redux/selectors/languageSelector';
@@ -46,8 +47,8 @@ const LanguageSwitcher = ({ openingDirection }) => {
     const selectedLanguage = useSelector(selectLanguage);
 
     const languageOptions = [
-        { value: 'fr', label: "🇫🇷 " + t("languages.french") },
-        { value: 'en', label: "🇬🇧 " + t("languages.english") },
+        { value: 'fr', label: <span className="span-language"><ReactCountryFlag countryCode="FR" className="flag" svg /> <span className="language">{t("languages.french")} </span></span> },
+        { value: 'en', label: <span className="span-language"><ReactCountryFlag countryCode="GB" className="flag" svg /> <span className="language">{t("languages.english")}</span> </span> },
     ];
 
     const changeLanguage = (selectedOption) => {

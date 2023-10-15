@@ -170,7 +170,7 @@ progress::-moz-progress-bar {
 
 .sidebar {
     position: fixed;
-    width: 30%;
+    width: 35%;
     height: 100%;
     top: 2%;
     right: 0;
@@ -195,7 +195,7 @@ progress::-moz-progress-bar {
     color: white;
     font-size: 30px;
     font-weight: bold;
-    padding-left: 20px;
+    margin-left: 30px;
     font-family: "Space Mono"
 }
 
@@ -212,12 +212,10 @@ progress::-moz-progress-bar {
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    margin-right: 15px;
+    margin-right: 20px;
 }
 
 .icon-menu-close-hover:hover {
-    height: 45px;
-    width: 45px;
     border-radius: 60px;
     background-color: rgba(71, 205, 214, 0.3)
 }
@@ -357,6 +355,7 @@ progress::-moz-progress-bar {
 
     .title-menu {
         font-size: 20px;
+        margin-left: 20px;
     }
 
     .icon-menu-close {
@@ -367,6 +366,7 @@ progress::-moz-progress-bar {
     .icon-menu-close-hover {
         height: 40px;
         width: 40px;
+        margin-right: 10px;
     }
 
     .menu-section {
@@ -429,6 +429,7 @@ progress::-moz-progress-bar {
 
     .title-menu {
         font-size: 20px;
+        margin-left: 20px;
     }
 
     .icon-menu-close {
@@ -439,6 +440,7 @@ progress::-moz-progress-bar {
     .icon-menu-close-hover {
         height: 40px;
         width: 40px;
+        margin-right: 10px;
     }
 
     .menu-section {

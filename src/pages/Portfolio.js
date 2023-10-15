@@ -157,7 +157,8 @@ const Portfolio = () => {
         };
 
         document.title = "0ruj | 3D Portfolio";
-        document.body.style.overflow = 'auto';
+        document.body.style.overflowX = 'hidden';
+        document.body.style.overflowY = 'auto';
         setProgressBar();
         setTimeout(setToInitialSection, 100);
         
@@ -289,7 +290,7 @@ const Portfolio = () => {
                     <div className={`sidebar ${isOpen ? "open" : ""}`} style={{
                         height: `${window.innerHeight - 30}px`
                     }}>
-                        <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
+                        <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between", margin: "20px 0 20px 0" }}>
                             <span className="title-menu">{t("portfolio.menu")}</span>
                             <div className="icon-menu-close-hover" onClick={() => setIsOpen(!isOpen)}>
                                 <FaTimes className="icon-menu-close" />
@@ -297,7 +298,7 @@ const Portfolio = () => {
                         </div>
                         <div style={{
                             overflow: "auto",
-                            display: "flex", height: "100%", flexDirection: "column"
+                            display: "flex", height: "100%", flexDirection: "column", alignItems: "center"
                         }}>
                             {sections.map((section) => (
                                 <Link
@@ -324,10 +325,11 @@ const Portfolio = () => {
                             ))}
                         </div>
                         <div style={{
+                            display: "flex",
+                            justifyContent: "center",
                             pointerEvents: 'auto',
+                            marginTop: "20px",
                             marginBottom: "20px",
-                            paddingLeft: "20px",
-                            paddingRight: "20px"
                         }}>
                             <LanguageSwitcher openingDirection={"top"} />
                         </div>
