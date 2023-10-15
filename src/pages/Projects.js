@@ -89,7 +89,7 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
                         setCurrentIndex(index);
                     } else {
                         // alert(t("wip.label"));
-                        setSelectedId(slide.key);
+                        // setSelectedId(slide.key);
                     }
                 }
             }
@@ -226,7 +226,7 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
                         setCurrentIndex(index);
                     } else {
                         // alert(t("wip.label"));
-                        setSelectedId(slide.key);
+                        // setSelectedId(slide.key);
                     }
                 }
             }
