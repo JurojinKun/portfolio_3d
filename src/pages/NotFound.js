@@ -93,6 +93,7 @@ const NotFound = () => {
                 <div
                     className='fontBodyBoldNotFound'
                     style={{
+                        margin: "0 10px 0 10px",
                         textAlign: "center",
                         zIndex: 1
                     }}>
