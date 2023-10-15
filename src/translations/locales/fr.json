@@ -18,8 +18,8 @@
         "contact_me": "Me contacter"
     },
     "not_found": {
-        "user_lost": "Vous vous êtes sûrement perdus",
-        "url_not_found": "Ce que vous recherchez n'existe pas ou plus dans cet univers"
+        "user_lost": "Tu t'es sûrement perdu",
+        "url_not_found": "Ce que tu recherches n'existe pas ou plus dans cet univers"
     },
     "portfolio": {
         "menu": "Menu"
@@ -39,15 +39,15 @@
         "title": "Compétences",
         "subtitle": "Un résumé de ce que je sais faire...",
         "skill_title_1": "Mes débuts dans le développement",
-        "skill_paragraph_1": "J'ai fait mes débuts dans le monde du développement à l'âge de 18 ans en apprenant le Python. \n\nCette expérience m'ayant plus, j'ai voulu continuer en intégrant un cycle préparatoire intégré et enfin une école d'ingénieur : ISEN Toulon. \nDurant ces années, j'ai pu apprendre à comprendre, à analyser et réfléchir à un code simple, compréhensible et propre en apprenant les bases du développement sur des technologies comme le C. \n\nJ'ai aussi pu en apprendre davantage en faisant notamment un stage au sein du groupe Atlantic avec l'équipe réseau et cybersécurité.",
+        "skill_paragraph_1": "J'ai fait mes débuts dans le monde du développement à l'âge de 18 ans en apprenant le Python. \n\nCette expérience m'ayant plu, j'ai voulu continuer en intégrant un cycle préparatoire intégré et enfin une école d'ingénieur : ISEN Toulon. \nDurant ces années, j'ai pu apprendre à comprendre, à analyser et réfléchir à un code simple, compréhensible et propre en apprenant les bases du développement sur des technologies comme le C. \n\nJ'ai aussi pu en apprendre davantage en faisant notamment un stage au sein du groupe Atlantic avec l'équipe réseau et cybersécurité.",
         "skill_title_2": "Mon apprentissage autodidacte",
-        "skill_paragraph_2": "Après une diplômation dans ma formation d'ingénieur en tant qu'ingénieur dans le traitement de l'image et l'intelligence artificielle et ne voyant pas ma future carrière dans ce domaine, j'ai décidé de m'orienter vers l'entrepreneuriat et le développement mobile et web de manière autodidacte avec le programme Pépite Toulon. \n\nJ'ai pu apprendre avec leur aide et par moi-même un peu plus sur le monde de l'entrepreneuriat et la programmation mobile avec notamment le framework Flutter durant une année.",
+        "skill_paragraph_2": "Après une diplomation dans ma formation d'ingénieur en tant qu'ingénieur dans le traitement de l'image et l'intelligence artificielle et ne voyant pas ma future carrière dans ce domaine, j'ai décidé de m'orienter vers l'entrepreneuriat et le développement mobile et web de manière autodidacte avec le programme Pépite Toulon. \n\nJ'ai pu apprendre avec leur aide et par moi-même un peu plus sur le monde de l'entrepreneuriat et la programmation mobile avec notamment le framework Flutter durant une année.",
         "skill_title_3": "Années de développeur front",
         "skill_paragraph_3": "Après cette année concentrée sur ma montée en compétences autodidacte, j'ai décidé de découvrir et de m'épanouir dans le monde du travail avec un premier CDI au sein d'une start-up. \n\nCes années-là m'ont permis d'en apprendre beaucoup sur le développement front en mobile en Flutter, mais aussi dans d'autres technologies comme par exemple le React native en participant à des projets pour des clients jusqu'à devenir Lead dev front. \n\nJ'ai pu aussi de mon côté durant mon temps libre, améliorer mes compétences en faisant des projets personnels que ce soit mobile ou web.",
         "skill_title_4": "Et pourquoi pas développeur back ?",
-        "skill_paragraph_4": "J'ai beaucoup parlé de ma montée en compétences dans le développement front, mais qu'en est-il du développement back ? \n\nJ'ai pu participé à des ajouts et modifications dans certains projets en faisant du Node js mais j'ai encore beaucoup à apprendre afin de devenir un développeur full stack.",
+        "skill_paragraph_4": "J'ai beaucoup parlé de ma montée en compétences dans le développement front, mais qu'en est-il du développement back ? \n\nJ'ai pu participer à des ajouts et modifications dans certains projets en faisant du Node js mais j'ai encore beaucoup à apprendre afin de devenir un développeur full stack.",
         "skill_title_5": "L'avenir...",
-        "skill_paragraph_5": "Quelle aventure déjà ! Et la suite alors ? \n\nComme je l'ai dit, j'aimerai dans un futur proche, devenir un développeur full stack et par la suite de ma carrière, toujours prendre du plaisir dans ce que je fais et apprendre toujours de nouvelles choses et de nouvelles technologies."
+        "skill_paragraph_5": "Quelle aventure déjà ! Et la suite alors ? \n\nComme je l'ai dit, j'aimerais dans un futur proche, devenir un développeur full stack et par la suite de ma carrière, toujours prendre du plaisir dans ce que je fais et apprendre toujours de nouvelles choses et de nouvelles technologies."
     },
     "experiences": {
         "title": "Expériences",
@@ -58,7 +58,7 @@
         "point_1_experience_1": "Développement from scratch d'une solution mobile Android / iOS et web de dons de vaccins entre médecins / pharmaciens, etc... Référence: Sauve mon vaccin",
         "point_2_experience_1": "Refonte / Amélioration avec design imposé par le client d'une solution mobile Android / iOS de réservation de croisières. Référence: Corsica Ferries",
         "point_3_experience_1": "Développement from scratch d'une application mobile Android / iOS afin de visualiser les informations des tournois sportifs organisés par le client. Référence: Madewis",
-        "point_4_experience_1": "Développement from scratch d'une solution mobile Android / iOS d'un réseau social pour rencontrer des gens ayant les mêmes centres d'interêts. Référence: Hobbies",
+        "point_4_experience_1": "Développement from scratch d'une solution mobile Android / iOS d'un réseau social pour rencontrer des gens ayant les mêmes centres d'interêt. Référence: Hobbies",
         "point_5_experience_1": "Développement from scratch pour un organisme français d'une solution mobile Android / iOS pour faciliter la visualisation des présents / absents lors des formations. Référence: La croix rouge française",
         "title_experience_2": "Étudiant entrepreneur",
         "company_experience_2": "Pépite Toulon",
@@ -82,11 +82,11 @@
         "title_project_pro_3": "Madewis",
         "content_project_pro_3": "Développement from scratch d'une application mobile Android/iOS en Flutter afin de visualiser les informations des tournois sportifs organisés par le client.",
         "title_project_pro_4": "Hobbies",
-        "content_project_pro_4": "Développement from scratch d'une solution mobile Android/iOS en Flutter d'un réseau social pour rencontrer des gens ayant les mêmes centres d'interêts.",
+        "content_project_pro_4": "Développement from scratch d'une solution mobile Android/iOS en Flutter d'un réseau social pour rencontrer des gens ayant les mêmes centres d'interêt.",
         "title_project_pro_5": "La croix rouge française",
         "content_project_pro_5": "Développement from scratch pour un organisme français d'une solution mobile Android/iOS en Flutter pour faciliter la visualisation des présents/absents lors des formations.",
         "title_project_perso_1": "Gemu",
-        "content_project_perso_1": "Version 1 d'une application de réseau social pour les personnes intéressées par l'e-sport et les jeux vidéo développée en Flutter reliée à un serveur Firebase. Pourquoi pas une version 2, affaire à suivre....",
+        "content_project_perso_1": "Version 1 d'une application de réseau social pour les personnes intéressées par l'e-sport et les jeux vidéo développés en Flutter reliée à un serveur Firebase. Pourquoi pas une version 2, affaire à suivre....",
         "title_project_perso_2": "My youkounkoun",
         "content_project_perso_2": "Une application dotée d'une grande variété de fonctions de base et de fonctions complexes très utiles lors de la création d'une nouvelle application. Pourquoi repartir de zéro à chaque fois ? L'application front-end est développée avec Flutter et le back-end sera développé en Node.js en lien avec la base de données MySQL.",
         "title_project_perso_3": "Portfolio 3D",
@@ -95,25 +95,22 @@
     "contact_me": {
         "title": "Me contacter",
         "subtitle": "N'hésite pas à me poser la moindre question ou à me faire un retour...",
-        "title_name": "Votre nom",
-        "label_name": "Quel est votre nom ?",
-        "title_firstname": "Votre prénom",
-        "label_firstname": "Quel est votre prénom ?",
-        "title_post": "Votre poste / métier",
-        "label_post": "Quel est votre poste / métier ?",
-        "title_email": "Votre email",
-        "label_email": "Quel est votre email ?",
-        "title_message": "Votre message",
-        "label_message": "Que voulez-vous dire ?",
+        "title_name": "Ton nom",
+        "label_name": "Quel est ton nom ?",
+        "title_firstname": "Ton prénom",
+        "label_firstname": "Quel est ton prénom ?",
+        "title_post": "Ton poste / métier",
+        "label_post": "Quel est ton poste / métier ?",
+        "title_email": "Ton email",
+        "label_email": "Quel est ton email ?",
+        "title_message": "Ton message",
+        "label_message": "Que veux-tu dire ?",
         "send": "Envoyer",
         "loading_send": "Envoi en cours...",
         "title_validate": "Mail envoyé",
-        "content_validate": "Merci. Je vous répondrai dans les plus brefs délais.",
+        "content_validate": "Merci. Je te répondrai dans les plus brefs délais.",
         "title_error": "Erreur",
         "content_error_1": "Les champs ne sont pas tous remplis.",
         "content_error_2": "Quelque chose n'a pas fonctionné."
-    },
-    "wip": {
-        "label": "En cours de développement..."
     }
 }

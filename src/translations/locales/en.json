@@ -112,8 +112,5 @@
         "title_error": "Error",
         "content_error_1": "Not all fields are filled in.",
         "content_error_2": "Something went wrong."
-    },
-    "wip": {
-        "label": "Currently in development..."
     }
 }
