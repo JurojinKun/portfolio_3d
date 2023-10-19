@@ -53,7 +53,6 @@ const LanguageSwitcher = ({ openingDirection }) => {
 
     const changeLanguage = (selectedOption) => {
         i18n.changeLanguage(selectedOption.value);
-        console.log(selectedOption.value);
         dispatch(setLanguage(selectedOption.value));
     };
 

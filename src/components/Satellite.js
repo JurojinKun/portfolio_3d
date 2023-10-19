@@ -101,7 +101,12 @@ const Satellite = ({ color, visible, position, index }) => {
 
   return (
     <group position={position} visible={visible}>
-      <Hexagon hexagonRef={satelliteRef} hexagonColor={color} onClick={() => onSatelliteClick(index)} iconPath={satelliteIconPath(index)} />
+      <Hexagon hexagonRef={satelliteRef} hexagonColor={color} onClick={() => {
+        onSatelliteClick(index);
+        if (document.body.style.cursor === "pointer") {
+          document.body.style.cursor = "auto";
+        }
+      }} iconPath={satelliteIconPath(index)} visible={visible} />
       <Text
         position={[0, -0.27, 0]}
         fontSize={0.10}
@@ -109,7 +114,12 @@ const Satellite = ({ color, visible, position, index }) => {
         textAlign="center"
         fontWeight="bold"
         font="/fonts/SpaceMono-Bold.ttf"
-        onClick={visible && (() => onSatelliteClick(index))}
+        onClick={visible && (() => {
+          onSatelliteClick(index);
+          if (document.body.style.cursor === "pointer") {
+            document.body.style.cursor = "auto";
+          }
+        })}
       >
         {satelliteName(index)}
       </Text>

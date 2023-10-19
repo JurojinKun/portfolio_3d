@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { ExtrudeGeometry, Shape, TextureLoader, MeshBasicMaterial, PlaneGeometry, DoubleSide } from "three";
 import { useLoader } from "@react-three/fiber";
 
-const Hexagon = ({ hexagonRef, hexagonColor, onClick, iconPath }) => {
+const Hexagon = ({ hexagonRef, hexagonColor, onClick, iconPath, visible }) => {
     const iconTexture = useLoader(TextureLoader, iconPath);
 
     const iconMaterial = useMemo(() => new MeshBasicMaterial({ map: iconTexture, transparent: true, side: DoubleSide }), [iconTexture]);
@@ -30,9 +30,25 @@ const Hexagon = ({ hexagonRef, hexagonColor, onClick, iconPath }) => {
 
     const iconGeometry = useMemo(() => new PlaneGeometry(0.15, 0.15), []);
 
+    const handlePointerOver = () => {
+        document.body.style.cursor = "pointer";
+    };
+
+    const handlePointerOut = () => {
+        document.body.style.cursor = "auto";
+    };
+
     return (
         <group ref={hexagonRef}>
-            <mesh geometry={hexagonGeometry} onClick={onClick}>
+            <mesh geometry={hexagonGeometry} onClick={onClick} onPointerOver={() => {
+                if (visible) {
+                    handlePointerOver();
+                }
+            }} onPointerOut={() => {
+                if (visible) {
+                    handlePointerOut();
+                }
+            }} >
                 <meshBasicMaterial visible={false} />
             </mesh>
             <mesh geometry={hexagonGeometry}>

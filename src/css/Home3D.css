@@ -67,12 +67,14 @@
     font-size: 15px;
     font-weight: 700;
     font-family: "Space Mono";
+    cursor: pointer;
 }
 
 .span-language {
     display: flex; 
     align-items: center;
     justify-content: flex-start;
+    cursor: pointer;
 }
 
 .flag {

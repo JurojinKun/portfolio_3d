@@ -122,6 +122,7 @@
     width: fit-content;
     align-self: center;
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .submit:hover {
