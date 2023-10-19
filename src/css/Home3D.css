@@ -229,13 +229,26 @@
     display: flex;
     margin-top: 40px;
     width: auto;
-    max-width: 60%;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
-.icon-contact {
+.icon-contact-github {
     color: white;
+    height: 30px;
+    width: 30px;
+}
+
+.icon-contact-linkedin {
+    color: white;
+    height: 25px;
+    width: 25px;
+}
+
+.icon-contact-download {
+    color: white;
+    height: 25px;
+    width: 25px;
 }
 
 .container {
@@ -284,7 +297,15 @@
     justify-content: center;
 }
 
-.roundButton-hovered .icon-contact {
+.roundButton-hovered .icon-contact-github {
+    color: #1A1B1B;
+}
+
+.roundButton-hovered .icon-contact-linkedin {
+    color: #1A1B1B;
+}
+
+.roundButton-hovered .icon-contact-download {
     color: #1A1B1B;
 }
 
@@ -408,13 +429,30 @@
         height: 40px;
     }
 
+    .icon-contact-github {
+        color: white;
+        height: 25px;
+        width: 25px;
+    }
+    
+    .icon-contact-linkedin {
+        color: white;
+        height: 20px;
+        width: 20px;
+    }
+    
+    .icon-contact-download {
+        color: white;
+        height: 20px;
+        width: 20px;
+    }
+
     .titleContainer {
         font-size: 14px;
     }
 
     .container-btns {
         margin-top: 35px;
-        max-width: 70%;
     }
 
     @keyframes wheel {
@@ -518,13 +556,30 @@
         height: 35px;
     }
 
+    .icon-contact-github {
+        color: white;
+        height: 22px;
+        width: 22px;
+    }
+    
+    .icon-contact-linkedin {
+        color: white;
+        height: 17px;
+        width: 17px;
+    }
+    
+    .icon-contact-download {
+        color: white;
+        height: 17px;
+        width: 17px;
+    }
+
     .titleContainer {
         font-size: 13px;
     }
 
     .container-btns {
         margin-top: 30px;
-        max-width: 80%;
     }
 
     @keyframes wheel {
@@ -624,13 +679,30 @@
         height: 30px;
     }
 
+    .icon-contact-github {
+        color: white;
+        height: 20px;
+        width: 20px;
+    }
+    
+    .icon-contact-linkedin {
+        color: white;
+        height: 15px;
+        width: 15px;
+    }
+    
+    .icon-contact-download {
+        color: white;
+        height: 15px;
+        width: 15px;
+    }
+
     .titleContainer {
         font-size: 12px;
     }
 
     .container-btns {
         margin-top: 20px;
-        max-width: 80%;
     }
 
     @keyframes wheel {
