@@ -58,7 +58,45 @@ const SkillModal = ({ skill, setSelectedSkill }) => {
         }
     }
 
+    const contentSkill = (skill) => {
+        switch (skill) {
+            case "Bitbucket":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "C":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "Firebase":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "Flutter":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "GitHub":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "MySQL":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "Node js":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "Postman":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "Python":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "React native":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "React js":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "React redux":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "Sequelize":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "SourceTree":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            case "Three js":
+                return "Depuis l'aube des temps, les hommes se sont posé des questions sur la nature même de l'existence et sur la place de l'humanité dans le vaste univers. Est-ce que tout ce qui nous entoure est le fruit du hasard ou y a-t-il une raison profonde à notre existence? Quelle est la véritable nature de la réalité qui nous entoure et comment la percevons-nous?";
+            default:
+                return "";
+        }
+    }
+
     const skillImage = imgSkill(skill);
+    const skillContent = contentSkill(skill);
 
     return (
         <AnimatePresence>
@@ -73,6 +111,7 @@ const SkillModal = ({ skill, setSelectedSkill }) => {
                 </div>
                 <img src={skillImage} alt='Skill img' className="item-img-skill" />
                 <span className="title-animated-item-skill">{skill}</span>
+                <span className="content-animated-item-skill">{skillContent}</span>
             </motion.div>
         </AnimatePresence>
     );
