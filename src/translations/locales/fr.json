@@ -47,7 +47,22 @@
         "skill_title_4": "Et pourquoi pas développeur back ?",
         "skill_paragraph_4": "J'ai beaucoup parlé de ma montée en compétences dans le développement front, mais qu'en est-il du développement back ? \n\nJ'ai pu participer à des ajouts et modifications dans certains projets en faisant du Node js mais j'ai encore beaucoup à apprendre afin de devenir un développeur full stack.",
         "skill_title_5": "L'avenir...",
-        "skill_paragraph_5": "Quelle aventure déjà ! Et la suite alors ? \n\nComme je l'ai dit, j'aimerais dans un futur proche, devenir un développeur full stack et par la suite de ma carrière, toujours prendre du plaisir dans ce que je fais et apprendre toujours de nouvelles choses et de nouvelles technologies."
+        "skill_paragraph_5": "Quelle aventure déjà ! Et la suite alors ? \n\nComme je l'ai dit, j'aimerais dans un futur proche, devenir un développeur full stack et par la suite de ma carrière, toujours prendre du plaisir dans ce que je fais et apprendre toujours de nouvelles choses et de nouvelles technologies.",
+        "content_bitbucket": "",
+        "content_c": "",
+        "content_firebase": "",
+        "content_flutter": "",
+        "content_github": "",
+        "content_mysql": "",
+        "content_nodejs": "",
+        "content_postman": "",
+        "content_python": "",
+        "content_reactnative": "",
+        "content_reactjs": "",
+        "content_reactredux": "",
+        "content_sequelize": "",
+        "content_sourcetree": "",
+        "content_threejs": ""
     },
     "experiences": {
         "title": "Expériences",

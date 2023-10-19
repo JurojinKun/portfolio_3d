@@ -140,7 +140,7 @@ const Skills = () => {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }} />
             )}
-            {selectedSkill && (<SkillModal skill={selectedSkill} setSelectedSkill={setSelectedSkill} />)}
+            {selectedSkill && (<SkillModal skill={selectedSkill} setSelectedSkill={setSelectedSkill} t={t} />)}
         </>
     );
 };

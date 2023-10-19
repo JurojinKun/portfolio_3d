@@ -47,7 +47,22 @@
         "skill_title_4": "Why not a back-end developer?",
         "skill_paragraph_4": "I've talked a lot about my increasing skills in front-end development, but what about back-end development? \n\nI've been able to participate in additions and modifications to certain projects using Node js, but I still have a lot to learn in order to become a full stack developer.",
         "skill_title_5": "What's next?",
-        "skill_paragraph_5": "What an adventure! So what's next? \n\nAs I said, in the near future I'd like to become a full stack developer and, as my career progresses, I'll always enjoy what I do and always be learning new things and new technologies."
+        "skill_paragraph_5": "What an adventure! So what's next? \n\nAs I said, in the near future I'd like to become a full stack developer and, as my career progresses, I'll always enjoy what I do and always be learning new things and new technologies.",
+        "content_bitbucket": "",
+        "content_c": "",
+        "content_firebase": "",
+        "content_flutter": "",
+        "content_github": "",
+        "content_mysql": "",
+        "content_nodejs": "",
+        "content_postman": "",
+        "content_python": "",
+        "content_reactnative": "",
+        "content_reactjs": "",
+        "content_reactredux": "",
+        "content_sequelize": "",
+        "content_sourcetree": "",
+        "content_threejs": ""
     },
     "experiences": {
         "title": "Experiences",
