@@ -89,10 +89,6 @@ const Skills = () => {
                             <div className="circle" />
                             <TagCloud
                                 className="tagcloud-skill"
-                                style={{
-                                    pointerEvents: "none"
-                                }}
-
                                 options={(w, TagCloudOptions) => ({
                                     radius: Math.min(800, windowWidth, 800) / 2.5,
                                 })}

@@ -126,7 +126,7 @@ const ContactMe = ({ threshold }) => {
                                 gap: "2rem"
                             }}
                         >
-                            <label style={{
+                            <div style={{
                                 display: "flex",
                                 flexDirection: "column"
                             }}>
@@ -141,8 +141,8 @@ const ContactMe = ({ threshold }) => {
                                     placeholder={t("contact_me.label_name")}
                                     className="input fontBodyNormalContactMe"
                                 />
-                            </label>
-                            <label style={{
+                            </div>
+                            <div style={{
                                 display: "flex",
                                 flexDirection: "column"
                             }}>
@@ -157,8 +157,8 @@ const ContactMe = ({ threshold }) => {
                                     placeholder={t("contact_me.label_firstname")}
                                     className="input fontBodyNormalContactMe"
                                 />
-                            </label>
-                            <label style={{
+                            </div>
+                            <div style={{
                                 display: "flex",
                                 flexDirection: "column"
                             }}>
@@ -174,8 +174,8 @@ const ContactMe = ({ threshold }) => {
                                     className="input fontBodyNormalContactMe"
                                     autoComplete="off"
                                 />
-                            </label>
-                            <label style={{
+                            </div>
+                            <div style={{
                                 display: "flex",
                                 flexDirection: "column"
                             }}>
@@ -190,8 +190,8 @@ const ContactMe = ({ threshold }) => {
                                     placeholder={t("contact_me.label_email")}
                                     className="input fontBodyNormalContactMe"
                                 />
-                            </label>
-                            <label style={{
+                            </div>
+                            <div style={{
                                 display: "flex",
                                 flexDirection: "column"
                             }}>
@@ -207,7 +207,7 @@ const ContactMe = ({ threshold }) => {
                                     className="input fontBodyNormalContactMe"
                                     autoComplete="off"
                                 />
-                            </label>
+                            </div>
 
                             <button
                                 type="submit"

@@ -1,52 +1,13 @@
 import '../css/Home3D.css';
 
 import React from 'react';
-import { styled } from '@mui/system';
 import { useTranslation } from 'react-i18next';
 import { IconRoundButton } from "./ButtonsCustom";
-import DownloadIcon from '@mui/icons-material/Download';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import { isMobile } from 'react-device-detect';
+import { FaLinkedin } from 'react-icons/fa';
+import { AiFillGithub } from 'react-icons/ai';
+import { HiDownload } from 'react-icons/hi';
 
-const ResponsiveDownloadIcon = styled(DownloadIcon)(({ theme }) => ({
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-    [theme.breakpoints.down('sm')]: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
-    },
-    [theme.breakpoints.down('xs')]: {
-        width: theme.spacing(1),
-        height: theme.spacing(1),
-    },
-}));
-
-const ResponsiveLinkedInIcon = styled(LinkedInIcon)(({ theme }) => ({
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-    [theme.breakpoints.down('sm')]: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
-    },
-    [theme.breakpoints.down('xs')]: {
-        width: theme.spacing(1),
-        height: theme.spacing(1),
-    },
-}));
-
-const ResponsiveGitHubIcon = styled(GitHubIcon)(({ theme }) => ({
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-    [theme.breakpoints.down('sm')]: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
-    },
-    [theme.breakpoints.down('xs')]: {
-        width: theme.spacing(1),
-        height: theme.spacing(1),
-    },
-}));
 
 const Overview = ({ opacity }) => {
     const { t } = useTranslation();
@@ -72,9 +33,9 @@ const Overview = ({ opacity }) => {
                 <p className='fontBodyNormalHome3D'>{t("overview.second_para")} 🔥</p>
                 <p className='fontBodyNormalHome3D'>{t("overview.third_para")} 👀</p>
                 <div className='container-btns'>
-                    <IconRoundButton icon={<ResponsiveGitHubIcon className='icon-contact' />} url="https://github.com/JurojinKun" title={"GitHub"} />
-                    <IconRoundButton icon={<ResponsiveLinkedInIcon className='icon-contact' />} url="https://www.linkedin.com/in/clément-communay" title={"LinkedIn"} />
-                    <IconRoundButton icon={<ResponsiveDownloadIcon className='icon-contact' />} url="/cv/CV_Clement_Communay.pdf" title={"CV"} />
+                    <IconRoundButton icon={<AiFillGithub className='icon-contact-github' />} url="https://github.com/JurojinKun" title={"GitHub"} />
+                    <IconRoundButton icon={<FaLinkedin className='icon-contact-linkedin' />} url="https://www.linkedin.com/in/clément-communay" title={"LinkedIn"} />
+                    <IconRoundButton icon={<HiDownload className='icon-contact-download' />} url="/cv/CV_Clement_Communay.pdf" title={"CV"} />
                 </div>
                 <div style={{ display: "inline-flex", alignItems: "center" }}>
                     <p className='scroll-content'>{t("overview.embark")}</p>
@@ -104,9 +65,9 @@ const Overview = ({ opacity }) => {
                 <p className='fontBodyNormalHome3D'>{t("overview.second_para")} 🔥</p>
                 <p className='fontBodyNormalHome3D'>{t("overview.third_para")} 👀</p>
                 <div className='container-btns'>
-                    <IconRoundButton icon={<ResponsiveGitHubIcon className='icon-contact' />} url="https://github.com/JurojinKun" title={"GitHub"} />
-                    <IconRoundButton icon={<ResponsiveLinkedInIcon className='icon-contact' />} url="https://www.linkedin.com/in/clément-communay" title={"LinkedIn"} />
-                    <IconRoundButton icon={<ResponsiveDownloadIcon className='icon-contact' />} url="/cv/CV_Clement_Communay.pdf" title={"CV"} />
+                    <IconRoundButton icon={<AiFillGithub className='icon-contact-github' />} url="https://github.com/JurojinKun" title={"GitHub"} />
+                    <IconRoundButton icon={<FaLinkedin className='icon-contact-linkedin' />} url="https://www.linkedin.com/in/clément-communay" title={"LinkedIn"} />
+                    <IconRoundButton icon={<HiDownload className='icon-contact-download' />} url="/cv/CV_Clement_Communay.pdf" title={"CV"} />
                 </div>
             </div>
             <div style={{

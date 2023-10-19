@@ -220,6 +220,20 @@ const Portfolio = () => {
         }
     }, [isOpen]);
 
+    useEffect(() => {
+
+        const blockOverflowBody = () => {
+            if (isOpen) {
+                document.body.style.overflowY = 'hidden'
+            } else {
+                document.body.style.overflowY = 'auto'
+            }
+        }
+
+        blockOverflowBody();
+        
+    }, [isOpen])
+
     return (
         !sections.includes(isCurrentSection) && isCurrentSection ?
             <NotFound /> :
