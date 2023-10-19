@@ -8,12 +8,23 @@
     font-family: "Space Mono";
     font-weight: 400;
     font-size: 20px;
+    border-radius: 10px;
 }
 
 .alert-action {
     font-family: "Space Mono";
     font-weight: 700;
     font-size: 23px;
+    background-color: #1A1B1B !important;
+    border-radius: 0.75rem;
+    border: 2px solid #47CDD6 !important;
+    color: white !important;
+    transition: background-color 0.3s ease;
+    box-shadow: none !important;
+}
+
+.alert-action:hover {
+    background-color: #47CDD6 !important; 
 }
 
 .swal2-container {
