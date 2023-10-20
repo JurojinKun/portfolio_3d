@@ -256,7 +256,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0 5px 0 5px;
     width: 150px;
 }
 
@@ -325,6 +324,24 @@
 
 .titleContainer.visible {
     opacity: 1;
+}
+
+.titleContainer-mobile {
+    background-color: #1A1B1B;
+    transition: background-color 0.3s ease;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-size: 'Space Mono';
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.titleContainer-mobile.visible {
+    background-color: #5DADD2;
+    color: #1A1B1B;
 }
 
 .black-hole span {
@@ -451,8 +468,16 @@
         font-size: 14px;
     }
 
+    .titleContainer-mobile {
+        font-size: 14px;
+    }
+
     .container-btns {
         margin-top: 35px;
+    }
+
+    .container {
+        width: 130px;
     }
 
     @keyframes wheel {
@@ -578,8 +603,16 @@
         font-size: 13px;
     }
 
+    .titleContainer-mobile {
+        font-size: 13px;
+    }
+
     .container-btns {
         margin-top: 30px;
+    }
+
+    .container {
+        width: 110px;
     }
 
     @keyframes wheel {
@@ -701,8 +734,16 @@
         font-size: 12px;
     }
 
+    .titleContainer-mobile {
+        font-size: 12px;
+    }
+
     .container-btns {
         margin-top: 20px;
+    }
+
+    .container {
+        width: 90px;
     }
 
     @keyframes wheel {
