@@ -1,9 +1,13 @@
 import '../css/Loading.css';
 
-import React from "react";
+import React, { useEffect } from "react";
 
 const Loading = () => {
     var language = window.navigator.language || window.navigator.userLanguage;
+
+    useEffect(() => {
+        document.body.style.overflow = "hidden";
+    }, []);
 
     return (
         <div className="loading-screen">
