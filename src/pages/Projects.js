@@ -1,14 +1,13 @@
 import "../css/Projects.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Carousel from "react-spring-3d-carousel";
 import { config } from "react-spring";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { isMobile } from 'react-device-detect';
-import { FaTimes } from 'react-icons/fa';
 
 import smv from '../assets/projects/smv.jpg';
 import corsica from '../assets/projects/corsica.jpg';
@@ -20,6 +19,7 @@ import myyoukounkoun from '../assets/projects/myyoukounkoun.jpg';
 import portfolio from '../assets/projects/portfolio.jpg';
 import { textVariant, fadeIn } from "../utils/motion";
 import Slide from "../components/Slide";
+import ProjectModal from "../components/ProjectModal";
 
 const ProProjects = ({ menuOpened, t, threshold }) => {
 
@@ -37,7 +37,19 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
     });
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [selectedId, setSelectedId] = useState(null);
+    const [selectedProject, setSelectedProject] = useState(null);
+
+    useEffect(() => {
+        const setOverflowBody = () => {
+            if (selectedProject === null) {
+                document.body.style.overflowY = "auto";
+            } else {
+                document.body.style.overflowY = "hidden";
+            }
+        }
+
+        setOverflowBody();
+    }, [selectedProject]);
 
     const slides = [
         {
@@ -88,7 +100,7 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
                         });
                         setCurrentIndex(index);
                     } else {
-                        // setSelectedId(slide.key);
+                        setSelectedProject(slide.key);
                     }
                 }
             }
@@ -146,25 +158,16 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
                 </div>
             </motion.div>
 
-            {selectedId && (
-                <div className="overlay-animated-content-slide"></div>
+            {selectedProject && (
+                <motion.div
+                    className="overlay-animated-item-project"
+                    layoutId={"backgroundProject"}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }} />
             )}
-            <AnimatePresence>
-                {selectedId && (
-                    <motion.div className="animated-content-slide"
-                        layoutId={selectedId}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.6, ease: "easeInOut" }}
-                        style={{ backgroundImage: `url(${slides[currentIndex].img})` }}>
-                        <motion.div className="icon-close-hover" onClick={() => setSelectedId(null)}>
-                            <FaTimes className="icon-close" />
-                        </motion.div>
-                        <motion.div className="title-animated-content-slide">{slides[currentIndex].titleSlide}</motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {selectedProject && (<ProjectModal project={slides[currentIndex].titleSlide} imgProject={slides[currentIndex].img} setSelectedProject={setSelectedProject} />)}
         </>
     );
 
@@ -186,7 +189,19 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
     });
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [selectedId, setSelectedId] = useState(null);
+    const [selectedProject, setSelectedProject] = useState(null);
+
+    useEffect(() => {
+        const setOverflowBody = () => {
+            if (selectedProject === null) {
+                document.body.style.overflowY = "auto";
+            } else {
+                document.body.style.overflowY = "hidden";
+            }
+        }
+
+        setOverflowBody();
+    }, [selectedProject]);
 
     let slides = [
         {
@@ -224,7 +239,7 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
                         });
                         setCurrentIndex(index);
                     } else {
-                        // setSelectedId(slide.key);
+                        setSelectedProject(slide.key);
                     }
                 }
             }
@@ -284,25 +299,16 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
                 </div>
             </motion.div>
 
-            {selectedId && (
-                <div className="overlay-animated-content-slide"></div>
+            {selectedProject && (
+                <motion.div
+                    className="overlay-animated-item-project"
+                    layoutId={"backgroundProject"}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }} />
             )}
-            <AnimatePresence>
-                {selectedId && (
-                    <motion.div className="animated-content-slide"
-                        layoutId={selectedId}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.6, ease: "easeInOut" }}
-                        style={{ backgroundImage: `url(${slides[currentIndex].img})` }}>
-                        <motion.div className="icon-close-hover" onClick={() => setSelectedId(null)}>
-                            <FaTimes className="icon-close" />
-                        </motion.div>
-                        <motion.div className="title-animated-content-slide">{slides[currentIndex].titleSlide}</motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {selectedProject && (<ProjectModal project={slides[currentIndex].titleSlide} imgProject={slides[currentIndex].img} setSelectedProject={setSelectedProject} />)}
         </>
     );
 }
