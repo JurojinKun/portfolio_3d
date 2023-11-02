@@ -22,9 +22,18 @@ const ProjectModal = ({ project, imgProject, setSelectedProject }) => {
                         <img src={imgProject} alt='Project img' className="item-img-project" />
                         <span className="title-animated-item-project">{project}</span>
                     </div>
-                    <div className="bottom-right" />
-                    <div className="bottom-left" />
-                    <div className="top-left" />
+                    <div className="top-left">
+                        <span className="title-context-item-project">Contexte</span>
+                        <span className="content-context-item-project">Texte du contexte</span>
+                    </div>
+                    <div className="bottom-left">
+                        <span className="title-challenges-item-project">Challenges</span>
+                        <span className="content-challenges-item-project">Texte des challenges</span>
+                    </div>
+                    <div className="bottom-right">
+                        <span className="title-results-item-project">Résultats</span>
+                        <span className="content-results-item-project">Texte des résultats</span>
+                    </div>
                 </div>
             </motion.div>
         </AnimatePresence>
@@ -32,18 +41,3 @@ const ProjectModal = ({ project, imgProject, setSelectedProject }) => {
 }
 
 export default ProjectModal;
-
-{/* <AnimatePresence>
-            <motion.div className="animated-item-project"
-                layoutId={project}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}>
-                <div className="icon-close-hover-project" onClick={() => setSelectedProject(null)}>
-                    <FaTimes className="icon-close-project" />
-                </div>
-                <img src={imgProject} alt='Project img' className="item-img-project" />
-                <span className="title-animated-item-project">{project}</span>
-            </motion.div>
-        </AnimatePresence> */}
