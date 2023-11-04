@@ -167,7 +167,7 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }} />
             )}
-            {selectedProject && (<ProjectModal project={slides[currentIndex].titleSlide} imgProject={slides[currentIndex].img} setSelectedProject={setSelectedProject} />)}
+            {selectedProject && (<ProjectModal project={slides[currentIndex].titleSlide} imgProject={slides[currentIndex].img} setSelectedProject={setSelectedProject} t={t} />)}
         </>
     );
 
@@ -308,7 +308,7 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }} />
             )}
-            {selectedProject && (<ProjectModal project={slides[currentIndex].titleSlide} imgProject={slides[currentIndex].img} setSelectedProject={setSelectedProject} />)}
+            {selectedProject && (<ProjectModal project={slides[currentIndex].titleSlide} imgProject={slides[currentIndex].img} setSelectedProject={setSelectedProject} t={t} />)}
         </>
     );
 }
