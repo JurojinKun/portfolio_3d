@@ -452,6 +452,27 @@
     white-space: pre-line;
 }
 
+.btn-repository-project {
+    background-color: #1A1B1B;
+    margin-top: 15px;
+    padding: 3% 6%;
+    border-radius: 10px;
+    border: 2px solid #47CDD6;
+    outline: none;
+    width: fit-content;
+    align-self: center;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    font-family: 'Space Mono';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.btn-repository-project:hover {
+    background-color: #47CDD6
+}
+
 @media (min-width: 481px) and (max-width: 824px) {
     .fontTitleNormalProjects {
         font-size: 17px;
@@ -576,6 +597,10 @@
     }
 
     .content-results-item-project {
+        font-size: 17px;
+    }
+
+    .btn-repository-project {
         font-size: 17px;
     }
 }
@@ -713,6 +738,10 @@
         font-size: 15px;
     }
 
+    .btn-repository-project {
+        font-size: 15px;
+        border-radius: 5px;
+    }
 }
 
 @media (max-width: 390px) {
@@ -846,5 +875,10 @@
 
     .content-results-item-project {
         font-size: 12px;
+    }
+
+    .btn-repository-project {
+        font-size: 12px;
+        border-radius: 5px;
     }
 }
