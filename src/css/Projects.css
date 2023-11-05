@@ -221,8 +221,7 @@
     overflow: hidden;
 }
 
-/*new part animated presence*/
-.overlay-animated-content-slide {
+.overlay-animated-item-project {
     position: fixed;
     top: 0;
     left: 0;
@@ -234,71 +233,244 @@
     z-index: 999;
 }
 
-.animated-content-slide {
+.image-hover-container {
     position: fixed;
-    height: 50%;
-    width: 30%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
+/* Container */
+.image-hover-container .container {
+    position: relative;
+    min-height: 250px;
+    height: 60%;
+    width: 20%;
+    margin: auto;
+    display: flex;
+}
+
+/* Middle */
+.image-hover-container .container .middle {
+    position: absolute;
     z-index: 1000;
-    background-color: rgba(26, 27, 27, 0.5);
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(26, 26, 26, 0.6);
     border-radius: 10px;
     background-size: cover;
     background-position: center;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.animated-content-slide::before {
-    content: "";
+/* Positions for bottom and top elements */
+.image-hover-container .container .top-left {
     position: absolute;
-    top: -5px;
-    right: -5px;
-    bottom: -5px;
-    left: -5px;
-    background: inherit;
-    background-color: rgba(26, 27, 27, 0.6);
-    background-blend-mode: overlay;
-    filter: blur(5px);
-    z-index: -1;
+    z-index: 1000;
+    height: 50%;
+    width: 100%;
+    box-shadow: -5px 5px 5px rgba(71, 205, 214, 0.3);
+    background-color: rgba(26, 26, 26, 1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
-.icon-close {
+.image-hover-container .container .bottom-left {
+    position: absolute;
+    z-index: 1000;
+    height: 50%;
+    width: 100%;
+    box-shadow: -5px 5px 5px rgba(71, 205, 214, 0.3);
+    background-color: rgba(26, 26, 26, 1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.image-hover-container .container .bottom-right {
+    position: absolute;
+    z-index: 1000;
+    height: 70%;
+    width: 100%;
+    box-shadow: 5px 5px 5px rgba(71, 205, 214, 0.3);
+    background-color: rgba(26, 26, 26, 1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Updated animations for the positions */
+.image-hover-container .container .top-left {
+    animation: moveTopLeft 800ms forwards;
+}
+
+.image-hover-container .container .bottom-right {
+    animation: moveBottomRight 800ms forwards;
+}
+
+.image-hover-container .container .bottom-left {
+    animation: moveBottomLeft 800ms forwards;
+}
+
+@keyframes moveTopLeft {
+    0% {
+        top: 0;
+        left: 0;
+    }
+
+    100% {
+        top: -10%;
+        left: -90%;
+    }
+}
+
+@keyframes moveBottomLeft {
+    0% {
+        top: 0;
+        left: 0;
+    }
+
+    100% {
+        top: 60%;
+        left: -90%;
+    }
+}
+
+@keyframes moveBottomRight {
+    0% {
+        top: 0;
+        left: 0;
+    }
+
+    100% {
+        top: 35%;
+        left: 90%;
+    }
+}
+
+.icon-close-project {
     color: white;
     height: 30px;
     width: 30px;
 }
 
-.icon-close-hover {
+.icon-close-hover-project {
     position: absolute;
     top: 10px;
     right: 10px;
     display: flex;
-    height: 45px;
-    width: 45px;
+    height: 35px;
+    width: 35px;
     cursor: pointer;
     align-items: center;
     justify-content: center;
     padding: 8px;
     border-radius: 60px;
-    background-color: rgba(2, 2, 13, 0.3)
 }
 
-.icon-close-hover:hover {
-    height: 45px;
-    width: 45px;
+.icon-close-hover-project:hover {
+    height: 35px;
+    width: 35px;
     border-radius: 60px;
-    background-color: rgba(2, 2, 13, 0.6)
+    background-color: rgba(71, 205, 214, 0.3)
 }
 
-.title-animated-content-slide {
+.item-img-project {
+    max-width: 60%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.title-context-item-project {
     font-family: "Space Mono";
     font-weight: 700;
-    font-size: 40px;
+    font-size: 20px;
     color: white;
-    text-align: center;
+    margin: 5% 0 5% 5%;
+}
+
+.content-context-item-project {
+    display: flex;
+    margin: 0 5% 5% 5%;
+    padding: 0 5px 0 0;
+    overflow-y: auto;
+    font-family: "Space Mono";
+    font-weight: 400;
+    font-size: 20px;
+    color: white;
+    white-space: pre-line;
+}
+
+.title-challenges-item-project {
+    font-family: "Space Mono";
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    margin: 5% 0 5% 5%;
+}
+
+.content-challenges-item-project {
+    display: flex;
+    margin: 0 5% 5% 5%;
+    padding: 0;
+    overflow-y: auto;
+    font-family: "Space Mono";
+    font-weight: 400;
+    font-size: 20px;
+    color: white;
+    white-space: pre-line;
+}
+
+.title-results-item-project {
+    font-family: "Space Mono";
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    margin: 5% 0 5% 5%;
+}
+
+.content-results-item-project {
+    display: flex;
+    margin: 0 5% 5% 5%;
+    padding: 0;
+    overflow-y: auto;
+    font-family: "Space Mono";
+    font-weight: 400;
+    font-size: 20px;
+    color: white;
+    white-space: pre-line;
+}
+
+.btn-repository-project {
+    background-color: #1A1B1B;
+    margin-top: 15px;
+    padding: 3% 6%;
+    border-radius: 10px;
+    border: 2px solid #47CDD6;
+    outline: none;
+    width: fit-content;
+    align-self: center;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    font-family: 'Space Mono';
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+}
+
+.btn-repository-project:hover {
+    background-color: #47CDD6
 }
 
 @media (min-width: 481px) and (max-width: 824px) {
@@ -381,6 +553,55 @@
     .content-slide-mobile p {
         font-size: 17px;
         margin: 10px 10px 20px 10px;
+    }
+
+    .icon-close-project {
+        height: 25px;
+        width: 25px;
+    }
+
+    .icon-close-hover-project {
+        top: 5px;
+        right: 5px;
+        height: 30px;
+        width: 30px;
+    }
+
+    .icon-close-hover-project:hover {
+        height: 30px;
+        width: 30px;
+    }
+
+    .image-hover-container .container {
+        height: 60%;
+        width: 30%;
+    }
+
+    .title-context-item-project {
+        font-size: 17px;
+    }
+
+    .title-challenges-item-project {
+        font-size: 17px;
+    }
+
+    .title-results-item-project {
+        font-size: 17px;
+    }
+
+    .content-context-item-project {
+        font-size: 17px;
+    }
+    .content-challenges-item-project {
+        font-size: 17px;
+    }
+
+    .content-results-item-project {
+        font-size: 17px;
+    }
+
+    .btn-repository-project {
+        font-size: 17px;
     }
 }
 
@@ -471,6 +692,56 @@
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 4;
     }
+
+    .icon-close-project {
+        height: 20px;
+        width: 20px;
+    }
+
+    .icon-close-hover-project {
+        top: 0;
+        right: 0;
+        height: 25px;
+        width: 25px;
+    }
+
+    .icon-close-hover-project:hover {
+        height: 25px;
+        width: 25px;
+    }
+
+    .image-hover-container .container {
+        height: 50%;
+        width: 30%;
+    }
+
+    .title-context-item-project {
+        font-size: 15px;
+    }
+
+    .title-challenges-item-project {
+        font-size: 15px;
+    }
+
+    .title-results-item-project {
+        font-size: 15px;
+    }
+
+    .content-context-item-project {
+        font-size: 15px;
+    }
+    .content-challenges-item-project {
+        font-size: 15px;
+    }
+
+    .content-results-item-project {
+        font-size: 15px;
+    }
+
+    .btn-repository-project {
+        font-size: 15px;
+        border-radius: 5px;
+    }
 }
 
 @media (max-width: 390px) {
@@ -559,5 +830,55 @@
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 4;
+    }
+
+    .icon-close-project {
+        height: 15px;
+        width: 15px;
+    }
+
+    .icon-close-hover-project {
+        top: 0;
+        right: 0;
+        height: 20px;
+        width: 20px;
+    }
+
+    .icon-close-hover-project:hover {
+        height: 20px;
+        width: 20px;
+    }
+
+    .image-hover-container .container {
+        height: 40%;
+        width: 30%;
+    }
+
+    .title-context-item-project {
+        font-size: 12px;
+    }
+
+    .title-challenges-item-project {
+        font-size: 12px;
+    }
+
+    .title-results-item-project {
+        font-size: 12px;
+    }
+
+    .content-context-item-project {
+        font-size: 12px;
+    }
+    .content-challenges-item-project {
+        font-size: 12px;
+    }
+
+    .content-results-item-project {
+        font-size: 12px;
+    }
+
+    .btn-repository-project {
+        font-size: 12px;
+        border-radius: 5px;
     }
 }
