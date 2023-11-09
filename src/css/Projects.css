@@ -249,15 +249,12 @@
 
 /* Container */
 .image-hover-container .container {
-    position: absolute;
+    position: relative;
     min-height: 250px;
     height: 60%;
     width: 20%;
     margin: auto;
     display: flex;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 /* Middle */
