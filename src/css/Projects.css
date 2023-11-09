@@ -243,16 +243,21 @@
     right: 0;
     bottom: 0;
     z-index: 999;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Container */
 .image-hover-container .container {
-    position: relative;
+    position: absolute;
     min-height: 250px;
     height: 60%;
     width: 20%;
     margin: auto;
     display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* Middle */
@@ -469,9 +474,16 @@
     font-size: 20px;
 }
 
-.btn-repository-project:hover {
-    background-color: #47CDD6
+@media (hover: hover) {
+    .btn-repository-project:hover {
+      background-color: #47CDD6;
+    }
+  }
+
+.btn-repository-project:active {
+    background-color: #47CDD6;
 }
+
 
 @media (min-width: 481px) and (max-width: 824px) {
     .fontTitleNormalProjects {
@@ -592,6 +604,7 @@
     .content-context-item-project {
         font-size: 17px;
     }
+
     .content-challenges-item-project {
         font-size: 17px;
     }
@@ -730,6 +743,7 @@
     .content-context-item-project {
         font-size: 15px;
     }
+
     .content-challenges-item-project {
         font-size: 15px;
     }
@@ -869,6 +883,7 @@
     .content-context-item-project {
         font-size: 12px;
     }
+
     .content-challenges-item-project {
         font-size: 12px;
     }
