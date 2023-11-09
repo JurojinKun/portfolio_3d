@@ -24,6 +24,7 @@
     justify-content: center;
     flex-direction: column;
     margin-bottom: 20px;
+    overflow-x: auto;
 }
 
 .error-modal-content h3 {
