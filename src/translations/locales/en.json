@@ -69,7 +69,7 @@
         "subtitle": "What I've been able to do so far...",
         "title_experience_1": "Lead dev front",
         "company_experience_1": "Digital Paca",
-        "date_experience_1": "October 2021 - Today",
+        "date_experience_1": "October 2021 - December 2023",
         "point_1_experience_1": "Development from scratch of an Android / iOS mobile and web solution for donations of vaccines between doctors / pharmacists, etc... Reference: Sauve mon vaccin",
         "point_2_experience_1": "Redesign / improvement, with design imposed by the client, of an Android / iOS mobile cruise booking solution. Reference: Corsica Ferries",
         "point_3_experience_1": "Development from scratch of an Android / iOS mobile application to display information about sports tournaments organised by the client. Reference: Madewis",
@@ -106,6 +106,8 @@
         "content_project_perso_2": "An application with a wide variety of basic and complex functions that are very useful when creating a new application. Why start from scratch every time? The front-end application is being developed with Flutter, while the back-end will be developed in Node.js and linked to the MySQL database.",
         "title_project_perso_3": "Portfolio 3D",
         "content_project_perso_3": "Personal website and portfolio to show my work to everyone. This site is developed in React js with Three js.",
+        "title_project_perso_4": "Bot discord",
+        "content_project_perso_4": "Bot discord for a server dedicated to a game. This bot is developed in Node.js, a mySQL database and hosted on Heroku.",
         "title_context_project": "Context",
         "title_challenges_project": "Challenges",
         "title_results_project": "Résults",
@@ -133,6 +135,9 @@
         "content_context_portfolio": "In order to have a platform to showcase my work and skills in a professional and creative way, I decided to devote my spare time to creating my own personal website and portfolio. The site, designed to showcase my projects and expertise, was developed using React.js and incorporates 3D graphics created with Three.js.",
         "challenges_content_portfolio": "Developing my portfolio site presented a number of interesting challenges. The first was to create an interface that was both aesthetically pleasing and functional, capable of reflecting my identity as a developer. Integrating Three.js to add interactive 3D elements was also a challenge, as I wanted these elements to add an immersive dimension without overloading the site. What's more, the site had to be optimised for fluid browsing and cross-browser compatibility.",
         "results_content_portfolio": "The result is an elegant and interactive personal website and portfolio that effectively showcases my work and skills. The 3D elements, integrated using Three.js, add a distinctive and immersive touch, allowing visitors to engage more dynamically with the content. The site's structure, built using React.js, ensures fluid, responsive navigation. This project, carried out in my spare time, is not only a reflection of my technical skills, but also of my creativity and commitment to my professional development.",
+        "content_context_bot": "As a video game enthusiast, I decided to create a Discord bot for a video game server between friends. This bot, developed in Node.js, is designed to provide video game-related information on characters, weapons and accessories in terms of their stats, which will change each season.",
+        "challenges_content_bot": "The project presented a number of challenges. Firstly, it was essential to design a modular and flexible architecture, enabling new functionalities to be easily added. Secondly, the bot had to be able to handle multiple commands simultaneously, while maintaining a fast response speed. Finally, the bot had to be easily and cleanly hosted, so that it could respond at any time.",
+        "results_content_bot": "The result is a robust and versatile Discord bot, which has greatly enhanced the experience of server users in getting all the information they need. Thanks to its modular architecture, the bot can easily be extended to add new functionalities. What's more, it can handle multiple commands simultaneously, while maintaining a fast response speed.",
         "repository": "GitHub"
     },
     "contact_me": {

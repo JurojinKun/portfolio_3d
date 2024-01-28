@@ -17,6 +17,7 @@ import croixrouge from '../assets/projects/croixrouge.jpg';
 import gemu from '../assets/projects/gemu.jpg';
 import myyoukounkoun from '../assets/projects/myyoukounkoun.jpg';
 import portfolio from '../assets/projects/portfolio.jpg';
+import botdiscord from '../assets/projects/botdiscord.jpg';
 import { textVariant, fadeIn } from "../utils/motion";
 import Slide from "../components/Slide";
 import ProjectModal from "../components/ProjectModal";
@@ -224,6 +225,13 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
             titleSlide: t("projects.title_project_perso_3"),
             contentSlide: t("projects.content_project_perso_3"),
             content: <Slide isMobile={isMobile} img={portfolio} alt={"portfolio"} title={t("projects.title_project_perso_3")} content={t("projects.content_project_perso_3")} />
+        },
+        {
+            key: 4,
+            img: botdiscord,
+            titleSlide: t("projects.title_project_perso_4"),
+            contentSlide: t("projects.content_project_perso_4"),
+            content: <Slide isMobile={isMobile} img={botdiscord} alt={"botdiscord"} title={t("projects.title_project_perso_4")} content={t("projects.content_project_perso_4")} />
         },
     ].map((slide, index) => {
         return {
