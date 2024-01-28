@@ -69,7 +69,7 @@
         "subtitle": "Ce que j'ai pu faire jusqu'à présent...",
         "title_experience_1": "Lead dev front",
         "company_experience_1": "Digital Paca",
-        "date_experience_1": "Octobre 2021 - Aujourd'hui",
+        "date_experience_1": "Octobre 2021 - Décembre 2023",
         "point_1_experience_1": "Développement from scratch d'une solution mobile Android / iOS et web de dons de vaccins entre médecins / pharmaciens, etc... Référence: Sauve mon vaccin",
         "point_2_experience_1": "Refonte / Amélioration avec design imposé par le client d'une solution mobile Android / iOS de réservation de croisières. Référence: Corsica Ferries",
         "point_3_experience_1": "Développement from scratch d'une application mobile Android / iOS afin de visualiser les informations des tournois sportifs organisés par le client. Référence: Madewis",
@@ -106,6 +106,8 @@
         "content_project_perso_2": "Une application dotée d'une grande variété de fonctions de base et de fonctions complexes très utiles lors de la création d'une nouvelle application. Pourquoi repartir de zéro à chaque fois ? L'application front-end est développée avec Flutter et le back-end sera développé en Node.js en lien avec la base de données MySQL.",
         "title_project_perso_3": "Portfolio 3D",
         "content_project_perso_3": "Site et portfolio personnel afin de montrer mon travail à tous. Ce site est développé en React js avec du Three js.",
+        "title_project_perso_4": "Bot discord",
+        "content_project_perso_4": "Bot discord pour un serveur dédié à un jeu. Ce bot est développé en Node.js, une base de données mySQL et hébergé sur Heroku.",
         "title_context_project": "Contexte",
         "title_challenges_project": "Challenges",
         "title_results_project": "Résultats",
@@ -133,6 +135,9 @@
         "content_context_portfolio": "Afin de disposer d'une plateforme pour présenter mon travail et mes compétences de manière professionnelle et créative, j'ai décidé de consacrer mon temps libre à la création de mon propre site et portfolio personnel. Le site, conçu pour mettre en avant mes projets et mon expertise, a été développé en utilisant React.js et intègre des éléments graphiques 3D réalisés avec Three.js.",
         "challenges_content_portfolio": "Le développement de mon site portfolio a comporté plusieurs défis intéressants. Le premier était de créer une interface qui soit à la fois esthétiquement plaisante et fonctionnelle, capable de refléter mon identité en tant que développeur. L'intégration de Three.js pour ajouter des éléments 3D interactifs représentait également un challenge, car je souhaitais que ces éléments apportent une dimension immersive sans surcharger le site. De plus, le site devait être optimisé pour une navigation fluide et une compatibilité multi-navigateurs.",
         "results_content_portfolio": "Le résultat est un site et portfolio personnel élégant et interactif qui met efficacement en lumière mon travail et mes compétences. Les éléments 3D, intégrés grâce à Three.js, ajoutent une touche distinctive et immersive, permettant aux visiteurs de s'engager de manière plus dynamique avec le contenu. La structure du site, construite avec React.js, assure une navigation fluide et réactive. Ce projet, réalisé sur mon temps libre, est non seulement un reflet de mes compétences techniques, mais aussi de ma créativité et de mon engagement envers mon développement professionnel.",
+        "content_context_bot": "En tant que passionné de jeu vidéo, j'ai décidé de créer un bot Discord pour un serveur de jeux vidéo entre amis. Ce bot, développé en Node.js, est conçu pour avoir des informations relatives à un jeu vidéo sur les personnages, les armes et les accessoires au niveau de leurs statistiques qui vont changer chaque saison.",
+        "challenges_content_bot": "Le projet a comporté plusieurs défis. Premièrement, il était essentiel de concevoir une architecture modulaire et flexible, permettant d'ajouter facilement de nouvelles fonctionnalités. Deuxièmement, le bot devait être capable de gérer plusieurs commandes simultanément, tout en maintenant une vitesse de réponse rapide. Enfin, il a fallu héberger facilement et proprement ce bot afin qu'il puisse répondre à n'importe quel moment.",
+        "results_content_bot": "Le résultat est un bot Discord robuste et polyvalent, qui a grandement amélioré l'expérience des utilisateurs du serveur afin d'avoir toutes les informations dont ils ont besoin. Grâce à son architecture modulaire, le bot peut facilement être étendu pour ajouter de nouvelles fonctionnalités. De plus, il est capable de gérer plusieurs commandes simultanément, tout en maintenant une vitesse de réponse rapide.",
         "repository": "GitHub"
     },
     "contact_me": {

@@ -52,6 +52,8 @@ const ProjectModal = ({ project, imgProject, setSelectedProject, t }) => {
                 return t("projects.content_context_myy");
             case "Portfolio 3D":
                 return t("projects.content_context_portfolio");
+            case "Bot discord":
+                return t("projects.content_context_bot");
             default:
                 return "";
         }
@@ -75,6 +77,8 @@ const ProjectModal = ({ project, imgProject, setSelectedProject, t }) => {
                 return t("projects.results_content_myy");
             case "Portfolio 3D":
                 return t("projects.results_content_portfolio");
+            case "Bot discord":
+                return t("projects.results_content_bot");
             default:
                 return "";
         }
@@ -98,6 +102,8 @@ const ProjectModal = ({ project, imgProject, setSelectedProject, t }) => {
                 return t("projects.challenges_content_myy");
             case "Portfolio 3D":
                 return t("projects.challenges_content_portfolio");
+            case "Bot discord":
+                return t("projects.challenges_content_bot");
             default:
                 return "";
         }
@@ -149,8 +155,13 @@ const ProjectModal = ({ project, imgProject, setSelectedProject, t }) => {
                     break;
                 case "Portfolio 3D":
                     setRepository("https://github.com/JurojinKun/portfolio_3d");
-                    setColorPrimary("#73b7a4");
-                    setShadowPrimary("rgba(115, 183, 164, 0.3)");
+                    setColorPrimary("#c4658d");
+                    setShadowPrimary("rgba(196, 101, 141, 0.3)");
+                    break;
+                case "Bot discord":
+                    setRepository("https://github.com/JurojinKun/bot-discord-opf-stats");
+                    setColorPrimary("#85b68c");
+                    setShadowPrimary("rgba(133, 182, 140, 0.3)");
                     break;
                 default:
                     setRepository(null);
@@ -180,7 +191,7 @@ const ProjectModal = ({ project, imgProject, setSelectedProject, t }) => {
                         {repository != null && <button
                             className="btn-repository-project"
                             style={{
-                                ...hoverBtnRepo, 
+                                ...hoverBtnRepo,
                                 border: `2px solid ${colorPrimary}`
                             }}
                             onMouseEnter={onHoverBtnRepo}
