@@ -19,6 +19,7 @@ import hobbies from './assets/projects/hobbies.jpg';
 import madewis from './assets/projects/madewis.jpg';
 import myYoukounkoun from './assets/projects/myyoukounkoun.jpg';
 import portfolio from './assets/projects/portfolio.jpg';
+import botDiscord from './assets/projects/botdiscord.jpg';
 import smv from './assets/projects/smv.jpg';
 import bitbucket from './assets/skills/bitbucket.png';
 import c from './assets/skills/c.png';
@@ -69,6 +70,7 @@ const PreloadApp = () => {
                 preloadImage(madewis),
                 preloadImage(myYoukounkoun),
                 preloadImage(portfolio),
+                preloadImage(botDiscord),
                 preloadImage(smv),
                 preloadImage(bitbucket),
                 preloadImage(c),
