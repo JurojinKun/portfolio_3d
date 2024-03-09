@@ -74,7 +74,7 @@ const Overview = ({ opacity }) => {
                 opacity: opacity,
                 display: "flex",
                 alignItems: "end",
-                justifyContent: "center",
+                justifyContent: "start",
                 margin: "0 5% 0 5%"
             }}>
                 <div style={{ display: "inline-flex", alignItems: "center" }}>
