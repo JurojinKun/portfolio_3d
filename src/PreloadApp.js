@@ -35,6 +35,7 @@ import redux from './assets/skills/redux.png';
 import sequelize from './assets/skills/sequelize.png';
 import sourcetree from './assets/skills/sourcetree.png';
 import threejs from './assets/skills/threejs.png';
+import kotlin from './assets/skills/kotlin.png';
 
 const PreloadApp = () => {
 
@@ -86,6 +87,7 @@ const PreloadApp = () => {
                 preloadImage(sequelize),
                 preloadImage(sourcetree),
                 preloadImage(threejs),
+                preloadImage(kotlin)
             ]).then(() => {
                 setTimeout(() => {
                     sessionStorage.setItem('isSessionActive', JSON.stringify(true));

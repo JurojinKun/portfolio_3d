@@ -18,6 +18,7 @@ import redux from '../assets/skills/redux.png';
 import sequelize from '../assets/skills/sequelize.png';
 import sourcetree from '../assets/skills/sourcetree.png';
 import threejs from '../assets/skills/threejs.png';
+import kotlin from '../assets/skills/kotlin.png';
 
 const SkillModal = ({ skill, setSelectedSkill, t }) => {
 
@@ -53,6 +54,8 @@ const SkillModal = ({ skill, setSelectedSkill, t }) => {
                 return sourcetree;
             case "Three js":
                 return threejs;
+            case "Kotlin":
+                return kotlin;
             default:
                 return "";
         }
@@ -90,6 +93,8 @@ const SkillModal = ({ skill, setSelectedSkill, t }) => {
                 return t("skills.content_sourcetree");
             case "Three js":
                 return t("skills.content_threejs");
+            case "Kotlin":
+                return t("skills.content_kotlin");
             default:
                 return "";
         }
