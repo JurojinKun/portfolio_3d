@@ -89,10 +89,6 @@ const IconRoundButton = ({ icon, url, title }) => {
                         </a>
                     </div>
             }
-            {title && <div className={`${isMobile ? 'titleContainer-mobile' : 'titleContainer'}${isHovered ? ' visible' : ''}`}>
-                {title}
-            </div>
-            }
         </div>
     );
 }

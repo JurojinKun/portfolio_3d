@@ -7,7 +7,8 @@ import SatelliteBug from './SatelliteBug';
 
 const SphereCustom = ({ scroll }) => {
     const sphereRadius = 2;
-    const sphereDetail = 30;
+    const sphereDetailWidth = 40;
+    const sphereDetailHeight = 20;
 
     const meshRef = useRef();
     const lightRef = useRef();
@@ -98,7 +99,7 @@ const SphereCustom = ({ scroll }) => {
     return (
         <>
             <mesh ref={meshRef} position={[1.5, -1, 7]}>
-                <sphereGeometry args={[sphereRadius, sphereDetail, sphereDetail]} />
+                <sphereGeometry args={[sphereRadius, sphereDetailWidth, sphereDetailHeight]} />
                 <meshBasicMaterial wireframe color={color} />
             </mesh>
             {satellitePositions.map((pos, i) => (
