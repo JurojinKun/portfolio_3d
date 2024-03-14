@@ -47,6 +47,7 @@ const Skills = () => {
     const skills = [
         "Flutter",
         "React native",
+        "Kotlin",
         "C",
         "MySQL",
         "Python",
