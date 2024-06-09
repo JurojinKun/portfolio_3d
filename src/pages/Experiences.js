@@ -14,6 +14,7 @@ import { textVariant } from "../utils/motion";
 import dp from "../assets/experiences/dp.png";
 import pepite from "../assets/experiences/pepite.png";
 import groupeatlantic from "../assets/experiences/groupe-atlantic.png";
+import cgi from "../assets/experiences/cgi.png";
 
 const ExperienceCard = ({ experience }) => {
     return (
@@ -95,6 +96,14 @@ const Experiences = ({ threshold }) => {
     });
 
     const experiences = [
+        {
+            title: t("experiences.title_experience_4"),
+            company_name: t("experiences.company_experience_4"),
+            icon: cgi,
+            iconBg: "#E6DEDD",
+            date: t("experiences.date_experience_4"),
+            points: [],
+        },
         {
             title: t("experiences.title_experience_1"),
             company_name: t("experiences.company_experience_1"),
