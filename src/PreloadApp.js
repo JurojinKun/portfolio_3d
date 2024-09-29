@@ -21,6 +21,7 @@ import myYoukounkoun from './assets/projects/myyoukounkoun.jpg';
 import portfolio from './assets/projects/portfolio.jpg';
 import botDiscord from './assets/projects/botdiscord.jpg';
 import smv from './assets/projects/smv.jpg';
+import asm from './assets/projects/asm.jpg';
 import bitbucket from './assets/skills/bitbucket.png';
 import c from './assets/skills/c.png';
 import firebase from './assets/skills/firebase.png';
@@ -87,7 +88,8 @@ const PreloadApp = () => {
                 preloadImage(sequelize),
                 preloadImage(sourcetree),
                 preloadImage(threejs),
-                preloadImage(kotlin)
+                preloadImage(kotlin),
+                preloadImage(asm)
             ]).then(() => {
                 setTimeout(() => {
                     sessionStorage.setItem('isSessionActive', JSON.stringify(true));

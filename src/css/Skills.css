@@ -176,8 +176,8 @@
 
 .icon-close-skill {
   color: white;
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
 }
 
 .icon-close-hover-skill {
@@ -185,8 +185,8 @@
   top: 10px;
   right: 10px;
   display: flex;
-  height: 35px;
-  width: 35px;
+  height: 30px;
+  width: 30px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -195,10 +195,10 @@
 }
 
 .icon-close-hover-skill:hover {
-  height: 35px;
-  width: 35px;
+  height: 30px;
+  width: 30px;
   border-radius: 60px;
-  background-color: rgba(71, 205, 214, 0.3)
+  background-color: rgba(71, 205, 214, 0.2)
 }
 
 .item-img-skill {
@@ -320,20 +320,20 @@
   }
 
   .icon-close-skill {
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
   }
 
   .icon-close-hover-skill {
     top: 5px;
     right: 5px;
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
   }
 
   .icon-close-hover-skill:hover {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
   }
 
   .title-animated-item-skill {
@@ -390,20 +390,20 @@
   }
 
   .icon-close-skill {
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
   }
 
   .icon-close-hover-skill {
     top: 0;
     right: 0;
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
   }
 
   .icon-close-hover-skill:hover {
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
   }
 
   .title-animated-item-skill {

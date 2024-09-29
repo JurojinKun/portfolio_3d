@@ -29,7 +29,7 @@ const NotFound = () => {
     }, []);
 
     useEffect(() => {
-        document.title = "0ruj | 3D Portfolio";
+        document.title = "0ruj | Portfolio";
 
         document.body.style.overflow = "hidden";
 

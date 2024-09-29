@@ -105,6 +105,8 @@
         "content_project_pro_4": "Développement from scratch d'une solution mobile Android/iOS en Flutter d'un réseau social pour rencontrer des gens ayant les mêmes centres d'interêt.",
         "title_project_pro_5": "La croix rouge française",
         "content_project_pro_5": "Développement from scratch pour un organisme français d'une solution mobile Android/iOS en Flutter pour faciliter la visualisation des présents/absents lors des formations.",
+        "title_project_pro_6": "ASM Clermont Auvergne",
+        "content_project_pro_6": "Développement from scratch d'une solution mobile Android / iOS en Flutter de suivi d'un club de rugby pendant sa saison.",
         "title_project_perso_1": "Gemu",
         "content_project_perso_1": "Version 1 d'une application de réseau social pour les personnes intéressées par l'e-sport et les jeux vidéo développés en Flutter reliée à un serveur Firebase. Pourquoi pas une version 2, affaire à suivre...",
         "title_project_perso_2": "My youkounkoun",
@@ -143,7 +145,10 @@
         "content_context_bot": "En tant que passionné de jeu vidéo, j'ai décidé de créer un bot Discord pour un serveur de jeux vidéo entre amis. Ce bot, développé en Node.js, est conçu pour avoir des informations relatives à un jeu vidéo sur les personnages, les armes et les accessoires au niveau de leurs statistiques qui vont changer chaque saison.",
         "challenges_content_bot": "Le projet a comporté plusieurs défis. Premièrement, il était essentiel de concevoir une architecture modulaire et flexible, permettant d'ajouter facilement de nouvelles fonctionnalités. Deuxièmement, le bot devait être capable de gérer plusieurs commandes simultanément, tout en maintenant une vitesse de réponse rapide. Enfin, il a fallu héberger facilement et proprement ce bot afin qu'il puisse répondre à n'importe quel moment.",
         "results_content_bot": "Le résultat est un bot Discord robuste et polyvalent, qui a grandement amélioré l'expérience des utilisateurs du serveur afin d'avoir toutes les informations dont ils ont besoin. Grâce à son architecture modulaire, le bot peut facilement être étendu pour ajouter de nouvelles fonctionnalités. De plus, il est capable de gérer plusieurs commandes simultanément, tout en maintenant une vitesse de réponse rapide.",
-        "repository": "GitHub"
+        "repository": "GitHub",
+        "content_context_asm": "",
+        "challenges_content_asm": "",
+        "results_content_asm": ""
     },
     "contact_me": {
         "title": "Me contacter",

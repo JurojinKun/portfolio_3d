@@ -105,6 +105,8 @@
         "content_project_pro_4": "Development from scratch of an Android/iOS mobile solution in Flutter for a social network to meet people with the same interests.",
         "title_project_pro_5": "La croix rouge française",
         "content_project_pro_5": "Development from scratch for a French organisation of an Android/iOS mobile solution using Flutter to facilitate the display of attendees/absentees during training sessions.",
+        "title_project_pro_6": "ASM Clermont Auvergne",
+        "content_project_pro_6": "Development from scratch of an Android / iOS mobile Flutter solution to monitor a rugby club during its season.",
         "title_project_perso_1": "Gemu",
         "content_project_perso_1": "Version 1 of a social networking application for people interested in e-sports and video games developed in Flutter and linked to a Firebase server. Why not a version 2, to be continued...",
         "title_project_perso_2": "My youkounkoun",
@@ -143,7 +145,10 @@
         "content_context_bot": "As a video game enthusiast, I decided to create a Discord bot for a video game server between friends. This bot, developed in Node.js, is designed to provide video game-related information on characters, weapons and accessories in terms of their stats, which will change each season.",
         "challenges_content_bot": "The project presented a number of challenges. Firstly, it was essential to design a modular and flexible architecture, enabling new functionalities to be easily added. Secondly, the bot had to be able to handle multiple commands simultaneously, while maintaining a fast response speed. Finally, the bot had to be easily and cleanly hosted, so that it could respond at any time.",
         "results_content_bot": "The result is a robust and versatile Discord bot, which has greatly enhanced the experience of server users in getting all the information they need. Thanks to its modular architecture, the bot can easily be extended to add new functionalities. What's more, it can handle multiple commands simultaneously, while maintaining a fast response speed.",
-        "repository": "GitHub"
+        "repository": "GitHub",
+        "content_context_asm": "",
+        "challenges_content_asm": "",
+        "results_content_asm": ""
     },
     "contact_me": {
         "title": "Contact me",
