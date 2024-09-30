@@ -3,7 +3,6 @@ import "../css/Home3D.css";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { IconRoundButton } from "./ButtonsCustom";
-import { isMobile } from "react-device-detect";
 import { FaLinkedin } from "react-icons/fa";
 import { AiFillGithub } from "react-icons/ai";
 import { HiDownload } from "react-icons/hi";
