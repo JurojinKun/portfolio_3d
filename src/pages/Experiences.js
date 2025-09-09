@@ -122,7 +122,10 @@ const Experiences = ({ threshold }) => {
       icon: cgi,
       iconBg: "#E6DEDD",
       date: t("experiences.date_experience_4"),
-      points: [t("experiences.point_1_experience_4")],
+      points: [
+        t("experiences.point_1_experience_4"),
+        t("experiences.point_1_experience_5"),
+      ],
     },
     {
       title: t("experiences.title_experience_1"),

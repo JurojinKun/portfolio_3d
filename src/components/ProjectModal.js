@@ -49,6 +49,8 @@ const ProjectModal = ({ project, imgProject, setSelectedProject, t }) => {
         return t("projects.content_context_crf");
       case "ASM Clermont Auvergne":
         return t("projects.content_context_asm");
+      case "Paris ma Ville":
+        return t("projects.content_context_pmv");
       case "Gemu":
         return t("projects.content_context_gemu");
       case "My youkounkoun":
@@ -76,6 +78,8 @@ const ProjectModal = ({ project, imgProject, setSelectedProject, t }) => {
         return t("projects.results_content_crf");
       case "ASM Clermont Auvergne":
         return t("projects.results_content_asm");
+      case "Paris ma Ville":
+        return t("projects.results_content_pmv");
       case "Gemu":
         return t("projects.results_content_gemu");
       case "My youkounkoun":
@@ -103,6 +107,8 @@ const ProjectModal = ({ project, imgProject, setSelectedProject, t }) => {
         return t("projects.challenges_content_crf");
       case "ASM Clermont Auvergne":
         return t("projects.challenges_content_asm");
+      case "Paris ma Ville":
+        return t("projects.challenges_content_pmv");
       case "Gemu":
         return t("projects.challenges_content_gemu");
       case "My youkounkoun":
@@ -154,6 +160,11 @@ const ProjectModal = ({ project, imgProject, setSelectedProject, t }) => {
           setRepository(null);
           setColorPrimary("#042e6c");
           setShadowPrimary("rgba(4, 46, 108, 0.2)");
+          break;
+        case "Paris ma Ville":
+          setRepository(null);
+          setColorPrimary("#2a42b7");
+          setShadowPrimary("rgba(42, 66, 183, 0.2)");
           break;
         case "Gemu":
           setRepository("https://github.com/Gemu-Inc/Gemu_ui");

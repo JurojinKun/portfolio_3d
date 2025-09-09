@@ -1,7 +1,5 @@
 import "../css/Projects.css";
 
-import React from "react";
-
 const Slide = ({ isMobile, img, alt, title, content }) => {
     return (
         <div className="slide">

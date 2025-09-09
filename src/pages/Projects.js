@@ -15,6 +15,7 @@ import madewis from '../assets/projects/madewis.jpg';
 import hobbies from '../assets/projects/hobbies.jpg';
 import croixrouge from '../assets/projects/croixrouge.jpg';
 import asm from '../assets/projects/asm.jpg';
+import parismaville from '../assets/projects/parismaville.jpg';
 import gemu from '../assets/projects/gemu.jpg';
 import myyoukounkoun from '../assets/projects/myyoukounkoun.jpg';
 import portfolio from '../assets/projects/portfolio.jpg';
@@ -95,6 +96,13 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
             titleSlide: t("projects.title_project_pro_6"),
             contentSlide: t("projects.content_project_pro_6"),
             content: <Slide isMobile={isMobile} img={asm} alt={"asm"} title={t("projects.title_project_pro_6")} content={t("projects.content_project_pro_6")} />
+        },
+        {
+            key: 7,
+            img: parismaville,
+            titleSlide: t("projects.title_project_pro_7"),
+            contentSlide: t("projects.content_project_pro_7"),
+            content: <Slide isMobile={isMobile} img={parismaville} alt={"parismaville"} title={t("projects.title_project_pro_7")} content={t("projects.content_project_pro_7")} />
         },
     ].map((slide, index) => {
         return {

@@ -22,6 +22,7 @@ import portfolio from './assets/projects/portfolio.jpg';
 import botDiscord from './assets/projects/botdiscord.jpg';
 import smv from './assets/projects/smv.jpg';
 import asm from './assets/projects/asm.jpg';
+import parismaville from './assets/projects/parismaville.jpg';
 import bitbucket from './assets/skills/bitbucket.png';
 import c from './assets/skills/c.png';
 import firebase from './assets/skills/firebase.png';
@@ -89,7 +90,8 @@ const PreloadApp = () => {
                 preloadImage(sourcetree),
                 preloadImage(threejs),
                 preloadImage(kotlin),
-                preloadImage(asm)
+                preloadImage(asm),
+                preloadImage(parismaville)
             ]).then(() => {
                 setTimeout(() => {
                     sessionStorage.setItem('isSessionActive', JSON.stringify(true));
