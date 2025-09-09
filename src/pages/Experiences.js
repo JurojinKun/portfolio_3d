@@ -1,6 +1,5 @@
 import "../css/Experiences.css";
 
-import React from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,

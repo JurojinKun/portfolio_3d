@@ -1,6 +1,6 @@
 import "../css/Projects.css";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Carousel from "react-spring-3d-carousel";

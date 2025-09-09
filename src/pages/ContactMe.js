@@ -1,6 +1,6 @@
 import "../css/ContactMe.css";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";

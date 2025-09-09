@@ -1,7 +1,5 @@
 import "../css/Home3D.css";
 
-import React from 'react';
-
 import LanguageSwitcher from './LanguageSwitcher';
 import CanvasPicture from '../canvas/PictureCanvas';
 

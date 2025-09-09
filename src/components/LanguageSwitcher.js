@@ -1,6 +1,5 @@
 import "../css/Home3D.css";
 
-import React from "react";
 import Select from "react-select";
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from "react-i18next";

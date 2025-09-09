@@ -1,6 +1,5 @@
 import "../css/Home3D.css";
 
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { IconRoundButton } from "./ButtonsCustom";
 import { FaLinkedin } from "react-icons/fa";

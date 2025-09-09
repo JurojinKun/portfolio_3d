@@ -1,6 +1,6 @@
 import "../css/AboutMe.css";
 
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import StarryBackground from "../components/StarryBackground";
 import astroAboutMe from '../assets/astro_about_me.png';
 import { useTranslation } from "react-i18next";

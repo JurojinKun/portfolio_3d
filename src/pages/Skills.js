@@ -1,6 +1,6 @@
 import "../css/Skills.css";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { TagCloud } from "@frank-mayer/react-tag-cloud";
 import { motion } from "framer-motion";

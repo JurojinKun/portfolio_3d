@@ -1,6 +1,6 @@
 import '../css/Loading.css';
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const Loading = () => {
     var language = window.navigator.language || window.navigator.userLanguage;

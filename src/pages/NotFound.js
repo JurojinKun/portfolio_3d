@@ -1,6 +1,6 @@
 import '../css/NotFound.css';
 
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useTranslation } from 'react-i18next';
 
 import notFoundAstro from '../assets/astro_not_found.png';

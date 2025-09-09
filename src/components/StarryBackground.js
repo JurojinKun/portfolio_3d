@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const StarryBackground = ({ gradientTopLeft, gradientBottomRight, heightSection, widthSection }) => {
     const canvasRef = useRef(null);
