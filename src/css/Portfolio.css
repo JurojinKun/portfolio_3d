@@ -170,9 +170,8 @@ progress::-moz-progress-bar {
 
 .sidebar {
     position: fixed;
-    width: 35%;
+    width: 25%;
     height: 100%;
-    top: 2%;
     right: 0;
     background-color: rgba(26, 26, 26, 1.0);
     display: flex;
@@ -187,28 +186,27 @@ progress::-moz-progress-bar {
 
 .sidebar.open {
     transform: translateX(0);
-    box-shadow: -5px 5px 5px rgba(71, 205, 214, 0.3);
     opacity: 1;
 }
 
 .title-menu {
     color: white;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
-    margin-left: 30px;
+    margin-left: 25px;
     font-family: "Space Mono"
 }
 
 .icon-menu-close {
     color: white;
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
 }
 
 .icon-menu-close-hover {
     display: flex;
-    height: 45px;
-    width: 45px;
+    height: 40px;
+    width: 40px;
     cursor: pointer;
     align-items: center;
     justify-content: center;
@@ -217,20 +215,20 @@ progress::-moz-progress-bar {
 
 .icon-menu-close-hover:hover {
     border-radius: 60px;
-    background-color: rgba(71, 205, 214, 0.3)
+    background-color: rgba(71, 205, 214, 0.2)
 }
 
 .menu-section {
     padding: 15px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     font-family: "Space Mono";
     text-decoration: none;
 }
 
 .icon-menu-section {
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
 }
 
 .main-content.blurred {
@@ -240,7 +238,7 @@ progress::-moz-progress-bar {
 .sectionSpanDim {
     margin-top: 35px;
     margin-bottom: 35px;
-    padding-left: 15px;
+    padding-left: 25px;
     height: 30px;
     display: flex;
     align-items: center;
@@ -259,8 +257,8 @@ progress::-moz-progress-bar {
     .icon-sidebar {
         color: white;
         display: flex;
-        height: 30px;
-        width: 30px;
+        height: 25px;
+        width: 25px;
     }
 
     .icon-sidebar-hover {
@@ -276,7 +274,13 @@ progress::-moz-progress-bar {
 
     .icon-sidebar-hover:hover {
         border-radius: 60px;
-        background-color: rgba(71, 205, 214, 0.3)
+        background-color: rgba(71, 205, 214, 0.2)
+    }
+}
+
+@media (min-width: 825px) and (max-width: 1100px) {
+    .sidebar {
+        width: 35%;
     }
 }
 
@@ -306,7 +310,7 @@ progress::-moz-progress-bar {
     }
 
     .sidebar {
-        width: 60%;
+        width: 50%;
     }
 }
 
@@ -340,8 +344,8 @@ progress::-moz-progress-bar {
     }
 
     .icon-sidebar {
-        height: 25px;
-        width: 25px;
+        height: 20px;
+        width: 20px;
     }
 
     .icon-sidebar-hover {
@@ -359,13 +363,13 @@ progress::-moz-progress-bar {
     }
 
     .icon-menu-close {
-        height: 25px;
-        width: 25px;
+        height: 20px;
+        width: 20px;
     }
 
     .icon-menu-close-hover {
-        height: 40px;
-        width: 40px;
+        height: 35px;
+        width: 35px;
         margin-right: 10px;
     }
 
@@ -381,6 +385,7 @@ progress::-moz-progress-bar {
     .sectionSpanDim {
         margin-top: 20px;
         margin-bottom: 20px;
+        padding-left: 20px;
     }
 }
 
@@ -414,8 +419,8 @@ progress::-moz-progress-bar {
     }
 
     .icon-sidebar {
-        height: 25px;
-        width: 25px;
+        height: 20px;
+        width: 20px;
     }
 
     .icon-sidebar-hover {
@@ -433,13 +438,13 @@ progress::-moz-progress-bar {
     }
 
     .icon-menu-close {
-        height: 25px;
-        width: 25px;
+        height: 20px;
+        width: 20px;
     }
 
     .icon-menu-close-hover {
-        height: 40px;
-        width: 40px;
+        height: 35px;
+        width: 35px;
         margin-right: 10px;
     }
 
@@ -455,5 +460,6 @@ progress::-moz-progress-bar {
     .sectionSpanDim {
         margin-top: 20px;
         margin-bottom: 20px;
+        padding-left: 20px;
     }
 }

@@ -1,7 +1,5 @@
 import "../css/Home3D.css";
 
-import React from 'react';
-
 import LanguageSwitcher from './LanguageSwitcher';
 import CanvasPicture from '../canvas/PictureCanvas';
 
@@ -16,7 +14,7 @@ const FixedHeader = () => {
                 }}>
                 <CanvasPicture />
                 <h2
-                    className="title-header">0ruj | 3D Portfolio</h2>
+                    className="title-header">0ruj | Portfolio</h2>
             </div>
             <div style={{
                 pointerEvents: 'auto',

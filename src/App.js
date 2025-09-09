@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import "./translations/i18n";

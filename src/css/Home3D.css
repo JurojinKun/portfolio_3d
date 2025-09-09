@@ -102,16 +102,16 @@
 
 .hello-title {
     color: white;
-    font-size: 26px;
+    font-size: 23px;
     font-family: 'Space Mono';
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .name {
     color: #47CDD6;
-    font-size: 26px;
+    font-size: 23px;
     font-family: 'Space Mono';
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .wave {
@@ -158,10 +158,9 @@
 
 .scroll-content {
     color: white;
-    font-size: 18px;
+    font-size: 23px;
     font-family: 'Space Mono';
     font-weight: 400;
-    text-align: center;
 }
 
 .field {
@@ -384,15 +383,15 @@
     }
 
     .hello-title {
-        font-size: 23px;
+        font-size: 20px;
     }
 
     .name {
-        font-size: 23px;
+        font-size: 20px;
     }
 
     .scroll-content {
-        font-size: 16px;
+        font-size: 20px;
     }
 
     .mouse {
@@ -519,15 +518,15 @@
     }
 
     .hello-title {
-        font-size: 20px;
+        font-size: 17px;
     }
 
     .name {
-        font-size: 20px;
+        font-size: 17px;
     }
 
     .scroll-content {
-        font-size: 14px;
+        font-size: 17px;
     }
 
     .mouse {
@@ -650,15 +649,15 @@
     }
 
     .hello-title {
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .name {
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .scroll-content {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .mouse {

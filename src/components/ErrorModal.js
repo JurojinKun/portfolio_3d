@@ -1,7 +1,5 @@
 import '../css/ErrorModal.css';
 
-import React from 'react';
-
 import astroHelp from '../assets/astro_help.png';
 
 const ErrorModal = ({ error }) => {

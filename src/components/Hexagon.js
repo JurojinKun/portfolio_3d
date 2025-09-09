@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { ExtrudeGeometry, Shape, TextureLoader, MeshBasicMaterial, PlaneGeometry, DoubleSide } from "three";
 import { useLoader } from "@react-three/fiber";
 

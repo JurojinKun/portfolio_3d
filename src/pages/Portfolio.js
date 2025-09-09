@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../css/Portfolio.css";
 
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link, Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
@@ -96,7 +96,7 @@ const Portfolio = () => {
                 break;
             case "skills":
                 currentSection = <Element name="skills" id="skills" key={"skills"}>
-                    <Skills />
+                    <Skills menuOpened={isOpen} />
                 </Element>
                 break;
             case "experiences":
@@ -111,7 +111,7 @@ const Portfolio = () => {
                 break;
             case "contactme":
                 currentSection = <Element name="contactme" id="contactme" key={"contactme"}>
-                    <ContactMe threshold={threshold} />
+                    <ContactMe menuOpened={isOpen} threshold={threshold} />
                 </Element>
                 break;
             default:
@@ -156,7 +156,7 @@ const Portfolio = () => {
             }
         };
 
-        document.title = "0ruj | 3D Portfolio";
+        document.title = "0ruj | Portfolio";
         document.body.style.overflowX = 'hidden';
         document.body.style.overflowY = 'auto';
         setProgressBar();
@@ -265,14 +265,14 @@ const Portfolio = () => {
                                 <img src={profilePicture} alt='Profile pic' style={{
                                     width: "40px",
                                 }} />
-                                <h3 className="title-portfolio">0ruj | 3D Portfolio</h3>
+                                <h3 className="title-portfolio">0ruj | Portfolio</h3>
                             </div>
                         </Link>
                         : <div className="link-title">
                             <img src={profilePicture} alt='Profile pic' style={{
                                 width: "40px",
                             }} />
-                            <h3 className="title-portfolio">0ruj | 3D Portfolio</h3>
+                            <h3 className="title-portfolio">0ruj | Portfolio</h3>
                         </div>}
 
                     <div className="navbar-desktop">
@@ -301,10 +301,8 @@ const Portfolio = () => {
                 </nav>
 
                 <div className="navbar-mobile">
-                    <div className={`sidebar ${isOpen ? "open" : ""}`} style={{
-                        height: `${window.innerHeight - 30}px`
-                    }}>
-                        <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between", margin: "20px 0 20px 0" }}>
+                    <div className={`sidebar ${isOpen ? "open" : ""}`}>
+                        <div style={{ display: "flex", height: "70px", width: "100%", alignItems: "center", flexDirection: "row", justifyContent: "space-between", margin: "20px 0 0 0" }}>
                             <span className="title-menu">{t("portfolio.menu")}</span>
                             <div className="icon-menu-close-hover" onClick={() => setIsOpen(!isOpen)}>
                                 <FaTimes className="icon-menu-close" />
@@ -312,7 +310,7 @@ const Portfolio = () => {
                         </div>
                         <div style={{
                             overflow: "auto",
-                            display: "flex", height: "100%", flexDirection: "column", alignItems: "center"
+                            display: "flex", height: "100%", flexDirection: "column"
                         }}>
                             {sections.map((section) => (
                                 <Link

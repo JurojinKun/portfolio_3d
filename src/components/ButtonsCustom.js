@@ -1,6 +1,6 @@
 import '../css/Home3D.css';
 
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { isMobile } from 'react-device-detect';
 
 const IconRoundButton = ({ icon, url, title }) => {
