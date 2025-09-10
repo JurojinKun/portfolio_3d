@@ -5,6 +5,7 @@ import { IconRoundButton } from "./ButtonsCustom";
 import { FaLinkedin } from "react-icons/fa";
 import { AiFillGithub } from "react-icons/ai";
 import { HiDownload } from "react-icons/hi";
+import { MdEmail } from "react-icons/md";
 
 const Overview = ({ opacity }) => {
   const { t } = useTranslation();
@@ -53,19 +54,24 @@ const Overview = ({ opacity }) => {
       >
         <div className="container-btns">
           <IconRoundButton
-            icon={<AiFillGithub className="icon-contact-github" />}
+            icon={<AiFillGithub className="icon-footer" />}
             url="https://github.com/JurojinKun"
-            title={"GitHub"}
+            title="GitHub"
           />
           <IconRoundButton
-            icon={<FaLinkedin className="icon-contact-linkedin" />}
+            icon={<FaLinkedin className="icon-footer" />}
             url="https://www.linkedin.com/in/clément-communay"
-            title={"LinkedIn"}
+            title="LinkedIn"
           />
           <IconRoundButton
-            icon={<HiDownload className="icon-contact-download" />}
+            icon={<HiDownload className="icon-footer" />}
             url="/cv/CV_Clement_Communay.pdf"
-            title={"CV"}
+            title="CV"
+          />
+          <IconRoundButton
+            icon={<MdEmail className="icon-footer" />}
+            url="mailto:0rujdev@gmail.com"
+            title={t("contact_me.title")}
           />
         </div>
       </div>
