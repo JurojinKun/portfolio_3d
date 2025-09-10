@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { FaLinkedin } from "react-icons/fa";
 import { AiFillGithub } from "react-icons/ai";
-import { HiDownload } from "react-icons/hi";
+import { HiDocumentText } from "react-icons/hi";
 import { MdEmail } from "react-icons/md";
 
 import "../css/Home3D.css";
@@ -23,7 +23,7 @@ const FixedFooter = () => {
         title="LinkedIn"
       />
       <IconRoundButton
-        icon={<HiDownload className="icon-footer" />}
+        icon={<HiDocumentText className="icon-footer" />}
         url="/cv/CV_Clement_Communay.pdf"
         title="CV"
       />
