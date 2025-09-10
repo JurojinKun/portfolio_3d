@@ -225,11 +225,11 @@
 }
 
 .container-btns {
+  position: absolute; 
+  bottom: 20px;
   display: flex;
-  width: auto;
   flex-direction: row;
-  justify-content: flex-start;
-  margin-bottom: 20px;
+  margin-left: 5%;
 }
 
 .icon-footer {
@@ -276,6 +276,8 @@
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
+  font-family: "Space Mono";
+  font-weight: 700;
   color: white;
   font-size: 14px;
   white-space: nowrap;
