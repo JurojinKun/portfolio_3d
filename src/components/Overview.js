@@ -1,10 +1,6 @@
 import "../css/Home3D.css";
 
 import { useTranslation } from "react-i18next";
-import { IconRoundButton } from "./ButtonsCustom";
-import { FaLinkedin } from "react-icons/fa";
-import { AiFillGithub } from "react-icons/ai";
-import { HiDownload } from "react-icons/hi";
 
 const Overview = ({ opacity }) => {
   const { t } = useTranslation();
@@ -51,23 +47,6 @@ const Overview = ({ opacity }) => {
           margin: "0 5% 0 5%",
         }}
       >
-        <div className="container-btns">
-          <IconRoundButton
-            icon={<AiFillGithub className="icon-contact-github" />}
-            url="https://github.com/JurojinKun"
-            title={"GitHub"}
-          />
-          <IconRoundButton
-            icon={<FaLinkedin className="icon-contact-linkedin" />}
-            url="https://www.linkedin.com/in/clément-communay"
-            title={"LinkedIn"}
-          />
-          <IconRoundButton
-            icon={<HiDownload className="icon-contact-download" />}
-            url="/cv/CV_Clement_Communay.pdf"
-            title={"CV"}
-          />
-        </div>
       </div>
     </div>
   );

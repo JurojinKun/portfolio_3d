@@ -20,7 +20,7 @@ const ContactMe = ({ menuOpened, threshold }) => {
   const [contactmeWidth, setContactmeWidth] = useState(window.innerWidth);
 
   const { ref, inView } = useInView({
-    triggerOnce: true, // Change to false if you want the animation to trigger again whenever it comes in view
+    triggerOnce: true,
     threshold: threshold,
   });
 
@@ -40,7 +40,6 @@ const ContactMe = ({ menuOpened, threshold }) => {
   };
 
   const handleSubmit = (e) => {
-        console.log("je rentre");
       e.preventDefault();
       setLoading(true);
 

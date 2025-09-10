@@ -25,3 +25,5 @@ const App = () => {
 };
 
 export default App;
+
+/// TODO keep redux state sphere after end of animation
