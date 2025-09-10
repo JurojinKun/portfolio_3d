@@ -29,7 +29,7 @@ const FixedFooter = () => {
       />
       <IconRoundButton
         icon={<MdEmail className="icon-footer" />}
-        url="mailto:0rujdev@gmail.com"
+        url={`mailto:${process.env.REACT_APP_TO_EMAIL}`}
         title={t("contact_me.title")}
       />
     </div>
