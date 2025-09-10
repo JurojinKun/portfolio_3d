@@ -253,7 +253,7 @@
   height: 100%;
   border: none;
   cursor: pointer;
-  background: rgba(26, 27, 27, 0.6);
+  background: rgba(26, 27, 27, 0.8);
   backdrop-filter: blur(15px);
   display: flex;
   align-items: center;
