@@ -21,6 +21,14 @@ import NotFound from "./NotFound";
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import profilePicture from '../assets/profile_picture.png';
 
+const blockOverflowBody = ({ isOpen }) => {
+    if (isOpen) {
+        document.body.style.overflowY = 'hidden'
+    } else {
+        document.body.style.overflowY = 'auto'
+    }
+}
+
 const Portfolio = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -85,6 +93,7 @@ const Portfolio = () => {
         return iconSection;
     }
 
+    // TODO : faire des composants réutilisables pour tes scitch cases, à qui tu donnera en props ta section 
     const sectionPart = (section) => {
         let currentSection;
 
@@ -124,6 +133,7 @@ const Portfolio = () => {
         return currentSection;
     }
 
+    // TODO : ca c'est non : useEffect dans dépendances, avec des fonctions déclarées dedans, et du js vanilla : BERK 
     useEffect(() => {
         const setProgressBar = () => {
             if (isCurrentSection && sections.includes(isCurrentSection)) {
@@ -172,6 +182,7 @@ const Portfolio = () => {
     }, []);
 
     useEffect(() => {
+        console.log("cc");
         const observerEntering = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -220,17 +231,10 @@ const Portfolio = () => {
         }
     }, [isOpen]);
 
+        
     useEffect(() => {
 
-        const blockOverflowBody = () => {
-            if (isOpen) {
-                document.body.style.overflowY = 'hidden'
-            } else {
-                document.body.style.overflowY = 'auto'
-            }
-        }
-
-        blockOverflowBody();
+        blockOverflowBody(isOpen);
         
     }, [isOpen])
 
@@ -357,6 +361,7 @@ const Portfolio = () => {
                     }
                 }}>
                     {sections.map((section) => {
+                        // TODO : ici du coup tu retourne le composants et pas la focntion 
                         return sectionPart(section);
                     })}
                 </div>

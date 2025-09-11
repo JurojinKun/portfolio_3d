@@ -57,7 +57,7 @@ const ContactMe = ({ menuOpened, threshold }) => {
           "error"
         );
       } else {
-        const identity = form.name + " " + form.firstname;
+        const identity = form.name + " " + form.firstname; // TODO : template string fraté 
         const concatMessage = `Bonjour/Bonsoir, je suis ${form.name} ${form.firstname}, actuellement ${form.post}.\n\n${form.message}\n\nTu peux me contacter via ${form.email}`;
         emailjs
           .send(

@@ -54,59 +54,62 @@ const ProProjects = ({ menuOpened, t, threshold }) => {
         setOverflowBody();
     }, [selectedProject]);
 
-    const slides = [
-        {
-            key: 1,
-            img: smv,
-            titleSlide: t("projects.title_project_pro_1"),
-            contentSlide: t("projects.content_project_pro_1"),
-            content: <Slide isMobile={isMobile} img={smv} alt={"smv"} title={t("projects.title_project_pro_1")} content={t("projects.content_project_pro_1")} />
-        },
-        {
-            key: 2,
-            img: corsica,
-            titleSlide: t("projects.title_project_pro_2"),
-            contentSlide: t("projects.content_project_pro_2"),
-            content: <Slide isMobile={isMobile} img={corsica} alt={"corsica"} title={t("projects.title_project_pro_2")} content={t("projects.content_project_pro_2")} />
-        },
-        {
-            key: 3,
-            img: madewis,
-            titleSlide: t("projects.title_project_pro_3"),
-            contentSlide: t("projects.content_project_pro_3"),
-            content: <Slide isMobile={isMobile} img={madewis} alt={"madewis"} title={t("projects.title_project_pro_3")} content={t("projects.content_project_pro_3")} />
-        },
-        {
-            key: 4,
-            img: hobbies,
-            titleSlide: t("projects.title_project_pro_4"),
-            contentSlide: t("projects.content_project_pro_4"),
-            content: <Slide isMobile={isMobile} img={hobbies} alt={"hobbies"} title={t("projects.title_project_pro_4")} content={t("projects.content_project_pro_4")} />
-        },
-        {
-            key: 5,
-            img: croixrouge,
-            titleSlide: t("projects.title_project_pro_5"),
-            contentSlide: t("projects.content_project_pro_5"),
-            content: <Slide isMobile={isMobile} img={croixrouge} alt={"croixrouge"} title={t("projects.title_project_pro_5")} content={t("projects.content_project_pro_5")} />
-        },
-        {
-            key: 6,
-            img: asm,
-            titleSlide: t("projects.title_project_pro_6"),
-            contentSlide: t("projects.content_project_pro_6"),
-            content: <Slide isMobile={isMobile} img={asm} alt={"asm"} title={t("projects.title_project_pro_6")} content={t("projects.content_project_pro_6")} />
-        },
-        {
-            key: 7,
-            img: parismaville,
-            titleSlide: t("projects.title_project_pro_7"),
-            contentSlide: t("projects.content_project_pro_7"),
-            content: <Slide isMobile={isMobile} img={parismaville} alt={"parismaville"} title={t("projects.title_project_pro_7")} content={t("projects.content_project_pro_7")} />
-        },
-    ].map((slide, index) => {
+    const projectList = [
+    {
+        key: 1,
+        img: smv,
+        titleSlide: t("projects.title_project_pro_1"),
+        contentSlide: t("projects.content_project_pro_1"),
+        content: <Slide isMobile={isMobile} img={smv} alt={"smv"} title={t("projects.title_project_pro_1")} content={t("projects.content_project_pro_1")} />
+    },
+    {
+        key: 2,
+        img: corsica,
+        titleSlide: t("projects.title_project_pro_2"),
+        contentSlide: t("projects.content_project_pro_2"),
+        content: <Slide isMobile={isMobile} img={corsica} alt={"corsica"} title={t("projects.title_project_pro_2")} content={t("projects.content_project_pro_2")} />
+    },
+    {
+        key: 3,
+        img: madewis,
+        titleSlide: t("projects.title_project_pro_3"),
+        contentSlide: t("projects.content_project_pro_3"),
+        content: <Slide isMobile={isMobile} img={madewis} alt={"madewis"} title={t("projects.title_project_pro_3")} content={t("projects.content_project_pro_3")} />
+    },
+    {
+        key: 4,
+        img: hobbies,
+        titleSlide: t("projects.title_project_pro_4"),
+        contentSlide: t("projects.content_project_pro_4"),
+        content: <Slide isMobile={isMobile} img={hobbies} alt={"hobbies"} title={t("projects.title_project_pro_4")} content={t("projects.content_project_pro_4")} />
+    },
+    {
+        key: 5,
+        img: croixrouge,
+        titleSlide: t("projects.title_project_pro_5"),
+        contentSlide: t("projects.content_project_pro_5"),
+        content: <Slide isMobile={isMobile} img={croixrouge} alt={"croixrouge"} title={t("projects.title_project_pro_5")} content={t("projects.content_project_pro_5")} />
+    },
+    {
+        key: 6,
+        img: asm,
+        titleSlide: t("projects.title_project_pro_6"),
+        contentSlide: t("projects.content_project_pro_6"),
+        content: <Slide isMobile={isMobile} img={asm} alt={"asm"} title={t("projects.title_project_pro_6")} content={t("projects.content_project_pro_6")} />
+    },
+    {
+        key: 7,
+        img: parismaville,
+        titleSlide: t("projects.title_project_pro_7"),
+        contentSlide: t("projects.content_project_pro_7"),
+        content: <Slide isMobile={isMobile} img={parismaville} alt={"parismaville"} title={t("projects.title_project_pro_7")} content={t("projects.content_project_pro_7")} />
+    },
+];
+
+    const slides = projectList.map((slide, index) => {
         return {
             ...slide, onClick: () => {
+                // logique du onClick dans une focntion réutilisable 
                 if (!menuOpened) {
                     if (index !== currentIndex) {
                         setState({
@@ -197,6 +200,7 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
         threshold: threshold
     });
 
+    // in appelle pas une variable d'état STATE 
     const [state, setState] = useState({
         goToSlide: 0,
         offsetRadius: 1,
@@ -220,36 +224,38 @@ const PrivateProjects = ({ menuOpened, t, threshold }) => {
         setOverflowBody();
     }, [selectedProject]);
 
-    let slides = [
-        {
-            key: 1,
-            img: gemu,
-            titleSlide: t("projects.title_project_perso_1"),
-            contentSlide: t("projects.content_project_perso_1"),
-            content: <Slide isMobile={isMobile} img={gemu} alt={"gemu"} title={t("projects.title_project_perso_1")} content={t("projects.content_project_perso_1")} />
-        },
-        {
-            key: 2,
-            img: myyoukounkoun,
-            titleSlide: t("projects.title_project_perso_2"),
-            contentSlide: t("projects.content_project_perso_2"),
-            content: <Slide isMobile={isMobile} img={myyoukounkoun} alt={"myyoukounkoun"} title={t("projects.title_project_perso_2")} content={t("projects.content_project_perso_2")} />
-        },
-        {
-            key: 3,
-            img: portfolio,
-            titleSlide: t("projects.title_project_perso_3"),
-            contentSlide: t("projects.content_project_perso_3"),
-            content: <Slide isMobile={isMobile} img={portfolio} alt={"portfolio"} title={t("projects.title_project_perso_3")} content={t("projects.content_project_perso_3")} />
-        },
-        {
-            key: 4,
-            img: botdiscord,
-            titleSlide: t("projects.title_project_perso_4"),
-            contentSlide: t("projects.content_project_perso_4"),
-            content: <Slide isMobile={isMobile} img={botdiscord} alt={"botdiscord"} title={t("projects.title_project_perso_4")} content={t("projects.content_project_perso_4")} />
-        },
-    ].map((slide, index) => {
+    const personalProjectList = [
+    {
+        key: 1,
+        img: gemu,
+        titleSlide: t("projects.title_project_perso_1"),
+        contentSlide: t("projects.content_project_perso_1"),
+        content: <Slide isMobile={isMobile} img={gemu} alt={"gemu"} title={t("projects.title_project_perso_1")} content={t("projects.content_project_perso_1")} />
+    },
+    {
+        key: 2,
+        img: myyoukounkoun,
+        titleSlide: t("projects.title_project_perso_2"),
+        contentSlide: t("projects.content_project_perso_2"),
+        content: <Slide isMobile={isMobile} img={myyoukounkoun} alt={"myyoukounkoun"} title={t("projects.title_project_perso_2")} content={t("projects.content_project_perso_2")} />
+    },
+    {
+        key: 3,
+        img: portfolio,
+        titleSlide: t("projects.title_project_perso_3"),
+        contentSlide: t("projects.content_project_perso_3"),
+        content: <Slide isMobile={isMobile} img={portfolio} alt={"portfolio"} title={t("projects.title_project_perso_3")} content={t("projects.content_project_perso_3")} />
+    },
+    {
+        key: 4,
+        img: botdiscord,
+        titleSlide: t("projects.title_project_perso_4"),
+        contentSlide: t("projects.content_project_perso_4"),
+        content: <Slide isMobile={isMobile} img={botdiscord} alt={"botdiscord"} title={t("projects.title_project_perso_4")} content={t("projects.content_project_perso_4")} />
+    },
+];
+
+    let slides = personalProjectList.map((slide, index) => {
         return {
             ...slide, onClick: () => {
                 if (!menuOpened) {

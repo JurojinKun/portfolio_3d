@@ -9,6 +9,14 @@ import { useInView } from "react-intersection-observer";
 import { textVariant, slideIn } from "../utils/motion";
 import SkillModal from "../components/SkillModal";
 
+  const setOverflowBody = (selectedSkill) => {
+      if (selectedSkill === null) {
+        document.body.style.overflowY = "auto";
+      } else {
+        document.body.style.overflowY = "hidden";
+      }
+    };
+
 const Skills = ({ menuOpened }) => {
   const { t } = useTranslation();
 
@@ -24,7 +32,6 @@ const Skills = ({ menuOpened }) => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -33,15 +40,7 @@ const Skills = ({ menuOpened }) => {
   }, []);
 
   useEffect(() => {
-    const setOverflowBody = () => {
-      if (selectedSkill === null) {
-        document.body.style.overflowY = "auto";
-      } else {
-        document.body.style.overflowY = "hidden";
-      }
-    };
-
-    setOverflowBody();
+    setOverflowBody(selectedSkill);
   }, [selectedSkill]);
 
   const skills = [
@@ -119,7 +118,7 @@ const Skills = ({ menuOpened }) => {
                 <div className="circle" />
                 <TagCloud
                   className="tagcloud-skill"
-                  options={(w, TagCloudOptions) => ({
+                  options={() => ({
                     radius: Math.min(800, windowWidth, 800) / 2.5,
                   })}
                   onClick={(tag, ev) => {

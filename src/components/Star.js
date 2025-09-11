@@ -1,4 +1,4 @@
-import, { useMemo } from "react";
+import { useMemo } from "react";
 import { ExtrudeGeometry, Shape } from "three";
 
 const Star = ({ starRef, starColor, onClick }) => {

@@ -75,7 +75,7 @@ const NotFound = () => {
             <div className="mainContainer">
                 <div className="innerContainer">
                     <img src={notFoundAstro} alt='Not Found' className="notFoundAstro" />
-                    <div>
+                    <>
                         <div className="black_hole element-to-hover">
                             <span />
                             <span />
@@ -83,7 +83,7 @@ const NotFound = () => {
                             <span />
                         </div>
                         <div id="custom-cursor"></div>
-                    </div>
+                    </>
                 </div>
                 <div className='fontBodyBoldNotFound' style={{
                     textAlign: "center"
