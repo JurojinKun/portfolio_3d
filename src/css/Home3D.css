@@ -160,14 +160,11 @@
   color: white;
   font-size: 23px;
   font-family: "Space Mono";
-  font-weight: 400;
-}
-
-.field {
-  margin: 10px;
+  font-weight: 700;
 }
 
 .mouse {
+  margin-left: 10px;
   width: 20px;
   height: 40px;
   border: 2px solid #fff;
