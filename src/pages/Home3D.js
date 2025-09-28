@@ -8,7 +8,17 @@ import FixedFooter from "../components/FixedFooter";
 
 const Home3D = () => {
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    if (typeof document === "undefined") {
+      return undefined;
+    }
+
+    const { style } = document.body;
+    const previousOverflow = style.overflow;
+    style.overflow = "hidden";
+
+    return () => {
+      style.overflow = previousOverflow;
+    };
   }, []);
 
   return (

@@ -6,91 +6,55 @@ import { useNavigate } from 'react-router-dom';
 
 import Hexagon from './Hexagon';
 
+const SATELLITE_CONFIG = [
+  {
+    translationKey: 'satellites.about_me',
+    iconPath: '/icons/about_me.svg',
+    route: '/portfolio/aboutme',
+  },
+  {
+    translationKey: 'satellites.skills',
+    iconPath: '/icons/skills.svg',
+    route: '/portfolio/skills',
+  },
+  {
+    translationKey: 'satellites.experiences',
+    iconPath: '/icons/experiences.svg',
+    route: '/portfolio/experiences',
+  },
+  {
+    translationKey: 'satellites.projects',
+    iconPath: '/icons/projects.svg',
+    route: '/portfolio/projects',
+  },
+  {
+    translationKey: 'satellites.contact_me',
+    iconPath: '/icons/contact_me.svg',
+    route: '/portfolio/contactme',
+  },
+];
+
+const resetCursor = () => {
+  if (typeof document !== 'undefined' && document.body.style.cursor === 'pointer') {
+    document.body.style.cursor = 'auto';
+  }
+};
+
 const Satellite = ({ color, visible, position, index }) => {
   const { t } = useTranslation();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const satelliteRef = useRef();
 
-  const satelliteName = (index) => {
-    let section;
+  const config = SATELLITE_CONFIG[index];
+  const label = config ? t(config.translationKey).toUpperCase() : '';
+  const iconPath = config ? config.iconPath : '';
+  const route = config ? config.route : '/portfolio';
 
-    switch (index) {
-      case 0:
-        section = t("satellites.about_me").toUpperCase();
-        break;
-      case 1:
-        section = t("satellites.skills").toUpperCase();
-        break;
-      case 2:
-        section = t("satellites.experiences").toUpperCase();
-        break;
-      case 3:
-        section = t("satellites.projects").toUpperCase();
-        break;
-      case 4:
-        section = t("satellites.contact_me").toUpperCase();
-        break;
-      default:
-        section = "";
-        break;
-    }
-
-    return section;
-  }
-
-  const satelliteIconPath = (index) => {
-    let iconPath;
-
-    switch (index) {
-      case 0:
-        iconPath = "/icons/about_me.svg";
-        break;
-      case 1:
-        iconPath = "/icons/skills.svg";
-        break;
-      case 2:
-        iconPath = "/icons/experiences.svg";
-        break;
-      case 3:
-        iconPath = "/icons/projects.svg";
-        break;
-      case 4:
-        iconPath = "/icons/contact_me.svg";
-        break;
-      default:
-        iconPath = "";
-        break;
-    }
-
-    return iconPath;
-  }
-
-  const onSatelliteClick = (index) => {
-    let url;
-
-    switch (index) {
-      case 0:
-        url = "/portfolio/aboutme";
-        break;
-      case 1:
-        url = "/portfolio/skills";
-        break;
-      case 2:
-        url = "/portfolio/experiences";
-        break;
-      case 3:
-        url = "/portfolio/projects";
-        break;
-      case 4:
-        url = "/portfolio/contactme";
-        break;
-      default:
-        url = "/portfolio";
-        break;
-    }
-    navigate(url);
-  }
+  const handleNavigate = () => {
+    navigate(route);
+    resetCursor();
+  };
 
   useFrame(() => {
     if (satelliteRef.current) {
@@ -101,12 +65,13 @@ const Satellite = ({ color, visible, position, index }) => {
 
   return (
     <group position={position} visible={visible}>
-      <Hexagon hexagonRef={satelliteRef} hexagonColor={color} onClick={() => {
-        onSatelliteClick(index);
-        if (document.body.style.cursor === "pointer") {
-          document.body.style.cursor = "auto";
-        }
-      }} iconPath={satelliteIconPath(index)} visible={visible} />
+      <Hexagon
+        hexagonRef={satelliteRef}
+        hexagonColor={color}
+        onClick={handleNavigate}
+        iconPath={iconPath}
+        visible={visible}
+      />
       <Text
         position={[0, -0.27, 0]}
         fontSize={0.10}
@@ -114,17 +79,12 @@ const Satellite = ({ color, visible, position, index }) => {
         textAlign="center"
         fontWeight="bold"
         font="/fonts/SpaceMono-Bold.ttf"
-        onClick={visible && (() => {
-          onSatelliteClick(index);
-          if (document.body.style.cursor === "pointer") {
-            document.body.style.cursor = "auto";
-          }
-        })}
+        onClick={visible ? handleNavigate : undefined}
       >
-        {satelliteName(index)}
+        {label}
       </Text>
     </group>
   );
-}
+};
 
 export default Satellite;

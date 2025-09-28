@@ -30,9 +30,18 @@ const Scene = () => {
     return null;  // Pas de rendu visuel pour ce composant
 }
 
+const canvasStyle = {
+    position: 'fixed',
+    inset: 0,
+    width: '100vw',
+    height: '100vh',
+    pointerEvents: 'none',
+    zIndex: 0,
+};
+
 const StarsCanvas = () => {
     return (
-        <Canvas style={{ position: 'absolute' }}>
+        <Canvas style={canvasStyle}>
             <Stars />
             <Scene />
         </Canvas>
@@ -40,4 +49,3 @@ const StarsCanvas = () => {
 };
 
 export default StarsCanvas;
-
