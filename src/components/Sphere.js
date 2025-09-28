@@ -5,7 +5,20 @@ import { Color } from "three";
 import Satellite from "./Satellite";
 import SatelliteBug from "./SatelliteBug";
 
-const SphereCustom = ({ scroll }) => {
+const clampProgress = (value) => {
+  if (!Number.isFinite(value)) {
+    return 0;
+  }
+  if (value >= 0.995) {
+    return 1;
+  }
+  if (value <= 0.005) {
+    return 0;
+  }
+  return value;
+};
+
+const SphereCustom = ({ scroll, offsetOverride }) => {
   const sphereRadius = 2;
   const sphereDetailWidth = 40;
   const sphereDetailHeight = 20;
@@ -47,6 +60,9 @@ const SphereCustom = ({ scroll }) => {
   }, []);
 
   useFrame(({ clock }) => {
+    const baseOffset =
+      typeof offsetOverride === "number" ? offsetOverride : scroll.offset;
+    const normalizedOffset = clampProgress(baseOffset);
     const elapsedTime = clock.getElapsedTime();
 
     if (meshRef.current && lightRef.current) {
@@ -57,7 +73,7 @@ const SphereCustom = ({ scroll }) => {
       // setColor(new Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`));
       setColor(getColor(elapsedTime));
 
-      if (scroll.offset > 0) {
+      if (normalizedOffset > 0) {
         const startPosition = [1.5, -1, 7];
         let endPosition = [0, 0.1, 2.5];
 
@@ -71,13 +87,13 @@ const SphereCustom = ({ scroll }) => {
         // Linear interpolation between start and end positions based on offset
         meshRef.current.position.x =
           startPosition[0] +
-          scroll.offset * (endPosition[0] - startPosition[0]);
+          normalizedOffset * (endPosition[0] - startPosition[0]);
         meshRef.current.position.y =
           startPosition[1] +
-          scroll.offset * (endPosition[1] - startPosition[1]);
+          normalizedOffset * (endPosition[1] - startPosition[1]);
         meshRef.current.position.z =
           startPosition[2] +
-          scroll.offset * (endPosition[2] - startPosition[2]);
+          normalizedOffset * (endPosition[2] - startPosition[2]);
 
         // Check whether satellites should be visible
         const shouldSatellitesBeVisible =

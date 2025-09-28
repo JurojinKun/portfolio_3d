@@ -25,6 +25,7 @@ const FixedFooter = () => {
       <IconRoundButton
         icon={<HiDocumentText className="icon-footer" />}
         url="/cv/CV_Clement_Communay.pdf"
+        download
         title="CV"
       />
       <IconRoundButton

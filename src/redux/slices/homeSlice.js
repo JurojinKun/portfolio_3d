@@ -9,9 +9,12 @@ const homeSlice = createSlice({
     setHomeOffset: (state, action) => {
       state.offset = action.payload;
     },
+    resetHomeOffset: (state) => {
+      state.offset = 0;
+    },
   },
 });
 
-export const { setHomeOffset } = homeSlice.actions;
+export const { setHomeOffset, resetHomeOffset } = homeSlice.actions;
 
 export default homeSlice.reducer;

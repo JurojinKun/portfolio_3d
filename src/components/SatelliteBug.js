@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Hexagon from './Hexagon';
 
 const SatelliteBug = ({ color, visible, position }) => {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const satelliteRef = useRef();
 
@@ -28,15 +28,18 @@ const SatelliteBug = ({ color, visible, position }) => {
         }
     });
 
+    const resetCursor = () => {
+        if (typeof document !== 'undefined' && document.body.style.cursor === 'pointer') {
+            document.body.style.cursor = 'auto';
+        }
+    };
+
     return (
         <group position={position} visible={visible}>
             <Hexagon hexagonRef={satelliteRef} hexagonColor={hexagonColor} onClick={() => {
                 navigate("/notfound");
-                if (document.body.style.cursor === "pointer") {
-                    document.body.style.cursor = "auto";
-                }
-            }
-            } iconPath={"/icons/not_found.svg"} visible={visible} />
+                resetCursor();
+            }} iconPath={"/icons/not_found.svg"} visible={visible} />
             <Text
                 position={[0, -0.27, 0]}
                 fontSize={0.10}
@@ -46,9 +49,7 @@ const SatelliteBug = ({ color, visible, position }) => {
                 font="/fonts/SpaceMono-Bold.ttf"
                 onClick={visible && (() => {
                     navigate("/notfound");
-                    if (document.body.style.cursor === "pointer") {
-                        document.body.style.cursor = "auto";
-                    }
+                    resetCursor();
                 }
                 )}
             >
