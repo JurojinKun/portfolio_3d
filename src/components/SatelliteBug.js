@@ -1,11 +1,11 @@
-import  { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
 
 import Hexagon from './Hexagon';
 
-const SatelliteBug = ({ color, visible, position }) => {
+const SatelliteBug = ({ color, visible, position, interactable }) => {
     const navigate = useNavigate();
 
     const satelliteRef = useRef();
@@ -34,12 +34,17 @@ const SatelliteBug = ({ color, visible, position }) => {
         }
     };
 
+    const canInteract = interactable ?? visible;
+
     return (
         <group position={position} visible={visible}>
             <Hexagon hexagonRef={satelliteRef} hexagonColor={hexagonColor} onClick={() => {
+                if (!canInteract) {
+                    return;
+                }
                 navigate("/notfound");
                 resetCursor();
-            }} iconPath={"/icons/not_found.svg"} visible={visible} />
+            }} iconPath={"/icons/not_found.svg"} visible={canInteract} />
             <Text
                 position={[0, -0.27, 0]}
                 fontSize={0.10}
@@ -47,11 +52,10 @@ const SatelliteBug = ({ color, visible, position }) => {
                 textAlign="center"
                 fontWeight="bold"
                 font="/fonts/SpaceMono-Bold.ttf"
-                onClick={visible && (() => {
+                onClick={canInteract ? (() => {
                     navigate("/notfound");
                     resetCursor();
-                }
-                )}
+                }) : undefined}
             >
                 {"ERR 404"}
             </Text>
