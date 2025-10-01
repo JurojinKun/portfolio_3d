@@ -30,7 +30,7 @@ const Hexagon = ({
         side: DoubleSide,
         opacity: iconOpacity,
       }),
-    [iconTexture]
+    [iconTexture, iconOpacity]
   );
 
   useEffect(() => {
