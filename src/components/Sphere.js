@@ -1,9 +1,39 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Color } from "three";
+import {
+  Color,
+  EdgesGeometry,
+  ExtrudeGeometry,
+  LineBasicMaterial,
+  MathUtils,
+  Matrix4,
+  MeshPhongMaterial,
+  Quaternion,
+  Shape,
+  Vector3,
+} from "three";
 
-import Satellite from "./Satellite";
-import SatelliteBug from "./SatelliteBug";
+import OrbitingSatellite from "./OrbitingSatellite";
+import { easeInOutCubic } from "../utils/utils";
+
+const SATELLITE_REVEAL_PROGRESS = 0.18;
+const HEX_TILE_STYLE = Object.freeze({
+  depth: 0.1,
+  radius: 0.15,
+  baseOpacity: 1,
+  edgeOpacity: 1,
+  minOpacity: 0.2,
+  maxOpacity: 0.8,
+});
+const HEX_LAYOUT = Object.freeze({
+  tileCount: 550,
+});
+const VECTOR_UP = new Vector3(0, 1, 0);
+const VECTOR_RIGHT = new Vector3(1, 0, 0);
+const VECTOR_FORWARD = new Vector3(0, 0, 1);
+const TEMP_NORMAL = new Vector3();
+const TEMP_POSITION = new Vector3();
+const TEMP_TO_CAMERA = new Vector3();
 
 const clampProgress = (value) => {
   if (!Number.isFinite(value)) {
@@ -18,34 +48,192 @@ const clampProgress = (value) => {
   return value;
 };
 
-const SphereCustom = ({ scroll, offsetOverride }) => {
-  const sphereRadius = 2;
-  const sphereDetailWidth = 40;
-  const sphereDetailHeight = 20;
+const createHexGeometry = () => {
+  const shape = new Shape();
+  const sides = 6;
+  const radius = HEX_TILE_STYLE.radius;
 
-  const meshRef = useRef();
-  const lightRef = useRef();
+  shape.moveTo(radius, 0);
+  for (let i = 1; i <= sides; i += 1) {
+    const theta = (i / sides) * Math.PI * 2;
+    shape.lineTo(radius * Math.cos(theta), radius * Math.sin(theta));
+  }
 
-  const startColor = new Color("#47CDD6");
-  const endColor = new Color("#9D4DC4");
+  const geometry = new ExtrudeGeometry(shape, {
+    depth: HEX_TILE_STYLE.depth,
+    bevelEnabled: false,
+  });
+  geometry.center();
+  return geometry;
+};
 
-  const getColor = (elapsedTime) => {
-    const proportion = Math.abs(Math.sin(elapsedTime * 0.1));
-    return new Color().copy(startColor).lerp(endColor, proportion);
-  };
-
-  const [color, setColor] = useState(getColor(0));
-  const [satellitePositions, setSatellitePositions] = useState(
-    Array(6).fill([0, 0, 0])
+const createOrientation = (normal) => {
+  const projected = VECTOR_FORWARD.clone().sub(
+    normal.clone().multiplyScalar(VECTOR_FORWARD.dot(normal))
   );
-  const [satellitesVisible, setSatellitesVisible] = useState(false);
+  let tangentSource = projected;
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const windowMappings = [
-    { limit: 400, value: [0, 0.1, -5.5] },
-    { limit: 600, value: [0, 0.1, -3.5] },
-    { limit: 1000, value: [0, 0.1, 0.5] },
-  ];
+  if (tangentSource.lengthSq() < 1e-6) {
+    tangentSource = VECTOR_RIGHT.clone().sub(
+      normal.clone().multiplyScalar(VECTOR_RIGHT.dot(normal))
+    );
+    if (tangentSource.lengthSq() < 1e-6) {
+      tangentSource = VECTOR_UP.clone().sub(
+        normal.clone().multiplyScalar(VECTOR_UP.dot(normal))
+      );
+    }
+  }
+
+  const tangent = tangentSource.normalize();
+  const bitangent = normal.clone().cross(tangent).normalize();
+  const orientationMatrix = new Matrix4().makeBasis(tangent, bitangent, normal);
+  return new Quaternion().setFromRotationMatrix(orientationMatrix);
+};
+
+const generateHexSphereTiles = (count, radius) => {
+  const tiles = [];
+  const offset = 2 / count;
+  const increment = Math.PI * (3 - Math.sqrt(5));
+
+  for (let i = 0; i < count; i += 1) {
+    const y = i * offset - 1 + offset / 2;
+    const r = Math.sqrt(Math.max(0, 1 - y * y));
+    const phi = i * increment;
+    const x = Math.cos(phi) * r;
+    const z = Math.sin(phi) * r;
+
+    const normal = new Vector3(x, y, z).normalize();
+
+    tiles.push({
+      position: normal.clone().multiplyScalar(radius),
+      quaternion: createOrientation(normal),
+      normal,
+    });
+  }
+
+  return tiles;
+};
+
+const selectSatelliteTiles = (tiles, count) => {
+  if (tiles.length <= count) {
+    return tiles.map((_, index) => index);
+  }
+
+  const result = [];
+  const step = Math.floor(tiles.length / count);
+
+  for (let i = 0; i < tiles.length && result.length < count; i += step) {
+    result.push(i);
+  }
+
+  let fallbackIndex = tiles.length - 1;
+  while (result.length < count && fallbackIndex >= 0) {
+    if (!result.includes(fallbackIndex)) {
+      result.push(fallbackIndex);
+    }
+    fallbackIndex -= 1;
+  }
+
+  return result;
+};
+
+const SphereCustom = ({ scroll, offsetOverride }) => {
+  const sphereRadius = 2.0;
+  const groupRef = useRef();
+
+  const startColor = useMemo(() => new Color("#47CDD6"), []);
+  const endColor = useMemo(() => new Color("#9D4DC4"), []);
+
+  const hexGeometry = useMemo(() => createHexGeometry(), []);
+  const hexEdgesGeometry = useMemo(
+    () => new EdgesGeometry(hexGeometry),
+    [hexGeometry]
+  );
+  const hexEdgeMaterialRef = useRef(
+    new LineBasicMaterial({
+      color: startColor.clone(),
+      transparent: HEX_TILE_STYLE.edgeOpacity < 1,
+      opacity: HEX_TILE_STYLE.edgeOpacity,
+      depthTest: false,
+      depthWrite: false,
+      toneMapped: false,
+    })
+  );
+
+  const tiles = useMemo(
+    () => generateHexSphereTiles(HEX_LAYOUT.tileCount, sphereRadius),
+    [sphereRadius]
+  );
+  const tileMaterials = useMemo(
+    () =>
+      tiles.map(
+        () =>
+          new MeshPhongMaterial({
+            color: startColor.clone(),
+            transparent: true,
+            opacity: HEX_TILE_STYLE.baseOpacity,
+            polygonOffset: true,
+            polygonOffsetFactor: -2,
+            polygonOffsetUnits: -2,
+          })
+      ),
+    [tiles, startColor]
+  );
+
+  const satelliteIndices = useMemo(
+    () => selectSatelliteTiles(tiles, 6),
+    [tiles]
+  );
+  const satelliteIndexSet = useMemo(
+    () => new Set(satelliteIndices),
+    [satelliteIndices]
+  );
+
+  const satelliteBaseMaterials = useMemo(
+    () => satelliteIndices.map((tileIndex) => tileMaterials[tileIndex]),
+    [satelliteIndices, tileMaterials]
+  );
+
+  const satelliteEdgeMaterials = useMemo(
+    () =>
+      satelliteIndices.map(
+        () =>
+          new LineBasicMaterial({
+            color: startColor.clone(),
+            transparent: HEX_TILE_STYLE.edgeOpacity < 1,
+            opacity: HEX_TILE_STYLE.edgeOpacity,
+            depthTest: false,
+            depthWrite: false,
+            toneMapped: false,
+          })
+      ),
+    [satelliteIndices, startColor]
+  );
+
+  const initialGroupPosition = useMemo(() => new Vector3(1.5, -1, 7), []);
+
+  const [color, setColor] = useState(() => startColor.clone());
+  const [satellitePositions, setSatellitePositions] = useState(() =>
+    satelliteIndices.map((index) =>
+      tiles[index].position.clone().add(initialGroupPosition).toArray()
+    )
+  );
+  const [detachProgressState, setDetachProgressState] = useState(0);
+  const tileScale = 0.9;
+
+  useEffect(() => {
+    tileMaterials.forEach((material) => {
+      material.color.copy(color);
+      material.needsUpdate = true;
+    });
+    satelliteEdgeMaterials.forEach((material) => {
+      material.color.copy(color);
+      material.needsUpdate = true;
+    });
+    hexEdgeMaterialRef.current.color.copy(color);
+  }, [color, tileMaterials, satelliteEdgeMaterials]);
+
+  const [windowWidth, setWindowWidth] = useState(() => window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
@@ -59,95 +247,162 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
     };
   }, []);
 
-  useFrame(({ clock }) => {
+  const getColorAtTime = (elapsedTime) => {
+    const proportion = Math.abs(Math.sin(elapsedTime * 0.1));
+    return new Color().copy(startColor).lerp(endColor, proportion);
+  };
+
+  const holeRevealThreshold = SATELLITE_REVEAL_PROGRESS;
+
+  useFrame(({ clock, camera }) => {
+    const group = groupRef.current;
+    if (!group) {
+      return;
+    }
+
     const baseOffset =
       typeof offsetOverride === "number" ? offsetOverride : scroll.offset;
     const normalizedOffset = clampProgress(baseOffset);
     const elapsedTime = clock.getElapsedTime();
 
-    if (meshRef.current && lightRef.current) {
-      meshRef.current.rotation.y += 0.0003;
-      meshRef.current.rotation.z += 0.0003;
+    group.rotation.y += 0.0003;
+    group.rotation.z += 0.0003;
 
-      // Change sphere color over time
-      // setColor(new Color(`hsl(${elapsedTime * 10 % 360}, 50%, 50%)`));
-      setColor(getColor(elapsedTime));
+    const updatedColor = getColorAtTime(elapsedTime);
+    setColor(updatedColor);
 
-      if (normalizedOffset > 0) {
-        const startPosition = [1.5, -1, 7];
-        let endPosition = [0, 0.1, 2.5];
+    const groupQuaternion = group.quaternion;
+    const cameraPosition = camera.position;
 
-        for (let mapping of windowMappings) {
-          if (windowWidth <= mapping.limit) {
-            endPosition = mapping.value;
-            break;
-          }
-        }
+    tiles.forEach((tile, index) => {
+      const material = tileMaterials[index];
 
-        // Linear interpolation between start and end positions based on offset
-        meshRef.current.position.x =
-          startPosition[0] +
-          normalizedOffset * (endPosition[0] - startPosition[0]);
-        meshRef.current.position.y =
-          startPosition[1] +
-          normalizedOffset * (endPosition[1] - startPosition[1]);
-        meshRef.current.position.z =
-          startPosition[2] +
-          normalizedOffset * (endPosition[2] - startPosition[2]);
+      if (!material) {
+        return;
+      }
 
-        // Check whether satellites should be visible
-        const shouldSatellitesBeVisible =
-          meshRef.current.position.x <= endPosition[0] + 0.2 &&
-          meshRef.current.position.y <= endPosition[1] + 0.2 &&
-          meshRef.current.position.z <= endPosition[2] + 0.2;
-        setSatellitesVisible(shouldSatellitesBeVisible);
+      TEMP_NORMAL.copy(tile.normal).applyQuaternion(groupQuaternion);
+      TEMP_POSITION.copy(tile.position)
+        .applyQuaternion(groupQuaternion)
+        .add(group.position);
+      TEMP_TO_CAMERA.copy(cameraPosition).sub(TEMP_POSITION).normalize();
 
-        if (shouldSatellitesBeVisible) {
-          // Calculate satellite positions and update the state
-          const newPositions = satellitePositions.map((_, index) => {
-            const angle =
-              ((2 * Math.PI) / satellitePositions.length) * index +
-              elapsedTime * 0.03;
-            const distance = 2.5;
-            return [
-              distance * Math.cos(angle),
-              distance * Math.sin(angle),
-              meshRef.current.position.z + 1.3,
-            ];
-          });
-          setSatellitePositions(newPositions);
-        }
+      const facing = MathUtils.clamp(TEMP_NORMAL.dot(TEMP_TO_CAMERA), -1, 1);
+      const normalizedFacing = (facing + 1) / 2;
+      const targetOpacity =
+        HEX_TILE_STYLE.minOpacity +
+        (HEX_TILE_STYLE.maxOpacity - HEX_TILE_STYLE.minOpacity) *
+          normalizedFacing;
+
+      material.opacity = MathUtils.lerp(material.opacity, targetOpacity, 0.1);
+      material.needsUpdate = true;
+    });
+
+    const startPosition = [
+      initialGroupPosition.x,
+      initialGroupPosition.y,
+      initialGroupPosition.z,
+    ];
+    let endPosition = [0, 0.1, 2.5];
+
+    const windowMappings = [
+      { limit: 400, value: [0, 0.1, -5.5] },
+      { limit: 600, value: [0, 0.1, -3.5] },
+      { limit: 1000, value: [0, 0.1, 0.5] },
+    ];
+
+    for (const mapping of windowMappings) {
+      if (windowWidth <= mapping.limit) {
+        endPosition = mapping.value;
+        break;
       }
     }
+
+    group.position.x =
+      startPosition[0] + normalizedOffset * (endPosition[0] - startPosition[0]);
+    group.position.y =
+      startPosition[1] + normalizedOffset * (endPosition[1] - startPosition[1]);
+    group.position.z =
+      startPosition[2] + normalizedOffset * (endPosition[2] - startPosition[2]);
+
+    const detachStart = 0.12;
+    const detachProgress =
+      normalizedOffset <= detachStart
+        ? 0
+        : Math.min((normalizedOffset - detachStart) / (1 - detachStart), 1);
+
+    if (Math.abs(detachProgressState - detachProgress) > 0.01) {
+      setDetachProgressState(detachProgress);
+    }
+
+    const orbitRadius = 2.5;
+    const easedDetach = easeInOutCubic(detachProgress);
+
+    const newPositions = satelliteIndices.map((tileIndex, index) => {
+      const tile = tiles[tileIndex];
+      const tileWorldPosition = group.localToWorld(tile.position.clone());
+
+      const angle =
+        ((2 * Math.PI) / satelliteIndices.length) * index + elapsedTime * 0.03;
+
+      const orbitTarget = new Vector3(
+        Math.cos(angle) * orbitRadius,
+        Math.sin(angle) * orbitRadius,
+        group.position.z + 1.3
+      );
+
+      const blendedPosition = tileWorldPosition.lerp(orbitTarget, easedDetach);
+      return [blendedPosition.x, blendedPosition.y, blendedPosition.z];
+    });
+
+    setSatellitePositions(newPositions);
   });
 
   return (
     <>
-      <mesh ref={meshRef} position={[1.5, -1, 7]}>
-        <sphereGeometry
-          args={[sphereRadius, sphereDetailWidth, sphereDetailHeight]}
-        />
-        <meshBasicMaterial wireframe color={color} />
-      </mesh>
-      {satellitePositions.map((pos, i) =>
-        i === 5 ? (
-          <SatelliteBug
-            key={i}
+      <group ref={groupRef} position={initialGroupPosition.toArray()}>
+        {tiles.map((tile, index) => {
+          const hideTile =
+            satelliteIndexSet.has(index) &&
+            detachProgressState > holeRevealThreshold;
+
+          if (hideTile) {
+            return null;
+          }
+
+          return (
+            <group
+              key={index}
+              position={tile.position}
+              quaternion={tile.quaternion}
+              scale={tileScale}
+            >
+              <mesh geometry={hexGeometry} material={tileMaterials[index]} />
+              <lineSegments
+                geometry={hexEdgesGeometry}
+                material={hexEdgeMaterialRef.current}
+              />
+            </group>
+          );
+        })}
+      </group>
+      {detachProgressState > SATELLITE_REVEAL_PROGRESS &&
+        satelliteIndices.map((tileIndex, index) => (
+          <OrbitingSatellite
+            key={tileIndex}
+            tile={tiles[tileIndex]}
+            position={satellitePositions[index]}
             color={color}
-            visible={satellitesVisible}
-            position={pos}
+            hexGeometry={hexGeometry}
+            hexEdgesGeometry={hexEdgesGeometry}
+            baseMaterial={satelliteBaseMaterials[index]}
+            edgeMaterial={satelliteEdgeMaterials[index]}
+            detachProgress={detachProgressState}
+            tileScale={tileScale}
+            index={index}
           />
-        ) : (
-          <Satellite
-            key={i}
-            color={color}
-            visible={satellitesVisible}
-            position={pos}
-            index={i}
-          />
-        )
-      )}
-      <ambientLight ref={lightRef} intensity={0.4} />
+        ))}
+      <ambientLight intensity={0.5} />
     </>
   );
 };
