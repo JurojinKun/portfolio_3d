@@ -5,6 +5,7 @@ import {
   EdgesGeometry,
   ExtrudeGeometry,
   LineBasicMaterial,
+  MathUtils,
   Matrix4,
   MeshPhongMaterial,
   Quaternion,
@@ -21,12 +22,18 @@ const HEX_TILE_STYLE = Object.freeze({
   radius: 0.15,
   baseOpacity: 1,
   edgeOpacity: 1,
+  minOpacity: 0.2,
+  maxOpacity: 0.8,
 });
 const HEX_LAYOUT = Object.freeze({
-  tileCount: 600,
+  tileCount: 550,
 });
 const VECTOR_UP = new Vector3(0, 1, 0);
 const VECTOR_RIGHT = new Vector3(1, 0, 0);
+const VECTOR_FORWARD = new Vector3(0, 0, 1);
+const TEMP_NORMAL = new Vector3();
+const TEMP_POSITION = new Vector3();
+const TEMP_TO_CAMERA = new Vector3();
 
 const clampProgress = (value) => {
   if (!Number.isFinite(value)) {
@@ -61,9 +68,23 @@ const createHexGeometry = () => {
 };
 
 const createOrientation = (normal) => {
-  const reference =
-    Math.abs(normal.dot(VECTOR_UP)) > 0.9 ? VECTOR_RIGHT : VECTOR_UP;
-  const tangent = reference.clone().cross(normal).normalize();
+  const projected = VECTOR_FORWARD.clone().sub(
+    normal.clone().multiplyScalar(VECTOR_FORWARD.dot(normal))
+  );
+  let tangentSource = projected;
+
+  if (tangentSource.lengthSq() < 1e-6) {
+    tangentSource = VECTOR_RIGHT.clone().sub(
+      normal.clone().multiplyScalar(VECTOR_RIGHT.dot(normal))
+    );
+    if (tangentSource.lengthSq() < 1e-6) {
+      tangentSource = VECTOR_UP.clone().sub(
+        normal.clone().multiplyScalar(VECTOR_UP.dot(normal))
+      );
+    }
+  }
+
+  const tangent = tangentSource.normalize();
   const bitangent = normal.clone().cross(tangent).normalize();
   const orientationMatrix = new Matrix4().makeBasis(tangent, bitangent, normal);
   return new Quaternion().setFromRotationMatrix(orientationMatrix);
@@ -128,16 +149,6 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
     () => new EdgesGeometry(hexGeometry),
     [hexGeometry]
   );
-  const hexMaterialRef = useRef(
-    new MeshPhongMaterial({
-      color: startColor.clone(),
-      transparent: true,
-      opacity: HEX_TILE_STYLE.baseOpacity,
-      polygonOffset: true,
-      polygonOffsetFactor: -2,
-      polygonOffsetUnits: -2,
-    })
-  );
   const hexEdgeMaterialRef = useRef(
     new LineBasicMaterial({
       color: startColor.clone(),
@@ -153,6 +164,21 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
     () => generateHexSphereTiles(HEX_LAYOUT.tileCount, sphereRadius),
     [sphereRadius]
   );
+  const tileMaterials = useMemo(
+    () =>
+      tiles.map(
+        () =>
+          new MeshPhongMaterial({
+            color: startColor.clone(),
+            transparent: true,
+            opacity: HEX_TILE_STYLE.baseOpacity,
+            polygonOffset: true,
+            polygonOffsetFactor: -2,
+            polygonOffsetUnits: -2,
+          })
+      ),
+    [tiles, startColor]
+  );
 
   const satelliteIndices = useMemo(
     () => selectSatelliteTiles(tiles, 6),
@@ -161,6 +187,27 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
   const satelliteIndexSet = useMemo(
     () => new Set(satelliteIndices),
     [satelliteIndices]
+  );
+
+  const satelliteBaseMaterials = useMemo(
+    () => satelliteIndices.map((tileIndex) => tileMaterials[tileIndex]),
+    [satelliteIndices, tileMaterials]
+  );
+
+  const satelliteEdgeMaterials = useMemo(
+    () =>
+      satelliteIndices.map(
+        () =>
+          new LineBasicMaterial({
+            color: startColor.clone(),
+            transparent: HEX_TILE_STYLE.edgeOpacity < 1,
+            opacity: HEX_TILE_STYLE.edgeOpacity,
+            depthTest: false,
+            depthWrite: false,
+            toneMapped: false,
+          })
+      ),
+    [satelliteIndices, startColor]
   );
 
   const initialGroupPosition = useMemo(() => new Vector3(1.5, -1, 7), []);
@@ -175,9 +222,16 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
   const tileScale = 0.9;
 
   useEffect(() => {
-    hexMaterialRef.current.color.copy(color);
+    tileMaterials.forEach((material) => {
+      material.color.copy(color);
+      material.needsUpdate = true;
+    });
+    satelliteEdgeMaterials.forEach((material) => {
+      material.color.copy(color);
+      material.needsUpdate = true;
+    });
     hexEdgeMaterialRef.current.color.copy(color);
-  }, [color]);
+  }, [color, tileMaterials, satelliteEdgeMaterials]);
 
   const [windowWidth, setWindowWidth] = useState(() => window.innerWidth);
 
@@ -200,7 +254,7 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
 
   const holeRevealThreshold = SATELLITE_REVEAL_PROGRESS;
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock, camera }) => {
     const group = groupRef.current;
     if (!group) {
       return;
@@ -216,6 +270,33 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
 
     const updatedColor = getColorAtTime(elapsedTime);
     setColor(updatedColor);
+
+    const groupQuaternion = group.quaternion;
+    const cameraPosition = camera.position;
+
+    tiles.forEach((tile, index) => {
+      const material = tileMaterials[index];
+
+      if (!material) {
+        return;
+      }
+
+      TEMP_NORMAL.copy(tile.normal).applyQuaternion(groupQuaternion);
+      TEMP_POSITION.copy(tile.position)
+        .applyQuaternion(groupQuaternion)
+        .add(group.position);
+      TEMP_TO_CAMERA.copy(cameraPosition).sub(TEMP_POSITION).normalize();
+
+      const facing = MathUtils.clamp(TEMP_NORMAL.dot(TEMP_TO_CAMERA), -1, 1);
+      const normalizedFacing = (facing + 1) / 2;
+      const targetOpacity =
+        HEX_TILE_STYLE.minOpacity +
+        (HEX_TILE_STYLE.maxOpacity - HEX_TILE_STYLE.minOpacity) *
+          normalizedFacing;
+
+      material.opacity = MathUtils.lerp(material.opacity, targetOpacity, 0.1);
+      material.needsUpdate = true;
+    });
 
     const startPosition = [
       initialGroupPosition.x,
@@ -296,7 +377,7 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
               quaternion={tile.quaternion}
               scale={tileScale}
             >
-              <mesh geometry={hexGeometry} material={hexMaterialRef.current} />
+              <mesh geometry={hexGeometry} material={tileMaterials[index]} />
               <lineSegments
                 geometry={hexEdgesGeometry}
                 material={hexEdgeMaterialRef.current}
@@ -314,8 +395,8 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
             color={color}
             hexGeometry={hexGeometry}
             hexEdgesGeometry={hexEdgesGeometry}
-            baseMaterial={hexMaterialRef.current}
-            edgeMaterial={hexEdgeMaterialRef.current}
+            baseMaterial={satelliteBaseMaterials[index]}
+            edgeMaterial={satelliteEdgeMaterials[index]}
             detachProgress={detachProgressState}
             tileScale={tileScale}
             index={index}

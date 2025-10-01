@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import {
   ExtrudeGeometry,
   Shape,
@@ -9,7 +9,17 @@ import {
 } from "three";
 import { useLoader } from "@react-three/fiber";
 
-const Hexagon = ({ hexagonRef, hexagonColor, onClick, iconPath, visible }) => {
+const Hexagon = ({
+  hexagonRef,
+  hexagonColor,
+  onClick,
+  iconPath,
+  visible,
+  bodyOpacity = 0.5,
+  outlineOpacity = 1,
+  iconOpacity = 1,
+  showBase = true,
+}) => {
   const iconTexture = useLoader(TextureLoader, iconPath);
 
   const iconMaterial = useMemo(
@@ -18,9 +28,15 @@ const Hexagon = ({ hexagonRef, hexagonColor, onClick, iconPath, visible }) => {
         map: iconTexture,
         transparent: true,
         side: DoubleSide,
+        opacity: iconOpacity,
       }),
     [iconTexture]
   );
+
+  useEffect(() => {
+    iconMaterial.opacity = iconOpacity;
+    iconMaterial.needsUpdate = true;
+  }, [iconMaterial, iconOpacity]);
 
   const hexagonShape = useMemo(() => {
     const shape = new Shape();
@@ -75,26 +91,35 @@ const Hexagon = ({ hexagonRef, hexagonColor, onClick, iconPath, visible }) => {
       >
         <meshBasicMaterial visible={false} />
       </mesh>
-      <mesh geometry={hexagonGeometry}>
-        <meshPhongMaterial
-          color={hexagonColor}
-          transparent={true}
-          opacity={0.5}
-        />
-        <lineSegments>
-          <edgesGeometry attach="geometry" args={[hexagonGeometry]} />
-          <lineBasicMaterial attach="material" color={hexagonColor} />
-        </lineSegments>
-      </mesh>
+      {showBase && (
+        <mesh geometry={hexagonGeometry}>
+          <meshPhongMaterial
+            color={hexagonColor}
+            transparent={true}
+            opacity={bodyOpacity}
+          />
+          <lineSegments>
+            <edgesGeometry attach="geometry" args={[hexagonGeometry]} />
+            <lineBasicMaterial
+              attach="material"
+              color={hexagonColor}
+              transparent={true}
+              opacity={outlineOpacity}
+            />
+          </lineSegments>
+        </mesh>
+      )}
       <mesh
         position={[0, 0, 0.049]}
         geometry={iconGeometry}
         material={iconMaterial}
+        visible={iconOpacity > 0.001}
       />
       <mesh
         position={[0, 0, 0.051]}
         geometry={iconGeometry}
         material={iconMaterial}
+        visible={iconOpacity > 0.001}
       />
     </group>
   );

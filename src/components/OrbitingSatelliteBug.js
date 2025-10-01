@@ -5,7 +5,16 @@ import { useNavigate } from "react-router-dom";
 
 import Hexagon from "./Hexagon";
 
-const OrbitingSatelliteBug = ({ color, visible, position, interactable }) => {
+const OrbitingSatelliteBug = ({
+  color,
+  iconVisible,
+  labelVisible,
+  position,
+  interactable,
+  bodyOpacity = 0.5,
+  outlineOpacity = 1,
+  iconOpacity = 1,
+}) => {
   const navigate = useNavigate();
 
   const satelliteRef = useRef();
@@ -37,10 +46,10 @@ const OrbitingSatelliteBug = ({ color, visible, position, interactable }) => {
     }
   };
 
-  const canInteract = interactable ?? visible;
+  const canInteract = interactable ?? iconVisible;
 
   return (
-    <group position={position} visible={visible}>
+    <group position={position} visible={iconVisible}>
       <Hexagon
         hexagonRef={satelliteRef}
         hexagonColor={hexagonColor}
@@ -52,7 +61,11 @@ const OrbitingSatelliteBug = ({ color, visible, position, interactable }) => {
           resetCursor();
         }}
         iconPath={"/icons/not_found.svg"}
-        visible={canInteract}
+        visible={iconVisible}
+        bodyOpacity={bodyOpacity}
+        outlineOpacity={outlineOpacity}
+        iconOpacity={iconOpacity}
+        showBase={true}
       />
       <Text
         position={[0, -0.27, 0]}
@@ -61,6 +74,7 @@ const OrbitingSatelliteBug = ({ color, visible, position, interactable }) => {
         textAlign="center"
         fontWeight="bold"
         font="/fonts/SpaceMono-Bold.ttf"
+        visible={labelVisible}
         onClick={
           canInteract
             ? () => {

@@ -10,6 +10,9 @@ import SatelliteBug from "./OrbitingSatelliteBug";
 import { easeInOutCubic } from "../utils/utils";
 
 const identityQuaternion = new Quaternion();
+const SATELLITE_BODY_MIN_OPACITY = 0;
+const SATELLITE_EDGE_MIN_OPACITY = 0;
+const SATELLITE_ROTATION_SPEED = 0.003;
 
 const SATELLITE_CONFIG = [
   {
@@ -69,6 +72,10 @@ const OrbitingSatellite = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const hexagonRef = useRef();
+  const baseMeshRef = useRef();
+  const edgeSegmentsRef = useRef();
+  const initialBodyOpacityRef = useRef(baseMaterial?.opacity ?? 1);
+  const initialEdgeOpacityRef = useRef(edgeMaterial?.opacity ?? 1);
 
   const config = SATELLITE_CONFIG[index] || SATELLITE_CONFIG[0];
 
@@ -81,11 +88,48 @@ const OrbitingSatellite = ({
   const interactable = detachProgress >= labelRevealThreshold;
   const showIcon = detachProgress >= iconRevealThreshold;
   const showLabel = detachProgress >= labelRevealThreshold;
+  const revealRange = Math.max(
+    0.001,
+    labelRevealThreshold - iconRevealThreshold
+  );
+  const transitionProgress = MathUtils.clamp(
+    (detachProgress - iconRevealThreshold) / revealRange,
+    0,
+    1
+  );
 
   const orientation = useMemo(() => {
     const eased = easeInOutCubic(Math.min(detachProgress * 1.2, 1));
     return tile.quaternion.clone().slerp(identityQuaternion, eased);
   }, [detachProgress, tile.quaternion]);
+
+  useEffect(() => {
+    if (!baseMaterial || !edgeMaterial) {
+      return;
+    }
+
+    if (transitionProgress < 0.001) {
+      initialBodyOpacityRef.current = baseMaterial.opacity;
+      initialEdgeOpacityRef.current = edgeMaterial.opacity;
+    }
+
+    const baseOpacity = MathUtils.lerp(
+      initialBodyOpacityRef.current,
+      SATELLITE_BODY_MIN_OPACITY,
+      transitionProgress
+    );
+    const edgeOpacity = MathUtils.lerp(
+      initialEdgeOpacityRef.current,
+      SATELLITE_EDGE_MIN_OPACITY,
+      transitionProgress
+    );
+
+    baseMaterial.opacity = baseOpacity;
+    baseMaterial.needsUpdate = true;
+
+    edgeMaterial.opacity = edgeOpacity;
+    edgeMaterial.needsUpdate = true;
+  }, [baseMaterial, edgeMaterial, transitionProgress]);
 
   useEffect(() => {
     if (!hexagonRef.current) {
@@ -95,19 +139,21 @@ const OrbitingSatellite = ({
   }, [showIcon]);
 
   useFrame(() => {
-    if (interactable && hexagonRef.current) {
-      hexagonRef.current.rotation.y += 0.003;
-      hexagonRef.current.rotation.z += 0.003;
+    const baseOpacity = baseMaterial?.opacity ?? 0;
+    const baseVisible = !showIcon && baseOpacity > 0.05;
+
+    if (baseMeshRef.current) {
+      baseMeshRef.current.visible = baseVisible;
+    }
+    if (edgeSegmentsRef.current) {
+      edgeSegmentsRef.current.visible = baseVisible;
+    }
+
+    if (hexagonRef.current && interactable) {
+      hexagonRef.current.rotation.y += SATELLITE_ROTATION_SPEED;
+      hexagonRef.current.rotation.z += SATELLITE_ROTATION_SPEED;
     }
   });
-
-  useEffect(() => {
-    if (!baseMaterial || !edgeMaterial) {
-      return;
-    }
-    baseMaterial.color.copy(color);
-    edgeMaterial.color.copy(color);
-  }, [baseMaterial, edgeMaterial, color]);
 
   const handleClick = () => {
     if (!interactable) {
@@ -126,26 +172,29 @@ const OrbitingSatellite = ({
   };
 
   const scale = MathUtils.lerp(tileScale, 1, detachProgress);
+  const iconOpacity = MathUtils.clamp(transitionProgress, 0, 1);
+  const hexagonBodyOpacity = 0.5;
+  const outlineOpacity = 1;
 
   return (
     <group position={position} quaternion={orientation} scale={scale}>
-      <mesh
-        geometry={hexGeometry}
-        material={baseMaterial}
-        visible={!showIcon}
-      />
+      <mesh ref={baseMeshRef} geometry={hexGeometry} material={baseMaterial} />
       <lineSegments
+        ref={edgeSegmentsRef}
         geometry={hexEdgesGeometry}
         material={edgeMaterial}
-        visible={!showIcon}
       />
       {showIcon &&
         (config.bug ? (
           <SatelliteBug
             color={color}
-            visible={showIcon}
+            iconVisible={showIcon}
+            labelVisible={showLabel}
             position={[0, 0, 0]}
             interactable={interactable}
+            iconOpacity={iconOpacity}
+            bodyOpacity={hexagonBodyOpacity}
+            outlineOpacity={outlineOpacity}
           />
         ) : (
           <group>
@@ -154,7 +203,11 @@ const OrbitingSatellite = ({
               hexagonColor={color}
               onClick={handleClick}
               iconPath={config.iconPath}
-              visible={interactable}
+              visible={showIcon}
+              bodyOpacity={hexagonBodyOpacity}
+              outlineOpacity={outlineOpacity}
+              iconOpacity={iconOpacity}
+              showBase={true}
             />
             {showLabel && label && (
               <Text
@@ -164,6 +217,7 @@ const OrbitingSatellite = ({
                 textAlign="center"
                 fontWeight="bold"
                 font="/fonts/SpaceMono-Bold.ttf"
+                visible={showLabel}
               >
                 {label}
               </Text>
