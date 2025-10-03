@@ -171,7 +171,7 @@ const OrbitingSatellite = ({
     }
   };
 
-  const scale = MathUtils.lerp(tileScale, 1, detachProgress);
+  const scale = MathUtils.lerp(tileScale, tileScale, detachProgress);
   const iconOpacity = MathUtils.clamp(transitionProgress, 0, 1);
   const hexagonBodyOpacity = 0.5;
   const outlineOpacity = 1;

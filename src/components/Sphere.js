@@ -26,7 +26,7 @@ const HEX_TILE_STYLE = Object.freeze({
   maxOpacity: 0.8,
 });
 const HEX_LAYOUT = Object.freeze({
-  tileCount: 550,
+  tileCount: 425,
 });
 const VECTOR_UP = new Vector3(0, 1, 0);
 const VECTOR_RIGHT = new Vector3(1, 0, 0);
@@ -219,7 +219,7 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
     )
   );
   const [detachProgressState, setDetachProgressState] = useState(0);
-  const tileScale = 0.9;
+  const tileScale = 1.0;
 
   useEffect(() => {
     tileMaterials.forEach((material) => {
@@ -402,7 +402,6 @@ const SphereCustom = ({ scroll, offsetOverride }) => {
             index={index}
           />
         ))}
-      <ambientLight intensity={0.5} />
     </>
   );
 };
