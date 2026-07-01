@@ -1,6 +1,7 @@
 import { AboutPage } from "@/pages/about/AboutPage";
 import { ContactPage } from "@/pages/contact/ContactPage";
 import { ExperiencesPage } from "@/pages/experiences/ExperiencesPage";
+import { HomePage } from "@/pages/home/HomePage";
 import { NotFoundPage } from "@/pages/not-found/NotFoundPage";
 import { PortfolioLayout } from "@/pages/portfolio/PortfolioLayout";
 import { ProjectsPage } from "@/pages/projects/ProjectsPage";
@@ -13,7 +14,8 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<MigrationStatus />} path="/" />
+        <Route element={<HomePage />} path="/" />
+        <Route element={<MigrationStatus />} path="/migration" />
         <Route element={<PortfolioLayout />} path="/portfolio">
           <Route index element={<Navigate replace to="aboutme" />} />
           <Route element={<AboutPage />} path="aboutme" />

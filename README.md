@@ -12,7 +12,7 @@ Le projet est en cours de migration vers une v2 technique propre sur la branche 
 v2-modernization
 ```
 
-La v1 historique est encore presente dans le repo pour servir de reference, mais elle n'est plus branchee sur l'entree Vite. L'application lancee localement utilise maintenant un shell v2 minimal et un layout portfolio commun pour les pages portees.
+La v1 historique est encore presente dans le repo pour servir de reference, mais elle n'est plus branchee sur l'entree Vite. L'application lancee localement utilise maintenant une page d'accueil v2, un layout portfolio commun et les pages principales portees.
 
 ## Stack v2
 
@@ -167,7 +167,8 @@ La v2 utilise React Router DOM.
 
 Routes actuellement branchees :
 
-- `/` : shell technique temporaire de migration ;
+- `/` : page d'accueil v2 ;
+- `/migration` : statut technique temporaire de la migration ;
 - `/portfolio` : layout portfolio commun, redirection vers `/portfolio/aboutme` ;
 - `/portfolio/aboutme` : page A propos v2 ;
 - `/portfolio/skills` : page Competences v2 ;
@@ -239,16 +240,17 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Portage de la page Projets en TSX et CSS Module.
 - Portage de la page Contact en TSX et CSS Module.
 - Mise en place du layout portfolio v2 commun avec navigation et changement de langue.
+- Remplacement de l'entree `/` par une page d'accueil v2.
 
 ### En cours
 
-- Shell applicatif v2 minimal.
+- Rebranchement progressif de l'experience 3D.
 - Tests de non-regression et d'integrite.
 - Documentation projet mise a jour au fil de la migration.
 
 ### Prochaines etapes
 
-- Rebrancher l'entree 3D et l'accueil.
+- Rebrancher la scene 3D sur l'accueil.
 - Refondre le CSS en modules/tokens responsive.
 - Ajouter les tests de non-regression sur les parcours principaux.
 

@@ -9,8 +9,23 @@ describe("App", () => {
     window.history.pushState({}, "", "/");
   });
 
-  it("renders the v2 technical foundation and switches language", async () => {
+  it("renders the v2 home page", async () => {
     await i18n.changeLanguage("en");
+
+    render(<App />);
+
+    expect(
+      screen.getByRole("heading", { name: /hi, i'm 0ruj/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/welcome to my world/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /scroll and embark/i }),
+    ).toHaveAttribute("href", "/portfolio/aboutme");
+  });
+
+  it("keeps the migration status page available and switches language", async () => {
+    await i18n.changeLanguage("en");
+    window.history.pushState({}, "", "/migration");
 
     render(<App />);
 
