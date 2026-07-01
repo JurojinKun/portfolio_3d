@@ -1,3 +1,4 @@
+import astroNotFound from "@/assets/astro_not_found.png";
 import profilePicture from "@/assets/profile_picture.png";
 import cgi from "@/assets/experiences/cgi.png";
 import digitalPaca from "@/assets/experiences/dp.png";
@@ -36,6 +37,9 @@ export const sourceAssets = {
     digitalPaca,
     groupeAtlantic,
     pepiteToulon,
+  },
+  illustrations: {
+    astroNotFound,
   },
   profilePicture,
   projects: {

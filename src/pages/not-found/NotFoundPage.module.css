@@ -1,0 +1,244 @@
+.page {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  overflow: hidden;
+  place-items: center;
+  padding: 32px 20px;
+  background: var(--color-background);
+}
+
+.page[data-cursor-active="true"] {
+  cursor: none;
+}
+
+.content {
+  display: grid;
+  width: min(100%, 760px);
+  gap: 32px;
+  justify-items: center;
+  text-align: center;
+}
+
+.visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+}
+
+.astronaut {
+  width: 160px;
+  height: 250px;
+  object-fit: contain;
+}
+
+.blackHole {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background: linear-gradient(77deg, #47cdd6 2%, #9d4dc4 104%);
+  animation: rotateBlackHole 0.5s linear infinite;
+}
+
+.blackHole span {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: rotateBlackHole 0.5s linear infinite;
+}
+
+.blackHole span:nth-child(1) {
+  filter: blur(5px);
+}
+
+.blackHole span:nth-child(2) {
+  filter: blur(10px);
+}
+
+.blackHole span:nth-child(3) {
+  filter: blur(25px);
+}
+
+.blackHole span:nth-child(4) {
+  filter: blur(50px);
+}
+
+.blackHole::after {
+  position: absolute;
+  inset: 4px;
+  border-radius: inherit;
+  background: #161616;
+  content: "";
+}
+
+.copy {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  max-width: 52ch;
+}
+
+.copy h1 {
+  margin: 0;
+  font-size: 2.25rem;
+  line-height: 1.1;
+}
+
+.copy p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 1.125rem;
+}
+
+.homeLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 10px;
+  border: 1px solid rgb(71 205 214 / 55%);
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: rgb(71 205 214 / 12%);
+  color: var(--color-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.homeLink:hover {
+  border-color: rgb(71 205 214 / 80%);
+  background: rgb(71 205 214 / 18%);
+  color: var(--color-accent);
+}
+
+.bugCursor {
+  position: fixed;
+  top: -15px;
+  left: -15px;
+  z-index: 10;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgb(255 255 255) 4px,
+        rgb(255 255 255) 4px
+      )
+      0% 0% / 25% 25%,
+    linear-gradient(270deg, #47cdd6, #9d4dc4) 0% 0% / 1400% 1400%;
+  animation:
+    cursorGradient 5s ease infinite,
+    shakeCursor 0.4s infinite,
+    cursorBackground 3s linear infinite;
+}
+
+@media (max-width: 680px), (max-height: 640px) {
+  .content {
+    gap: 26px;
+  }
+
+  .visual {
+    gap: 24px;
+  }
+
+  .astronaut {
+    width: 125px;
+    height: 200px;
+  }
+
+  .blackHole {
+    width: 145px;
+    height: 145px;
+  }
+
+  .copy h1 {
+    font-size: 1.875rem;
+  }
+
+  .copy p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 420px), (max-height: 440px) {
+  .page {
+    padding: 24px 16px;
+  }
+
+  .visual {
+    gap: 16px;
+  }
+
+  .astronaut {
+    width: 85px;
+    height: 140px;
+  }
+
+  .blackHole {
+    width: 94px;
+    height: 94px;
+  }
+
+  .copy h1 {
+    font-size: 1.5rem;
+  }
+
+  .bugCursor {
+    top: -10px;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@keyframes rotateBlackHole {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cursorGradient {
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes cursorBackground {
+  50% {
+    background-position: 100% 0%;
+  }
+}
+
+@keyframes shakeCursor {
+  0% {
+    translate: 1px 1px;
+    rotate: 0deg;
+  }
+
+  25% {
+    translate: -3px 0;
+    rotate: 1deg;
+  }
+
+  50% {
+    translate: -1px 2px;
+    rotate: -1deg;
+  }
+
+  75% {
+    translate: 3px 1px;
+    rotate: -1deg;
+  }
+
+  100% {
+    translate: 1px -2px;
+    rotate: -1deg;
+  }
+}

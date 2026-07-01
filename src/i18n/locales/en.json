@@ -24,7 +24,8 @@
   },
   "not_found": {
     "user_lost": "You've probably got lost",
-    "url_not_found": "What you're looking for doesn't or no longer exists in this universe"
+    "url_not_found": "What you're looking for doesn't or no longer exists in this universe",
+    "back_home": "Back to home"
   },
   "portfolio": {
     "menu": "Menu"

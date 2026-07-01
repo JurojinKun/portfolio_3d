@@ -5,6 +5,10 @@ import { i18n } from "@/i18n";
 import { App } from "./App";
 
 describe("App", () => {
+  beforeEach(() => {
+    window.history.pushState({}, "", "/");
+  });
+
   it("renders the v2 technical foundation and switches language", async () => {
     await i18n.changeLanguage("en");
 
@@ -25,5 +29,22 @@ describe("App", () => {
         name: /socle technique initialise/i,
       }),
     ).toBeInTheDocument();
+  });
+
+  it("renders the not found page for unknown routes", async () => {
+    await i18n.changeLanguage("en");
+    window.history.pushState({}, "", "/unknown-route");
+
+    render(<App />);
+
+    expect(
+      screen.getByRole("heading", {
+        name: /you've probably got lost/i,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /back to home/i })).toHaveAttribute(
+      "href",
+      "/",
+    );
   });
 });

@@ -24,7 +24,8 @@
   },
   "not_found": {
     "user_lost": "Tu t'es sûrement perdu",
-    "url_not_found": "Ce que tu recherches n'existe pas ou plus dans cet univers"
+    "url_not_found": "Ce que tu recherches n'existe pas ou plus dans cet univers",
+    "back_home": "Retour à l'accueil"
   },
   "portfolio": {
     "menu": "Menu"

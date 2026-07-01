@@ -20,6 +20,7 @@ La v1 historique est encore presente dans le repo pour servir de reference, mais
 - npm `11.16.0`
 - React `19.2.7`
 - React DOM `19.2.7`
+- React Router DOM `7.18.1`
 - Vite `8.1.2`
 - TypeScript `5.9.3`
 - ESLint `10.6.0`
@@ -101,6 +102,7 @@ src/
   app/       Composition racine de l'application
   data/      Donnees typees de navigation, projets, competences, experiences
   i18n/      Configuration i18next, locales et tests de parite
+  pages/     Pages v2 portees en TSX et CSS Modules
   shared/    Configuration, types et helpers transverses
   styles/    Reset, tokens et styles globaux limites
   test/      Configuration des tests
@@ -159,6 +161,16 @@ Ces donnees utilisent des IDs stables et des cles i18n, pas du texte brut. Les t
 
 Un test verifie que les IDs restent uniques et que toutes les cles i18n referencees par les donnees existent en francais et en anglais.
 
+## Routing
+
+La v2 utilise React Router DOM.
+
+Routes actuellement branchees :
+
+- `/` : shell technique temporaire de migration ;
+- `/notfound` : page 404 v2 ;
+- `*` : fallback vers la page 404 v2.
+
 ## Validation
 
 Avant de valider une etape de migration, lancer :
@@ -201,6 +213,8 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Mise en place de la configuration i18n v2.
 - Mise en place des premiers manifestes d'assets v2.
 - Extraction des donnees v2 pour la navigation, les projets, les competences et les experiences.
+- Mise en place du routing v2 avec React Router DOM.
+- Portage de la page 404 en TSX et CSS Module.
 
 ### En cours
 
