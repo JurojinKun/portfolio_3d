@@ -1,4 +1,18 @@
-import { sourceAssets } from "@/shared/assets/sourceAssets";
+import bitbucket from "@/assets/skills/bitbucket.png";
+import c from "@/assets/skills/c.png";
+import firebase from "@/assets/skills/firebase.png";
+import flutter from "@/assets/skills/flutter.png";
+import github from "@/assets/skills/github.png";
+import kotlin from "@/assets/skills/kotlin.png";
+import mysql from "@/assets/skills/mysql.png";
+import nodejs from "@/assets/skills/nodejs.png";
+import postman from "@/assets/skills/postman.png";
+import python from "@/assets/skills/python.png";
+import react from "@/assets/skills/react.png";
+import redux from "@/assets/skills/redux.png";
+import sequelize from "@/assets/skills/sequelize.png";
+import sourcetree from "@/assets/skills/sourcetree.png";
+import threejs from "@/assets/skills/threejs.png";
 
 import type { TranslationKey } from "./translationKeys";
 
@@ -55,112 +69,112 @@ export const skills = [
     id: "flutter",
     category: "mobile",
     contentKey: "skills.content_flutter",
-    image: sourceAssets.skills.flutter,
+    image: flutter,
     label: "Flutter",
   },
   {
     id: "react-native",
     category: "mobile",
     contentKey: "skills.content_reactnative",
-    image: sourceAssets.skills.react,
+    image: react,
     label: "React native",
   },
   {
     id: "kotlin",
     category: "mobile",
     contentKey: "skills.content_kotlin",
-    image: sourceAssets.skills.kotlin,
+    image: kotlin,
     label: "Kotlin",
   },
   {
     id: "c",
     category: "language",
     contentKey: "skills.content_c",
-    image: sourceAssets.skills.c,
+    image: c,
     label: "C",
   },
   {
     id: "mysql",
     category: "database",
     contentKey: "skills.content_mysql",
-    image: sourceAssets.skills.mysql,
+    image: mysql,
     label: "MySQL",
   },
   {
     id: "python",
     category: "language",
     contentKey: "skills.content_python",
-    image: sourceAssets.skills.python,
+    image: python,
     label: "Python",
   },
   {
     id: "three-js",
     category: "frontend",
     contentKey: "skills.content_threejs",
-    image: sourceAssets.skills.threejs,
+    image: threejs,
     label: "Three js",
   },
   {
     id: "node-js",
     category: "backend",
     contentKey: "skills.content_nodejs",
-    image: sourceAssets.skills.nodejs,
+    image: nodejs,
     label: "Node js",
   },
   {
     id: "sequelize",
     category: "backend",
     contentKey: "skills.content_sequelize",
-    image: sourceAssets.skills.sequelize,
+    image: sequelize,
     label: "Sequelize",
   },
   {
     id: "firebase",
     category: "backend",
     contentKey: "skills.content_firebase",
-    image: sourceAssets.skills.firebase,
+    image: firebase,
     label: "Firebase",
   },
   {
     id: "react-redux",
     category: "frontend",
     contentKey: "skills.content_reactredux",
-    image: sourceAssets.skills.redux,
+    image: redux,
     label: "React redux",
   },
   {
     id: "postman",
     category: "tool",
     contentKey: "skills.content_postman",
-    image: sourceAssets.skills.postman,
+    image: postman,
     label: "Postman",
   },
   {
     id: "github",
     category: "version-control",
     contentKey: "skills.content_github",
-    image: sourceAssets.skills.github,
+    image: github,
     label: "GitHub",
   },
   {
     id: "react-js",
     category: "frontend",
     contentKey: "skills.content_reactjs",
-    image: sourceAssets.skills.react,
+    image: react,
     label: "React js",
   },
   {
     id: "bitbucket",
     category: "version-control",
     contentKey: "skills.content_bitbucket",
-    image: sourceAssets.skills.bitbucket,
+    image: bitbucket,
     label: "Bitbucket",
   },
   {
     id: "sourcetree",
     category: "version-control",
     contentKey: "skills.content_sourcetree",
-    image: sourceAssets.skills.sourcetree,
+    image: sourcetree,
     label: "SourceTree",
   },
 ] as const satisfies readonly SkillData[];

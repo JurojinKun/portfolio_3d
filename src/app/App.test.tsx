@@ -61,6 +61,24 @@ describe("App", () => {
     expect(screen.getByRole("img", { name: /about me/i })).toBeInTheDocument();
   });
 
+  it("renders the skills page route and selects a skill", async () => {
+    await i18n.changeLanguage("en");
+    window.history.pushState({}, "", "/portfolio/skills");
+
+    render(<App />);
+
+    expect(
+      screen.getByRole("heading", { name: /skills/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/self-taught apprenticeship/i)).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: /github/i }));
+
+    expect(
+      screen.getByText(/github is a code hosting platform/i),
+    ).toBeInTheDocument();
+  });
+
   it("renders the experiences page route", async () => {
     await i18n.changeLanguage("en");
     window.history.pushState({}, "", "/portfolio/experiences");
