@@ -99,6 +99,7 @@ La v2 utilise progressivement cette structure cible :
 ```txt
 src/
   app/       Composition racine de l'application
+  data/      Donnees typees de navigation, projets, competences, experiences
   i18n/      Configuration i18next, locales et tests de parite
   shared/    Configuration, types et helpers transverses
   styles/    Reset, tokens et styles globaux limites
@@ -143,6 +144,21 @@ Les assets importes par le code React restent dans `src/assets/`. Les assets ser
 
 Les chemins publics utiles sont centralises dans `src/shared/assets/publicAssets.ts`. Les imports d'assets source utiles sont centralises progressivement dans `src/shared/assets/sourceAssets.ts`.
 
+## Donnees applicatives
+
+La v2 sort progressivement les contenus structures des composants React pour les placer dans `src/data/`.
+
+Les donnees suivantes sont preparees :
+
+- navigation portfolio et satellites ;
+- projets professionnels et personnels ;
+- competences et sections editoriales de la page competences ;
+- experiences professionnelles.
+
+Ces donnees utilisent des IDs stables et des cles i18n, pas du texte brut. Les textes restent dans `src/i18n/locales/`.
+
+Un test verifie que les IDs restent uniques et que toutes les cles i18n referencees par les donnees existent en francais et en anglais.
+
 ## Validation
 
 Avant de valider une etape de migration, lancer :
@@ -184,16 +200,16 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Mise en place de la structure source v2 minimale.
 - Mise en place de la configuration i18n v2.
 - Mise en place des premiers manifestes d'assets v2.
+- Extraction des donnees v2 pour la navigation, les projets, les competences et les experiences.
 
 ### En cours
 
 - Shell applicatif v2 minimal.
-- Premier test de non-regression.
+- Tests de non-regression et d'integrite.
 - Documentation projet mise a jour au fil de la migration.
 
 ### Prochaines etapes
 
-- Extraire les contenus en donnees typees.
 - Porter les pages une par une.
 - Rebrancher la 3D.
 - Refondre le CSS en modules/tokens responsive.
