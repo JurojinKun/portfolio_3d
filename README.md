@@ -173,8 +173,21 @@ Routes actuellement branchees :
 - `/portfolio/skills` : page Competences v2 ;
 - `/portfolio/experiences` : page Experiences v2 ;
 - `/portfolio/projects` : page Projets v2 ;
+- `/portfolio/contactme` : page Contact v2 ;
 - `/notfound` : page 404 v2 ;
 - `*` : fallback vers la page 404 v2.
+
+## Variables d'environnement
+
+La page Contact v2 utilise un lien `mailto:` et lit l'adresse de destination depuis :
+
+```bash
+VITE_CONTACT_EMAIL=
+```
+
+Cette variable doit etre configuree localement et sur Netlify pour activer l'ouverture du client email avec un destinataire.
+
+Un exemple est fourni dans `.env.example`.
 
 ## Validation
 
@@ -224,6 +237,7 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Portage de la page Competences en TSX et CSS Module.
 - Portage de la page Experiences en TSX et CSS Module.
 - Portage de la page Projets en TSX et CSS Module.
+- Portage de la page Contact en TSX et CSS Module.
 
 ### En cours
 

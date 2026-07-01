@@ -117,4 +117,21 @@ describe("App", () => {
       "https://github.com/Gemu-Inc/Gemu_ui",
     );
   });
+
+  it("renders the contact page route and validates required fields", async () => {
+    await i18n.changeLanguage("en");
+    window.history.pushState({}, "", "/portfolio/contactme");
+
+    render(<App />);
+
+    expect(
+      screen.getByRole("heading", { name: /contact me/i }),
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: /send/i }));
+
+    expect(
+      screen.getByText(/not all fields are filled in/i),
+    ).toBeInTheDocument();
+  });
 });

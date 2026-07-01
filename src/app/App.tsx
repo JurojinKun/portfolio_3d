@@ -1,4 +1,5 @@
 import { AboutPage } from "@/pages/about/AboutPage";
+import { ContactPage } from "@/pages/contact/ContactPage";
 import { ExperiencesPage } from "@/pages/experiences/ExperiencesPage";
 import { NotFoundPage } from "@/pages/not-found/NotFoundPage";
 import { ProjectsPage } from "@/pages/projects/ProjectsPage";
@@ -20,6 +21,7 @@ export function App() {
         <Route element={<SkillsPage />} path="/portfolio/skills" />
         <Route element={<ExperiencesPage />} path="/portfolio/experiences" />
         <Route element={<ProjectsPage />} path="/portfolio/projects" />
+        <Route element={<ContactPage />} path="/portfolio/contactme" />
         <Route element={<NotFoundPage />} path="/notfound" />
         <Route element={<NotFoundPage />} path="*" />
       </Routes>
