@@ -1,4 +1,6 @@
 import {
+  aboutHighlights,
+  aboutParagraphs,
   experiences,
   portfolioSections,
   projects,
@@ -31,6 +33,8 @@ const expectUniqueIds = (items: readonly { id: string }[]) => {
 };
 
 const dataTranslationKeys = [
+  ...aboutHighlights,
+  ...aboutParagraphs.map((paragraph) => paragraph.textKey),
   ...portfolioSections.map((section) => section.labelKey),
   ...projects.flatMap((project) => [
     project.challengesKey,

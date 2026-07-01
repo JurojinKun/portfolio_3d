@@ -47,4 +47,17 @@ describe("App", () => {
       "/",
     );
   });
+
+  it("renders the about page route", async () => {
+    await i18n.changeLanguage("en");
+    window.history.pushState({}, "", "/portfolio/aboutme");
+
+    render(<App />);
+
+    expect(
+      screen.getByRole("heading", { name: /about me/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/developer in the it world/i)).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /about me/i })).toBeInTheDocument();
+  });
 });
