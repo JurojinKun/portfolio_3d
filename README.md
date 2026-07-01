@@ -1,78 +1,155 @@
 # Portfolio 3D
 
-Personal portfolio developed with Three.js and React.js
+Portfolio personnel 3D de Clement Communay.
 
-# Demo URL
+Production actuelle : [https://0ruj-portfolio.netlify.app/](https://0ruj-portfolio.netlify.app/)
 
-[https://0ruj-portfolio.netlify.app/](https://0ruj-portfolio.netlify.app/)
+## Etat actuel
 
-# Getting Started with Create React App
+Le projet est en cours de migration vers une v2 technique propre sur la branche :
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```bash
+v2-modernization
+```
 
-## Available Scripts
+La v1 historique est encore presente dans le repo pour servir de reference, mais elle n'est plus branchee sur l'entree Vite. L'application lancee localement affiche pour l'instant un shell v2 minimal. Les pages existantes seront portees progressivement dans les prochaines etapes.
 
-In the project directory, you can run:
+## Stack v2
 
-### `npm start`
+- Node `24.18.0`
+- npm `11.16.0`
+- React `19.2.7`
+- React DOM `19.2.7`
+- Vite `8.1.2`
+- TypeScript `5.9.3`
+- ESLint `10.6.0`
+- Vitest `4.1.9`
+- Testing Library
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Le projet n'utilise plus Create React App / `react-scripts`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequis
 
-### `npm test`
+Utiliser Node 24 via NVM :
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+nvm install
+nvm use
+```
 
-### `npm run build`
+Si `nvm` n'est pas charge dans le shell :
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+source ~/.nvm/nvm.sh
+nvm use
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+La version Node est fixee par :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `.nvmrc`
+- `.node-version`
+- `package.json` avec `"engines": { "node": ">=24" }`
 
-### `npm run eject`
+## Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Si le cache global npm pose probleme localement, utiliser le cache ignore par Git :
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm install --cache .npm-cache
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Developpement
 
-## Learn More
+Lancer le serveur local avec hot reload :
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run dev
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Puis ouvrir :
 
-### Code Splitting
+```txt
+http://127.0.0.1:5173/
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Scripts
 
-### Analyzing the Bundle Size
+| Commande               | Role                                                            |
+| ---------------------- | --------------------------------------------------------------- |
+| `npm run dev`          | Lance Vite en developpement avec hot reload                     |
+| `npm start`            | Alias de `npm run dev`                                          |
+| `npm run build`        | Lance le typecheck puis genere le build production dans `dist/` |
+| `npm run preview`      | Sert localement le build production                             |
+| `npm run typecheck`    | Verifie TypeScript sans generer de fichiers                     |
+| `npm run lint`         | Lance ESLint sur les fichiers TypeScript/TSX                    |
+| `npm run test`         | Lance les tests Vitest une fois                                 |
+| `npm run test:watch`   | Lance Vitest en mode watch                                      |
+| `npm run format`       | Verifie le formatage Prettier                                   |
+| `npm run format:write` | Applique le formatage Prettier                                  |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Validation
 
-### Making a Progressive Web App
+Avant de valider une etape de migration, lancer :
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+npm run typecheck
+npm run lint
+npm run test
+npm run build
+npm audit
+```
 
-### Advanced Configuration
+Etat de reference apres l'etape 2 : toutes ces commandes passent avec Node `24.18.0`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Deploiement Netlify
 
-### Deployment
+Configuration attendue :
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Node : `24.18.0` ou superieur
+- Build command : `npm run build`
+- Publish directory : `dist`
 
-### `npm run build` fails to minify
+Netlify lit aussi `.nvmrc` / `.node-version`, ce qui permet d'aligner la version Node locale et la version de build.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
+
+## Roadmap de migration
+
+### Termine
+
+- Creation de la branche `v2-modernization`.
+- Remplacement du socle CRA par Vite.
+- Passage a React 19.
+- Mise en place de TypeScript strict.
+- Mise en place de ESLint flat config.
+- Mise en place de Vitest et Testing Library.
+- Alignement sur Node 24 pour Netlify et le local.
+- Generation d'un lockfile propre avec npm 11.
+
+### En cours
+
+- Shell applicatif v2 minimal.
+- Premier test de non-regression.
+- Documentation projet mise a jour au fil de la migration.
+
+### Prochaines etapes
+
+- Structurer `src/` proprement.
+- Migrer les assets utiles.
+- Migrer `i18n`.
+- Extraire les contenus en donnees typees.
+- Porter les pages une par une.
+- Rebrancher la 3D.
+- Refondre le CSS en modules/tokens responsive.
+- Ajouter les tests de non-regression sur les parcours principaux.
+
+## Notes de maintenance
+
+- Ne pas reintroduire `react-scripts`.
+- `dist/`, `node_modules/` et `.npm-cache/` sont ignores par Git.
+- Les anciens fichiers JS/CSS restent temporairement presents tant que les pages n'ont pas ete portees.
+- Mettre a jour ce README a chaque etape importante de migration.
