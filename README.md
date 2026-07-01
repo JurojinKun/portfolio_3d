@@ -170,6 +170,7 @@ Routes actuellement branchees :
 - `/` : shell technique temporaire de migration ;
 - `/portfolio` : redirection vers `/portfolio/aboutme` ;
 - `/portfolio/aboutme` : page A propos v2 ;
+- `/portfolio/experiences` : page Experiences v2 ;
 - `/notfound` : page 404 v2 ;
 - `*` : fallback vers la page 404 v2.
 
@@ -218,6 +219,7 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Mise en place du routing v2 avec React Router DOM.
 - Portage de la page 404 en TSX et CSS Module.
 - Portage de la page A propos en TSX et CSS Module.
+- Portage de la page Experiences en TSX et CSS Module.
 
 ### En cours
 

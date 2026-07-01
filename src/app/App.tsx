@@ -1,4 +1,5 @@
 import { AboutPage } from "@/pages/about/AboutPage";
+import { ExperiencesPage } from "@/pages/experiences/ExperiencesPage";
 import { NotFoundPage } from "@/pages/not-found/NotFoundPage";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -14,6 +15,7 @@ export function App() {
           path="/portfolio"
         />
         <Route element={<AboutPage />} path="/portfolio/aboutme" />
+        <Route element={<ExperiencesPage />} path="/portfolio/experiences" />
         <Route element={<NotFoundPage />} path="/notfound" />
         <Route element={<NotFoundPage />} path="*" />
       </Routes>

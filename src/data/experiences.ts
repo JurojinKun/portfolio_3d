@@ -1,4 +1,7 @@
-import { sourceAssets } from "@/shared/assets/sourceAssets";
+import cgi from "@/assets/experiences/cgi.png";
+import digitalPaca from "@/assets/experiences/dp.png";
+import groupeAtlantic from "@/assets/experiences/groupe-atlantic.png";
+import pepiteToulon from "@/assets/experiences/pepite.png";
 
 import type { TranslationKey } from "./translationKeys";
 
@@ -23,7 +26,7 @@ export const experiences = [
     id: "cgi",
     companyKey: "experiences.company_experience_4",
     dateKey: "experiences.date_experience_4",
-    icon: sourceAssets.experiences.cgi,
+    icon: cgi,
     iconAlt: "CGI",
     iconBackgroundColor: "#E6DEDD",
     pointKeys: [
@@ -36,7 +39,7 @@ export const experiences = [
     id: "digital-paca",
     companyKey: "experiences.company_experience_1",
     dateKey: "experiences.date_experience_1",
-    icon: sourceAssets.experiences.digitalPaca,
+    icon: digitalPaca,
     iconAlt: "Digital Paca",
     iconBackgroundColor: "#E6DEDD",
     pointKeys: [
@@ -52,7 +55,7 @@ export const experiences = [
     id: "pepite-toulon",
     companyKey: "experiences.company_experience_2",
     dateKey: "experiences.date_experience_2",
-    icon: sourceAssets.experiences.pepiteToulon,
+    icon: pepiteToulon,
     iconAlt: "Pepite Toulon",
     iconBackgroundColor: "#E6DEDD",
     pointKeys: [
@@ -65,7 +68,7 @@ export const experiences = [
     id: "groupe-atlantic",
     companyKey: "experiences.company_experience_3",
     dateKey: "experiences.date_experience_3",
-    icon: sourceAssets.experiences.groupeAtlantic,
+    icon: groupeAtlantic,
     iconAlt: "Groupe Atlantic",
     iconBackgroundColor: "#E6DEDD",
     pointKeys: ["experiences.point_1_experience_3"],

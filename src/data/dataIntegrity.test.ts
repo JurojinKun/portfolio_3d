@@ -58,6 +58,7 @@ const dataTranslationKeys = [
 
 describe("v2 data", () => {
   it("uses stable unique ids", () => {
+    expectUniqueIds(aboutParagraphs);
     expectUniqueIds(portfolioSections);
     expectUniqueIds(projects);
     expectUniqueIds(skills);

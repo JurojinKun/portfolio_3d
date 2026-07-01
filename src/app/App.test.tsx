@@ -60,4 +60,21 @@ describe("App", () => {
     expect(screen.getByText(/developer in the it world/i)).toBeInTheDocument();
     expect(screen.getByRole("img", { name: /about me/i })).toBeInTheDocument();
   });
+
+  it("renders the experiences page route", async () => {
+    await i18n.changeLanguage("en");
+    window.history.pushState({}, "", "/portfolio/experiences");
+
+    render(<App />);
+
+    expect(
+      screen.getByRole("heading", { name: /experiences/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: /mobile applications technical expert/i,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "CGI" })).toBeInTheDocument();
+  });
 });

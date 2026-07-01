@@ -1,0 +1,193 @@
+.page {
+  min-height: 100vh;
+  padding: 64px 24px;
+  background:
+    radial-gradient(circle at 14% 8%, rgb(71 205 214 / 14%), transparent 28%),
+    linear-gradient(180deg, rgb(2 2 13 / 76%), var(--color-background));
+}
+
+.header {
+  width: min(100%, 1080px);
+  margin: 0 auto 40px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  width: min(100%, 1080px);
+  gap: 24px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  position: absolute;
+  top: 24px;
+  bottom: 24px;
+  left: 27px;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    rgb(71 205 214 / 0%),
+    rgb(71 205 214 / 58%),
+    rgb(71 205 214 / 0%)
+  );
+  content: "";
+}
+
+.card {
+  position: relative;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 56px minmax(0, 1fr);
+}
+
+.logoFrame {
+  z-index: 1;
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 24%);
+  border-radius: 12px;
+}
+
+.logoFrame img {
+  width: 68%;
+  height: 68%;
+  object-fit: contain;
+}
+
+.cardContent {
+  border: 1px solid rgb(247 248 255 / 12%);
+  border-radius: 8px;
+  padding: 22px;
+  background: rgb(26 26 26 / 72%);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.cardHeader h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.company {
+  margin: 6px 0 0;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.date {
+  flex: 0 0 auto;
+  max-width: 190px;
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.points {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  margin: 20px 0 0;
+  list-style: none;
+}
+
+.points li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--color-text-muted);
+}
+
+.points li::before {
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  content: "";
+}
+
+.points strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--color-text);
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 48px 20px;
+  }
+
+  .header h1 {
+    font-size: 2.35rem;
+  }
+
+  .timeline::before {
+    left: 23px;
+  }
+
+  .card {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .logoFrame {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+
+  .cardContent {
+    padding: 18px;
+  }
+
+  .cardHeader {
+    display: grid;
+  }
+
+  .date {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 32px 16px;
+  }
+
+  .card {
+    gap: 14px;
+  }
+
+  .cardHeader h2 {
+    font-size: 1.15rem;
+  }
+
+  .cardContent {
+    padding: 16px;
+  }
+}
