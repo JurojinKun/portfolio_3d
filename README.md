@@ -91,6 +91,35 @@ http://127.0.0.1:5173/
 | `npm run format`       | Verifie le formatage Prettier                                   |
 | `npm run format:write` | Applique le formatage Prettier                                  |
 
+## Organisation `src/`
+
+La v2 utilise progressivement cette structure cible :
+
+```txt
+src/
+  app/       Composition racine de l'application
+  shared/    Configuration, types et helpers transverses
+  styles/    Reset, tokens et styles globaux limites
+  test/      Configuration des tests
+```
+
+Les anciens dossiers JS/CSS de la v1 restent temporairement presents tant que les pages n'ont pas ete portees. Le code v2 doit utiliser des imports `@/*` au lieu de longs chemins relatifs.
+
+## Gestion CSS
+
+La v2 separe les styles en deux niveaux :
+
+- styles globaux limites dans `src/styles/` ;
+- styles scopes par composant ou page avec des fichiers `*.module.css`.
+
+Les fichiers globaux ont chacun un role strict :
+
+- `tokens.css` contient uniquement les variables CSS partagees : couleurs, typographies, espacements et futures valeurs de design system ;
+- `reset.css` neutralise les styles navigateur par defaut : `box-sizing`, marges du `body`, hauteur racine, heritage de police des champs ;
+- `global.css` importe `tokens.css` et `reset.css`, puis applique uniquement les styles document-level comme la couleur de texte, le fond, la police globale et le lissage.
+
+Les composants et pages doivent utiliser des CSS Modules, par exemple `App.module.css`. Ces classes sont importees dans le composant et scopees automatiquement par Vite, ce qui evite les collisions de classes globales.
+
 ## Validation
 
 Avant de valider une etape de migration, lancer :
@@ -129,6 +158,7 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Mise en place de Vitest et Testing Library.
 - Alignement sur Node 24 pour Netlify et le local.
 - Generation d'un lockfile propre avec npm 11.
+- Mise en place de la structure source v2 minimale.
 
 ### En cours
 
@@ -138,7 +168,6 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 
 ### Prochaines etapes
 
-- Structurer `src/` proprement.
 - Migrer les assets utiles.
 - Migrer `i18n`.
 - Extraire les contenus en donnees typees.
