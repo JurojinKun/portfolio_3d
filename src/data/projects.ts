@@ -1,4 +1,14 @@
-import { sourceAssets } from "@/shared/assets/sourceAssets";
+import asm from "@/assets/projects/asm.jpg";
+import botDiscord from "@/assets/projects/botdiscord.jpg";
+import corsicaFerries from "@/assets/projects/corsica.jpg";
+import croixRouge from "@/assets/projects/croixrouge.jpg";
+import gemu from "@/assets/projects/gemu.jpg";
+import hobbies from "@/assets/projects/hobbies.jpg";
+import madewis from "@/assets/projects/madewis.jpg";
+import myYoukounkoun from "@/assets/projects/myyoukounkoun.jpg";
+import parisMaVille from "@/assets/projects/parismaville.jpg";
+import portfolio from "@/assets/projects/portfolio.jpg";
+import sauveMonVaccin from "@/assets/projects/smv.jpg";
 
 import type { TranslationKey } from "./translationKeys";
 
@@ -45,7 +55,7 @@ export const projects = [
     category: "professional",
     challengesKey: "projects.challenges_content_smv",
     contextKey: "projects.content_context_smv",
-    image: sourceAssets.projects.sauveMonVaccin,
+    image: sauveMonVaccin,
     imageAlt: "Sauve mon vaccin",
     resultsKey: "projects.results_content_smv",
     summaryKey: "projects.content_project_pro_1",
@@ -60,7 +70,7 @@ export const projects = [
     category: "professional",
     challengesKey: "projects.challenges_content_cf",
     contextKey: "projects.content_context_cf",
-    image: sourceAssets.projects.corsicaFerries,
+    image: corsicaFerries,
     imageAlt: "Corsica Ferries",
     resultsKey: "projects.results_content_cf",
     summaryKey: "projects.content_project_pro_2",
@@ -75,7 +85,7 @@ export const projects = [
     category: "professional",
     challengesKey: "projects.challenges_content_madewis",
     contextKey: "projects.content_context_madewis",
-    image: sourceAssets.projects.madewis,
+    image: madewis,
     imageAlt: "Madewis",
     resultsKey: "projects.results_content_madewis",
     summaryKey: "projects.content_project_pro_3",
@@ -90,7 +100,7 @@ export const projects = [
     category: "professional",
     challengesKey: "projects.challenges_content_hobbies",
     contextKey: "projects.content_context_hobbies",
-    image: sourceAssets.projects.hobbies,
+    image: hobbies,
     imageAlt: "Hobbies",
     resultsKey: "projects.results_content_hobbies",
     summaryKey: "projects.content_project_pro_4",
@@ -105,7 +115,7 @@ export const projects = [
     category: "professional",
     challengesKey: "projects.challenges_content_crf",
     contextKey: "projects.content_context_crf",
-    image: sourceAssets.projects.croixRouge,
+    image: croixRouge,
     imageAlt: "La croix rouge francaise",
     resultsKey: "projects.results_content_crf",
     summaryKey: "projects.content_project_pro_5",
@@ -120,7 +130,7 @@ export const projects = [
     category: "professional",
     challengesKey: "projects.challenges_content_asm",
     contextKey: "projects.content_context_asm",
-    image: sourceAssets.projects.asm,
+    image: asm,
     imageAlt: "ASM Clermont Auvergne",
     resultsKey: "projects.results_content_asm",
     summaryKey: "projects.content_project_pro_6",
@@ -135,7 +145,7 @@ export const projects = [
     category: "professional",
     challengesKey: "projects.challenges_content_pmv",
     contextKey: "projects.content_context_pmv",
-    image: sourceAssets.projects.parisMaVille,
+    image: parisMaVille,
     imageAlt: "Paris ma Ville",
     resultsKey: "projects.results_content_pmv",
     summaryKey: "projects.content_project_pro_7",
@@ -150,7 +160,7 @@ export const projects = [
     category: "personal",
     challengesKey: "projects.challenges_content_gemu",
     contextKey: "projects.content_context_gemu",
-    image: sourceAssets.projects.gemu,
+    image: gemu,
     imageAlt: "Gemu",
     repositoryUrl: "https://github.com/Gemu-Inc/Gemu_ui",
     resultsKey: "projects.results_content_gemu",
@@ -166,7 +176,7 @@ export const projects = [
     category: "personal",
     challengesKey: "projects.challenges_content_myy",
     contextKey: "projects.content_context_myy",
-    image: sourceAssets.projects.myYoukounkoun,
+    image: myYoukounkoun,
     imageAlt: "My youkounkoun",
     repositoryUrl: "https://github.com/JurojinKun/my_youkounkoun_front",
     resultsKey: "projects.results_content_myy",
@@ -182,7 +192,7 @@ export const projects = [
     category: "personal",
     challengesKey: "projects.challenges_content_portfolio",
     contextKey: "projects.content_context_portfolio",
-    image: sourceAssets.projects.portfolio,
+    image: portfolio,
     imageAlt: "Portfolio 3D",
     repositoryUrl: "https://github.com/JurojinKun/portfolio_3d",
     resultsKey: "projects.results_content_portfolio",
@@ -198,7 +208,7 @@ export const projects = [
     category: "personal",
     challengesKey: "projects.challenges_content_bot",
     contextKey: "projects.content_context_bot",
-    image: sourceAssets.projects.botDiscord,
+    image: botDiscord,
     imageAlt: "Bot discord",
     repositoryUrl: "https://github.com/JurojinKun/bot-discord-opf-stats",
     resultsKey: "projects.results_content_bot",

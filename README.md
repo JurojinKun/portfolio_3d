@@ -172,6 +172,7 @@ Routes actuellement branchees :
 - `/portfolio/aboutme` : page A propos v2 ;
 - `/portfolio/skills` : page Competences v2 ;
 - `/portfolio/experiences` : page Experiences v2 ;
+- `/portfolio/projects` : page Projets v2 ;
 - `/notfound` : page 404 v2 ;
 - `*` : fallback vers la page 404 v2.
 
@@ -222,6 +223,7 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Portage de la page A propos en TSX et CSS Module.
 - Portage de la page Competences en TSX et CSS Module.
 - Portage de la page Experiences en TSX et CSS Module.
+- Portage de la page Projets en TSX et CSS Module.
 
 ### En cours
 
