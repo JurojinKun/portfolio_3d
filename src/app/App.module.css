@@ -48,3 +48,25 @@
   color: var(--color-text);
   font-size: 0.9rem;
 }
+
+.languageActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.languageButton {
+  border: 1px solid rgb(247 248 255 / 24%);
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.languageButton[data-active="true"] {
+  border-color: rgb(71 205 214 / 70%);
+  background: rgb(71 205 214 / 14%);
+  color: var(--color-accent);
+}

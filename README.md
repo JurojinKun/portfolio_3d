@@ -25,6 +25,7 @@ La v1 historique est encore presente dans le repo pour servir de reference, mais
 - ESLint `10.6.0`
 - Vitest `4.1.9`
 - Testing Library
+- i18next / react-i18next
 
 Le projet n'utilise plus Create React App / `react-scripts`.
 
@@ -98,6 +99,7 @@ La v2 utilise progressivement cette structure cible :
 ```txt
 src/
   app/       Composition racine de l'application
+  i18n/      Configuration i18next, locales et tests de parite
   shared/    Configuration, types et helpers transverses
   styles/    Reset, tokens et styles globaux limites
   test/      Configuration des tests
@@ -119,6 +121,27 @@ Les fichiers globaux ont chacun un role strict :
 - `global.css` importe `tokens.css` et `reset.css`, puis applique uniquement les styles document-level comme la couleur de texte, le fond, la police globale et le lissage.
 
 Les composants et pages doivent utiliser des CSS Modules, par exemple `App.module.css`. Ces classes sont importees dans le composant et scopees automatiquement par Vite, ce qui evite les collisions de classes globales.
+
+## Internationalisation
+
+La v2 utilise `i18next`, `react-i18next` et `i18next-browser-languagedetector`.
+
+Les locales v2 sont dans :
+
+```txt
+src/i18n/locales/fr.json
+src/i18n/locales/en.json
+```
+
+La configuration est centralisee dans `src/i18n/`. Les langues supportees sont typees dans `supportedLanguages.ts`.
+
+Un test verifie que les fichiers FR et EN gardent les memes cles de traduction. Toute nouvelle cle ajoutee dans une langue doit etre ajoutee dans l'autre.
+
+## Assets
+
+Les assets importes par le code React restent dans `src/assets/`. Les assets servis tels quels par Vite restent dans `public/`.
+
+Les chemins publics utiles sont centralises dans `src/shared/assets/publicAssets.ts`. Les imports d'assets source utiles sont centralises progressivement dans `src/shared/assets/sourceAssets.ts`.
 
 ## Validation
 
@@ -159,6 +182,8 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Alignement sur Node 24 pour Netlify et le local.
 - Generation d'un lockfile propre avec npm 11.
 - Mise en place de la structure source v2 minimale.
+- Mise en place de la configuration i18n v2.
+- Mise en place des premiers manifestes d'assets v2.
 
 ### En cours
 
@@ -168,8 +193,6 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 
 ### Prochaines etapes
 
-- Migrer les assets utiles.
-- Migrer `i18n`.
 - Extraire les contenus en donnees typees.
 - Porter les pages une par une.
 - Rebrancher la 3D.

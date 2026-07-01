@@ -16,6 +16,7 @@
     "noUncheckedIndexedAccess": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"]
     },
