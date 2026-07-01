@@ -134,4 +134,18 @@ describe("App", () => {
       screen.getByText(/not all fields are filled in/i),
     ).toBeInTheDocument();
   });
+
+  it("navigates between portfolio sections from the shared layout", async () => {
+    await i18n.changeLanguage("en");
+    window.history.pushState({}, "", "/portfolio/aboutme");
+
+    render(<App />);
+
+    await userEvent.click(screen.getByRole("link", { name: /skills/i }));
+
+    expect(
+      await screen.findByRole("heading", { name: /skills/i }),
+    ).toBeInTheDocument();
+    expect(window.location.pathname).toBe("/portfolio/skills");
+  });
 });

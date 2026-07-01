@@ -1,0 +1,132 @@
+.shell {
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+.header {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: grid;
+  align-items: center;
+  gap: 18px;
+  grid-template-columns: minmax(170px, auto) minmax(0, 1fr) auto;
+  border-bottom: 1px solid rgb(247 248 255 / 10%);
+  padding: 12px 24px;
+  background: rgb(2 2 13 / 88%);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  display: grid;
+  color: var(--color-text);
+  line-height: 1.15;
+  text-decoration: none;
+}
+
+.brand span {
+  color: var(--color-accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.brand strong {
+  font-size: 1rem;
+}
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.navigationLink {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: var(--color-text-muted);
+  gap: 8px;
+  text-decoration: none;
+}
+
+.navigationLink:hover,
+.activeNavigationLink {
+  border-color: rgb(71 205 214 / 36%);
+  background: rgb(71 205 214 / 10%);
+  color: var(--color-text);
+}
+
+.navigationLink img {
+  width: 20px;
+  height: 20px;
+}
+
+.navigationLink span {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.languageActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.languageButton {
+  min-height: 36px;
+  border: 1px solid rgb(247 248 255 / 18%);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.languageButton[data-active="true"] {
+  border-color: rgb(71 205 214 / 60%);
+  background: rgb(71 205 214 / 12%);
+  color: var(--color-accent);
+}
+
+@media (max-width: 920px) {
+  .header {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+  }
+
+  .brand {
+    justify-self: center;
+    text-align: center;
+  }
+
+  .navigation {
+    justify-content: center;
+  }
+
+  .languageActions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 540px) {
+  .header {
+    padding: 10px 12px;
+  }
+
+  .navigation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .navigationLink {
+    justify-content: center;
+  }
+}
