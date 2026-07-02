@@ -15,6 +15,10 @@
     "french": "Français",
     "english": "Anglais"
   },
+  "home_header": {
+    "role": "Développeur frontend & mobile",
+    "scope": "Portfolio 3D"
+  },
   "satellites": {
     "about_me": "À propos de moi",
     "skills": "Compétences",

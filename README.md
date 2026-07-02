@@ -12,7 +12,7 @@ Le projet est en cours de migration vers une v2 technique propre sur la branche 
 v2-modernization
 ```
 
-La v1 historique est encore presente dans le repo pour servir de reference, mais elle n'est plus branchee sur l'entree Vite. L'application lancee localement utilise maintenant une page d'accueil v2, un layout portfolio commun et les pages principales portees.
+La v1 historique a ete retiree de `src/` apres le portage des pages principales. L'application lancee localement utilise maintenant l'entree Vite/React TS, une page d'accueil v2, un layout portfolio commun et les pages principales portees.
 
 ## Stack v2
 
@@ -21,6 +21,9 @@ La v1 historique est encore presente dans le repo pour servir de reference, mais
 - React `19.2.7`
 - React DOM `19.2.7`
 - React Router DOM `7.18.1`
+- Three.js `0.185.1`
+- React Three Fiber `9.6.1`
+- Drei `10.7.7`
 - Vite `8.1.2`
 - TypeScript `5.9.3`
 - ESLint `10.6.0`
@@ -108,7 +111,7 @@ src/
   test/      Configuration des tests
 ```
 
-Les anciens dossiers JS/CSS de la v1 restent temporairement presents tant que les pages n'ont pas ete portees. Le code v2 doit utiliser des imports `@/*` au lieu de longs chemins relatifs.
+Les anciens dossiers JS/CSS de la v1 ont ete supprimes. Le code v2 doit utiliser des imports `@/*` au lieu de longs chemins relatifs.
 
 ## Gestion CSS
 
@@ -167,7 +170,7 @@ La v2 utilise React Router DOM.
 
 Routes actuellement branchees :
 
-- `/` : page d'accueil v2 ;
+- `/` : page d'accueil v2 en experience 3D plein ecran ;
 - `/migration` : statut technique temporaire de la migration ;
 - `/portfolio` : layout portfolio commun, redirection vers `/portfolio/aboutme` ;
 - `/portfolio/aboutme` : page A propos v2 ;
@@ -204,6 +207,29 @@ npm audit
 
 Etat de reference apres l'etape 2 : toutes ces commandes passent avec Node `24.18.0`.
 
+## Scene 3D d'accueil
+
+La scene 3D v2 de l'accueil est isolee dans :
+
+```txt
+src/pages/home/scene/
+```
+
+Elle utilise `three`, `@react-three/fiber` et `@react-three/drei`. Elle est chargee avec `React.lazy` depuis `HomePage` afin de preparer le code splitting.
+
+La scene contient :
+
+- un canvas d'etoiles plein ecran ;
+- un canvas principal plein ecran ;
+- une sphere hexagonale pleine affichee directement dans son etat final ;
+- des satellites deja deployes, cliquables, responsives, qui orbitent autour de la sphere et redirigent vers les routes portfolio ;
+- aucune animation pilotee par le scroll sur la page d'accueil ;
+- un prechargement de la police des labels satellites pour eviter une suspension de la scene au premier affichage du texte 3D ;
+- un loader initial repris de la v1, affiche uniquement au demarrage d'une nouvelle session de navigation via `sessionStorage.isSessionActive` ;
+- un fallback statique si WebGL est indisponible ou si l'utilisateur prefere reduire les animations.
+
+Le portage v2 n'a pas reintroduit Redux pour l'accueil. La page d'accueil affiche directement l'experience 3D finale, sans etat de scroll a restaurer.
+
 ## Deploiement Netlify
 
 Configuration attendue :
@@ -232,6 +258,9 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Mise en place de la configuration i18n v2.
 - Mise en place des premiers manifestes d'assets v2.
 - Extraction des donnees v2 pour la navigation, les projets, les competences et les experiences.
+- Portage des pages principales en TSX avec CSS Modules.
+- Portage de la scene 3D d'accueil en etat final direct.
+- Suppression des anciens fichiers CRA/JS/CSS/Redux non utilises par la v2.
 - Mise en place du routing v2 avec React Router DOM.
 - Portage de la page 404 en TSX et CSS Module.
 - Portage de la page A propos en TSX et CSS Module.
@@ -241,16 +270,17 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Portage de la page Contact en TSX et CSS Module.
 - Mise en place du layout portfolio v2 commun avec navigation et changement de langue.
 - Remplacement de l'entree `/` par une page d'accueil v2.
+- Rebranchement de la scene 3D sur l'accueil v2 avec fallback WebGL.
 
 ### En cours
 
-- Rebranchement progressif de l'experience 3D.
+- Optimisation progressive du chargement et des bundles.
 - Tests de non-regression et d'integrite.
 - Documentation projet mise a jour au fil de la migration.
 
 ### Prochaines etapes
 
-- Rebrancher la scene 3D sur l'accueil.
+- Finaliser le code splitting et la passe performance.
 - Refondre le CSS en modules/tokens responsive.
 - Ajouter les tests de non-regression sur les parcours principaux.
 

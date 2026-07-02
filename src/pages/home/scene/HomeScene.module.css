@@ -1,0 +1,402 @@
+.sceneRoot {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #02020d;
+}
+
+.starsCanvas,
+.mainCanvas {
+  position: fixed !important;
+  inset: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+.starsCanvas {
+  z-index: 0;
+  pointer-events: none;
+}
+
+.mainCanvas {
+  z-index: 1;
+}
+
+.header {
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  min-height: 80px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 24px;
+  pointer-events: none;
+}
+
+.brand {
+  display: grid;
+  max-width: min(56vw, 520px);
+  min-width: 0;
+  align-items: center;
+  grid-template-columns: auto minmax(0, 1fr);
+  color: rgb(247 248 255 / 92%);
+  cursor: default;
+  gap: 12px;
+  pointer-events: none;
+  text-shadow: 0 0 24px rgb(71 205 214 / 22%);
+}
+
+.brandMark {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  overflow: hidden;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  background:
+    radial-gradient(circle at 32% 24%, rgb(243 199 255 / 26%), transparent 33%),
+    linear-gradient(145deg, rgb(71 205 214 / 18%), rgb(157 77 196 / 34%)),
+    rgb(2 2 13 / 86%);
+  box-shadow:
+    inset 0 0 0 1px rgb(243 199 255 / 26%),
+    inset 0 0 18px rgb(157 77 196 / 22%),
+    0 0 24px rgb(157 77 196 / 18%);
+  clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1;
+  text-shadow:
+    0 0 10px rgb(243 199 255 / 58%),
+    0 0 18px rgb(71 205 214 / 32%);
+}
+
+.brandMark::before {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 34%), transparent 44%),
+    linear-gradient(315deg, rgb(210 119 239 / 38%), transparent 48%);
+  content: "";
+  clip-path: inherit;
+}
+
+.brandMark::after {
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgb(255 255 255 / 18%);
+  content: "";
+  clip-path: inherit;
+}
+
+.brandCopy {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+}
+
+.brandTitle {
+  display: block;
+  color: currentColor;
+  font-size: 1.18rem;
+  font-weight: 800;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.brandMeta {
+  display: flex;
+  align-items: center;
+  color: rgb(247 248 255 / 68%);
+  flex-wrap: wrap;
+  gap: 7px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.brandMetaDivider {
+  width: 22px;
+  height: 1px;
+  background: linear-gradient(90deg, #47cdd6, #9d4dc4);
+}
+
+.languageActions {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgb(243 199 255 / 18%);
+  border-radius: 6px;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 10%), transparent 45%),
+    linear-gradient(315deg, rgb(157 77 196 / 16%), transparent 52%),
+    rgb(14 14 22 / 76%);
+  box-shadow:
+    0 12px 30px rgb(0 0 0 / 26%),
+    0 0 24px rgb(157 77 196 / 10%),
+    inset 0 0 0 1px rgb(255 255 255 / 4%);
+  gap: 4px;
+  padding: 5px;
+  backdrop-filter: blur(14px);
+  pointer-events: auto;
+}
+
+.languageButton {
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: rgb(247 248 255 / 84%);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 10px 12px;
+  transition:
+    background 120ms ease,
+    color 120ms ease,
+    transform 120ms ease;
+}
+
+.languageButton:hover,
+.languageButton:focus-visible {
+  background: linear-gradient(
+    135deg,
+    rgb(71 205 214 / 14%),
+    rgb(157 77 196 / 14%)
+  );
+  color: #f3c7ff;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.languageButton[data-active="true"] {
+  background: linear-gradient(
+    135deg,
+    rgb(71 205 214 / 22%),
+    rgb(157 77 196 / 22%)
+  );
+  color: #e9fbff;
+  box-shadow: inset 0 0 0 1px rgb(233 251 255 / 12%);
+}
+
+.footer {
+  position: fixed;
+  z-index: 4;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+  left: 24px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgb(243 199 255 / 22%);
+  border-radius: 6px;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 13%), transparent 45%),
+    linear-gradient(315deg, rgb(157 77 196 / 20%), transparent 52%),
+    rgb(14 14 22 / 80%);
+  box-shadow:
+    0 18px 42px rgb(0 0 0 / 34%),
+    0 0 30px rgb(157 77 196 / 14%),
+    inset 0 0 0 1px rgb(255 255 255 / 5%);
+  gap: 5px;
+  padding: 6px;
+  backdrop-filter: blur(16px);
+  pointer-events: auto;
+}
+
+.footerItem {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+
+.footerButton {
+  position: relative;
+  inset: 0;
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: transparent;
+  color: rgb(247 248 255 / 86%);
+  text-decoration: none;
+  transition:
+    background 120ms ease,
+    color 120ms ease,
+    transform 120ms ease;
+}
+
+.footerButton:hover,
+.footerButton:focus-visible {
+  background: linear-gradient(
+    135deg,
+    rgb(71 205 214 / 18%),
+    rgb(157 77 196 / 18%)
+  );
+  color: #e9fbff;
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.footerButton svg {
+  width: 25px;
+  height: 25px;
+  fill: currentColor;
+}
+
+.footerTooltip {
+  position: absolute;
+  z-index: 10;
+  bottom: 70px;
+  left: 50%;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 10%);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(5px);
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+  white-space: nowrap;
+}
+
+.footerItem[data-tooltip-visible="true"] .footerTooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.fallback {
+  display: grid;
+  min-height: 100%;
+  place-items: center;
+  padding: 24px;
+  background: #02020d;
+}
+
+.fallbackContent {
+  display: grid;
+  width: min(100%, 760px);
+  gap: 16px;
+}
+
+.fallbackContent h1 {
+  margin: 0;
+  color: white;
+  font-size: 1.45rem;
+}
+
+.fallbackContent h1 span {
+  color: #47cdd6;
+}
+
+.fallbackContent p {
+  margin: 0;
+  color: white;
+}
+
+.fallbackLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fallbackLinks a {
+  border: 1px solid rgb(71 205 214 / 45%);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 824px), (max-height: 700px) {
+  .footer {
+    left: 20px;
+  }
+
+  .footerItem {
+    width: 46px;
+    height: 46px;
+  }
+
+  .footerButton svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .footerTooltip {
+    bottom: 64px;
+  }
+}
+
+@media (max-width: 550px), (max-height: 600px) {
+  .header {
+    min-height: 70px;
+    padding: 0 16px;
+  }
+
+  .brand {
+    max-width: calc(100vw - 154px);
+    gap: 10px;
+  }
+
+  .brandMark {
+    width: 38px;
+    height: 38px;
+    font-size: 0.68rem;
+  }
+
+  .brandCopy {
+    gap: 4px;
+  }
+
+  .brandTitle {
+    font-size: 0.98rem;
+    line-height: 1.08;
+  }
+
+  .brandMeta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.68rem;
+  }
+
+  .brandMetaDivider {
+    display: none;
+  }
+
+  .languageButton {
+    font-size: 0.72rem;
+    padding: 8px 9px;
+  }
+
+  .footer {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+  }
+
+  .footerItem {
+    width: 42px;
+    height: 42px;
+  }
+
+  .footerButton svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .footerTooltip {
+    bottom: 58px;
+  }
+}

@@ -15,11 +15,11 @@ describe("App", () => {
     render(<App />);
 
     expect(
-      screen.getByRole("heading", { name: /hi, i'm 0ruj/i }),
+      await screen.findByRole("heading", { name: /hi, i'm 0ruj/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/welcome to my world/i)).toBeInTheDocument();
+    expect(await screen.findByText(/welcome to my world/i)).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /scroll and embark/i }),
+      await screen.findByRole("link", { name: /about me/i }),
     ).toHaveAttribute("href", "/portfolio/aboutme");
   });
 
