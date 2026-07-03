@@ -271,6 +271,15 @@
   white-space: nowrap;
 }
 
+.footerItem:first-child .footerTooltip {
+  left: 0;
+  transform: translateY(5px);
+}
+
+.footerItem:first-child[data-tooltip-visible="true"] .footerTooltip {
+  transform: translateY(0);
+}
+
 .footerItem[data-tooltip-visible="true"] .footerTooltip {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
@@ -286,8 +295,10 @@
 
 .fallbackContent {
   display: grid;
-  width: min(100%, 760px);
+  box-sizing: border-box;
+  width: min(760px, calc(100vw - 48px));
   gap: 16px;
+  justify-self: center;
 }
 
 .fallbackContent h1 {
@@ -306,17 +317,26 @@
 }
 
 .fallbackLinks {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
 }
 
 .fallbackLinks a {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
   border: 1px solid rgb(71 205 214 / 45%);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 8px 10px;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 10%), rgb(157 77 196 / 10%)),
+    rgb(14 14 22 / 72%);
   color: white;
   font-weight: 700;
+  overflow-wrap: anywhere;
+  text-align: center;
   text-decoration: none;
 }
 
@@ -398,5 +418,9 @@
 
   .footerTooltip {
     bottom: 58px;
+  }
+
+  .fallbackLinks {
+    grid-template-columns: 1fr;
   }
 }
