@@ -6,7 +6,6 @@ import { useEffect, useState, type ReactNode } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import styles from "./App.module.css";
-import { MigrationStatus } from "./MigrationStatus";
 
 const appSessionStorageKey = "isSessionActive";
 
@@ -20,7 +19,6 @@ export function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<HomePage />} path="/" />
-          <Route element={<MigrationStatus />} path="/migration" />
           <Route element={<PortfolioLayout />} path="/portfolio">
             <Route index element={<Navigate replace to="aboutme" />} />
             <Route element={<PortfolioPage />} path=":sectionId" />

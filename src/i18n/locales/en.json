@@ -6,11 +6,6 @@
     "third_para": "Feel free to have a look at the different icons to find out more about me and my work.",
     "embark": "Scroll and embark on a tour"
   },
-  "migration": {
-    "title": "Technical foundation initialized",
-    "description": "The v2 migration starts from a modern, typed React foundation. Existing pages will be migrated progressively in the next steps.",
-    "stack_label": "Installed foundation"
-  },
   "languages": {
     "french": "French",
     "english": "English"

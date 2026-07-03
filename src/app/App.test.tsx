@@ -88,27 +88,21 @@ describe("App", () => {
     ).toHaveAttribute("href", "/portfolio/aboutme");
   });
 
-  it("keeps the migration status page available and switches language", async () => {
+  it("does not expose the temporary migration status route anymore", async () => {
     await i18n.changeLanguage("en");
     window.history.pushState({}, "", "/migration");
 
     render(<App />);
 
     expect(
-      screen.getByRole("heading", {
-        name: /technical foundation initialized/i,
-      }),
-    ).toBeInTheDocument();
-    expect(screen.getByText("React 19")).toBeInTheDocument();
-    expect(screen.getByText("TypeScript strict")).toBeInTheDocument();
-
-    await userEvent.click(screen.getByRole("button", { name: "French" }));
-
-    expect(
       await screen.findByRole("heading", {
-        name: /socle technique initialise/i,
+        name: /you've probably got lost/i,
       }),
     ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /back to home/i })).toHaveAttribute(
+      "href",
+      "/",
+    );
   });
 
   it("renders the not found page for unknown routes", async () => {

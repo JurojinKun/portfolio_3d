@@ -6,7 +6,7 @@ Production actuelle : [https://0ruj-portfolio.netlify.app/](https://0ruj-portfol
 
 ## Etat actuel
 
-Le projet est en cours de migration vers une v2 technique propre sur la branche :
+Le projet utilise maintenant une v2 technique propre sur la branche :
 
 ```bash
 v2-modernization
@@ -171,7 +171,6 @@ La v2 utilise React Router DOM.
 Routes actuellement branchees :
 
 - `/` : page d'accueil v2 en experience 3D plein ecran ;
-- `/migration` : statut technique temporaire de la migration ;
 - `/portfolio` : redirection vers `/portfolio/aboutme` ;
 - `/portfolio/:sectionId` : page portfolio unique en sections scrollables ;
 - `/portfolio/aboutme` : section A propos ;
@@ -287,15 +286,12 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Rebranchement de la scene 3D sur l'accueil v2 avec fallback WebGL.
 - Mise en place du code splitting vendor pour React, routing/i18n et scene 3D.
 - Ajout de tests de non-regression pour les routes portfolio, les pages v2, les donnees, l'i18n et le menu burger compact.
-
-### En cours
-
-- Documentation projet mise a jour au fil de la migration.
+- Suppression de la route temporaire `/migration` et des fichiers de statut de migration associes.
 
 ### Prochaines etapes
 
 - Faire une revue responsive complete des pages v2.
-- Finaliser le nettoyage des routes, fichiers et notes temporaires de migration.
+- Effectuer une verification finale du build/deploiement Netlify.
 
 ## Notes de maintenance
 
