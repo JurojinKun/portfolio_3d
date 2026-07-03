@@ -210,6 +210,17 @@ npm audit
 
 Etat de reference apres l'etape 2 : toutes ces commandes passent avec Node `24.18.0`.
 
+## Build et code splitting
+
+Le build separe explicitement les principaux vendors via `build.rolldownOptions.output.codeSplitting` :
+
+- `vendor-react` pour React et React DOM ;
+- `vendor-router-i18n` pour React Router et i18next ;
+- `vendor-three-core` pour Three.js ;
+- `vendor-three-react` pour React Three Fiber, Drei et les helpers 3D associes.
+
+La scene d'accueil reste chargee avec `React.lazy`. Le chunk applicatif `HomeScene` reste donc leger, tandis que le chunk Three.js est charge uniquement pour l'experience 3D.
+
 ## Scene 3D d'accueil
 
 La scene 3D v2 de l'accueil est isolee dans :
@@ -274,22 +285,22 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Mise en place du layout portfolio v2 commun avec navigation et changement de langue.
 - Remplacement de l'entree `/` par une page d'accueil v2.
 - Rebranchement de la scene 3D sur l'accueil v2 avec fallback WebGL.
+- Mise en place du code splitting vendor pour React, routing/i18n et scene 3D.
 
 ### En cours
 
-- Optimisation progressive du chargement et des bundles.
 - Tests de non-regression et d'integrite.
 - Documentation projet mise a jour au fil de la migration.
 
 ### Prochaines etapes
 
-- Finaliser le code splitting et la passe performance.
-- Refondre le CSS en modules/tokens responsive.
+- Faire une revue responsive complete des pages v2.
 - Ajouter les tests de non-regression sur les parcours principaux.
+- Finaliser le nettoyage des routes, fichiers et notes temporaires de migration.
 
 ## Notes de maintenance
 
 - Ne pas reintroduire `react-scripts`.
 - `dist/`, `node_modules/` et `.npm-cache/` sont ignores par Git.
-- Les anciens fichiers JS/CSS restent temporairement presents tant que les pages n'ont pas ete portees.
+- Les anciens fichiers JS/CSS/Redux de la v1 ont ete retires du code source v2.
 - Mettre a jour ce README a chaque etape importante de migration.
