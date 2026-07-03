@@ -245,15 +245,18 @@ Le portage v2 n'a pas reintroduit Redux pour l'accueil. La page d'accueil affich
 
 ## Deploiement Netlify
 
-Configuration attendue :
+La configuration de deploiement est versionnee dans `netlify.toml`.
+
+Configuration appliquee :
 
 - Node : `24.18.0` ou superieur
+- npm : `11.16.0`
 - Build command : `npm run build`
 - Publish directory : `dist`
 
-Netlify lit aussi `.nvmrc` / `.node-version`, ce qui permet d'aligner la version Node locale et la version de build.
+Netlify lit aussi `.nvmrc` / `.node-version`, ce qui permet d'aligner la version Node locale et la version de build. `netlify.toml` fixe explicitement `NODE_VERSION` et `NPM_VERSION` pour eviter un ecart entre l'environnement local et l'environnement de deploiement.
 
-Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
+Le fichier `public/_redirects` est conserve pour gerer les routes SPA. Il est copie dans `dist/` pendant le build Vite.
 
 ## Roadmap de migration
 
@@ -288,10 +291,11 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Ajout de tests de non-regression pour les routes portfolio, les pages v2, les donnees, l'i18n et le menu burger compact.
 - Suppression de la route temporaire `/migration` et des fichiers de statut de migration associes.
 - Revue responsive des sections portfolio v2 et ajustement des paddings mobiles.
+- Ajout de la configuration `netlify.toml` et verification finale du build/deploiement Netlify.
 
-### Prochaines etapes
+### Prochaines evolutions
 
-- Effectuer une verification finale du build/deploiement Netlify.
+- Les prochaines modifications peuvent se concentrer sur le contenu, les textes, la charte graphique et les ameliorations de design.
 
 ## Notes de maintenance
 
