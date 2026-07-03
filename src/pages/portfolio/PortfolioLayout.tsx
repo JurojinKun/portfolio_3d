@@ -177,9 +177,9 @@ export function PortfolioLayout() {
             setIsMenuOpen((currentValue) => !currentValue);
           }}
         >
-          <span />
-          <span />
-          <span />
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M4 6.5h16v2H4v-2Zm0 4.5h16v2H4v-2Zm0 4.5h16v2H4v-2Z" />
+          </svg>
         </button>
 
         <nav

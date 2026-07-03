@@ -188,7 +188,9 @@
 }
 
 .menuButton {
-  display: none;
+  display: inline-flex;
+  position: relative;
+  z-index: 1;
   width: 44px;
   height: 44px;
   align-items: center;
@@ -200,18 +202,23 @@
     rgb(14 14 22 / 78%);
   cursor: pointer;
   gap: 4px;
+  justify-self: end;
 }
 
-.menuButton span {
-  display: block;
-  width: 18px;
-  height: 2px;
-  border-radius: 99px;
-  background: #e9fbff;
+.menuButton svg {
+  width: 21px;
+  height: 21px;
+  fill: #e9fbff;
 }
 
 .menuBackdrop {
   display: none;
+}
+
+@media (min-width: 1101px) {
+  .menuButton {
+    display: none;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -220,8 +227,9 @@
   }
 
   .menuButton {
-    display: inline-flex;
     flex-direction: column;
+    grid-column: 2;
+    grid-row: 1;
   }
 
   .languageActions {

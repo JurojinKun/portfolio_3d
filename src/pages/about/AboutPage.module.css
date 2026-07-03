@@ -124,6 +124,10 @@
     padding: 48px 20px;
   }
 
+  .page[data-portfolio-section="true"] {
+    padding-block: 44px;
+  }
+
   .layout {
     gap: 32px;
     grid-template-columns: 1fr;
@@ -146,6 +150,10 @@
 @media (max-width: 480px) {
   .page {
     padding: 32px 16px;
+  }
+
+  .page[data-portfolio-section="true"] {
+    padding-block: 36px;
   }
 
   .copy {

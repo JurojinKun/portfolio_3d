@@ -287,10 +287,10 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA.
 - Mise en place du code splitting vendor pour React, routing/i18n et scene 3D.
 - Ajout de tests de non-regression pour les routes portfolio, les pages v2, les donnees, l'i18n et le menu burger compact.
 - Suppression de la route temporaire `/migration` et des fichiers de statut de migration associes.
+- Revue responsive des sections portfolio v2 et ajustement des paddings mobiles.
 
 ### Prochaines etapes
 
-- Faire une revue responsive complete des pages v2.
 - Effectuer une verification finale du build/deploiement Netlify.
 
 ## Notes de maintenance
