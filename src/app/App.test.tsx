@@ -85,9 +85,11 @@ describe("App", () => {
     expect(
       screen.getByRole("heading", { name: /skills/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/self-taught apprenticeship/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /^react js$/i }),
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: /github/i }));
+    await userEvent.click(screen.getByRole("button", { name: /^github$/i }));
 
     expect(
       screen.getByText(/github is a code hosting platform/i),

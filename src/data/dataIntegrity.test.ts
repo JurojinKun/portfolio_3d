@@ -4,7 +4,6 @@ import {
   experiences,
   portfolioSections,
   projects,
-  skillStorySections,
   skills,
 } from "@/data";
 import { resources, supportedLanguages } from "@/i18n";
@@ -44,10 +43,6 @@ const dataTranslationKeys = [
     project.titleKey,
   ]),
   ...skills.map((skill) => skill.contentKey),
-  ...skillStorySections.flatMap((section) => [
-    section.contentKey,
-    section.titleKey,
-  ]),
   ...experiences.flatMap((experience) => [
     experience.companyKey,
     experience.dateKey,
@@ -62,7 +57,6 @@ describe("v2 data", () => {
     expectUniqueIds(portfolioSections);
     expectUniqueIds(projects);
     expectUniqueIds(skills);
-    expectUniqueIds(skillStorySections);
     expectUniqueIds(experiences);
   });
 

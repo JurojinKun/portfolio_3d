@@ -1,11 +1,7 @@
-import { AboutPage } from "@/pages/about/AboutPage";
-import { ContactPage } from "@/pages/contact/ContactPage";
-import { ExperiencesPage } from "@/pages/experiences/ExperiencesPage";
 import { HomePage } from "@/pages/home/HomePage";
 import { NotFoundPage } from "@/pages/not-found/NotFoundPage";
 import { PortfolioLayout } from "@/pages/portfolio/PortfolioLayout";
-import { ProjectsPage } from "@/pages/projects/ProjectsPage";
-import { SkillsPage } from "@/pages/skills/SkillsPage";
+import { PortfolioPage } from "@/pages/portfolio/PortfolioPage";
 import { useEffect, useState, type ReactNode } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -27,11 +23,7 @@ export function App() {
           <Route element={<MigrationStatus />} path="/migration" />
           <Route element={<PortfolioLayout />} path="/portfolio">
             <Route index element={<Navigate replace to="aboutme" />} />
-            <Route element={<AboutPage />} path="aboutme" />
-            <Route element={<SkillsPage />} path="skills" />
-            <Route element={<ExperiencesPage />} path="experiences" />
-            <Route element={<ProjectsPage />} path="projects" />
-            <Route element={<ContactPage />} path="contactme" />
+            <Route element={<PortfolioPage />} path=":sectionId" />
           </Route>
           <Route element={<NotFoundPage />} path="/notfound" />
           <Route element={<NotFoundPage />} path="*" />

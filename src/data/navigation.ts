@@ -29,16 +29,16 @@ export const portfolioSections = [
     route: "/portfolio/aboutme",
   },
   {
-    id: "skills",
-    iconPath: "/icons/skills.svg",
-    labelKey: "satellites.skills",
-    route: "/portfolio/skills",
-  },
-  {
     id: "experiences",
     iconPath: "/icons/experiences.svg",
     labelKey: "satellites.experiences",
     route: "/portfolio/experiences",
+  },
+  {
+    id: "skills",
+    iconPath: "/icons/skills.svg",
+    labelKey: "satellites.skills",
+    route: "/portfolio/skills",
   },
   {
     id: "projects",

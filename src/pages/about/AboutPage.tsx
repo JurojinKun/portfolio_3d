@@ -4,11 +4,21 @@ import { useTranslation } from "react-i18next";
 
 import styles from "./AboutPage.module.css";
 
-export function AboutPage() {
+interface AboutPageProps {
+  asSection?: boolean;
+  sectionId?: string;
+}
+
+export function AboutPage({ asSection = false, sectionId }: AboutPageProps) {
   const { t } = useTranslation();
+  const Root = asSection ? "section" : "main";
 
   return (
-    <main className={styles.page}>
+    <Root
+      className={styles.page}
+      data-portfolio-section={asSection || undefined}
+      id={sectionId}
+    >
       <section className={styles.layout} aria-labelledby="about-title">
         <div className={styles.copy}>
           <p className={styles.eyebrow}>{t("about_me.subtitle")}</p>
@@ -35,6 +45,6 @@ export function AboutPage() {
           />
         </div>
       </section>
-    </main>
+    </Root>
   );
 }

@@ -1,4 +1,4 @@
-import { skillStorySections, skills, type SkillData } from "@/data/skills";
+import { skills, type SkillData } from "@/data/skills";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -7,7 +7,12 @@ import styles from "./SkillsPage.module.css";
 const formatParagraph = (content: string) =>
   content.split("\n").filter((line) => line.trim().length > 0);
 
-export function SkillsPage() {
+interface SkillsPageProps {
+  asSection?: boolean;
+  sectionId?: string;
+}
+
+export function SkillsPage({ asSection = false, sectionId }: SkillsPageProps) {
   const { t } = useTranslation();
   const [selectedSkillId, setSelectedSkillId] = useState<SkillData["id"]>(
     skills[0].id,
@@ -16,59 +21,47 @@ export function SkillsPage() {
     () => skills.find((skill) => skill.id === selectedSkillId) ?? skills[0],
     [selectedSkillId],
   );
+  const Root = asSection ? "section" : "main";
 
   return (
-    <main className={styles.page}>
+    <Root
+      className={styles.page}
+      data-portfolio-section={asSection || undefined}
+      id={sectionId}
+    >
       <section className={styles.header} aria-labelledby="skills-title">
         <p className={styles.eyebrow}>{t("skills.subtitle")}</p>
         <h1 id="skills-title">{t("skills.title")}</h1>
       </section>
 
-      <section className={styles.layout}>
-        <div className={styles.story} aria-label={t("skills.title")}>
-          {skillStorySections.map((section) => (
-            <article className={styles.storyCard} key={section.id}>
-              <h2>{t(section.titleKey)}</h2>
-              {formatParagraph(t(section.contentKey)).map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </article>
+      <section className={styles.layout} aria-label={t("skills.title")}>
+        <div className={styles.skillGrid}>
+          {skills.map((skill) => (
+            <button
+              className={styles.skillButton}
+              data-active={skill.id === selectedSkill.id}
+              key={skill.id}
+              onClick={() => {
+                setSelectedSkillId(skill.id);
+              }}
+              type="button"
+            >
+              <img alt="" src={skill.image} />
+              <span>{skill.label}</span>
+            </button>
           ))}
         </div>
 
-        <aside className={styles.skillPanel} aria-label={selectedSkill.label}>
-          <div className={styles.skillGrid}>
-            {skills.map((skill) => (
-              <button
-                className={styles.skillButton}
-                data-active={skill.id === selectedSkill.id}
-                key={skill.id}
-                onClick={() => {
-                  setSelectedSkillId(skill.id);
-                }}
-                type="button"
-              >
-                <img alt="" src={skill.image} />
-                <span>{skill.label}</span>
-              </button>
-            ))}
+        <article className={styles.detailCard} aria-live="polite">
+          <img alt="" className={styles.detailIcon} src={selectedSkill.image} />
+          <div>
+            <h2>{selectedSkill.label}</h2>
           </div>
-
-          <article className={styles.detailCard}>
-            <img
-              alt=""
-              className={styles.detailIcon}
-              src={selectedSkill.image}
-            />
-            <div>
-              <h2>{selectedSkill.label}</h2>
-            </div>
-            {formatParagraph(t(selectedSkill.contentKey)).map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </article>
-        </aside>
+          {formatParagraph(t(selectedSkill.contentKey)).map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </article>
       </section>
-    </main>
+    </Root>
   );
 }

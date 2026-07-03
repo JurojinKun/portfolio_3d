@@ -1,9 +1,13 @@
 .page {
   min-height: 100vh;
   padding: 64px 24px;
-  background:
-    radial-gradient(circle at 82% 16%, rgb(71 205 214 / 15%), transparent 30%),
-    linear-gradient(180deg, rgb(2 2 13 / 76%), var(--color-background));
+  scroll-margin-top: 104px;
+  background: transparent;
+}
+
+.page[data-portfolio-section="true"] {
+  min-height: auto;
+  padding-block: 52px;
 }
 
 .header {
@@ -11,17 +15,23 @@
   margin: 0 auto 40px;
 }
 
+.page[data-portfolio-section="true"] .header {
+  margin-bottom: 28px;
+}
+
 .eyebrow {
   margin: 0 0 10px;
-  color: var(--color-accent);
+  color: #e9fbff;
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 900;
+  text-shadow: 0 0 18px rgb(71 205 214 / 22%);
 }
 
 .header h1 {
   margin: 0;
   font-size: 3rem;
   line-height: 1;
+  text-shadow: 0 0 28px rgb(157 77 196 / 18%);
 }
 
 .layout {
@@ -36,10 +46,16 @@
 .form {
   display: grid;
   gap: 20px;
-  border: 1px solid rgb(247 248 255 / 12%);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   padding: 24px;
-  background: rgb(26 26 26 / 74%);
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 8%), transparent 38%),
+    linear-gradient(315deg, rgb(157 77 196 / 12%), transparent 44%),
+    var(--color-panel);
+  box-shadow:
+    var(--shadow-panel),
+    inset 0 0 0 1px rgb(255 255 255 / 4%);
 }
 
 .fieldsGrid {
@@ -55,19 +71,23 @@
 
 .field span {
   color: var(--color-text);
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .field input,
 .field textarea {
   width: 100%;
-  border: 1px solid rgb(247 248 255 / 12%);
-  border-radius: 8px;
+  border: 1px solid rgb(243 199 255 / 16%);
+  border-radius: 6px;
   padding: 12px 14px;
-  background: rgb(42 42 42 / 86%);
+  background: rgb(7 7 15 / 68%);
   color: var(--color-text);
   font: inherit;
   resize: vertical;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    background 140ms ease;
 }
 
 .field input::placeholder,
@@ -77,17 +97,21 @@
 
 .field input:focus,
 .field textarea:focus {
-  border-color: rgb(71 205 214 / 65%);
-  outline: 2px solid rgb(71 205 214 / 18%);
+  border-color: rgb(243 199 255 / 48%);
+  background: rgb(10 10 18 / 82%);
+  box-shadow:
+    0 0 0 3px rgb(157 77 196 / 16%),
+    0 0 20px rgb(71 205 214 / 8%);
+  outline: none;
 }
 
 .status {
   display: grid;
   gap: 4px;
-  border: 1px solid rgb(247 248 255 / 16%);
-  border-radius: 8px;
+  border: 1px solid rgb(243 199 255 / 18%);
+  border-radius: 6px;
   padding: 12px 14px;
-  background: rgb(2 2 13 / 38%);
+  background: rgb(2 2 13 / 48%);
 }
 
 .status[data-tone="success"] {
@@ -105,19 +129,32 @@
 .submitButton {
   justify-self: start;
   min-height: 44px;
-  border: 1px solid rgb(71 205 214 / 55%);
-  border-radius: 8px;
+  border: 1px solid rgb(243 199 255 / 20%);
+  border-radius: 6px;
   padding: 10px 18px;
-  background: rgb(71 205 214 / 12%);
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 20%), rgb(157 77 196 / 18%)),
+    rgb(14 14 22 / 82%);
   color: var(--color-text);
   cursor: pointer;
   font: inherit;
-  font-weight: 700;
+  font-weight: 900;
+  transition:
+    border-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease;
 }
 
-.submitButton:hover {
-  border-color: rgb(71 205 214 / 80%);
-  color: var(--color-accent);
+.submitButton:hover,
+.submitButton:focus-visible {
+  border-color: rgb(243 199 255 / 54%);
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 18%), rgb(157 77 196 / 26%)),
+    rgb(14 14 22 / 88%);
+  box-shadow: 0 0 22px rgb(157 77 196 / 14%);
+  color: #e9fbff;
+  outline: none;
+  transform: translateY(-1px);
 }
 
 .visual {
@@ -125,6 +162,10 @@
   display: grid;
   min-height: 390px;
   place-items: center;
+}
+
+.page[data-portfolio-section="true"] .visual {
+  min-height: 300px;
 }
 
 .astronaut {

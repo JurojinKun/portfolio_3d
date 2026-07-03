@@ -43,25 +43,12 @@ export type SkillId =
   | "bitbucket"
   | "sourcetree";
 
-export type SkillStorySectionId =
-  | "development-start"
-  | "self-taught-learning"
-  | "frontend-years"
-  | "backend-growth"
-  | "future";
-
 export interface SkillData {
   id: SkillId;
   category: SkillCategory;
   contentKey: TranslationKey;
   image: string;
   label: string;
-}
-
-export interface SkillStorySectionData {
-  id: SkillStorySectionId;
-  contentKey: TranslationKey;
-  titleKey: TranslationKey;
 }
 
 export const skills = [
@@ -178,31 +165,3 @@ export const skills = [
     label: "SourceTree",
   },
 ] as const satisfies readonly SkillData[];
-
-export const skillStorySections = [
-  {
-    id: "development-start",
-    contentKey: "skills.skill_paragraph_1",
-    titleKey: "skills.skill_title_1",
-  },
-  {
-    id: "self-taught-learning",
-    contentKey: "skills.skill_paragraph_2",
-    titleKey: "skills.skill_title_2",
-  },
-  {
-    id: "frontend-years",
-    contentKey: "skills.skill_paragraph_3",
-    titleKey: "skills.skill_title_3",
-  },
-  {
-    id: "backend-growth",
-    contentKey: "skills.skill_paragraph_4",
-    titleKey: "skills.skill_title_4",
-  },
-  {
-    id: "future",
-    contentKey: "skills.skill_paragraph_5",
-    titleKey: "skills.skill_title_5",
-  },
-] as const satisfies readonly SkillStorySectionData[];

@@ -193,7 +193,7 @@ export const projects = [
     challengesKey: "projects.challenges_content_portfolio",
     contextKey: "projects.content_context_portfolio",
     image: portfolio,
-    imageAlt: "Portfolio 3D",
+    imageAlt: "Portfolio",
     repositoryUrl: "https://github.com/JurojinKun/portfolio_3d",
     resultsKey: "projects.results_content_portfolio",
     summaryKey: "projects.content_project_perso_3",

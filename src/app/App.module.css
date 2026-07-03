@@ -133,10 +133,16 @@
 }
 
 .loadingContent {
-  color: white;
-  font-size: 33px;
-  font-weight: 700;
+  color: #e9fbff;
+  font-family: var(--font-sans);
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
   text-align: center;
+  text-shadow:
+    0 0 18px rgb(71 205 214 / 24%),
+    0 0 30px rgb(157 77 196 / 18%);
 }
 
 .ellipsis span {
@@ -216,7 +222,7 @@
   }
 
   .loadingContent {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 }
 
@@ -233,6 +239,6 @@
   }
 
   .loadingContent {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 }

@@ -16,8 +16,8 @@
     "english": "English"
   },
   "home_header": {
-    "role": "Frontend & mobile developer",
-    "scope": "3D portfolio"
+    "role": "Mobile Full-Stack Engineer/Developer",
+    "scope": "Portfolio"
   },
   "satellites": {
     "about_me": "About me",
@@ -32,7 +32,9 @@
     "back_home": "Back to home"
   },
   "portfolio": {
-    "menu": "Menu"
+    "menu": "Menu",
+    "top": "Top",
+    "home": "Home"
   },
   "about_me": {
     "title": "About me",
@@ -48,16 +50,6 @@
   "skills": {
     "title": "Skills",
     "subtitle": "A summary of what I know how to do...",
-    "skill_title_1": "My beginnings in development",
-    "skill_paragraph_1": "I made my debut in the world of development at the age of 18 by learning Python. \n\nI liked this experience so much that I decided to continue my studies by enrolling in an integrated preparatory cycle and finally in an engineering school: ISEN Toulon. \nDuring these years, I was able to learn to understand, analyse and think about simple, understandable and clean code by learning the basics of development on technologies such as C. \n\nI was also able to learn more by doing a work placement with the Atlantic group in the network and cybersecurity team.",
-    "skill_title_2": "My self-taught apprenticeship",
-    "skill_paragraph_2": "After graduating from my engineering course as an engineer in image processing and artificial intelligence and not seeing my future career in this field, I decided to turn towards entrepreneurship and mobile and web development on a self-taught basis with the Pépite Toulon programme. \n\nWith their help and on my own, I was able to learn a bit more about the world of entrepreneurship and mobile programming, in particular with the Flutter framework over the course of a year.",
-    "skill_title_3": "Years as a front-end developer",
-    "skill_paragraph_3": "After this year focused on my self-taught skills development, I decided to discover and fulfil my potential in the world of work with my first permanent contract in a start-up company. \n\nThose years enabled me to learn a lot about mobile front-end development in Flutter, but also in other technologies such as React native or Kotlin, by taking part in projects for clients and eventually becoming a front-end lead dev. \n\nIn my spare time, I've also been able to improve my skills by working on personal projects, both mobile and web.",
-    "skill_title_4": "Why not a back-end developer?",
-    "skill_paragraph_4": "I've talked a lot about my increasing skills in front-end development, but what about back-end development? \n\nI've been able to participate in additions and modifications to certain projects using Node js, but I still have a lot to learn in order to become a full stack developer.",
-    "skill_title_5": "What's next?",
-    "skill_paragraph_5": "What an adventure! So what's next? \n\nAs I said, in the near future I'd like to become a full stack developer and, as my career progresses, I'll always enjoy what I do and always be learning new things and new technologies.",
     "content_bitbucket": "Bitbucket is a web hosting and software development management service that uses Git version management software.\n\nI've often used it to host my company's projects and share them with the various developers in my team.",
     "content_c": "This is a low-level, general-purpose, imperative programming language invented in the early 1970's\n\nDuring my years at engineering school, I learnt to program through various projects using this language.",
     "content_firebase": "Firebase is a set of tools for hosting and developing mobile and web applications, which can be used to send notifications and advertisements, and track errors and clicks on the application.\n\nBefore starting to use a back-end with one or more databases, I started by familiarising myself with a noSQL solution for some of my projects, which doesn't need a back-end to work with the front-end.",
@@ -124,7 +116,7 @@
     "content_project_perso_1": "Version 1 of a social networking application for people interested in e-sports and video games developed in Flutter and linked to a Firebase server. Why not a version 2, to be continued...",
     "title_project_perso_2": "My youkounkoun",
     "content_project_perso_2": "An application with a wide variety of basic and complex functions that are very useful when creating a new application. Why start from scratch every time? The front-end application is being developed with Flutter, while the back-end will be developed in Node.js and linked to the MySQL database.",
-    "title_project_perso_3": "Portfolio 3D",
+    "title_project_perso_3": "Portfolio",
     "content_project_perso_3": "Personal website and portfolio to show my work to everyone. This site is developed in React js with Three js.",
     "title_project_perso_4": "Bot discord",
     "content_project_perso_4": "Bot discord for a server dedicated to a game. This bot is developed in Node.js, a mySQL database and hosted on Heroku.",

@@ -5,7 +5,11 @@
   overflow: hidden;
   place-items: center;
   padding: 32px 20px;
-  background: var(--color-background);
+  background:
+    radial-gradient(circle at 18% 16%, rgb(71 205 214 / 14%), transparent 30%),
+    radial-gradient(circle at 82% 18%, rgb(157 77 196 / 18%), transparent 30%),
+    var(--color-background);
+  font-family: var(--font-sans);
 }
 
 .page[data-cursor-active="true"] {
@@ -40,6 +44,7 @@
   border-radius: 50%;
   background: linear-gradient(77deg, #47cdd6 2%, #9d4dc4 104%);
   animation: rotateBlackHole 0.5s linear infinite;
+  box-shadow: 0 0 34px rgb(157 77 196 / 18%);
 }
 
 .blackHole span {
@@ -84,13 +89,17 @@
 .copy h1 {
   margin: 0;
   font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: 0;
   line-height: 1.1;
+  text-shadow: 0 0 28px rgb(157 77 196 / 18%);
 }
 
 .copy p {
   margin: 0;
   color: var(--color-text-muted);
   font-size: 1.125rem;
+  line-height: 1.55;
 }
 
 .homeLink {
@@ -99,19 +108,30 @@
   justify-content: center;
   min-height: 44px;
   margin-top: 10px;
-  border: 1px solid rgb(71 205 214 / 55%);
-  border-radius: 8px;
-  padding: 10px 14px;
-  background: rgb(71 205 214 / 12%);
+  border: 1px solid rgb(243 199 255 / 20%);
+  border-radius: 6px;
+  padding: 10px 16px;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 20%), rgb(157 77 196 / 18%)),
+    rgb(14 14 22 / 82%);
   color: var(--color-text);
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-weight: 900;
+  letter-spacing: 0;
   text-decoration: none;
+  transition:
+    border-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease;
 }
 
-.homeLink:hover {
-  border-color: rgb(71 205 214 / 80%);
-  background: rgb(71 205 214 / 18%);
-  color: var(--color-accent);
+.homeLink:hover,
+.homeLink:focus-visible {
+  border-color: rgb(243 199 255 / 54%);
+  box-shadow: 0 0 22px rgb(157 77 196 / 14%);
+  color: #e9fbff;
+  outline: none;
+  transform: translateY(-1px);
 }
 
 .bugCursor {

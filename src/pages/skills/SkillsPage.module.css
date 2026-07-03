@@ -1,9 +1,13 @@
 .page {
   min-height: 100vh;
   padding: 64px 24px;
-  background:
-    radial-gradient(circle at 86% 10%, rgb(157 77 196 / 15%), transparent 30%),
-    linear-gradient(180deg, rgb(2 2 13 / 72%), var(--color-background));
+  scroll-margin-top: 104px;
+  background: transparent;
+}
+
+.page[data-portfolio-section="true"] {
+  min-height: auto;
+  padding-block: 52px;
 }
 
 .header {
@@ -11,64 +15,38 @@
   margin: 0 auto 40px;
 }
 
+.page[data-portfolio-section="true"] .header {
+  margin-bottom: 28px;
+}
+
 .eyebrow {
   margin: 0 0 10px;
-  color: var(--color-accent);
+  color: #e9fbff;
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 900;
+  text-shadow: 0 0 18px rgb(71 205 214 / 22%);
 }
 
 .header h1 {
   margin: 0;
   font-size: 3rem;
   line-height: 1;
+  text-shadow: 0 0 28px rgb(157 77 196 / 18%);
 }
 
 .layout {
   display: grid;
   width: min(100%, 1180px);
   align-items: start;
-  gap: 28px;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+  gap: 30px;
+  grid-template-columns: minmax(280px, 460px) minmax(0, 1fr);
   margin: 0 auto;
 }
 
-.story {
-  display: grid;
-  gap: 18px;
-}
-
-.storyCard {
-  border: 1px solid rgb(247 248 255 / 12%);
-  border-radius: 8px;
-  padding: 22px;
-  background: rgb(26 26 26 / 70%);
-}
-
-.storyCard h2 {
-  margin: 0 0 12px;
-  font-size: 1.2rem;
-  line-height: 1.25;
-}
-
-.storyCard p {
-  margin: 0;
-  color: var(--color-text-muted);
-}
-
-.storyCard p + p {
-  margin-top: 12px;
-}
-
-.skillPanel {
-  position: sticky;
-  top: 24px;
-  display: grid;
-  gap: 18px;
-}
-
 .skillGrid {
+  position: sticky;
   display: grid;
+  top: 104px;
   gap: 10px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -77,22 +55,37 @@
   display: grid;
   align-items: center;
   min-height: 56px;
-  border: 1px solid rgb(247 248 255 / 12%);
-  border-radius: 8px;
+  border: 1px solid rgb(243 199 255 / 16%);
+  border-radius: 6px;
   padding: 10px;
-  background: rgb(26 26 26 / 58%);
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 7%), transparent 44%),
+    rgb(14 14 22 / 72%);
   color: var(--color-text);
   cursor: pointer;
   font: inherit;
   gap: 10px;
   grid-template-columns: 32px minmax(0, 1fr);
   text-align: left;
+  transition:
+    border-color 140ms ease,
+    background 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease;
 }
 
 .skillButton:hover,
+.skillButton:focus-visible,
 .skillButton[data-active="true"] {
-  border-color: rgb(71 205 214 / 55%);
-  background: rgb(71 205 214 / 12%);
+  border-color: rgb(243 199 255 / 44%);
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 16%), rgb(157 77 196 / 14%)),
+    rgb(14 14 22 / 82%);
+  box-shadow:
+    0 0 24px rgb(157 77 196 / 12%),
+    inset 0 0 0 1px rgb(255 255 255 / 6%);
+  outline: none;
+  transform: translateY(-1px);
 }
 
 .skillButton img {
@@ -104,16 +97,22 @@
 .skillButton span {
   overflow-wrap: anywhere;
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .detailCard {
   display: grid;
   gap: 14px;
-  border: 1px solid rgb(71 205 214 / 28%);
+  border: 1px solid rgb(71 205 214 / 34%);
   border-radius: 8px;
   padding: 22px;
-  background: rgb(26 26 26 / 82%);
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 10%), transparent 42%),
+    linear-gradient(315deg, rgb(157 77 196 / 14%), transparent 44%),
+    var(--color-panel-strong);
+  box-shadow:
+    var(--shadow-panel),
+    0 0 30px rgb(157 77 196 / 10%);
 }
 
 .detailIcon {
@@ -138,7 +137,7 @@
     grid-template-columns: 1fr;
   }
 
-  .skillPanel {
+  .skillGrid {
     position: static;
   }
 }
@@ -162,7 +161,6 @@
     padding: 32px 16px;
   }
 
-  .storyCard,
   .detailCard {
     padding: 16px;
   }

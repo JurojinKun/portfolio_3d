@@ -74,7 +74,7 @@ const hasEmptyRequiredField = (form: ContactFormState) =>
 
 const buildMailtoHref = (form: ContactFormState, recipientEmail: string) => {
   const subject = encodeURIComponent(
-    `Portfolio 3D - ${form.name} ${form.firstname}`,
+    `Portfolio - ${form.name} ${form.firstname}`,
   );
   const body = encodeURIComponent(
     [
@@ -89,7 +89,15 @@ const buildMailtoHref = (form: ContactFormState, recipientEmail: string) => {
   return `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
 };
 
-export function ContactPage() {
+interface ContactPageProps {
+  asSection?: boolean;
+  sectionId?: string;
+}
+
+export function ContactPage({
+  asSection = false,
+  sectionId,
+}: ContactPageProps) {
   const { t } = useTranslation();
   const [form, setForm] = useState<ContactFormState>(initialFormState);
   const [status, setStatus] = useState<ContactStatus | null>(null);
@@ -136,9 +144,14 @@ export function ContactPage() {
     });
     setForm(initialFormState);
   };
+  const Root = asSection ? "section" : "main";
 
   return (
-    <main className={styles.page}>
+    <Root
+      className={styles.page}
+      data-portfolio-section={asSection || undefined}
+      id={sectionId}
+    >
       <section className={styles.header} aria-labelledby="contact-title">
         <p className={styles.eyebrow}>{t("contact_me.subtitle")}</p>
         <h1 id="contact-title">{t("contact_me.title")}</h1>
@@ -196,6 +209,6 @@ export function ContactPage() {
           <img className={styles.envelope} src={envelopeContactMe} alt="" />
         </div>
       </section>
-    </main>
+    </Root>
   );
 }

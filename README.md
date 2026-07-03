@@ -1,4 +1,4 @@
-# Portfolio 3D
+# Portfolio
 
 Portfolio personnel 3D de Clement Communay.
 
@@ -172,14 +172,17 @@ Routes actuellement branchees :
 
 - `/` : page d'accueil v2 en experience 3D plein ecran ;
 - `/migration` : statut technique temporaire de la migration ;
-- `/portfolio` : layout portfolio commun, redirection vers `/portfolio/aboutme` ;
-- `/portfolio/aboutme` : page A propos v2 ;
-- `/portfolio/skills` : page Competences v2 ;
-- `/portfolio/experiences` : page Experiences v2 ;
-- `/portfolio/projects` : page Projets v2 ;
-- `/portfolio/contactme` : page Contact v2 ;
+- `/portfolio` : redirection vers `/portfolio/aboutme` ;
+- `/portfolio/:sectionId` : page portfolio unique en sections scrollables ;
+- `/portfolio/aboutme` : section A propos ;
+- `/portfolio/skills` : section Competences ;
+- `/portfolio/experiences` : section Experiences ;
+- `/portfolio/projects` : section Projets ;
+- `/portfolio/contactme` : section Contact ;
 - `/notfound` : page 404 v2 ;
 - `*` : fallback vers la page 404 v2.
+
+Les routes de section portfolio gardent une URL dediee, mais elles rendent toutes la meme page. Au chargement, l'application scrolle vers la section cible ; pendant le scroll, un `IntersectionObserver` met l'URL a jour avec la section active. Le header portfolio passe en menu burger sur les largeurs ou les liens ne tiennent plus confortablement.
 
 ## Variables d'environnement
 

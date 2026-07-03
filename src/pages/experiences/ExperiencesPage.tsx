@@ -39,11 +39,24 @@ function ExperiencePoint({ point }: ExperiencePointProps) {
   );
 }
 
-export function ExperiencesPage() {
+interface ExperiencesPageProps {
+  asSection?: boolean;
+  sectionId?: string;
+}
+
+export function ExperiencesPage({
+  asSection = false,
+  sectionId,
+}: ExperiencesPageProps) {
   const { t } = useTranslation();
+  const Root = asSection ? "section" : "main";
 
   return (
-    <main className={styles.page}>
+    <Root
+      className={styles.page}
+      data-portfolio-section={asSection || undefined}
+      id={sectionId}
+    >
       <section className={styles.header} aria-labelledby="experiences-title">
         <p className={styles.eyebrow}>{t("experiences.subtitle")}</p>
         <h1 id="experiences-title">{t("experiences.title")}</h1>
@@ -79,6 +92,6 @@ export function ExperiencesPage() {
           </article>
         ))}
       </section>
-    </main>
+    </Root>
   );
 }

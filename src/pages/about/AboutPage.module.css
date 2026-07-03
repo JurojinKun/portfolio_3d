@@ -1,12 +1,17 @@
 .page {
+  position: relative;
   display: grid;
   min-height: 100vh;
   overflow: hidden;
   place-items: center;
   padding: 64px 24px;
-  background:
-    linear-gradient(180deg, rgb(2 2 13 / 78%), var(--color-background)),
-    var(--color-background);
+  scroll-margin-top: 104px;
+  background: transparent;
+}
+
+.page[data-portfolio-section="true"] {
+  min-height: auto;
+  padding-block: 52px;
 }
 
 .layout {
@@ -17,6 +22,10 @@
   grid-template-columns: minmax(0, 1fr) minmax(240px, 360px);
 }
 
+.page[data-portfolio-section="true"] .layout {
+  gap: 42px;
+}
+
 .copy {
   display: grid;
   gap: 24px;
@@ -24,15 +33,17 @@
 
 .eyebrow {
   margin: 0;
-  color: var(--color-accent);
+  color: #e9fbff;
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 900;
+  text-shadow: 0 0 18px rgb(71 205 214 / 22%);
 }
 
 .copy h1 {
   margin: 0;
   font-size: 3rem;
   line-height: 1;
+  text-shadow: 0 0 28px rgb(157 77 196 / 18%);
 }
 
 .highlights {
@@ -45,21 +56,30 @@
 }
 
 .highlights li {
-  border: 1px solid rgb(71 205 214 / 35%);
-  border-radius: 999px;
-  padding: 8px 12px;
-  background: rgb(71 205 214 / 10%);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 9px 12px;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 12%), rgb(157 77 196 / 10%)),
+    rgb(14 14 22 / 72%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 4%);
   color: var(--color-text);
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .paragraphs {
   display: grid;
   max-width: 70ch;
   gap: 16px;
-  border-left: 2px solid rgb(71 205 214 / 45%);
-  padding-left: 22px;
+  border: 1px solid var(--border-subtle);
+  border-left: 2px solid rgb(71 205 214 / 58%);
+  border-radius: 8px;
+  padding: 20px 22px;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 8%), transparent 38%),
+    var(--color-panel);
+  box-shadow: var(--shadow-panel);
 }
 
 .paragraphs p {
@@ -69,12 +89,30 @@
 }
 
 .visual {
+  position: relative;
   display: grid;
   min-height: 420px;
   place-items: center;
 }
 
+.page[data-portfolio-section="true"] .visual {
+  min-height: 320px;
+}
+
+.visual::before {
+  position: absolute;
+  width: min(78%, 300px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgb(71 205 214 / 20%), transparent 56%),
+    radial-gradient(circle, rgb(157 77 196 / 18%), transparent 68%);
+  content: "";
+  filter: blur(8px);
+}
+
 .astronaut {
+  position: relative;
   width: min(100%, 300px);
   height: auto;
   object-fit: contain;
