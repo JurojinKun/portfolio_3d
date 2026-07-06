@@ -149,6 +149,15 @@
   backdrop-filter: blur(16px);
 }
 
+.scrollTopLink:hover,
+.scrollTopLink:focus-visible,
+.scrollTopLink:active {
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 12%), transparent 45%),
+    linear-gradient(315deg, rgb(157 77 196 / 16%), transparent 50%),
+    rgb(14 14 22 / 88%);
+}
+
 .navigation {
   display: flex;
   min-width: 0;
