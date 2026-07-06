@@ -7,11 +7,11 @@
 
 .page[data-portfolio-section="true"] {
   min-height: auto;
-  padding-block: 52px;
+  padding-block: 0;
 }
 
 .header {
-  width: min(100%, 1080px);
+  width: min(100%, var(--portfolio-content-width));
   margin: 0 auto 40px;
 }
 
@@ -37,7 +37,7 @@
 .timeline {
   position: relative;
   display: grid;
-  width: min(100%, 1080px);
+  width: min(100%, var(--portfolio-content-width));
   gap: 24px;
   margin: 0 auto;
 }
@@ -170,10 +170,6 @@
     padding: 48px 20px;
   }
 
-  .page[data-portfolio-section="true"] {
-    padding-block: 44px;
-  }
-
   .header h1 {
     font-size: var(--text-title-tablet);
   }
@@ -209,10 +205,6 @@
 @media (max-width: 480px) {
   .page {
     padding: 32px 16px;
-  }
-
-  .page[data-portfolio-section="true"] {
-    padding-block: 36px;
   }
 
   .card {

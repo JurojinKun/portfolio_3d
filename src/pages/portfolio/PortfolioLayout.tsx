@@ -153,30 +153,14 @@ export function PortfolioLayout() {
       <header className={styles.header} data-portfolio-header>
         <div className={styles.quickLinks} aria-label="Portfolio">
           <Link
-            className={styles.quickLink}
-            data-tooltip={t("portfolio.home")}
-            onClick={handleHomeNavigation}
-            title={t("portfolio.home")}
             aria-label={t("portfolio.home")}
+            className={styles.homeLink}
+            onClick={handleHomeNavigation}
             to="/"
           >
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-              <path d="M4.5 10.5 12 4.5l7.5 6V20h-5v-5.5h-5V20h-5v-9.5Z" />
-            </svg>
+            <img alt="" src="/icons/home.svg" />
+            <span>{t("portfolio.home")}</span>
           </Link>
-
-          <NavLink
-            className={styles.quickLink ?? ""}
-            data-tooltip={t("portfolio.top")}
-            onClick={handleTopNavigation}
-            title={t("portfolio.top")}
-            aria-label={t("portfolio.top")}
-            to="/portfolio/aboutme"
-          >
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-              <path d="M5 4h14v2H5V4Zm7 4.25 6 6-1.4 1.42L13 12.08V21h-2v-8.92l-3.6 3.59L6 14.25l6-6Z" />
-            </svg>
-          </NavLink>
         </div>
 
         <button
@@ -224,6 +208,19 @@ export function PortfolioLayout() {
       </header>
 
       <Outlet />
+
+      <Link
+        aria-label={t("portfolio.top")}
+        className={styles.scrollTopLink}
+        onClick={handleTopNavigation}
+        to="/portfolio/aboutme"
+      >
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M12 19V5" />
+          <path d="m6 11 6-6 6 6" />
+        </svg>
+        <span>{t("portfolio.top")}</span>
+      </Link>
     </div>
   );
 }

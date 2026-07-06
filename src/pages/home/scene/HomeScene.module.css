@@ -1,4 +1,7 @@
 .sceneRoot {
+  --home-scene-padding-block: var(--page-padding-block);
+  --home-scene-padding-inline: var(--page-padding-inline);
+
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -34,7 +37,8 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 18px;
-  padding: calc(env(safe-area-inset-top, 0px) + 9px) 24px 9px;
+  padding: calc(env(safe-area-inset-top, 0px) + var(--home-scene-padding-block))
+    var(--home-scene-padding-inline) var(--home-scene-padding-block);
   pointer-events: none;
 }
 
@@ -157,8 +161,10 @@
 .footer {
   position: fixed;
   z-index: 4;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
-  left: 24px;
+  bottom: calc(
+    env(safe-area-inset-bottom, 0px) + var(--home-scene-padding-block)
+  );
+  left: var(--home-scene-padding-inline);
   display: flex;
   align-items: center;
   border: 1px solid rgb(243 199 255 / 22%);
@@ -259,7 +265,7 @@
   display: grid;
   min-height: 100%;
   place-items: center;
-  padding: 24px;
+  padding: var(--home-scene-padding-block) var(--home-scene-padding-inline);
   background: #02020d;
 }
 
@@ -313,10 +319,6 @@
 }
 
 @media (max-width: 824px), (max-height: 700px) {
-  .footer {
-    left: 20px;
-  }
-
   .footerItem {
     width: 46px;
     height: 46px;
@@ -332,9 +334,22 @@
   }
 }
 
+@media (max-width: 640px) {
+  .sceneRoot {
+    --home-scene-padding-inline: var(--page-padding-inline-mobile);
+  }
+}
+
 @media (max-width: 550px), (max-height: 600px) {
+  .sceneRoot {
+    --home-scene-padding-inline: var(--page-padding-inline-mobile);
+  }
+
   .header {
-    padding: calc(env(safe-area-inset-top, 0px) + 9px) 14px 9px;
+    padding: calc(
+        env(safe-area-inset-top, 0px) + var(--home-scene-padding-block)
+      )
+      var(--home-scene-padding-inline) var(--home-scene-padding-block);
   }
 
   .brand {
@@ -376,8 +391,8 @@
   .languageActions {
     position: fixed;
     z-index: 50;
-    top: calc(env(safe-area-inset-top, 0px) + 9px);
-    right: 14px;
+    top: calc(env(safe-area-inset-top, 0px) + var(--home-scene-padding-block));
+    right: var(--home-scene-padding-inline);
   }
 
   .languageButton {
@@ -392,7 +407,9 @@
   }
 
   .footer {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+    bottom: calc(
+      env(safe-area-inset-bottom, 0px) + var(--home-scene-padding-block)
+    );
   }
 
   .footerItem {

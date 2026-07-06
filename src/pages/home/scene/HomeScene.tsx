@@ -32,9 +32,9 @@ const cvUrl = "/cv/CV_Clement_Communay.pdf";
 const satelliteLabelFont = "/fonts/SpaceGrotesk-Bold.ttf";
 const satelliteLabelCharacters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÀÂÄÇÉÈÊËÎÏÔÖÙÛÜàâäçéèêëîïôöùûü -_";
-const headerSatelliteRotationSpeed = 0.015;
-const headerSatelliteTiltAmplitude = 0.28;
-const headerSatelliteTiltSpeed = 0.42;
+const headerSatellitePitchSpeed = 0.0025;
+const headerSatelliteYawSpeed = 0.0035;
+const headerSatelliteRollSpeed = 0.0045;
 const headerSatelliteZPosition = 8.5;
 
 function supportsWebGL() {
@@ -115,13 +115,13 @@ function HeaderSatelliteContent() {
     const isCompactHeader = size.width <= 550 || size.height <= 600;
     const slotSize = isSmallHeader ? 31 : isCompactHeader ? 36 : 42;
     const visualSize = isSmallHeader ? 24 : isCompactHeader ? 28 : 32;
-    const inlinePadding = isCompactHeader ? 14 : 24;
-    const topPadding = 9;
+    const headerPadding = 12;
+    const headerHexagonOffsetX = isSmallHeader ? 2 : 3;
     const distanceFromCamera = 10 - headerSatelliteZPosition;
     const halfHeight = Math.tan((50 * Math.PI) / 360) * distanceFromCamera;
     const halfWidth = halfHeight * (size.width / size.height);
-    const centerX = inlinePadding + slotSize / 2;
-    const centerY = topPadding + slotSize / 2;
+    const centerX = headerPadding + slotSize / 2 + headerHexagonOffsetX;
+    const centerY = headerPadding + slotSize / 2;
     const worldPerPixel = (halfHeight * 2) / size.height;
     const visualWorldSize = visualSize * worldPerPixel;
 
@@ -135,12 +135,11 @@ function HeaderSatelliteContent() {
     };
   }, [size.height, size.width]);
 
-  useFrame(({ clock }) => {
+  useFrame(() => {
     if (hexagonRef.current) {
-      hexagonRef.current.rotation.y =
-        Math.sin(clock.elapsedTime * headerSatelliteTiltSpeed) *
-        headerSatelliteTiltAmplitude;
-      hexagonRef.current.rotation.z += headerSatelliteRotationSpeed;
+      hexagonRef.current.rotation.x += headerSatellitePitchSpeed;
+      hexagonRef.current.rotation.y += headerSatelliteYawSpeed;
+      hexagonRef.current.rotation.z += headerSatelliteRollSpeed;
     }
   });
 
@@ -150,7 +149,9 @@ function HeaderSatelliteContent() {
         bodyStyle="gradient"
         hexagonColor={color}
         hexagonRef={hexagonRef}
-        iconPath="/icons/header_cc.svg"
+        iconPath="/icons/header_bitmoji.png"
+        iconRendering="bitmap"
+        iconScale={1.08}
       />
     </group>
   );
@@ -310,7 +311,7 @@ function SceneFallback() {
     <section className={styles.fallback} aria-labelledby="fallback-home-title">
       <div className={styles.fallbackContent}>
         <h1 id="fallback-home-title">
-          {t("overview.hello")} <span>0ruj</span>
+          {t("overview.hello")} <span>Clément Communay</span>
         </h1>
         <p>{t("overview.first_para")}</p>
         <nav className={styles.fallbackLinks} aria-label={t("portfolio.menu")}>

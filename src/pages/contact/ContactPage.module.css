@@ -7,11 +7,11 @@
 
 .page[data-portfolio-section="true"] {
   min-height: auto;
-  padding-block: 52px;
+  padding-block: 0;
 }
 
 .header {
-  width: min(100%, 1100px);
+  width: min(100%, var(--portfolio-content-width));
   margin: 0 auto 40px;
 }
 
@@ -36,7 +36,7 @@
 
 .layout {
   display: grid;
-  width: min(100%, 1100px);
+  width: min(100%, var(--portfolio-content-width));
   align-items: center;
   gap: 44px;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
@@ -179,9 +179,9 @@
 
 .envelope {
   position: absolute;
-  top: calc(50% - clamp(174px, 26vw, 210px));
-  left: calc(50% + clamp(74px, 9vw, 104px));
-  width: clamp(62px, 12vw, 88px);
+  top: clamp(10px, 5%, 24px);
+  left: calc(50% + clamp(96px, 11vw, 122px));
+  width: clamp(60px, 8vw, 78px);
   height: auto;
   object-fit: contain;
   translate: -50% 0;
@@ -203,19 +203,15 @@
   }
 
   .envelope {
-    top: calc(50% - clamp(112px, 34vw, 130px));
-    left: calc(50% + clamp(50px, 16vw, 64px));
-    width: clamp(52px, 15vw, 64px);
+    top: clamp(10px, 8%, 24px);
+    left: calc(50% + clamp(70px, 20vw, 92px));
+    width: clamp(52px, 15vw, 66px);
   }
 }
 
 @media (max-width: 620px) {
   .page {
     padding: 48px 20px;
-  }
-
-  .page[data-portfolio-section="true"] {
-    padding-block: 44px;
   }
 
   .header h1 {
@@ -230,10 +226,6 @@
 @media (max-width: 420px) {
   .page {
     padding: 32px 16px;
-  }
-
-  .page[data-portfolio-section="true"] {
-    padding-block: 36px;
   }
 
   .form {

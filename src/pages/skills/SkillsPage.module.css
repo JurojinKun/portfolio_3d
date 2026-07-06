@@ -7,11 +7,11 @@
 
 .page[data-portfolio-section="true"] {
   min-height: auto;
-  padding-block: 52px;
+  padding-block: 0;
 }
 
 .header {
-  width: min(100%, 1180px);
+  width: min(100%, var(--portfolio-content-width));
   margin: 0 auto 40px;
 }
 
@@ -36,7 +36,7 @@
 
 .layout {
   display: grid;
-  width: min(100%, 1180px);
+  width: min(100%, var(--portfolio-content-width));
   align-items: start;
   gap: 30px;
   grid-template-columns: minmax(280px, 460px) minmax(0, 1fr);
@@ -149,10 +149,6 @@
     padding: 48px 20px;
   }
 
-  .page[data-portfolio-section="true"] {
-    padding-block: 44px;
-  }
-
   .header h1 {
     font-size: var(--text-title-tablet);
   }
@@ -165,10 +161,6 @@
 @media (max-width: 420px) {
   .page {
     padding: 32px 16px;
-  }
-
-  .page[data-portfolio-section="true"] {
-    padding-block: 36px;
   }
 
   .detailCard {

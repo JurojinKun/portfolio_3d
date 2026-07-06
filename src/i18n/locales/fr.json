@@ -28,7 +28,7 @@
   },
   "portfolio": {
     "menu": "Menu",
-    "top": "Haut",
+    "top": "Haut de page",
     "home": "Accueil"
   },
   "about_me": {
@@ -146,6 +146,7 @@
     "challenges_content_bot": "Il fallait organiser les commandes, structurer les données et garantir des réponses rapides tout en gardant un code facile à faire évoluer au fil des saisons de jeu.",
     "results_content_bot": "Le bot a centralisé des informations utiles pour les utilisateurs du serveur et m’a permis de pratiquer Node.js sur un cas concret d’automatisation.",
     "repository": "GitHub",
+    "close_detail": "Fermer le détail",
     "content_context_asm": "Le projet consistait à créer une application Flutter de suivi de saison pour un club de rugby, avec un accès simple aux informations clés pour les supporters.",
     "challenges_content_asm": "Les enjeux portaient sur la clarté des contenus sportifs, la régularité des mises à jour, la fluidité mobile et la capacité du produit à évoluer avec la saison.",
     "results_content_asm": "L’application offre un point d’accès centralisé aux informations du club et repose sur une base mobile stable, pensée pour accompagner l’engagement des supporters.",

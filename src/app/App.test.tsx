@@ -80,7 +80,9 @@ describe("App", () => {
     render(<App />);
 
     expect(
-      await screen.findByRole("heading", { name: /hi, i'm 0ruj/i }),
+      await screen.findByRole("heading", {
+        name: /hi, i'm clément communay/i,
+      }),
     ).toBeInTheDocument();
     expect(await screen.findByText(/welcome to my world/i)).toBeInTheDocument();
     expect(

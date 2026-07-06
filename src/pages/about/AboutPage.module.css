@@ -11,12 +11,12 @@
 
 .page[data-portfolio-section="true"] {
   min-height: auto;
-  padding-block: 52px;
+  padding-block: 0;
 }
 
 .layout {
   display: grid;
-  width: min(100%, 1080px);
+  width: min(100%, var(--portfolio-content-width));
   align-items: center;
   gap: 56px;
   grid-template-columns: minmax(0, 1fr) minmax(240px, 360px);
@@ -126,10 +126,6 @@
     padding: 48px 20px;
   }
 
-  .page[data-portfolio-section="true"] {
-    padding-block: 44px;
-  }
-
   .layout {
     gap: 32px;
     grid-template-columns: 1fr;
@@ -152,10 +148,6 @@
 @media (max-width: 480px) {
   .page {
     padding: 32px 16px;
-  }
-
-  .page[data-portfolio-section="true"] {
-    padding-block: 36px;
   }
 
   .copy {

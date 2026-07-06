@@ -1,12 +1,16 @@
-import { useLoader } from "@react-three/fiber";
+import { useLoader, useThree } from "@react-three/fiber";
 import { useMemo, type ReactNode, type RefObject } from "react";
 import {
+  ClampToEdgeWrapping,
   Color,
   DoubleSide,
   ExtrudeGeometry,
+  LinearFilter,
+  LinearMipmapLinearFilter,
   MeshBasicMaterial,
   PlaneGeometry,
   Shape,
+  SRGBColorSpace,
   TextureLoader,
   type ColorRepresentation,
   type Group,
@@ -17,6 +21,8 @@ interface InteractiveHexagonProps {
   hexagonColor: ColorRepresentation;
   hexagonRef?: RefObject<Group | null>;
   iconPath: string;
+  iconRendering?: "bitmap" | "vector";
+  iconScale?: number;
   onClick?: (() => void) | undefined;
 }
 
@@ -121,6 +127,7 @@ export function HexagonCore({
         <mesh geometry={hexagonGeometry}>
           {bodyStyle === "gradient" ? (
             <shaderMaterial
+              depthWrite={false}
               fragmentShader={gradientFragmentShader}
               uniforms={gradientUniforms}
               vertexShader={gradientVertexShader}
@@ -129,6 +136,7 @@ export function HexagonCore({
           ) : (
             <meshPhongMaterial
               color={hexagonColor}
+              depthWrite={false}
               opacity={satelliteVisualStyle.bodyOpacity}
               transparent
             />
@@ -157,19 +165,47 @@ export function InteractiveHexagon({
   hexagonColor,
   hexagonRef,
   iconPath,
+  iconRendering = "vector",
+  iconScale = 1,
   onClick,
 }: InteractiveHexagonProps) {
   const iconTexture = useLoader(TextureLoader, iconPath);
+  const maxTextureAnisotropy = useThree(({ gl }) =>
+    gl.capabilities.getMaxAnisotropy(),
+  );
+  const iconDisplayTexture = useMemo(() => {
+    const texture = iconTexture.clone();
+
+    texture.colorSpace = SRGBColorSpace;
+
+    if (iconRendering === "bitmap") {
+      texture.anisotropy = Math.max(1, maxTextureAnisotropy);
+      texture.generateMipmaps = true;
+      texture.magFilter = LinearFilter;
+      texture.minFilter = LinearMipmapLinearFilter;
+      texture.wrapS = ClampToEdgeWrapping;
+      texture.wrapT = ClampToEdgeWrapping;
+    }
+
+    texture.needsUpdate = true;
+
+    return texture;
+  }, [iconRendering, iconTexture, maxTextureAnisotropy]);
   const iconGeometry = useMemo(() => new PlaneGeometry(0.15, 0.15), []);
+  const iconDepthPositions = useMemo(() => [0.049, 0.051], []);
   const iconMaterial = useMemo(
     () =>
       new MeshBasicMaterial({
-        map: iconTexture,
-        opacity: 1,
+        alphaTest: iconRendering === "bitmap" ? 0 : 0.01,
+        depthTest: true,
+        depthWrite: false,
+        map: iconDisplayTexture,
+        opacity: iconRendering === "bitmap" ? 0.76 : 1,
         side: DoubleSide,
+        toneMapped: false,
         transparent: true,
       }),
-    [iconTexture],
+    [iconDisplayTexture, iconRendering],
   );
 
   return (
@@ -179,16 +215,15 @@ export function InteractiveHexagon({
       hexagonRef={hexagonRef}
       onClick={onClick}
     >
-      <mesh
-        geometry={iconGeometry}
-        material={iconMaterial}
-        position={[0, 0, 0.049]}
-      />
-      <mesh
-        geometry={iconGeometry}
-        material={iconMaterial}
-        position={[0, 0, 0.051]}
-      />
+      {iconDepthPositions.map((zPosition) => (
+        <mesh
+          key={zPosition}
+          geometry={iconGeometry}
+          material={iconMaterial}
+          position={[0, 0, zPosition]}
+          scale={[iconScale, iconScale, 1]}
+        />
+      ))}
     </HexagonCore>
   );
 }
