@@ -26,6 +26,7 @@ const colorPulsePhase = 0;
 const satelliteOrbitSpeed = 0.03;
 const cameraFov = 50;
 const cameraZPosition = 10;
+const sphereRadius = 2;
 const satelliteZOffset = 1.3;
 const tileStyle = {
   baseOpacity: 1,
@@ -95,15 +96,15 @@ function useWindowSize() {
 
 function getEndPosition({ height, width }: WindowSize): ScenePosition {
   if (height <= 430) {
-    return [0, 0.1, -4.6];
+    return [0, 0.1, -4.5];
   }
 
   if (width <= 400) {
-    return [0, 0.1, -5.5];
+    return [0, 0.1, -5.2];
   }
 
   if (width <= 600) {
-    return [0, 0.1, -3.5];
+    return [0, 0.1, -3.4];
   }
 
   if (width <= 1000) {
@@ -153,15 +154,33 @@ function getSatelliteScale({ height, width }: WindowSize) {
   const shortestSide = Math.min(height, width);
 
   if (shortestSide <= 380) {
-    return 0.74;
-  }
-
-  if (width <= 480) {
     return 0.82;
   }
 
+  if (width <= 480) {
+    return 0.88;
+  }
+
   if (width <= 720) {
-    return 0.92;
+    return 0.94;
+  }
+
+  return 1;
+}
+
+function getSphereScale({ height, width }: WindowSize) {
+  const shortestSide = Math.min(height, width);
+
+  if (shortestSide <= 380) {
+    return 0.9;
+  }
+
+  if (width <= 480) {
+    return 0.94;
+  }
+
+  if (width <= 720 || height <= 640) {
+    return 0.98;
   }
 
   return 1;
@@ -171,15 +190,15 @@ function getLabelFontSize({ height, width }: WindowSize) {
   const shortestSide = Math.min(height, width);
 
   if (shortestSide <= 360) {
-    return 0.076;
+    return 0.096;
   }
 
   if (width <= 480) {
-    return 0.082;
+    return 0.104;
   }
 
   if (width <= 720 || height <= 640) {
-    return 0.09;
+    return 0.106;
   }
 
   return 0.1;
@@ -189,30 +208,52 @@ function getLabelOffsetY({ height, width }: WindowSize) {
   const shortestSide = Math.min(height, width);
 
   if (shortestSide <= 360) {
-    return -0.23;
+    return -0.28;
   }
 
   if (width <= 480) {
-    return -0.24;
+    return -0.29;
   }
 
   if (width <= 720 || height <= 640) {
-    return -0.25;
+    return -0.3;
   }
 
   return -0.27;
 }
 
+function getLabelMaxWidth({ height, width }: WindowSize) {
+  const shortestSide = Math.min(height, width);
+
+  if (shortestSide <= 360) {
+    return 0.76;
+  }
+
+  if (width <= 480) {
+    return 0.84;
+  }
+
+  if (width <= 720 || height <= 640) {
+    return 0.92;
+  }
+
+  return 0.95;
+}
+
 function getOrbitRadii({
   groupPosition,
   labelFontSize,
+  labelMaxWidth,
   labelOffsetY,
+  sphereScale,
   tileScale,
   windowSize,
 }: {
   groupPosition: ScenePosition;
   labelFontSize: number;
+  labelMaxWidth: number;
   labelOffsetY: number;
+  sphereScale: number;
   tileScale: number;
   windowSize: WindowSize;
 }) {
@@ -223,8 +264,8 @@ function getOrbitRadii({
   });
   const labelVerticalClearance =
     (Math.abs(labelOffsetY) + labelFontSize * 1.4 + 0.1) * tileScale;
-  const labelHorizontalClearance = 0.58 * tileScale;
-  const minimumRadius = 2.05;
+  const labelHorizontalClearance = (labelMaxWidth / 2 + 0.18) * tileScale;
+  const minimumRadius = sphereRadius * sphereScale + 0.36 * tileScale;
 
   return {
     x: Math.min(
@@ -243,8 +284,10 @@ function computeSatellitePosition({
   groupPosition,
   index,
   labelFontSize,
+  labelMaxWidth,
   labelOffsetY,
   satelliteCount,
+  sphereScale,
   tileScale,
   windowSize,
 }: {
@@ -252,8 +295,10 @@ function computeSatellitePosition({
   groupPosition: ScenePosition;
   index: number;
   labelFontSize: number;
+  labelMaxWidth: number;
   labelOffsetY: number;
   satelliteCount: number;
+  sphereScale: number;
   tileScale: number;
   windowSize: WindowSize;
 }): ScenePosition {
@@ -263,20 +308,21 @@ function computeSatellitePosition({
   const orbitRadii = getOrbitRadii({
     groupPosition,
     labelFontSize,
+    labelMaxWidth,
     labelOffsetY,
+    sphereScale,
     tileScale,
     windowSize,
   });
 
   return [
-    Math.cos(angle) * orbitRadii.x,
-    Math.sin(angle) * orbitRadii.y,
+    groupPosition[0] + Math.cos(angle) * orbitRadii.x,
+    groupPosition[1] + Math.sin(angle) * orbitRadii.y,
     groupPosition[2] + satelliteZOffset,
   ] satisfies ScenePosition;
 }
 
 export function HexSphere() {
-  const sphereRadius = 2;
   const sphereGroupRef = useRef<Group>(null);
   const windowSize = useWindowSize();
   const startColor = useMemo(() => new Color("#47cdd6"), []);
@@ -298,10 +344,7 @@ export function HexSphere() {
       }),
     [startColor],
   );
-  const tiles = useMemo(
-    () => generateHexSphereTiles(425, sphereRadius),
-    [sphereRadius],
-  );
+  const tiles = useMemo(() => generateHexSphereTiles(425, sphereRadius), []);
   const satelliteRefs = useRef<(Group | null)[]>([]);
   const tileMaterials = useMemo(
     () =>
@@ -325,9 +368,11 @@ export function HexSphere() {
     [tiles],
   );
   const groupPosition = useMemo(() => getEndPosition(windowSize), [windowSize]);
+  const sphereScale = getSphereScale(windowSize);
   const sphereTileScale = 1;
   const satelliteScale = getSatelliteScale(windowSize);
   const labelFontSize = getLabelFontSize(windowSize);
+  const labelMaxWidth = getLabelMaxWidth(windowSize);
   const labelOffsetY = getLabelOffsetY(windowSize);
   const [color, setColor] = useState(() => startColor.clone());
   const lastColorStateUpdateRef = useRef(0);
@@ -339,8 +384,10 @@ export function HexSphere() {
           groupPosition,
           index,
           labelFontSize,
+          labelMaxWidth,
           labelOffsetY,
           satelliteCount: satelliteIndices.length,
+          sphereScale,
           tileScale: satelliteScale,
           windowSize,
         }),
@@ -348,9 +395,11 @@ export function HexSphere() {
     [
       groupPosition,
       labelFontSize,
+      labelMaxWidth,
       labelOffsetY,
       satelliteIndices,
       satelliteScale,
+      sphereScale,
       windowSize,
     ],
   );
@@ -445,8 +494,10 @@ export function HexSphere() {
         groupPosition,
         index,
         labelFontSize,
+        labelMaxWidth,
         labelOffsetY,
         satelliteCount: satelliteIndices.length,
+        sphereScale,
         tileScale: satelliteScale,
         windowSize,
       });
@@ -460,7 +511,7 @@ export function HexSphere() {
 
   return (
     <>
-      <group ref={sphereGroupRef} position={groupPosition}>
+      <group ref={sphereGroupRef} position={groupPosition} scale={sphereScale}>
         {tiles.map((tile, index) => {
           const material = tileMaterials[index];
 
@@ -501,6 +552,7 @@ export function HexSphere() {
             color={color}
             index={index}
             labelFontSize={labelFontSize}
+            labelMaxWidth={labelMaxWidth}
             labelOffsetY={labelOffsetY}
             position={position}
             tileScale={satelliteScale}

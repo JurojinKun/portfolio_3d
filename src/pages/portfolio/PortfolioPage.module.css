@@ -15,3 +15,55 @@
       rgb(2 2 13)
     );
 }
+
+.page > section[data-portfolio-section="true"] {
+  padding-block: 28px;
+}
+
+.page > section[data-portfolio-section="true"]:first-child {
+  padding-block-start: 52px;
+}
+
+.page > section[data-portfolio-section="true"]:not(:last-child) {
+  padding-block-end: 24px;
+}
+
+.page > section[data-portfolio-section="true"]:last-child {
+  padding-block-end: 52px;
+}
+
+@media (max-width: 620px) {
+  .page > section[data-portfolio-section="true"] {
+    padding-block: 24px;
+  }
+
+  .page > section[data-portfolio-section="true"]:first-child {
+    padding-block-start: 44px;
+  }
+
+  .page > section[data-portfolio-section="true"]:not(:last-child) {
+    padding-block-end: 20px;
+  }
+
+  .page > section[data-portfolio-section="true"]:last-child {
+    padding-block-end: 44px;
+  }
+}
+
+@media (max-width: 420px) {
+  .page > section[data-portfolio-section="true"] {
+    padding-block: 20px;
+  }
+
+  .page > section[data-portfolio-section="true"]:first-child {
+    padding-block-start: 36px;
+  }
+
+  .page > section[data-portfolio-section="true"]:not(:last-child) {
+    padding-block-end: 16px;
+  }
+
+  .page > section[data-portfolio-section="true"]:last-child {
+    padding-block-end: 36px;
+  }
+}

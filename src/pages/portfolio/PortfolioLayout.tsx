@@ -1,7 +1,11 @@
 import { portfolioSections } from "@/data/navigation";
-import { isSupportedLanguage, supportedLanguages } from "@/i18n";
+import {
+  defaultLanguage,
+  isSupportedLanguage,
+  supportedLanguages,
+} from "@/i18n";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 
 import styles from "./PortfolioLayout.module.css";
@@ -29,7 +33,7 @@ export function PortfolioLayout() {
     ? i18n.language
     : i18n.resolvedLanguage && isSupportedLanguage(i18n.resolvedLanguage)
       ? i18n.resolvedLanguage
-      : "fr";
+      : defaultLanguage;
 
   useEffect(() => {
     if (
@@ -83,7 +87,13 @@ export function PortfolioLayout() {
     setIsMenuOpen(false);
   };
 
-  const handleTopNavigation = () => {
+  const handleHomeNavigation = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.currentTarget.blur();
+    closeMenu();
+  };
+
+  const handleTopNavigation = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.currentTarget.blur();
     closeMenu();
 
     if (
@@ -142,8 +152,22 @@ export function PortfolioLayout() {
 
       <header className={styles.header} data-portfolio-header>
         <div className={styles.quickLinks} aria-label="Portfolio">
+          <Link
+            className={styles.quickLink}
+            data-tooltip={t("portfolio.home")}
+            onClick={handleHomeNavigation}
+            title={t("portfolio.home")}
+            aria-label={t("portfolio.home")}
+            to="/"
+          >
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+              <path d="M4.5 10.5 12 4.5l7.5 6V20h-5v-5.5h-5V20h-5v-9.5Z" />
+            </svg>
+          </Link>
+
           <NavLink
             className={styles.quickLink ?? ""}
+            data-tooltip={t("portfolio.top")}
             onClick={handleTopNavigation}
             title={t("portfolio.top")}
             aria-label={t("portfolio.top")}
@@ -153,18 +177,6 @@ export function PortfolioLayout() {
               <path d="M5 4h14v2H5V4Zm7 4.25 6 6-1.4 1.42L13 12.08V21h-2v-8.92l-3.6 3.59L6 14.25l6-6Z" />
             </svg>
           </NavLink>
-
-          <Link
-            className={styles.quickLink}
-            onClick={closeMenu}
-            title={t("portfolio.home")}
-            aria-label={t("portfolio.home")}
-            to="/"
-          >
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-              <path d="M4.5 10.5 12 4.5l7.5 6V20h-5v-5.5h-5V20h-5v-9.5Z" />
-            </svg>
-          </Link>
         </div>
 
         <button

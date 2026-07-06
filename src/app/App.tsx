@@ -2,12 +2,14 @@ import { HomePage } from "@/pages/home/HomePage";
 import { NotFoundPage } from "@/pages/not-found/NotFoundPage";
 import { PortfolioLayout } from "@/pages/portfolio/PortfolioLayout";
 import { PortfolioPage } from "@/pages/portfolio/PortfolioPage";
+import { defaultLanguage, isSupportedLanguage } from "@/i18n";
 import { useEffect, useState, type ReactNode } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import styles from "./App.module.css";
 
 const appSessionStorageKey = "isSessionActive";
+const i18nextLocalStorageKey = "i18nextLng";
 
 function cx(...classes: (string | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -65,8 +67,14 @@ function shouldShowInitialLoader() {
 }
 
 function InitialLoadingScreen() {
+  const cachedLanguage =
+    typeof window === "undefined"
+      ? null
+      : window.localStorage.getItem(i18nextLocalStorageKey);
   const language =
-    typeof window === "undefined" ? "en" : window.navigator.language;
+    cachedLanguage && isSupportedLanguage(cachedLanguage)
+      ? cachedLanguage
+      : defaultLanguage;
   const loadingLabel = language.startsWith("fr") ? "Chargement" : "Loading";
 
   return (

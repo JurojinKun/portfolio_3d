@@ -128,6 +128,17 @@ Les fichiers globaux ont chacun un role strict :
 
 Les composants et pages doivent utiliser des CSS Modules, par exemple `App.module.css`. Ces classes sont importees dans le composant et scopees automatiquement par Vite, ce qui evite les collisions de classes globales.
 
+## Typographie
+
+La v2 utilise deux familles Google Fonts chargees depuis `index.html` :
+
+- `Manrope` pour les textes courants, paragraphes et interfaces longues a lire ;
+- `Space Grotesk` pour les titres, boutons, labels et elements UI a tonalite plus tech.
+
+Les familles, tailles, line-heights et poids principaux sont centralises dans `src/styles/tokens.css`. Les poids utilises doivent rester alignes avec ceux charges : regular `400`, medium `500`, bold `700` et heavy `800`.
+
+Les labels 3D de la home utilisent aussi Space Grotesk via le fichier local `public/fonts/SpaceGrotesk-Bold.ttf`, car le rendu Three/Troika charge une police par URL et ne reutilise pas directement les polices CSS chargees dans le document.
+
 ## Internationalisation
 
 La v2 utilise `i18next`, `react-i18next` et `i18next-browser-languagedetector`.
@@ -141,13 +152,13 @@ src/i18n/locales/en.json
 
 La configuration est centralisee dans `src/i18n/`. Les langues supportees sont typees dans `supportedLanguages.ts`.
 
+La langue par defaut est l'anglais. Le detecteur i18n restaure uniquement la langue choisie et stockee dans `localStorage`; sans choix utilisateur en cache, l'application demarre donc en anglais.
+
 Un test verifie que les fichiers FR et EN gardent les memes cles de traduction. Toute nouvelle cle ajoutee dans une langue doit etre ajoutee dans l'autre.
 
 ## Assets
 
 Les assets importes par le code React restent dans `src/assets/`. Les assets servis tels quels par Vite restent dans `public/`.
-
-Les chemins publics utiles sont centralises dans `src/shared/assets/publicAssets.ts`. Les imports d'assets source utiles sont centralises progressivement dans `src/shared/assets/sourceAssets.ts`.
 
 ## Donnees applicatives
 
@@ -272,7 +283,6 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA. Il est co
 - Generation d'un lockfile propre avec npm 11.
 - Mise en place de la structure source v2 minimale.
 - Mise en place de la configuration i18n v2.
-- Mise en place des premiers manifestes d'assets v2.
 - Extraction des donnees v2 pour la navigation, les projets, les competences et les experiences.
 - Portage des pages principales en TSX avec CSS Modules.
 - Portage de la scene 3D d'accueil en etat final direct.
@@ -292,10 +302,12 @@ Le fichier `public/_redirects` est conserve pour gerer les routes SPA. Il est co
 - Suppression de la route temporaire `/migration` et des fichiers de statut de migration associes.
 - Revue responsive des sections portfolio v2 et ajustement des paddings mobiles.
 - Ajout de la configuration `netlify.toml` et verification finale du build/deploiement Netlify.
+- Refonte typographique avec `Manrope` / `Space Grotesk` et reecriture des contenus About, Experiences, Projects et Skills.
+- Nettoyage des assets et manifestes non utilises par la v2.
 
 ### Prochaines evolutions
 
-- Les prochaines modifications peuvent se concentrer sur le contenu, les textes, la charte graphique et les ameliorations de design.
+- Les prochaines modifications peuvent se concentrer sur la charte graphique, les visuels et les ameliorations de design plus fines.
 
 ## Notes de maintenance
 

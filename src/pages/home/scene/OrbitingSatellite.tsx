@@ -17,6 +17,7 @@ interface OrbitingSatelliteProps {
   color: Color;
   index: number;
   labelFontSize: number;
+  labelMaxWidth: number;
   labelOffsetY: number;
   position: ScenePosition;
   tileScale: number;
@@ -33,7 +34,15 @@ function resetCursor() {
 
 export const OrbitingSatellite = forwardRef<Group, OrbitingSatelliteProps>(
   function OrbitingSatellite(
-    { color, index, labelFontSize, labelOffsetY, position, tileScale },
+    {
+      color,
+      index,
+      labelFontSize,
+      labelMaxWidth,
+      labelOffsetY,
+      position,
+      tileScale,
+    },
     satelliteRef,
   ) {
     const { t } = useTranslation();
@@ -63,6 +72,7 @@ export const OrbitingSatellite = forwardRef<Group, OrbitingSatelliteProps>(
           <BugSatellite
             color={color}
             labelFontSize={labelFontSize}
+            labelMaxWidth={labelMaxWidth}
             labelOffsetY={labelOffsetY}
             position={[0, 0, 0]}
           />
@@ -78,8 +88,9 @@ export const OrbitingSatellite = forwardRef<Group, OrbitingSatelliteProps>(
             {label ? (
               <Text
                 color="white"
-                font="/fonts/SpaceMono-Bold.ttf"
+                font="/fonts/SpaceGrotesk-Bold.ttf"
                 fontSize={labelFontSize}
+                maxWidth={labelMaxWidth}
                 position={[0, labelOffsetY, 0]}
                 textAlign="center"
               >

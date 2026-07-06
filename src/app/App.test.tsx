@@ -131,7 +131,9 @@ describe("App", () => {
     expect(
       screen.getByRole("heading", { name: /about me/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/developer in the it world/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/product-minded mobile \/ front-end engineer/i),
+    ).toBeInTheDocument();
     expect(screen.getByRole("img", { name: /about me/i })).toBeInTheDocument();
   });
 
@@ -179,7 +181,7 @@ describe("App", () => {
     await userEvent.click(screen.getByRole("button", { name: /^github$/i }));
 
     expect(
-      screen.getByText(/github is a code hosting platform/i),
+      screen.getByText(/github is my main environment/i),
     ).toBeInTheDocument();
   });
 
@@ -194,7 +196,7 @@ describe("App", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: /mobile applications technical expert/i,
+        name: /mobile application technical expert/i,
       }),
     ).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "CGI" })).toBeInTheDocument();

@@ -10,6 +10,7 @@ import type { ScenePosition } from "./sceneUtils";
 interface BugSatelliteProps {
   color: Color;
   labelFontSize: number;
+  labelMaxWidth: number;
   labelOffsetY: number;
   position: ScenePosition;
 }
@@ -30,6 +31,7 @@ function resetCursor() {
 export function BugSatellite({
   color,
   labelFontSize,
+  labelMaxWidth,
   labelOffsetY,
   position,
 }: BugSatelliteProps) {
@@ -67,8 +69,9 @@ export function BugSatellite({
       />
       <Text
         color="white"
-        font="/fonts/SpaceMono-Bold.ttf"
+        font="/fonts/SpaceGrotesk-Bold.ttf"
         fontSize={labelFontSize}
+        maxWidth={labelMaxWidth}
         onClick={navigateToNotFound}
         position={[0, labelOffsetY, 0]}
         textAlign="center"

@@ -1,24 +1,41 @@
 import { PerspectiveCamera } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useEffect, useState, type ReactNode } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import {
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { Color, type Group } from "three";
 import { preloadFont } from "troika-three-text";
 
 import { portfolioSections } from "@/data/navigation";
-import { isSupportedLanguage, supportedLanguages } from "@/i18n";
+import {
+  defaultLanguage,
+  isSupportedLanguage,
+  supportedLanguages,
+} from "@/i18n";
 import { contactConfig } from "@/shared/config/contact";
 
 import { HexSphere } from "./HexSphere";
+import { InteractiveHexagon } from "./InteractiveHexagon";
 import { StarField } from "./StarField";
 import styles from "./HomeScene.module.css";
 
 const githubUrl = "https://github.com/JurojinKun";
 const linkedInUrl = "https://www.linkedin.com/in/clément-communay";
 const cvUrl = "/cv/CV_Clement_Communay.pdf";
-const satelliteLabelFont = "/fonts/SpaceMono-Bold.ttf";
+const satelliteLabelFont = "/fonts/SpaceGrotesk-Bold.ttf";
 const satelliteLabelCharacters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÀÂÄÇÉÈÊËÎÏÔÖÙÛÜàâäçéèêëîïôöùûü -_";
+const headerSatelliteRotationSpeed = 0.015;
+const headerSatelliteTiltAmplitude = 0.28;
+const headerSatelliteTiltSpeed = 0.42;
+const headerSatelliteZPosition = 8.5;
 
 function supportsWebGL() {
   if (
@@ -66,6 +83,7 @@ function SceneContent() {
         <pointLight decay={0} intensity={1} position={[10, 10, 10]} />
       </PerspectiveCamera>
       <ambientLight intensity={1} />
+      <HeaderSatelliteContent />
       <HexSphere />
     </>
   );
@@ -85,20 +103,71 @@ function StarsCamera() {
   return null;
 }
 
+function HeaderSatelliteContent() {
+  const hexagonRef = useRef<Group>(null);
+  const { size } = useThree();
+  const color = useMemo(
+    () => new Color("#47cdd6").lerp(new Color("#9d4dc4"), 0.46),
+    [],
+  );
+  const markLayout = useMemo(() => {
+    const isSmallHeader = size.width <= 420 || size.height <= 520;
+    const isCompactHeader = size.width <= 550 || size.height <= 600;
+    const slotSize = isSmallHeader ? 31 : isCompactHeader ? 36 : 42;
+    const visualSize = isSmallHeader ? 24 : isCompactHeader ? 28 : 32;
+    const inlinePadding = isCompactHeader ? 14 : 24;
+    const topPadding = 9;
+    const distanceFromCamera = 10 - headerSatelliteZPosition;
+    const halfHeight = Math.tan((50 * Math.PI) / 360) * distanceFromCamera;
+    const halfWidth = halfHeight * (size.width / size.height);
+    const centerX = inlinePadding + slotSize / 2;
+    const centerY = topPadding + slotSize / 2;
+    const worldPerPixel = (halfHeight * 2) / size.height;
+    const visualWorldSize = visualSize * worldPerPixel;
+
+    return {
+      position: [
+        (centerX / size.width) * halfWidth * 2 - halfWidth,
+        halfHeight - (centerY / size.height) * halfHeight * 2,
+        headerSatelliteZPosition,
+      ] as const,
+      scale: visualWorldSize / 0.3,
+    };
+  }, [size.height, size.width]);
+
+  useFrame(({ clock }) => {
+    if (hexagonRef.current) {
+      hexagonRef.current.rotation.y =
+        Math.sin(clock.elapsedTime * headerSatelliteTiltSpeed) *
+        headerSatelliteTiltAmplitude;
+      hexagonRef.current.rotation.z += headerSatelliteRotationSpeed;
+    }
+  });
+
+  return (
+    <group position={markLayout.position} scale={markLayout.scale}>
+      <InteractiveHexagon
+        bodyStyle="gradient"
+        hexagonColor={color}
+        hexagonRef={hexagonRef}
+        iconPath="/icons/header_cc.svg"
+      />
+    </group>
+  );
+}
+
 function HomeHeader() {
   const { i18n, t } = useTranslation();
   const currentLanguage = isSupportedLanguage(i18n.language)
     ? i18n.language
     : i18n.resolvedLanguage && isSupportedLanguage(i18n.resolvedLanguage)
       ? i18n.resolvedLanguage
-      : "fr";
+      : defaultLanguage;
 
   return (
     <header className={styles.header}>
       <div className={styles.brand} aria-label="Clément Communay Portfolio">
-        <span className={styles.brandMark} aria-hidden="true">
-          CC
-        </span>
+        <span className={styles.brandMark} aria-hidden="true" />
         <span className={styles.brandCopy}>
           <span className={styles.brandTitle}>Clément Communay</span>
           <span className={styles.brandMeta}>
@@ -113,6 +182,7 @@ function HomeHeader() {
           <button
             className={styles.languageButton}
             data-active={language === currentLanguage}
+            data-language={language.toUpperCase()}
             key={language}
             onClick={() => {
               void i18n.changeLanguage(language);

@@ -88,8 +88,9 @@
 
 .copy h1 {
   margin: 0;
-  font-size: 2.25rem;
-  font-weight: 900;
+  font-family: var(--font-display);
+  font-size: var(--text-title-tablet);
+  font-weight: var(--font-weight-bold);
   letter-spacing: 0;
   line-height: 1.1;
   text-shadow: 0 0 28px rgb(157 77 196 / 18%);
@@ -98,7 +99,7 @@
 .copy p {
   margin: 0;
   color: var(--color-text-muted);
-  font-size: 1.125rem;
+  font-size: var(--text-lg);
   line-height: 1.55;
 }
 
@@ -115,8 +116,8 @@
     linear-gradient(135deg, rgb(71 205 214 / 20%), rgb(157 77 196 / 18%)),
     rgb(14 14 22 / 82%);
   color: var(--color-text);
-  font-family: var(--font-sans);
-  font-weight: 900;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
   letter-spacing: 0;
   text-decoration: none;
   transition:
@@ -179,11 +180,11 @@
   }
 
   .copy h1 {
-    font-size: 1.875rem;
+    font-size: var(--text-title-mobile);
   }
 
   .copy p {
-    font-size: 1rem;
+    font-size: var(--text-base);
   }
 }
 
@@ -207,7 +208,7 @@
   }
 
   .copy h1 {
-    font-size: 1.5rem;
+    font-size: var(--text-xl);
   }
 
   .bugCursor {

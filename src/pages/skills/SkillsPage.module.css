@@ -22,15 +22,15 @@
 .eyebrow {
   margin: 0 0 10px;
   color: #e9fbff;
-  font-size: 0.95rem;
-  font-weight: 900;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-heavy);
   text-shadow: 0 0 18px rgb(71 205 214 / 22%);
 }
 
 .header h1 {
   margin: 0;
-  font-size: 3rem;
-  line-height: 1;
+  font-size: var(--text-title);
+  line-height: var(--line-tight);
   text-shadow: 0 0 28px rgb(157 77 196 / 18%);
 }
 
@@ -63,7 +63,7 @@
     rgb(14 14 22 / 72%);
   color: var(--color-text);
   cursor: pointer;
-  font: inherit;
+  font-family: var(--font-display);
   gap: 10px;
   grid-template-columns: 32px minmax(0, 1fr);
   text-align: left;
@@ -96,8 +96,9 @@
 
 .skillButton span {
   overflow-wrap: anywhere;
-  font-size: 0.95rem;
-  font-weight: 900;
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
 }
 
 .detailCard {
@@ -123,13 +124,14 @@
 
 .detailCard h2 {
   margin: 0;
-  font-size: 1.35rem;
+  font-size: var(--text-lg);
   line-height: 1.2;
 }
 
 .detailCard p {
   margin: 0;
   color: var(--color-text-muted);
+  line-height: var(--line-copy);
 }
 
 @media (max-width: 980px) {
@@ -152,7 +154,7 @@
   }
 
   .header h1 {
-    font-size: 2.35rem;
+    font-size: var(--text-title-tablet);
   }
 
   .skillGrid {

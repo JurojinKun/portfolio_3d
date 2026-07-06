@@ -1,6 +1,7 @@
 import { useLoader } from "@react-three/fiber";
-import { useMemo, type RefObject } from "react";
+import { useMemo, type ReactNode, type RefObject } from "react";
 import {
+  Color,
   DoubleSide,
   ExtrudeGeometry,
   MeshBasicMaterial,
@@ -12,16 +13,47 @@ import {
 } from "three";
 
 interface InteractiveHexagonProps {
+  bodyStyle?: "gradient" | "solid";
   hexagonColor: ColorRepresentation;
   hexagonRef?: RefObject<Group | null>;
   iconPath: string;
-  onClick: () => void;
+  onClick?: (() => void) | undefined;
+}
+
+interface HexagonCoreProps {
+  bodyStyle?: "gradient" | "solid";
+  children?: ReactNode;
+  hexagonColor: ColorRepresentation;
+  hexagonRef?: RefObject<Group | null> | undefined;
+  onClick?: (() => void) | undefined;
 }
 
 const satelliteVisualStyle = {
   bodyOpacity: 0.56,
   outlineOpacity: 1,
 } as const;
+const gradientVertexShader = `
+  varying vec3 vLocalPosition;
+
+  void main() {
+    vLocalPosition = position;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+const gradientFragmentShader = `
+  uniform vec3 colorA;
+  uniform vec3 colorB;
+  uniform float opacity;
+  varying vec3 vLocalPosition;
+
+  void main() {
+    float mixValue = smoothstep(-0.18, 0.18, vLocalPosition.x + vLocalPosition.y * 0.52);
+    vec3 color = mix(colorA, colorB, mixValue);
+    float highlight = smoothstep(-0.02, 0.16, vLocalPosition.y);
+    color = mix(color, vec3(1.0), highlight * 0.14);
+    gl_FragColor = vec4(color, opacity);
+  }
+`;
 
 function createHexagonShape(radius: number) {
   const shape = new Shape();
@@ -44,14 +76,13 @@ function setPointerCursor(cursor: "auto" | "pointer") {
   document.body.style.cursor = cursor;
 }
 
-export function InteractiveHexagon({
+export function HexagonCore({
+  bodyStyle = "solid",
+  children,
   hexagonColor,
   hexagonRef,
-  iconPath,
   onClick,
-}: InteractiveHexagonProps) {
-  const iconTexture = useLoader(TextureLoader, iconPath);
-  const groupRef = hexagonRef ?? null;
+}: HexagonCoreProps) {
   const hexagonGeometry = useMemo(() => {
     const geometry = new ExtrudeGeometry(createHexagonShape(0.15), {
       bevelEnabled: false,
@@ -60,40 +91,48 @@ export function InteractiveHexagon({
 
     return geometry;
   }, []);
-  const iconGeometry = useMemo(() => new PlaneGeometry(0.15, 0.15), []);
-  const iconMaterial = useMemo(
-    () =>
-      new MeshBasicMaterial({
-        map: iconTexture,
-        opacity: 1,
-        side: DoubleSide,
-        transparent: true,
-      }),
-    [iconTexture],
+  const gradientUniforms = useMemo(
+    () => ({
+      colorA: { value: new Color("#47cdd6") },
+      colorB: { value: new Color("#9d4dc4") },
+      opacity: { value: satelliteVisualStyle.bodyOpacity },
+    }),
+    [],
   );
 
   return (
-    <group ref={groupRef}>
-      <mesh
-        geometry={hexagonGeometry}
-        onClick={onClick}
-        onPointerOut={() => {
-          setPointerCursor("auto");
-        }}
-        onPointerOver={() => {
-          setPointerCursor("pointer");
-        }}
-      >
-        <meshBasicMaterial visible={false} />
-      </mesh>
+    <group ref={hexagonRef ?? null}>
+      {onClick ? (
+        <mesh
+          geometry={hexagonGeometry}
+          onClick={onClick}
+          onPointerOut={() => {
+            setPointerCursor("auto");
+          }}
+          onPointerOver={() => {
+            setPointerCursor("pointer");
+          }}
+        >
+          <meshBasicMaterial visible={false} />
+        </mesh>
+      ) : null}
 
       <group>
         <mesh geometry={hexagonGeometry}>
-          <meshPhongMaterial
-            color={hexagonColor}
-            opacity={satelliteVisualStyle.bodyOpacity}
-            transparent
-          />
+          {bodyStyle === "gradient" ? (
+            <shaderMaterial
+              fragmentShader={gradientFragmentShader}
+              uniforms={gradientUniforms}
+              vertexShader={gradientVertexShader}
+              transparent
+            />
+          ) : (
+            <meshPhongMaterial
+              color={hexagonColor}
+              opacity={satelliteVisualStyle.bodyOpacity}
+              transparent
+            />
+          )}
         </mesh>
         <lineSegments>
           <edgesGeometry args={[hexagonGeometry]} />
@@ -108,6 +147,38 @@ export function InteractiveHexagon({
         </lineSegments>
       </group>
 
+      {children}
+    </group>
+  );
+}
+
+export function InteractiveHexagon({
+  bodyStyle = "solid",
+  hexagonColor,
+  hexagonRef,
+  iconPath,
+  onClick,
+}: InteractiveHexagonProps) {
+  const iconTexture = useLoader(TextureLoader, iconPath);
+  const iconGeometry = useMemo(() => new PlaneGeometry(0.15, 0.15), []);
+  const iconMaterial = useMemo(
+    () =>
+      new MeshBasicMaterial({
+        map: iconTexture,
+        opacity: 1,
+        side: DoubleSide,
+        transparent: true,
+      }),
+    [iconTexture],
+  );
+
+  return (
+    <HexagonCore
+      bodyStyle={bodyStyle}
+      hexagonColor={hexagonColor}
+      hexagonRef={hexagonRef}
+      onClick={onClick}
+    >
       <mesh
         geometry={iconGeometry}
         material={iconMaterial}
@@ -118,6 +189,6 @@ export function InteractiveHexagon({
         material={iconMaterial}
         position={[0, 0, 0.051]}
       />
-    </group>
+    </HexagonCore>
   );
 }

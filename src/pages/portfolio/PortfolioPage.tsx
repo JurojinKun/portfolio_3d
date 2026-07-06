@@ -11,7 +11,7 @@ import styles from "./PortfolioPage.module.css";
 
 const HEADER_FALLBACK_OFFSET = 76;
 const SECTION_SCROLL_GAP = 24;
-const PROGRAMMATIC_SCROLL_DELAY_MS = 680;
+const PROGRAMMATIC_SCROLL_DELAY_MS = 1100;
 
 function isPortfolioSectionId(
   value: string | undefined,
@@ -45,6 +45,13 @@ function getPortfolioHeaderOffset() {
   );
 }
 
+function isAtScrollablePageEnd() {
+  return (
+    window.scrollY + window.innerHeight >=
+    document.documentElement.scrollHeight - 4
+  );
+}
+
 function scrollToPortfolioSection(sectionId: PortfolioSectionId) {
   const targetElement = document.getElementById(sectionId);
 
@@ -69,7 +76,14 @@ function scrollToPortfolioSection(sectionId: PortfolioSectionId) {
 }
 
 function getActivePortfolioSectionId() {
-  const anchorTop = getPortfolioHeaderOffset() + SECTION_SCROLL_GAP + 8;
+  if (isAtScrollablePageEnd()) {
+    return portfolioSections[portfolioSections.length - 1]?.id ?? "aboutme";
+  }
+
+  const anchorTop =
+    getPortfolioHeaderOffset() +
+    Math.min(window.innerHeight * 0.28, 220) +
+    SECTION_SCROLL_GAP;
   let activeSectionId: PortfolioSectionId = "aboutme";
 
   for (const section of portfolioSections) {
