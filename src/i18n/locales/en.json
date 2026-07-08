@@ -86,7 +86,8 @@
     "company_experience_4": "CGI",
     "date_experience_4": "April 2024 - Now",
     "point_1_experience_4": "Developed a Flutter mobile application for tracking a sports season, focusing on information clarity, stability and supporter experience. Reference: ASM Clermont Auvergne",
-    "point_1_experience_5": "Developed a Flutter mobile application for local information, designed to make events and activities accessible through a simple, scalable experience. Reference: Paris ma Ville"
+    "point_1_experience_5": "Developed a Flutter mobile application for local information, designed to make events and activities accessible through a simple, scalable experience. Reference: Paris ma Ville",
+    "point_1_experience_6": "Led the front-end tech work for almost a year on a Flutter mobile application built from scratch for BC Hydro, a Canadian electricity company, coordinating a France-based front-end team with a Canada-based backend team. Reference: BC Hydro"
   },
   "projects": {
     "title_pro": "Professional projects",
@@ -107,6 +108,8 @@
     "content_project_pro_6": "Flutter application dedicated to rugby season tracking and supporter engagement.",
     "title_project_pro_7": "Paris ma Ville",
     "content_project_pro_7": "Flutter local information application centralising Paris events, activities and news.",
+    "title_project_pro_8": "BC Hydro",
+    "content_project_pro_8": "Flutter mobile application built from scratch for a Canadian electricity company.",
     "title_project_perso_1": "Gemu",
     "content_project_perso_1": "First personal Flutter mobile application around esport, community features and Firebase.",
     "title_project_perso_2": "My youkounkoun",
@@ -152,7 +155,10 @@
     "results_content_asm": "The application provides a central access point to club information and relies on a stable mobile foundation designed to support supporter engagement.",
     "content_context_pmv": "Paris ma Ville aimed to centralise useful Paris events, activities and local information on mobile.",
     "challenges_content_pmv": "The product needed to stay readable despite diverse content, with an architecture able to support new features and regularly updated data.",
-    "results_content_pmv": "The solution makes local information easier to access and provides a scalable Flutter foundation for progressively enriching the user experience."
+    "results_content_pmv": "The solution makes local information easier to access and provides a scalable Flutter foundation for progressively enriching the user experience.",
+    "content_context_bchydro": "BC Hydro was a Flutter mobile application project built from scratch for a Canadian electricity company. I worked on it for almost a year as front-end tech lead, in a distributed setup with the front-end handled from France and the backend handled from Canada.",
+    "challenges_content_bchydro": "The main challenges were setting up a clean Flutter foundation, structuring screens and reusable components, coordinating front-end and backend work across two international teams, and keeping the product stable while building its first mobile foundations.",
+    "results_content_bchydro": "The project established a clear and maintainable Flutter front-end foundation, supporting the development of an ambitious business mobile application in an international delivery context."
   },
   "contact_me": {
     "title": "Contact me",

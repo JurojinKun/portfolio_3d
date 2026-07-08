@@ -32,6 +32,7 @@ export const experiences = [
     pointKeys: [
       "experiences.point_1_experience_4",
       "experiences.point_1_experience_5",
+      "experiences.point_1_experience_6",
     ],
     titleKey: "experiences.title_experience_4",
   },

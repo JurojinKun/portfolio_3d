@@ -1,4 +1,5 @@
 import asm from "@/assets/projects/asm.jpg";
+import bcHydro from "@/assets/projects/bchydro.jpg";
 import botDiscord from "@/assets/projects/botdiscord.jpg";
 import corsicaFerries from "@/assets/projects/corsica.jpg";
 import croixRouge from "@/assets/projects/croixrouge.jpg";
@@ -25,6 +26,7 @@ export type ProjectId =
   | "la-croix-rouge-francaise"
   | "asm-clermont-auvergne"
   | "paris-ma-ville"
+  | "bc-hydro"
   | "gemu"
   | "my-youkounkoun"
   | "portfolio-3d"
@@ -154,6 +156,21 @@ export const projects = [
       shadowColor: "rgba(42, 66, 183, 0.2)",
     },
     titleKey: "projects.title_project_pro_7",
+  },
+  {
+    id: "bc-hydro",
+    category: "professional",
+    challengesKey: "projects.challenges_content_bchydro",
+    contextKey: "projects.content_context_bchydro",
+    image: bcHydro,
+    imageAlt: "BC Hydro",
+    resultsKey: "projects.results_content_bchydro",
+    summaryKey: "projects.content_project_pro_8",
+    theme: {
+      primaryColor: "#4cb848",
+      shadowColor: "rgba(76, 184, 72, 0.2)",
+    },
+    titleKey: "projects.title_project_pro_8",
   },
   {
     id: "gemu",
