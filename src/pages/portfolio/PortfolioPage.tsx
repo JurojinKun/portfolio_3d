@@ -12,6 +12,7 @@ import styles from "./PortfolioPage.module.css";
 const HEADER_FALLBACK_OFFSET = 76;
 const SECTION_SCROLL_GAP = 24;
 const PROGRAMMATIC_SCROLL_DELAY_MS = 1100;
+const MIN_VISIBLE_SECTION_HEIGHT = 24;
 
 function isPortfolioSectionId(
   value: string | undefined,
@@ -80,11 +81,37 @@ function getActivePortfolioSectionId() {
     return portfolioSections[portfolioSections.length - 1]?.id ?? "aboutme";
   }
 
+  const viewportTop = getPortfolioHeaderOffset() + SECTION_SCROLL_GAP;
+  const viewportBottom = window.innerHeight;
+  let activeSectionId: PortfolioSectionId = "aboutme";
+  let activeVisibleHeight = 0;
+
+  for (const section of portfolioSections) {
+    const sectionElement = document.getElementById(section.id);
+
+    if (!sectionElement) {
+      continue;
+    }
+
+    const sectionRect = sectionElement.getBoundingClientRect();
+    const visibleTop = Math.max(sectionRect.top, viewportTop);
+    const visibleBottom = Math.min(sectionRect.bottom, viewportBottom);
+    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+    if (visibleHeight >= activeVisibleHeight + 1) {
+      activeVisibleHeight = visibleHeight;
+      activeSectionId = section.id;
+    }
+  }
+
+  if (activeVisibleHeight >= MIN_VISIBLE_SECTION_HEIGHT) {
+    return activeSectionId;
+  }
+
   const anchorTop =
     getPortfolioHeaderOffset() +
     Math.min(window.innerHeight * 0.28, 220) +
     SECTION_SCROLL_GAP;
-  let activeSectionId: PortfolioSectionId = "aboutme";
 
   for (const section of portfolioSections) {
     const sectionElement = document.getElementById(section.id);
@@ -107,6 +134,7 @@ export function PortfolioPage() {
   const isProgrammaticScrollRef = useRef(false);
   const isUrlUpdateFromScrollRef = useRef(false);
   const scrollReleaseTimeoutRef = useRef<number | undefined>(undefined);
+  const activeSectionFrameRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     latestSectionIdRef.current = sectionId;
@@ -143,6 +171,8 @@ export function PortfolioPage() {
     }
 
     const updateActiveSection = () => {
+      activeSectionFrameRef.current = undefined;
+
       if (isProgrammaticScrollRef.current || !hasScrollableLayout()) {
         return;
       }
@@ -158,15 +188,30 @@ export function PortfolioPage() {
       }
     };
 
-    const frameId = window.requestAnimationFrame(updateActiveSection);
+    const scheduleActiveSectionUpdate = () => {
+      if (activeSectionFrameRef.current !== undefined) {
+        return;
+      }
 
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
-    window.addEventListener("resize", updateActiveSection);
+      activeSectionFrameRef.current =
+        window.requestAnimationFrame(updateActiveSection);
+    };
+
+    scheduleActiveSectionUpdate();
+
+    window.addEventListener("scroll", scheduleActiveSectionUpdate, {
+      passive: true,
+    });
+    window.addEventListener("resize", scheduleActiveSectionUpdate);
 
     return () => {
-      window.cancelAnimationFrame(frameId);
-      window.removeEventListener("scroll", updateActiveSection);
-      window.removeEventListener("resize", updateActiveSection);
+      if (activeSectionFrameRef.current !== undefined) {
+        window.cancelAnimationFrame(activeSectionFrameRef.current);
+        activeSectionFrameRef.current = undefined;
+      }
+
+      window.removeEventListener("scroll", scheduleActiveSectionUpdate);
+      window.removeEventListener("resize", scheduleActiveSectionUpdate);
     };
   }, [navigate, sectionId]);
 
