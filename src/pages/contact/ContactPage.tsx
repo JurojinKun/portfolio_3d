@@ -1,5 +1,4 @@
 import astroContactMe from "@/assets/astro_contact_me.png";
-import envelopeContactMe from "@/assets/enveloppe_contact_me.png";
 import { contactConfig } from "@/shared/config/contact";
 import {
   type ChangeEvent,
@@ -206,7 +205,6 @@ export function ContactPage({
 
         <div className={styles.visual} aria-hidden="true">
           <img className={styles.astronaut} src={astroContactMe} alt="" />
-          <img className={styles.envelope} src={envelopeContactMe} alt="" />
         </div>
       </section>
     </Root>

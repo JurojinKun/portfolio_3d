@@ -1,5 +1,5 @@
 .page {
-  --black-hole-spin-duration: 1.15s;
+  --black-hole-spin-duration: 2.4s;
 
   position: relative;
   isolation: isolate;
@@ -60,22 +60,35 @@
   align-items: center;
   justify-content: center;
   gap: 36px;
+  max-width: 100%;
 }
 
 .astronaut {
-  width: 160px;
-  height: 250px;
+  width: 190px;
+  height: auto;
   object-fit: contain;
 }
 
 .blackHole {
   position: relative;
+  isolation: isolate;
   width: 190px;
   height: 190px;
   border-radius: 50%;
-  background: linear-gradient(77deg, #47cdd6 2%, #9d4dc4 104%);
+  background: conic-gradient(
+    from 80deg,
+    #47cdd6 0 16%,
+    #e9fbff 22%,
+    #9d4dc4 40%,
+    #47cdd6 62%,
+    #f3c7ff 76%,
+    #9d4dc4 88%,
+    #47cdd6 100%
+  );
   animation: rotateBlackHole var(--black-hole-spin-duration) linear infinite;
-  box-shadow: 0 0 34px rgb(157 77 196 / 18%);
+  box-shadow:
+    0 0 18px rgb(71 205 214 / 16%),
+    0 0 34px rgb(157 77 196 / 18%);
 }
 
 .blackHole span {
@@ -102,11 +115,39 @@
   filter: blur(50px);
 }
 
+.blackHole::before {
+  position: absolute;
+  inset: 5px;
+  z-index: 2;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle,
+    transparent 0 58%,
+    rgb(71 205 214 / 7%) 65%,
+    rgb(157 77 196 / 6%) 70%,
+    transparent 78%
+  );
+  content: "";
+}
+
 .blackHole::after {
   position: absolute;
-  inset: 4px;
+  inset: 5px;
+  z-index: 1;
   border-radius: inherit;
-  background: #161616;
+  background: radial-gradient(
+    circle at 52% 54%,
+    #000 0 38%,
+    rgb(2 2 7) 56%,
+    rgb(8 9 16) 76%,
+    rgb(1 1 5) 100%
+  );
+  box-shadow:
+    inset -18px -20px 24px rgb(0 0 0 / 94%),
+    inset 10px 8px 20px rgb(71 205 214 / 3%),
+    inset 0 0 22px rgb(157 77 196 / 4%),
+    0 0 0 1px rgb(0 0 0 / 84%),
+    0 0 26px rgb(2 2 13 / 92%);
   content: "";
 }
 
@@ -207,8 +248,7 @@
   }
 
   .astronaut {
-    width: 125px;
-    height: 200px;
+    width: 150px;
   }
 
   .blackHole {
@@ -232,11 +272,11 @@
 
   .visual {
     gap: 16px;
+    max-width: calc(100vw - 32px);
   }
 
   .astronaut {
-    width: 85px;
-    height: 140px;
+    width: 108px;
   }
 
   .blackHole {

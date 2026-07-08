@@ -163,29 +163,18 @@
 .visual {
   position: relative;
   display: grid;
-  min-height: 390px;
+  min-height: clamp(280px, 34vw, 360px);
   place-items: center;
 }
 
 .page[data-portfolio-section="true"] .visual {
-  min-height: 300px;
+  min-height: clamp(240px, 28vw, 300px);
 }
 
 .astronaut {
-  width: min(100%, 330px);
+  width: min(100%, clamp(250px, 30vw, 330px));
   height: auto;
   object-fit: contain;
-}
-
-.envelope {
-  position: absolute;
-  top: clamp(10px, 5%, 24px);
-  left: calc(50% + clamp(96px, 11vw, 122px));
-  width: clamp(60px, 8vw, 78px);
-  height: auto;
-  object-fit: contain;
-  translate: -50% 0;
-  animation: pulseEnvelope 3.5s ease-in-out infinite;
 }
 
 @media (max-width: 920px) {
@@ -200,12 +189,6 @@
 
   .astronaut {
     width: min(58vw, 240px);
-  }
-
-  .envelope {
-    top: clamp(10px, 8%, 24px);
-    left: calc(50% + clamp(70px, 20vw, 92px));
-    width: clamp(52px, 15vw, 66px);
   }
 }
 
@@ -230,20 +213,5 @@
 
   .form {
     padding: 16px;
-  }
-}
-
-@keyframes pulseEnvelope {
-  0%,
-  100% {
-    filter: brightness(1.25);
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  50% {
-    filter: brightness(1);
-    opacity: 0.72;
-    transform: translateY(6px);
   }
 }

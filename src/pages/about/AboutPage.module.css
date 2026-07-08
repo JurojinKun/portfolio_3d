@@ -93,12 +93,12 @@
 .visual {
   position: relative;
   display: grid;
-  min-height: 420px;
+  min-height: clamp(280px, 34vw, 360px);
   place-items: center;
 }
 
 .page[data-portfolio-section="true"] .visual {
-  min-height: 320px;
+  min-height: clamp(240px, 28vw, 300px);
 }
 
 .visual::before {
@@ -115,10 +115,9 @@
 
 .astronaut {
   position: relative;
-  width: min(100%, 300px);
+  width: min(100%, clamp(250px, 28vw, 300px));
   height: auto;
   object-fit: contain;
-  animation: floatAstronaut 6s ease-in-out infinite;
 }
 
 @media (max-width: 860px) {
@@ -165,16 +164,5 @@
 
   .paragraphs p {
     font-size: var(--text-base);
-  }
-}
-
-@keyframes floatAstronaut {
-  0%,
-  100% {
-    transform: translateY(18px);
-  }
-
-  50% {
-    transform: translateY(-18px);
   }
 }

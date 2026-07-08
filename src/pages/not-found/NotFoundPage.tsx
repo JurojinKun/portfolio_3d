@@ -174,7 +174,6 @@ export function NotFoundPage() {
 
       <section className={styles.content} aria-labelledby="not-found-title">
         <div className={styles.visual} aria-hidden="true">
-          <img alt="" className={styles.astronaut} src={astroNotFound} />
           <div
             className={styles.blackHole}
             onPointerEnter={() => {
@@ -188,6 +187,7 @@ export function NotFoundPage() {
               <span key={ring} />
             ))}
           </div>
+          <img alt="" className={styles.astronaut} src={astroNotFound} />
         </div>
 
         <div className={styles.copy}>
