@@ -26,6 +26,12 @@
     "url_not_found": "What you're looking for doesn't or no longer exists in this universe",
     "back_home": "Back to home"
   },
+  "fallbacks": {
+    "site_error_label": "Application error",
+    "site_error_title": "Something went wrong",
+    "site_error_content": "An unexpected error interrupted the site rendering. You can go back home or reload the page.",
+    "reload": "Reload page"
+  },
   "portfolio": {
     "menu": "Menu",
     "top": "Back to top",

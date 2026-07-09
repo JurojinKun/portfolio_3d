@@ -26,6 +26,12 @@
     "url_not_found": "Ce que tu recherches n'existe pas ou plus dans cet univers",
     "back_home": "Retour à l'accueil"
   },
+  "fallbacks": {
+    "site_error_label": "Erreur applicative",
+    "site_error_title": "Quelque chose n'a pas fonctionné",
+    "site_error_content": "Une erreur inattendue a interrompu l'affichage du site. Tu peux revenir à l'accueil ou recharger la page.",
+    "reload": "Recharger la page"
+  },
   "portfolio": {
     "menu": "Menu",
     "top": "Haut de page",

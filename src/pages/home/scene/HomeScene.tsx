@@ -9,11 +9,9 @@ import {
   type ReactNode,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { Color, type Group } from "three";
 import { preloadFont } from "troika-three-text";
 
-import { portfolioSections } from "@/data/navigation";
 import {
   defaultLanguage,
   isSupportedLanguage,
@@ -22,6 +20,7 @@ import {
 import { contactConfig } from "@/shared/config/contact";
 
 import { HexSphere } from "./HexSphere";
+import { HomeSceneFallback } from "./HomeSceneFallback";
 import { InteractiveHexagon } from "./InteractiveHexagon";
 import { StarField } from "./StarField";
 import styles from "./HomeScene.module.css";
@@ -304,35 +303,13 @@ function MailIcon() {
   );
 }
 
-function SceneFallback() {
-  const { t } = useTranslation();
-
-  return (
-    <section className={styles.fallback} aria-labelledby="fallback-home-title">
-      <div className={styles.fallbackContent}>
-        <h1 id="fallback-home-title">
-          {t("overview.hello")} <span>Clément Communay</span>
-        </h1>
-        <p>{t("overview.first_para")}</p>
-        <nav className={styles.fallbackLinks} aria-label={t("portfolio.menu")}>
-          {portfolioSections.map((section) => (
-            <Link key={section.id} to={section.route}>
-              {t(section.labelKey)}
-            </Link>
-          ))}
-        </nav>
-      </div>
-    </section>
-  );
-}
-
 export function HomeScene() {
   const canRenderScene = supportsWebGL() && !prefersReducedMotion();
 
   usePreloadSatelliteLabelFont();
 
   if (!canRenderScene) {
-    return <SceneFallback />;
+    return <HomeSceneFallback />;
   }
 
   return (

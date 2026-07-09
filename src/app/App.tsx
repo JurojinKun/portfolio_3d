@@ -2,14 +2,19 @@ import { HomePage } from "@/pages/home/HomePage";
 import { NotFoundPage } from "@/pages/not-found/NotFoundPage";
 import { PortfolioLayout } from "@/pages/portfolio/PortfolioLayout";
 import { PortfolioPage } from "@/pages/portfolio/PortfolioPage";
-import { defaultLanguage, isSupportedLanguage } from "@/i18n";
-import { useEffect, useState, type ReactNode } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  Component,
+  useEffect,
+  useState,
+  type ErrorInfo,
+  type ReactNode,
+} from "react";
+import { useTranslation } from "react-i18next";
+import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 
 import styles from "./App.module.css";
 
 const appSessionStorageKey = "isSessionActive";
-const i18nextLocalStorageKey = "i18nextLng";
 
 function cx(...classes: (string | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -19,15 +24,17 @@ export function App() {
   return (
     <AppBootstrap>
       <BrowserRouter>
-        <Routes>
-          <Route element={<HomePage />} path="/" />
-          <Route element={<PortfolioLayout />} path="/portfolio">
-            <Route index element={<Navigate replace to="aboutme" />} />
-            <Route element={<PortfolioPage />} path=":sectionId" />
-          </Route>
-          <Route element={<NotFoundPage />} path="/notfound" />
-          <Route element={<NotFoundPage />} path="*" />
-        </Routes>
+        <AppErrorBoundary>
+          <Routes>
+            <Route element={<HomePage />} path="/" />
+            <Route element={<PortfolioLayout />} path="/portfolio">
+              <Route index element={<Navigate replace to="aboutme" />} />
+              <Route element={<PortfolioPage />} path=":sectionId" />
+            </Route>
+            <Route element={<NotFoundPage />} path="/notfound" />
+            <Route element={<NotFoundPage />} path="*" />
+          </Routes>
+        </AppErrorBoundary>
       </BrowserRouter>
     </AppBootstrap>
   );
@@ -67,31 +74,93 @@ function shouldShowInitialLoader() {
 }
 
 function InitialLoadingScreen() {
-  const cachedLanguage =
-    typeof window === "undefined"
-      ? null
-      : window.localStorage.getItem(i18nextLocalStorageKey);
-  const language =
-    cachedLanguage && isSupportedLanguage(cachedLanguage)
-      ? cachedLanguage
-      : defaultLanguage;
-  const loadingLabel = language.startsWith("fr") ? "Chargement" : "Loading";
+  return (
+    <main
+      aria-busy="true"
+      aria-label="Chargement de l'application"
+      className={styles.loadingScreen}
+    >
+      <div className={styles.atomLoader} aria-hidden="true">
+        <div className={cx(styles.orbit, styles.orbitOne)} />
+        <div className={cx(styles.orbit, styles.orbitTwo)} />
+        <div className={cx(styles.orbit, styles.orbitThree)} />
+        <div className={styles.nucleus}>
+          <span />
+        </div>
+        <div className={styles.energyParticles}>
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
+    </main>
+  );
+}
+
+interface AppErrorBoundaryState {
+  hasError: boolean;
+}
+
+class AppErrorBoundary extends Component<
+  { children: ReactNode },
+  AppErrorBoundaryState
+> {
+  state: AppErrorBoundaryState = {
+    hasError: false,
+  };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    if (import.meta.env.DEV) {
+      console.error("Application rendering failed", error, errorInfo);
+    }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <SiteProblemFallback />;
+    }
+
+    return this.props.children;
+  }
+}
+
+function SiteProblemFallback() {
+  const { t } = useTranslation();
+
+  const reloadPage = () => {
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    }
+  };
 
   return (
-    <main className={styles.loadingScreen}>
-      <div className={styles.atom} aria-hidden="true">
-        <div className={cx(styles.line, styles.lineOne)} />
-        <div className={cx(styles.line, styles.lineTwo)} />
-        <div className={cx(styles.line, styles.lineThree)} />
-      </div>
-      <div className={styles.loadingContent}>
-        <span>{loadingLabel}</span>
-        <span className={styles.ellipsis} aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </span>
-      </div>
+    <main className={styles.siteFallbackPage}>
+      <section
+        aria-labelledby="site-problem-title"
+        className={styles.siteFallbackPanel}
+      >
+        <p className={styles.siteFallbackEyebrow}>
+          {t("fallbacks.site_error_label")}
+        </p>
+        <h1 id="site-problem-title">{t("fallbacks.site_error_title")}</h1>
+        <p>{t("fallbacks.site_error_content")}</p>
+        <div className={styles.siteFallbackActions}>
+          <Link className={styles.siteFallbackLink} to="/">
+            {t("not_found.back_home")}
+          </Link>
+          <button
+            className={styles.siteFallbackButton}
+            onClick={reloadPage}
+            type="button"
+          >
+            {t("fallbacks.reload")}
+          </button>
+        </div>
+      </section>
     </main>
   );
 }

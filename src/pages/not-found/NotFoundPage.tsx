@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./NotFoundPage.module.css";
 
-const blackHoleRings = [0, 1, 2, 3] as const;
+const blackHoleRings = [0, 1, 2] as const;
 const MIN_STAR_COUNT = 28;
 const MAX_STAR_COUNT = 220;
 const STAR_AREA_RATIO = 6200;
@@ -16,6 +16,10 @@ const SHOOTING_STAR_AREA_RATIO = 280000;
 interface CursorPosition {
   x: number;
   y: number;
+}
+
+function cx(...classes: (string | undefined)[]) {
+  return classes.filter(Boolean).join(" ");
 }
 
 function createSeededRandom(seed: number) {
@@ -183,9 +187,17 @@ export function NotFoundPage() {
               setIsCursorActive(false);
             }}
           >
-            {blackHoleRings.map((ring) => (
-              <span key={ring} />
-            ))}
+            <div className={styles.blackHoleGlow} />
+            <div
+              className={cx(
+                styles.blackHoleRingLayer,
+                styles.blackHoleFrontRings,
+              )}
+            >
+              {blackHoleRings.map((ring) => (
+                <span key={"front-" + ring.toString()} />
+              ))}
+            </div>
           </div>
           <img alt="" className={styles.astronaut} src={astroNotFound} />
         </div>

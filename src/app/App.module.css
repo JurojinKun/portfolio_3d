@@ -1,171 +1,494 @@
 .loadingScreen {
-  display: flex;
+  --loader-bg: #02020d;
+  --loader-cyan: #47cdd6;
+  --loader-blue: #686ffd;
+  --loader-violet: #9d4dc4;
+  --loader-light: #e9fbff;
+
+  position: relative;
+  isolation: isolate;
+  display: grid;
   width: 100vw;
   height: 100vh;
   height: 100dvh;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #02020d;
-  background: #02020d;
-  flex-direction: column;
+  overflow: hidden;
+  place-items: center;
+  border: 1px solid var(--loader-bg);
+  background:
+    radial-gradient(circle at 50% 46%, rgb(71 205 214 / 9%), transparent 27%),
+    radial-gradient(circle at 58% 54%, rgb(157 77 196 / 8%), transparent 34%),
+    linear-gradient(180deg, rgb(2 2 13), rgb(4 4 15) 56%, rgb(2 2 13));
 }
 
-.atom {
-  position: relative;
-  display: flex;
-  width: 400px;
-  height: 400px;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-
-.atom::before {
+.loadingScreen::before {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle, rgb(233 251 255 / 34%) 0 1px, transparent 1.2px),
+    radial-gradient(circle, rgb(71 205 214 / 16%) 0 1px, transparent 1.3px);
+  background-position:
+    0 0,
+    38px 52px;
+  background-size:
+    96px 96px,
+    150px 150px;
+  content: "";
+  opacity: 0.13;
+  animation: loaderStarsDrift 24s linear infinite;
+}
+
+.loadingScreen::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 30% 28%, rgb(71 205 214 / 5%), transparent 34%),
+    radial-gradient(circle at 74% 62%, rgb(157 77 196 / 6%), transparent 38%),
+    linear-gradient(135deg, rgb(71 205 214 / 3%), transparent 48%);
+  content: "";
+  opacity: 0.74;
+}
+
+.atomLoader {
+  --atom-size: clamp(190px, 30vmin, 320px);
+
+  position: relative;
+  display: grid;
+  width: var(--atom-size);
+  aspect-ratio: 1;
+  place-items: center;
+  perspective: 780px;
+  transform: translateZ(0);
+}
+
+.atomLoader::before {
+  position: absolute;
+  width: 118%;
+  aspect-ratio: 1;
   border-radius: 50%;
-  background: transparent;
-  box-shadow: inset 0 0 10px white;
+  background:
+    radial-gradient(circle, rgb(71 205 214 / 16%), transparent 54%),
+    radial-gradient(circle, rgb(157 77 196 / 13%), transparent 70%);
+  content: "";
+  filter: blur(24px);
+  opacity: 0.78;
+  animation: atomGlowPulse 2.8s ease-in-out infinite;
+}
+
+.atomLoader::after {
+  position: absolute;
+  width: 82%;
+  aspect-ratio: 1;
+  border: 1px solid rgb(233 251 255 / 7%);
+  border-radius: 50%;
+  content: "";
+  opacity: 0.58;
+}
+
+.orbit {
+  --orbit-color: var(--loader-cyan);
+  --orbit-glow: rgb(71 205 214 / 32%);
+
+  position: absolute;
+  inset: 7%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 90deg,
+    transparent 0 9%,
+    rgb(233 251 255 / 78%) 14%,
+    var(--orbit-color) 22%,
+    transparent 34%,
+    transparent 57%,
+    var(--orbit-color) 68%,
+    rgb(233 251 255 / 54%) 75%,
+    transparent 88% 100%
+  );
+  filter: drop-shadow(0 0 10px var(--orbit-glow));
+  opacity: 0.88;
+  transform-style: preserve-3d;
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 3px),
+    #000 calc(100% - 2px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 3px),
+    #000 calc(100% - 2px)
+  );
+}
+
+.orbit::before {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  width: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--loader-light);
+  box-shadow:
+    0 0 10px rgb(233 251 255 / 78%),
+    0 0 18px var(--orbit-glow);
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.orbitOne {
+  --orbit-color: var(--loader-blue);
+  --orbit-glow: rgb(104 111 253 / 34%);
+
+  animation: orbitOneSpin 3.8s linear infinite;
+}
+
+.orbitTwo {
+  --orbit-color: var(--loader-cyan);
+  --orbit-glow: rgb(71 205 214 / 34%);
+
+  inset: 9%;
+  animation: orbitTwoSpin 4.9s linear infinite;
+}
+
+.orbitThree {
+  --orbit-color: var(--loader-violet);
+  --orbit-glow: rgb(157 77 196 / 34%);
+
+  inset: 10%;
+  animation: orbitThreeSpin 5.8s linear infinite;
+}
+
+.nucleus {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: clamp(30px, 4.8vmin, 46px);
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 32%, #fff 0 8%, transparent 18%),
+    radial-gradient(
+      circle at 50% 50%,
+      var(--loader-light) 0 17%,
+      #47cdd6 38%,
+      #686ffd 64%,
+      #9d4dc4 100%
+    );
+  box-shadow:
+    0 0 16px rgb(233 251 255 / 58%),
+    0 0 30px rgb(71 205 214 / 36%),
+    0 0 48px rgb(157 77 196 / 22%);
+  animation: nucleusPulse 2.2s ease-in-out infinite;
+}
+
+.nucleus::before {
+  position: absolute;
+  inset: -9px;
+  border: 1px solid rgb(233 251 255 / 12%);
+  border-radius: inherit;
   content: "";
 }
 
-.line {
+.nucleus span {
+  width: 42%;
+  aspect-ratio: 1;
+  border-radius: inherit;
+  background: rgb(255 255 255 / 76%);
+  filter: blur(4px);
+}
+
+.energyParticles {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.energyParticles span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  aspect-ratio: 1;
   border-radius: 50%;
-  opacity: 0.7;
+  background: var(--loader-light);
+  box-shadow:
+    0 0 8px rgb(233 251 255 / 74%),
+    0 0 16px rgb(71 205 214 / 40%);
+  opacity: 0;
+  transform-origin: 0 0;
+  animation: particleDrift 2.8s ease-in-out infinite;
 }
 
-.lineOne {
-  border-top: 10px solid #686ffd;
-  border-bottom: 10px solid #686ffd;
-  animation: loadingLineOne 2s linear infinite;
-  filter: drop-shadow(0 0 10px #686ffd);
+.siteFallbackPage {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  place-items: center;
+  padding: clamp(24px, 6vw, 64px);
+  color: var(--color-text);
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 6%), transparent 42%),
+    linear-gradient(315deg, rgb(157 77 196 / 8%), transparent 46%),
+    var(--color-background);
+  font-family: var(--font-sans);
 }
 
-.lineTwo {
-  border-top: 10px solid #47cdd6;
-  border-bottom: 10px solid #47cdd6;
-  animation: loadingLineTwo 3s linear infinite;
-  filter: drop-shadow(0 0 10px #47cdd6);
+.siteFallbackPage::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 28% 22%, rgb(71 205 214 / 8%), transparent 28%),
+    radial-gradient(circle at 76% 72%, rgb(157 77 196 / 8%), transparent 32%),
+    linear-gradient(180deg, rgb(255 255 255 / 3%), transparent 34%);
+  content: "";
+  opacity: 0.82;
 }
 
-.lineThree {
-  border-top: 10px solid #9d4dc4;
-  border-bottom: 10px solid #9d4dc4;
-  animation: loadingLineThree 3s linear infinite;
-  filter: drop-shadow(0 0 10px #9d4dc4);
+.siteFallbackPanel {
+  display: grid;
+  width: min(100%, 680px);
+  gap: 18px;
+  padding: clamp(24px, 5vw, 40px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 8%), transparent 42%),
+    linear-gradient(315deg, rgb(157 77 196 / 10%), transparent 48%),
+    var(--color-panel-strong);
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 50%),
+    var(--shadow-panel),
+    inset 0 0 0 1px rgb(255 255 255 / 4%);
 }
 
-.loadingContent {
-  color: #e9fbff;
+.siteFallbackEyebrow {
+  margin: 0;
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.siteFallbackPanel h1 {
+  margin: 0;
+  color: var(--color-text);
   font-family: var(--font-display);
   font-size: var(--text-title-mobile);
-  font-weight: var(--font-weight-heavy);
+  line-height: 1.08;
+}
+
+.siteFallbackPanel p {
+  max-width: 58ch;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.55;
+}
+
+.siteFallbackActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.siteFallbackLink,
+.siteFallbackButton {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(243 199 255 / 20%);
+  border-radius: 6px;
+  padding: 10px 16px;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 20%), rgb(157 77 196 / 18%)),
+    var(--color-panel);
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
   letter-spacing: 0;
-  line-height: 1;
-  text-align: center;
-  text-shadow:
-    0 0 18px rgb(71 205 214 / 24%),
-    0 0 30px rgb(157 77 196 / 18%);
+  text-decoration: none;
+  transition:
+    border-color 140ms ease,
+    color 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease;
 }
 
-.ellipsis span {
-  display: inline-block;
-  width: 0.3em;
-  height: 0.3em;
-  margin-left: 0.2em;
-  border-radius: 50%;
-  animation: loadingBlink 1.4s infinite;
-  background: white;
-  opacity: 0;
+.siteFallbackButton {
+  appearance: none;
 }
 
-.ellipsis span:nth-child(1) {
-  animation-delay: 0.2s;
+.siteFallbackLink:hover,
+.siteFallbackLink:focus-visible,
+.siteFallbackButton:hover,
+.siteFallbackButton:focus-visible {
+  border-color: rgb(243 199 255 / 54%);
+  box-shadow: 0 0 22px rgb(157 77 196 / 14%);
+  color: #e9fbff;
+  outline: none;
+  transform: translateY(-1px);
 }
 
-.ellipsis span:nth-child(2) {
-  animation-delay: 0.4s;
+.energyParticles span:nth-child(1) {
+  --particle-angle: -16deg;
+  --particle-distance: 42%;
+
+  animation-delay: 0s;
 }
 
-.ellipsis span:nth-child(3) {
-  animation-delay: 0.6s;
+.energyParticles span:nth-child(2) {
+  --particle-angle: 126deg;
+  --particle-distance: 38%;
+
+  width: 3px;
+  animation-delay: 0.66s;
 }
 
-@keyframes loadingLineOne {
+.energyParticles span:nth-child(3) {
+  --particle-angle: 246deg;
+  --particle-distance: 45%;
+
+  width: 3px;
+  animation-delay: 1.34s;
+}
+
+@keyframes loaderStarsDrift {
   to {
-    transform: rotateY(70deg) rotateZ(360deg);
-  }
-
-  from {
-    transform: rotateY(70deg) rotateZ(0deg);
+    background-position:
+      96px 96px,
+      188px 202px;
   }
 }
 
-@keyframes loadingLineTwo {
-  to {
-    transform: rotateX(80deg) rotateY(25deg) rotateZ(360deg);
-  }
-
-  from {
-    transform: rotateX(80deg) rotateY(25deg) rotateZ(0deg);
-  }
-}
-
-@keyframes loadingLineThree {
-  to {
-    transform: rotateX(-80deg) rotateY(25deg) rotateZ(360deg);
-  }
-
-  from {
-    transform: rotateX(-80deg) rotateY(25deg) rotateZ(0deg);
-  }
-}
-
-@keyframes loadingBlink {
+@keyframes atomGlowPulse {
   0%,
   100% {
-    opacity: 0;
+    opacity: 0.56;
+    transform: scale(0.95);
   }
 
   50% {
-    opacity: 1;
+    opacity: 0.86;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes orbitOneSpin {
+  from {
+    transform: rotateY(70deg) rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateY(70deg) rotateZ(360deg);
+  }
+}
+
+@keyframes orbitTwoSpin {
+  from {
+    transform: rotateX(78deg) rotateY(24deg) rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateX(78deg) rotateY(24deg) rotateZ(360deg);
+  }
+}
+
+@keyframes orbitThreeSpin {
+  from {
+    transform: rotateX(-78deg) rotateY(24deg) rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateX(-78deg) rotateY(24deg) rotateZ(360deg);
+  }
+}
+
+@keyframes nucleusPulse {
+  0%,
+  100% {
+    transform: scale(0.96);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes particleDrift {
+  0%,
+  100% {
+    opacity: 0;
+    transform: rotate(var(--particle-angle))
+      translateX(calc(var(--particle-distance) * 0.8)) scale(0.55);
+  }
+
+  42% {
+    opacity: 0.78;
+    transform: rotate(calc(var(--particle-angle) + 56deg))
+      translateX(var(--particle-distance)) scale(1);
+  }
+
+  72% {
+    opacity: 0.38;
   }
 }
 
 @media (max-width: 824px), (max-height: 700px) {
-  .atom {
-    width: 300px;
-    height: 300px;
-    margin-bottom: 30px;
+  .atomLoader {
+    --atom-size: clamp(168px, 38vmin, 255px);
   }
 
-  .atom::before {
-    width: 15px;
-    height: 15px;
-  }
-
-  .loadingContent {
-    font-size: var(--text-xl);
+  .orbit::before {
+    width: 7px;
   }
 }
 
 @media (max-width: 480px), (max-height: 500px) {
-  .atom {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 20px;
+  .atomLoader {
+    --atom-size: clamp(138px, 48vmin, 190px);
   }
 
-  .atom::before {
-    width: 10px;
-    height: 10px;
+  .orbit {
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 2.5px),
+      #000 calc(100% - 1.5px)
+    );
+    mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 2.5px),
+      #000 calc(100% - 1.5px)
+    );
   }
 
-  .loadingContent {
-    font-size: var(--text-lg);
+  .orbit::before {
+    width: 6px;
+  }
+
+  .nucleus {
+    width: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loadingScreen::before,
+  .atomLoader::before,
+  .orbit,
+  .nucleus,
+  .energyParticles span {
+    animation: none;
+  }
+
+  .energyParticles span {
+    opacity: 0.55;
   }
 }

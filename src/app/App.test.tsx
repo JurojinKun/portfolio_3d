@@ -81,10 +81,9 @@ describe("App", () => {
 
     expect(
       await screen.findByRole("heading", {
-        name: /hi, i'm clément communay/i,
+        name: /clément communay \| portfolio/i,
       }),
     ).toBeInTheDocument();
-    expect(await screen.findByText(/welcome to my world/i)).toBeInTheDocument();
     expect(
       await screen.findByRole("link", { name: /about me/i }),
     ).toHaveAttribute("href", "/portfolio/aboutme");
