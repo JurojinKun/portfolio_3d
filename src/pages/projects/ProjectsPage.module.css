@@ -1,0 +1,434 @@
+.page {
+  min-height: 100vh;
+  padding: 64px 24px;
+  scroll-margin-top: 104px;
+  background: transparent;
+}
+
+.page[data-portfolio-section="true"] {
+  min-height: auto;
+  padding-block: 0;
+}
+
+.header {
+  width: min(100%, var(--portfolio-content-width));
+  margin: 0 auto 40px;
+}
+
+.page[data-portfolio-section="true"] .header {
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #e9fbff;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-heavy);
+  text-shadow: 0 0 18px rgb(71 205 214 / 22%);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: var(--text-title);
+  line-height: var(--line-tight);
+  text-shadow: 0 0 28px rgb(157 77 196 / 18%);
+}
+
+.layout {
+  display: grid;
+  width: min(100%, var(--portfolio-content-width));
+  align-items: start;
+  column-gap: 28px;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 420px);
+  margin: 0 auto;
+  row-gap: 18px;
+}
+
+.projectGroup {
+  display: grid;
+  grid-column: 1;
+  gap: 18px;
+  min-width: 0;
+}
+
+.projectGroup[data-project-group="professional"] {
+  display: contents;
+}
+
+.projectGroup[data-project-group="professional"] .groupHeader {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.projectGroup[data-project-group="professional"] .groupBody {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.projectGroup[data-project-group="personal"] {
+  grid-row: 3;
+  margin-top: 22px;
+}
+
+.groupBody {
+  display: grid;
+  align-items: start;
+}
+
+.groupHeader h2 {
+  margin: 0;
+  font-size: var(--text-xl);
+  line-height: 1.2;
+}
+
+.groupHeader p {
+  margin: 6px 0 0;
+  color: var(--color-text-muted);
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.projectCard {
+  display: grid;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgb(243 199 255 / 16%);
+  border-radius: 8px;
+  padding: 0;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 8%), transparent 42%),
+    rgb(14 14 22 / 78%);
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  text-align: left;
+  transition:
+    background 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease;
+}
+
+.projectCard:hover,
+.projectCard:focus-visible,
+.projectCard[data-active="true"] {
+  border-color: rgb(243 199 255 / 44%);
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 14%), rgb(157 77 196 / 12%)),
+    rgb(14 14 22 / 86%);
+  box-shadow:
+    0 16px 48px rgb(0 0 0 / 28%),
+    0 0 26px rgb(157 77 196 / 12%);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.projectCard img {
+  display: block;
+  width: 100%;
+  height: clamp(128px, 11vw, 150px);
+  border-bottom: 1px solid rgb(243 199 255 / 10%);
+  background: rgb(2 2 13 / 52%);
+  object-fit: cover;
+}
+
+.projectCard span,
+.projectCard small {
+  display: block;
+  padding-inline: 14px;
+}
+
+.projectCard span {
+  align-self: end;
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--font-weight-bold);
+}
+
+.projectCard small {
+  align-self: start;
+  margin: 8px 0 14px;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+.detailPanel {
+  position: sticky;
+  grid-column: 2;
+  grid-row: 2 / 4;
+  align-self: start;
+  top: 104px;
+  min-width: 0;
+}
+
+.detail {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: calc(100dvh - 128px);
+  overflow: hidden;
+  scroll-margin-top: 112px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 9%), transparent 42%),
+    linear-gradient(315deg, rgb(157 77 196 / 12%), transparent 44%),
+    var(--color-panel-strong);
+}
+
+.detail > img {
+  display: block;
+  width: 100%;
+  height: clamp(162px, 13vw, 184px);
+  background: rgb(2 2 13 / 58%);
+  object-fit: cover;
+}
+
+.detailCloseButton {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(243 199 255 / 24%);
+  border-radius: 6px;
+  padding: 0;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 12%), rgb(157 77 196 / 12%)),
+    rgb(14 14 22 / 86%);
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    border-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease;
+}
+
+.detailCloseButton:hover,
+.detailCloseButton:focus-visible {
+  border-color: rgb(243 199 255 / 52%);
+  color: #e9fbff;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.detailCloseButton svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.detailContent {
+  display: grid;
+  min-height: 0;
+  gap: 18px;
+  overflow: auto;
+  padding-block: 18px 22px;
+}
+
+.detailHeader,
+.detail section,
+.repositoryLink {
+  margin-inline: 22px;
+}
+
+.detailHeader {
+  display: grid;
+  gap: 6px;
+}
+
+.detailHeader p {
+  margin: 0;
+  color: #e9fbff;
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.detailHeader h2 {
+  margin: 0;
+  font-size: var(--text-xl);
+  line-height: 1.15;
+}
+
+.detail section {
+  display: grid;
+  gap: 8px;
+}
+
+.detail h3 {
+  margin: 0;
+  font-size: var(--text-base);
+}
+
+.detail section p {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: var(--line-copy);
+}
+
+.repositoryLink {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  border: 1px solid rgb(243 199 255 / 20%);
+  border-radius: 6px;
+  padding: 10px 16px;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 18%), rgb(157 77 196 / 16%)),
+    rgb(14 14 22 / 82%);
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  transition:
+    border-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease;
+}
+
+.repositoryLink:hover,
+.repositoryLink:focus-visible {
+  border-color: rgb(243 199 255 / 54%);
+  color: #e9fbff;
+  box-shadow: 0 0 22px rgb(157 77 196 / 14%);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.sheetBackdrop {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: rgb(2 2 13 / 58%);
+  cursor: default;
+  backdrop-filter: blur(5px);
+}
+
+.bottomSheet {
+  position: fixed;
+  z-index: 61;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  max-height: 100dvh;
+  border: 0;
+  border-radius: 8px 8px 0 0;
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 10%), transparent 42%),
+    linear-gradient(315deg, rgb(157 77 196 / 14%), transparent 48%),
+    rgb(10 10 18 / 96%);
+  box-shadow:
+    0 -20px 70px rgb(0 0 0 / 44%),
+    0 0 38px rgb(157 77 196 / 14%);
+  overflow: hidden;
+}
+
+.bottomSheet .detail {
+  max-height: 100dvh;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none !important;
+}
+
+.bottomSheet .detailContent {
+  padding-bottom: calc(18px + env(safe-area-inset-bottom));
+}
+
+.bottomSheet .detail > img {
+  height: clamp(154px, 36vw, 196px);
+}
+
+@media (max-width: 1040px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .projectCard img {
+    height: clamp(150px, 22vw, 184px);
+  }
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 48px 20px;
+  }
+
+  .header h1 {
+    font-size: var(--text-title-tablet);
+  }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+  }
+
+  .projectGroup[data-project-group="professional"] {
+    display: grid;
+  }
+
+  .projectGroup[data-project-group="professional"] .groupHeader,
+  .projectGroup[data-project-group="professional"] .groupBody,
+  .projectGroup[data-project-group="personal"] {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .projectGroup[data-project-group="personal"] {
+    margin-top: 0;
+  }
+
+  .detailPanel {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 32px 16px;
+  }
+
+  .projectCard {
+    min-height: 0;
+  }
+
+  .projectCard img {
+    height: clamp(132px, 36vw, 164px);
+  }
+
+  .detailHeader,
+  .detail section,
+  .repositoryLink {
+    margin-inline: 16px;
+  }
+
+  .detailContent {
+    padding-block: 18px 16px;
+  }
+
+  .detail > img {
+    height: 148px;
+  }
+
+  .bottomSheet .detail > img {
+    height: clamp(142px, 42vw, 168px);
+  }
+}

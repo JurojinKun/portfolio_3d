@@ -1,0 +1,33 @@
+.page {
+  position: relative;
+  min-height: 100vh;
+  scroll-padding-top: 104px;
+  background:
+    radial-gradient(circle at 14% 8%, rgb(71 205 214 / 8%), transparent 30%),
+    radial-gradient(circle at 88% 14%, rgb(157 77 196 / 8%), transparent 32%),
+    radial-gradient(circle at 12% 48%, rgb(157 77 196 / 5%), transparent 34%),
+    radial-gradient(circle at 84% 76%, rgb(71 205 214 / 5%), transparent 36%),
+    linear-gradient(
+      180deg,
+      rgb(2 2 13),
+      rgb(3 3 13) 34%,
+      rgb(4 4 15) 68%,
+      rgb(2 2 13)
+    );
+}
+
+.page > section[data-portfolio-section="true"] {
+  padding-block: var(--portfolio-section-padding-block);
+}
+
+@media (max-width: 620px) {
+  .page > section[data-portfolio-section="true"] {
+    padding-block: var(--portfolio-section-padding-block-tablet);
+  }
+}
+
+@media (max-width: 420px) {
+  .page > section[data-portfolio-section="true"] {
+    padding-block: var(--portfolio-section-padding-block-mobile);
+  }
+}

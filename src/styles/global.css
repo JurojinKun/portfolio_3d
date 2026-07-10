@@ -1,0 +1,24 @@
+@import "./tokens.css";
+@import "./reset.css";
+
+body {
+  color: var(--color-text);
+  background: var(--color-background);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-synthesis: none;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:where(h1, h2, h3) {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+}
+
+:where(button, a) {
+  font-family: var(--font-display);
+}

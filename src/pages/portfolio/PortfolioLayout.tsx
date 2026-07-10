@@ -1,0 +1,226 @@
+import { portfolioSections } from "@/data/navigation";
+import {
+  defaultLanguage,
+  isSupportedLanguage,
+  supportedLanguages,
+} from "@/i18n";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import { useEffect, useState, type MouseEvent } from "react";
+import { useTranslation } from "react-i18next";
+
+import styles from "./PortfolioLayout.module.css";
+
+const compactNavigationQuery = "(max-width: 1100px)";
+
+function isCompactNavigationViewport() {
+  return (
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia(compactNavigationQuery).matches
+  );
+}
+
+export function PortfolioLayout() {
+  const { i18n, t } = useTranslation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCompactNavigation, setIsCompactNavigation] = useState(
+    isCompactNavigationViewport,
+  );
+  const isCompactMenuOpen = isCompactNavigation && isMenuOpen;
+  const navigationLinkClassName = styles.navigationLink ?? "";
+  const activeNavigationLinkClassName = styles.activeNavigationLink ?? "";
+  const currentLanguage = isSupportedLanguage(i18n.language)
+    ? i18n.language
+    : i18n.resolvedLanguage && isSupportedLanguage(i18n.resolvedLanguage)
+      ? i18n.resolvedLanguage
+      : defaultLanguage;
+
+  useEffect(() => {
+    if (
+      typeof window === "undefined" ||
+      typeof window.matchMedia !== "function"
+    ) {
+      return undefined;
+    }
+
+    const mediaQueryList = window.matchMedia(compactNavigationQuery);
+    const syncNavigationMode = () => {
+      setIsCompactNavigation(mediaQueryList.matches);
+
+      if (!mediaQueryList.matches) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    syncNavigationMode();
+    mediaQueryList.addEventListener("change", syncNavigationMode);
+
+    return () => {
+      mediaQueryList.removeEventListener("change", syncNavigationMode);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isCompactMenuOpen) {
+      return undefined;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isCompactMenuOpen]);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const handleHomeNavigation = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.currentTarget.blur();
+    closeMenu();
+  };
+
+  const handleTopNavigation = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.currentTarget.blur();
+    closeMenu();
+
+    if (
+      typeof window === "undefined" ||
+      typeof window.scrollTo !== "function"
+    ) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      try {
+        window.scrollTo({
+          behavior:
+            typeof window.matchMedia === "function" &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches
+              ? "auto"
+              : "smooth",
+          top: 0,
+        });
+      } catch {
+        window.scrollTo(0, 0);
+      }
+    });
+  };
+
+  const languageControls = (className: string) => (
+    <div className={className} aria-label="Language">
+      {supportedLanguages.map((language) => (
+        <button
+          className={styles.languageButton}
+          data-active={language === currentLanguage}
+          key={language}
+          onClick={() => {
+            void i18n.changeLanguage(language);
+          }}
+          type="button"
+        >
+          {t(`languages.${language === "fr" ? "french" : "english"}`)}
+        </button>
+      ))}
+    </div>
+  );
+
+  return (
+    <div
+      className={styles.shell}
+      data-menu-open={isCompactMenuOpen || undefined}
+    >
+      <button
+        className={styles.menuBackdrop}
+        type="button"
+        aria-label={t("portfolio.menu")}
+        data-open={isCompactMenuOpen || undefined}
+        onClick={closeMenu}
+      />
+
+      <header className={styles.header} data-portfolio-header>
+        <div className={styles.quickLinks} aria-label="Portfolio">
+          <Link
+            aria-label={t("portfolio.home")}
+            className={styles.homeLink}
+            onClick={handleHomeNavigation}
+            to="/"
+          >
+            <img alt="" src="/icons/home.svg" />
+            <span>{t("portfolio.home")}</span>
+          </Link>
+        </div>
+
+        <button
+          className={styles.menuButton}
+          type="button"
+          aria-controls="portfolio-navigation"
+          aria-expanded={isCompactMenuOpen}
+          aria-label={t("portfolio.menu")}
+          onClick={() => {
+            setIsMenuOpen((currentValue) => !currentValue);
+          }}
+        >
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M4 6.5h16v2H4v-2Zm0 4.5h16v2H4v-2Zm0 4.5h16v2H4v-2Z" />
+          </svg>
+        </button>
+
+        <nav
+          className={styles.navigation}
+          id="portfolio-navigation"
+          aria-label={t("portfolio.menu")}
+          data-open={isCompactMenuOpen || undefined}
+        >
+          {portfolioSections.map((section) => (
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? [navigationLinkClassName, activeNavigationLinkClassName]
+                      .filter(Boolean)
+                      .join(" ")
+                  : navigationLinkClassName
+              }
+              key={section.id}
+              onClick={closeMenu}
+              to={section.route}
+            >
+              <img alt="" src={section.iconPath} />
+              <span>{t(section.labelKey)}</span>
+            </NavLink>
+          ))}
+          {languageControls(styles.mobileLanguageActions ?? "")}
+        </nav>
+
+        {languageControls(styles.languageActions ?? "")}
+      </header>
+
+      <Outlet />
+
+      <Link
+        aria-label={t("portfolio.top")}
+        className={styles.scrollTopLink}
+        onClick={handleTopNavigation}
+        to="/portfolio/aboutme"
+      >
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M12 19V5" />
+          <path d="m6 11 6-6 6 6" />
+        </svg>
+        <span>{t("portfolio.top")}</span>
+      </Link>
+    </div>
+  );
+}
