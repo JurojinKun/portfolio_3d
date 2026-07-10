@@ -176,7 +176,7 @@ describe("App", () => {
       screen.getByRole("heading", { name: /skills/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /^react js$/i }),
+      screen.getByRole("button", { name: /^react$/i }),
     ).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("button", { name: /^github$/i }));

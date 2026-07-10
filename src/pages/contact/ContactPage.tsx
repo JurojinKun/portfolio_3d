@@ -14,7 +14,7 @@ import styles from "./ContactPage.module.css";
 interface ContactFormState {
   name: string;
   firstname: string;
-  post: string;
+  profession: string;
   email: string;
   message: string;
 }
@@ -32,7 +32,7 @@ const initialFormState: ContactFormState = {
   firstname: "",
   message: "",
   name: "",
-  post: "",
+  profession: "",
 };
 
 const contactFields = [
@@ -49,7 +49,7 @@ const contactFields = [
     type: "text",
   },
   {
-    id: "post",
+    id: "profession",
     labelKey: "contact_me.title_post",
     placeholderKey: "contact_me.label_post",
     type: "text",
@@ -123,8 +123,6 @@ export function ContactPage({
       return;
     }
 
-    const fullName = `${form.firstname} ${form.name}`.trim();
-
     setIsSending(true);
     setStatus(null);
 
@@ -133,15 +131,12 @@ export function ContactPage({
         contactConfig.emailJsServiceId,
         contactConfig.emailJsTemplateId,
         {
-          first_name: form.firstname,
-          form_name: fullName,
-          from_email: form.email,
-          last_name: form.name,
-          message: form.message,
-          post: form.post,
-          reply_to: form.email,
+          first_name: form.firstname.trim(),
+          from_email: form.email.trim(),
+          last_name: form.name.trim(),
+          message: form.message.trim(),
+          profession: form.profession.trim(),
           to_email: contactConfig.recipientEmail,
-          to_name: contactConfig.emailJsToName,
         },
         { publicKey: contactConfig.emailJsPublicKey },
       );
