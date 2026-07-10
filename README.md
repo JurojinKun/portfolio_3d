@@ -1,59 +1,61 @@
-# Portfolio
+# Clement Communay Portfolio
 
-Portfolio personnel 3D de Clement Communay.
+Portfolio personnel de Clement Communay, construit avec React, TypeScript, Vite et Three.js.
 
-Production actuelle : [https://0ruj-portfolio.netlify.app/](https://0ruj-portfolio.netlify.app/)
+Production : [https://clement-communay-portfolio.netlify.app/](https://clement-communay-portfolio.netlify.app/)
 
-## Etat actuel
+## Apercu
 
-Le projet utilise maintenant une v2 technique propre sur la branche :
+Le projet presente mon profil, mes experiences, mes competences, mes projets professionnels/personnels et un formulaire de contact.
 
-```bash
-v2-modernization
-```
+L'accueil propose une experience 3D interactive avec satellites de navigation. Les pages internes utilisent un layout commun responsive, une navigation sticky, un changement de langue et des contenus structures via i18n.
 
-La v1 historique a ete retiree de `src/` apres le portage des pages principales. L'application lancee localement utilise maintenant l'entree Vite/React TS, une page d'accueil v2, un layout portfolio commun et les pages principales portees.
+## Fonctionnalites
 
-## Stack v2
+- Home 3D interactive avec React Three Fiber et Three.js
+- Navigation vers les sections principales depuis la scene 3D
+- Pages About, Experiences, Skills, Projects et Contact
+- Detail projet en vue desktop et bottom sheet en mobile
+- Internationalisation francais / anglais avec i18next
+- Formulaire de contact EmailJS
+- Loader initial avec prechargement des images critiques
+- Page 404 personnalisee
+- Fallbacks d'erreur applicative
+- Build Vite avec code splitting des vendors principaux
+
+## Stack
 
 - Node `24.18.0`
 - npm `11.16.0`
-- React `19.2.7`
-- React DOM `19.2.7`
-- React Router DOM `7.18.1`
-- Three.js `0.185.1`
-- React Three Fiber `9.6.1`
-- Drei `10.7.7`
-- Vite `8.1.2`
-- TypeScript `5.9.3`
-- ESLint `10.6.0`
-- Vitest `4.1.9`
-- Testing Library
+- React `19`
+- TypeScript
+- Vite
+- React Router DOM
+- Three.js
+- React Three Fiber
+- Drei
 - i18next / react-i18next
-
-Le projet n'utilise plus Create React App / `react-scripts`.
+- EmailJS
+- CSS Modules
+- Vitest / Testing Library
+- ESLint / Prettier
+- Netlify
 
 ## Prerequis
 
-Utiliser Node 24 via NVM :
+Utiliser Node 24 :
 
 ```bash
 nvm install
 nvm use
 ```
 
-Si `nvm` n'est pas charge dans le shell :
-
-```bash
-source ~/.nvm/nvm.sh
-nvm use
-```
-
-La version Node est fixee par :
+La version Node est declaree dans :
 
 - `.nvmrc`
 - `.node-version`
-- `package.json` avec `"engines": { "node": ">=24" }`
+- `package.json`
+- `netlify.toml`
 
 ## Installation
 
@@ -61,21 +63,13 @@ La version Node est fixee par :
 npm install
 ```
 
-Si le cache global npm pose probleme localement, utiliser le cache ignore par Git :
-
-```bash
-npm install --cache .npm-cache
-```
-
 ## Developpement
-
-Lancer le serveur local avec hot reload :
 
 ```bash
 npm run dev
 ```
 
-Puis ouvrir :
+Application locale :
 
 ```txt
 http://127.0.0.1:5173/
@@ -83,236 +77,112 @@ http://127.0.0.1:5173/
 
 ## Scripts
 
-| Commande               | Role                                                            |
-| ---------------------- | --------------------------------------------------------------- |
-| `npm run dev`          | Lance Vite en developpement avec hot reload                     |
-| `npm start`            | Alias de `npm run dev`                                          |
-| `npm run build`        | Lance le typecheck puis genere le build production dans `dist/` |
-| `npm run preview`      | Sert localement le build production                             |
-| `npm run typecheck`    | Verifie TypeScript sans generer de fichiers                     |
-| `npm run lint`         | Lance ESLint sur les fichiers TypeScript/TSX                    |
-| `npm run test`         | Lance les tests Vitest une fois                                 |
-| `npm run test:watch`   | Lance Vitest en mode watch                                      |
-| `npm run format`       | Verifie le formatage Prettier                                   |
-| `npm run format:write` | Applique le formatage Prettier                                  |
+| Commande               | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| `npm run dev`          | Lance le serveur Vite en developpement       |
+| `npm start`            | Alias de `npm run dev`                       |
+| `npm run build`        | Typecheck puis build production dans `dist/` |
+| `npm run preview`      | Sert localement le build production          |
+| `npm run typecheck`    | Verifie TypeScript                           |
+| `npm run lint`         | Lance ESLint                                 |
+| `npm run test`         | Lance Vitest                                 |
+| `npm run test:watch`   | Lance Vitest en mode watch                   |
+| `npm run format`       | Verifie Prettier                             |
+| `npm run format:write` | Applique Prettier                            |
 
-## Organisation `src/`
+## Routes
 
-La v2 utilise progressivement cette structure cible :
+- `/` : accueil 3D
+- `/aboutme` : profil
+- `/experiences` : experiences professionnelles
+- `/skills` : competences
+- `/projects` : projets
+- `/contactme` : contact
+- `/notfound` : page 404
+- `*` : fallback 404
+
+Les routes de sections affichent une page portfolio commune et scrollent vers la section cible. Le scroll met aussi l'URL a jour avec la section active.
+
+## Structure
 
 ```txt
 src/
-  app/       Composition racine de l'application
-  data/      Donnees typees de navigation, projets, competences, experiences
-  i18n/      Configuration i18next, locales et tests de parite
-  pages/     Pages v2 portees en TSX et CSS Modules
-  shared/    Configuration, types et helpers transverses
-  styles/    Reset, tokens et styles globaux limites
+  app/       Composition racine, routing, loader et fallbacks
+  assets/    Images importees par le code React
+  data/      Donnees typees de navigation, projets, skills et experiences
+  i18n/      Configuration i18next et locales
+  pages/     Pages et sections de l'application
+  shared/    Helpers et configuration transverse
+  styles/    Tokens, reset et styles globaux
   test/      Configuration des tests
 ```
 
-Les anciens dossiers JS/CSS de la v1 ont ete supprimes. Le code v2 doit utiliser des imports `@/*` au lieu de longs chemins relatifs.
-
-## Gestion CSS
-
-La v2 separe les styles en deux niveaux :
-
-- styles globaux limites dans `src/styles/` ;
-- styles scopes par composant ou page avec des fichiers `*.module.css`.
-
-Les fichiers globaux ont chacun un role strict :
-
-- `tokens.css` contient uniquement les variables CSS partagees : couleurs, typographies, espacements et futures valeurs de design system ;
-- `reset.css` neutralise les styles navigateur par defaut : `box-sizing`, marges du `body`, hauteur racine, heritage de police des champs ;
-- `global.css` importe `tokens.css` et `reset.css`, puis applique uniquement les styles document-level comme la couleur de texte, le fond, la police globale et le lissage.
-
-Les composants et pages doivent utiliser des CSS Modules, par exemple `App.module.css`. Ces classes sont importees dans le composant et scopees automatiquement par Vite, ce qui evite les collisions de classes globales.
-
-## Typographie
-
-La v2 utilise deux familles Google Fonts chargees depuis `index.html` :
-
-- `Manrope` pour les textes courants, paragraphes et interfaces longues a lire ;
-- `Space Grotesk` pour les titres, boutons, labels et elements UI a tonalite plus tech.
-
-Les familles, tailles, line-heights et poids principaux sont centralises dans `src/styles/tokens.css`. Les poids utilises doivent rester alignes avec ceux charges : regular `400`, medium `500`, bold `700` et heavy `800`.
-
-Les labels 3D de la home utilisent aussi Space Grotesk via le fichier local `public/fonts/SpaceGrotesk-Bold.ttf`, car le rendu Three/Troika charge une police par URL et ne reutilise pas directement les polices CSS chargees dans le document.
+Les assets servis directement par Vite sont dans `public/`.
 
 ## Internationalisation
 
-La v2 utilise `i18next`, `react-i18next` et `i18next-browser-languagedetector`.
-
-Les locales v2 sont dans :
+Les traductions sont dans :
 
 ```txt
 src/i18n/locales/fr.json
 src/i18n/locales/en.json
 ```
 
-La configuration est centralisee dans `src/i18n/`. Les langues supportees sont typees dans `supportedLanguages.ts`.
+La langue par defaut est l'anglais. Le choix utilisateur est conserve par i18next via le stockage navigateur.
 
-La langue par defaut est l'anglais. Le detecteur i18n restaure uniquement la langue choisie et stockee dans `localStorage`; sans choix utilisateur en cache, l'application demarre donc en anglais.
+## Contact et EmailJS
 
-Un test verifie que les fichiers FR et EN gardent les memes cles de traduction. Toute nouvelle cle ajoutee dans une langue doit etre ajoutee dans l'autre.
+Le formulaire de contact utilise EmailJS.
 
-## Assets
-
-Les assets importes par le code React restent dans `src/assets/`. Les assets servis tels quels par Vite restent dans `public/`.
-
-## Donnees applicatives
-
-La v2 sort progressivement les contenus structures des composants React pour les placer dans `src/data/`.
-
-Les donnees suivantes sont preparees :
-
-- navigation portfolio et satellites ;
-- projets professionnels et personnels ;
-- competences et sections editoriales de la page competences ;
-- experiences professionnelles.
-
-Ces donnees utilisent des IDs stables et des cles i18n, pas du texte brut. Les textes restent dans `src/i18n/locales/`.
-
-Un test verifie que les IDs restent uniques et que toutes les cles i18n referencees par les donnees existent en francais et en anglais.
-
-## Routing
-
-La v2 utilise React Router DOM.
-
-Routes actuellement branchees :
-
-- `/` : page d'accueil v2 en experience 3D plein ecran ;
-- `/:sectionId` : page portfolio unique en sections scrollables ;
-- `/aboutme` : section A propos ;
-- `/skills` : section Competences ;
-- `/experiences` : section Experiences ;
-- `/projects` : section Projets ;
-- `/contactme` : section Contact ;
-- `/notfound` : page 404 v2 ;
-- `*` : fallback vers la page 404 v2.
-
-Les routes de section portfolio gardent une URL dediee, mais elles rendent toutes la meme page. Au chargement, l'application scrolle vers la section cible ; pendant le scroll, un `IntersectionObserver` met l'URL a jour avec la section active. Le header portfolio passe en menu burger sur les largeurs ou les liens ne tiennent plus confortablement.
-
-## Variables d'environnement
-
-La page Contact v2 utilise EmailJS et lit sa configuration depuis :
+Variables attendues dans `.env` et sur Netlify :
 
 ```bash
 CONTACT_EMAIL=
 EMAILJS_SERVICE_ID=
 EMAILJS_TEMPLATE_ID=
 EMAILJS_PUBLIC_KEY=
-EMAILJS_TO_NAME=
 ```
 
-Ces variables doivent etre configurees dans un fichier `.env` local et sur Netlify pour activer l'envoi du formulaire de contact. Le fichier `.env` est ignore par Git.
+Le fichier `.env` est ignore par Git.
+
+Payload envoye au template EmailJS :
+
+```txt
+first_name
+last_name
+from_email
+profession
+message
+to_email
+```
+
+## Deploiement
+
+Le projet est deploye sur Netlify.
+
+Configuration :
+
+- Build command : `npm run build`
+- Publish directory : `dist`
+- Node : `24.18.0`
+- npm : `11.16.0`
+
+La configuration est versionnee dans `netlify.toml`.
 
 ## Validation
 
-Avant de valider une etape de migration, lancer :
+Avant publication :
 
 ```bash
 npm run typecheck
 npm run lint
 npm run test
 npm run build
-npm audit
 ```
 
-Etat de reference apres l'etape 2 : toutes ces commandes passent avec Node `24.18.0`.
+## Maintenance
 
-## Build et code splitting
-
-Le build separe explicitement les principaux vendors via `build.rolldownOptions.output.codeSplitting` :
-
-- `vendor-react` pour React et React DOM ;
-- `vendor-router-i18n` pour React Router et i18next ;
-- `vendor-three-core` pour Three.js ;
-- `vendor-three-react` pour React Three Fiber, Drei et les helpers 3D associes.
-
-La scene d'accueil reste chargee avec `React.lazy`. Le chunk applicatif `HomeScene` reste donc leger, tandis que le chunk Three.js est charge uniquement pour l'experience 3D.
-
-## Scene 3D d'accueil
-
-La scene 3D v2 de l'accueil est isolee dans :
-
-```txt
-src/pages/home/scene/
-```
-
-Elle utilise `three`, `@react-three/fiber` et `@react-three/drei`. Elle est chargee avec `React.lazy` depuis `HomePage` afin de preparer le code splitting.
-
-La scene contient :
-
-- un canvas d'etoiles plein ecran ;
-- un canvas principal plein ecran ;
-- une sphere hexagonale pleine affichee directement dans son etat final ;
-- des satellites deja deployes, cliquables, responsives, qui orbitent autour de la sphere et redirigent vers les routes portfolio ;
-- aucune animation pilotee par le scroll sur la page d'accueil ;
-- un prechargement de la police des labels satellites pour eviter une suspension de la scene au premier affichage du texte 3D ;
-- un loader initial repris de la v1, affiche uniquement au demarrage d'une nouvelle session de navigation via `sessionStorage.isSessionActive` ;
-- un fallback statique si WebGL est indisponible ou si l'utilisateur prefere reduire les animations.
-
-Le portage v2 n'a pas reintroduit Redux pour l'accueil. La page d'accueil affiche directement l'experience 3D finale, sans etat de scroll a restaurer.
-
-## Deploiement Netlify
-
-La configuration de deploiement est versionnee dans `netlify.toml`.
-
-Configuration appliquee :
-
-- Node : `24.18.0` ou superieur
-- npm : `11.16.0`
-- Build command : `npm run build`
-- Publish directory : `dist`
-
-Netlify lit aussi `.nvmrc` / `.node-version`, ce qui permet d'aligner la version Node locale et la version de build. `netlify.toml` fixe explicitement `NODE_VERSION` et `NPM_VERSION` pour eviter un ecart entre l'environnement local et l'environnement de deploiement.
-
-Le fichier `public/_redirects` est conserve pour gerer les routes SPA. Il est copie dans `dist/` pendant le build Vite.
-
-## Roadmap de migration
-
-### Termine
-
-- Creation de la branche `v2-modernization`.
-- Remplacement du socle CRA par Vite.
-- Passage a React 19.
-- Mise en place de TypeScript strict.
-- Mise en place de ESLint flat config.
-- Mise en place de Vitest et Testing Library.
-- Alignement sur Node 24 pour Netlify et le local.
-- Generation d'un lockfile propre avec npm 11.
-- Mise en place de la structure source v2 minimale.
-- Mise en place de la configuration i18n v2.
-- Extraction des donnees v2 pour la navigation, les projets, les competences et les experiences.
-- Portage des pages principales en TSX avec CSS Modules.
-- Portage de la scene 3D d'accueil en etat final direct.
-- Suppression des anciens fichiers CRA/JS/CSS/Redux non utilises par la v2.
-- Mise en place du routing v2 avec React Router DOM.
-- Portage de la page 404 en TSX et CSS Module.
-- Portage de la page A propos en TSX et CSS Module.
-- Portage de la page Competences en TSX et CSS Module.
-- Portage de la page Experiences en TSX et CSS Module.
-- Portage de la page Projets en TSX et CSS Module.
-- Portage de la page Contact en TSX et CSS Module.
-- Mise en place du layout portfolio v2 commun avec navigation et changement de langue.
-- Remplacement de l'entree `/` par une page d'accueil v2.
-- Rebranchement de la scene 3D sur l'accueil v2 avec fallback WebGL.
-- Mise en place du code splitting vendor pour React, routing/i18n et scene 3D.
-- Ajout de tests de non-regression pour les routes portfolio, les pages v2, les donnees, l'i18n et le menu burger compact.
-- Suppression de la route temporaire `/migration` et des fichiers de statut de migration associes.
-- Revue responsive des sections portfolio v2 et ajustement des paddings mobiles.
-- Ajout de la configuration `netlify.toml` et verification finale du build/deploiement Netlify.
-- Refonte typographique avec `Manrope` / `Space Grotesk` et reecriture des contenus About, Experiences, Projects et Skills.
-- Nettoyage des assets et manifestes non utilises par la v2.
-
-### Prochaines evolutions
-
-- Les prochaines modifications peuvent se concentrer sur la charte graphique, les visuels et les ameliorations de design plus fines.
-
-## Notes de maintenance
-
-- Ne pas reintroduire `react-scripts`.
-- `dist/`, `node_modules/` et `.npm-cache/` sont ignores par Git.
-- Les anciens fichiers JS/CSS/Redux de la v1 ont ete retires du code source v2.
-- Mettre a jour ce README a chaque etape importante de migration.
+- Ne pas reintroduire `react-scripts`
+- Garder `dist/`, `node_modules/` et `.npm-cache/` hors Git
+- Ajouter les nouvelles cles i18n dans les deux langues
+- Garder les routes publiques a la racine
