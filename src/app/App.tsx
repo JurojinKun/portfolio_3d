@@ -2,6 +2,7 @@ import { HomePage } from "@/pages/home/HomePage";
 import { NotFoundPage } from "@/pages/not-found/NotFoundPage";
 import { PortfolioLayout } from "@/pages/portfolio/PortfolioLayout";
 import { PortfolioPage } from "@/pages/portfolio/PortfolioPage";
+import { preloadAppImages } from "@/shared/assets/imagePreloader";
 import {
   Component,
   useEffect,
@@ -10,11 +11,12 @@ import {
   type ReactNode,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
 import styles from "./App.module.css";
 
-const appSessionStorageKey = "isSessionActive";
+const appSessionStorageKey = "isSessionActive:v2-image-preload-20260710";
+const initialLoaderMinimumDurationMs = 1000;
 
 function cx(...classes: (string | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -27,8 +29,7 @@ export function App() {
         <AppErrorBoundary>
           <Routes>
             <Route element={<HomePage />} path="/" />
-            <Route element={<PortfolioLayout />} path="/portfolio">
-              <Route index element={<Navigate replace to="aboutme" />} />
+            <Route element={<PortfolioLayout />}>
               <Route element={<PortfolioPage />} path=":sectionId" />
             </Route>
             <Route element={<NotFoundPage />} path="/notfound" />
@@ -48,13 +49,19 @@ function AppBootstrap({ children }: { children: ReactNode }) {
       return undefined;
     }
 
-    const timeoutId = window.setTimeout(() => {
+    let isMounted = true;
+
+    void waitForInitialAssets().then(() => {
+      if (!isMounted) {
+        return;
+      }
+
       window.sessionStorage.setItem(appSessionStorageKey, JSON.stringify(true));
       setIsReady(true);
-    }, 1000);
+    });
 
     return () => {
-      window.clearTimeout(timeoutId);
+      isMounted = false;
     };
   }, [isReady]);
 
@@ -63,6 +70,15 @@ function AppBootstrap({ children }: { children: ReactNode }) {
   }
 
   return children;
+}
+
+function waitForInitialAssets() {
+  return Promise.all([
+    preloadAppImages(),
+    new Promise<void>((resolve) => {
+      window.setTimeout(resolve, initialLoaderMinimumDurationMs);
+    }),
+  ]).then(() => undefined);
 }
 
 function shouldShowInitialLoader() {

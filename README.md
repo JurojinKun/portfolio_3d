@@ -182,13 +182,12 @@ La v2 utilise React Router DOM.
 Routes actuellement branchees :
 
 - `/` : page d'accueil v2 en experience 3D plein ecran ;
-- `/portfolio` : redirection vers `/portfolio/aboutme` ;
-- `/portfolio/:sectionId` : page portfolio unique en sections scrollables ;
-- `/portfolio/aboutme` : section A propos ;
-- `/portfolio/skills` : section Competences ;
-- `/portfolio/experiences` : section Experiences ;
-- `/portfolio/projects` : section Projets ;
-- `/portfolio/contactme` : section Contact ;
+- `/:sectionId` : page portfolio unique en sections scrollables ;
+- `/aboutme` : section A propos ;
+- `/skills` : section Competences ;
+- `/experiences` : section Experiences ;
+- `/projects` : section Projets ;
+- `/contactme` : section Contact ;
 - `/notfound` : page 404 v2 ;
 - `*` : fallback vers la page 404 v2.
 

@@ -213,7 +213,7 @@ export function PortfolioLayout() {
         aria-label={t("portfolio.top")}
         className={styles.scrollTopLink}
         onClick={handleTopNavigation}
-        to="/portfolio/aboutme"
+        to="/aboutme"
       >
         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
           <path d="M12 19V5" />

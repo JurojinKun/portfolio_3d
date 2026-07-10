@@ -86,7 +86,7 @@ describe("App", () => {
     ).toBeInTheDocument();
     expect(
       await screen.findByRole("link", { name: /about me/i }),
-    ).toHaveAttribute("href", "/portfolio/aboutme");
+    ).toHaveAttribute("href", "/aboutme");
   });
 
   it("does not expose the temporary migration status route anymore", async () => {
@@ -125,7 +125,7 @@ describe("App", () => {
 
   it("renders the about page route", async () => {
     await i18n.changeLanguage("en");
-    window.history.pushState({}, "", "/portfolio/aboutme");
+    window.history.pushState({}, "", "/aboutme");
 
     render(<App />);
 
@@ -138,23 +138,9 @@ describe("App", () => {
     expect(screen.getByRole("img", { name: /about me/i })).toBeInTheDocument();
   });
 
-  it("redirects the portfolio index route to the about section", async () => {
+  it("redirects unknown section routes to the not found page", async () => {
     await i18n.changeLanguage("en");
-    window.history.pushState({}, "", "/portfolio");
-
-    render(<App />);
-
-    await waitFor(() => {
-      expect(window.location.pathname).toBe("/portfolio/aboutme");
-    });
-    expect(
-      screen.getByRole("heading", { name: /about me/i }),
-    ).toBeInTheDocument();
-  });
-
-  it("redirects unknown portfolio sections to the not found page", async () => {
-    await i18n.changeLanguage("en");
-    window.history.pushState({}, "", "/portfolio/unknown-section");
+    window.history.pushState({}, "", "/unknown-section");
 
     render(<App />);
 
@@ -168,7 +154,7 @@ describe("App", () => {
 
   it("renders the skills page route and selects a skill", async () => {
     await i18n.changeLanguage("en");
-    window.history.pushState({}, "", "/portfolio/skills");
+    window.history.pushState({}, "", "/skills");
 
     render(<App />);
 
@@ -188,7 +174,7 @@ describe("App", () => {
 
   it("renders the experiences page route", async () => {
     await i18n.changeLanguage("en");
-    window.history.pushState({}, "", "/portfolio/experiences");
+    window.history.pushState({}, "", "/experiences");
 
     render(<App />);
 
@@ -205,7 +191,7 @@ describe("App", () => {
 
   it("renders the projects page route and selects a project", async () => {
     await i18n.changeLanguage("en");
-    window.history.pushState({}, "", "/portfolio/projects");
+    window.history.pushState({}, "", "/projects");
 
     render(<App />);
 
@@ -227,7 +213,7 @@ describe("App", () => {
 
   it("renders the contact page route and validates required fields", async () => {
     await i18n.changeLanguage("en");
-    window.history.pushState({}, "", "/portfolio/contactme");
+    window.history.pushState({}, "", "/contactme");
 
     render(<App />);
 
@@ -244,7 +230,7 @@ describe("App", () => {
 
   it("navigates between portfolio sections from the shared layout", async () => {
     await i18n.changeLanguage("en");
-    window.history.pushState({}, "", "/portfolio/aboutme");
+    window.history.pushState({}, "", "/aboutme");
 
     render(<App />);
 
@@ -253,7 +239,7 @@ describe("App", () => {
     expect(
       await screen.findByRole("heading", { name: /skills/i }),
     ).toBeInTheDocument();
-    expect(window.location.pathname).toBe("/portfolio/skills");
+    expect(window.location.pathname).toBe("/skills");
   });
 
   it("opens and closes the compact portfolio menu", async () => {
@@ -261,7 +247,7 @@ describe("App", () => {
     const mediaQueryController = mockMatchMedia(true);
     const user = userEvent.setup();
 
-    window.history.pushState({}, "", "/portfolio/aboutme");
+    window.history.pushState({}, "", "/aboutme");
     render(<App />);
 
     const menuButton = screen
@@ -287,7 +273,7 @@ describe("App", () => {
     await user.click(screen.getByRole("link", { name: /^projects$/i }));
 
     await waitFor(() => {
-      expect(window.location.pathname).toBe("/portfolio/projects");
+      expect(window.location.pathname).toBe("/projects");
       expect(menuButton).toHaveAttribute("aria-expanded", "false");
       expect(document.body.style.overflow).toBe("");
     });
