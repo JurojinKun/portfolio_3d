@@ -1,31 +1,31 @@
-# Clement Communay Portfolio
+# Clément Communay Portfolio
 
-Portfolio personnel de Clement Communay, construit avec React, TypeScript, Vite et Three.js.
+Personal portfolio of Clément Communay, built with React, TypeScript, Vite and Three.js.
 
-Production : [https://clement-communay-portfolio.netlify.app/](https://clement-communay-portfolio.netlify.app/)
+Production: [https://clement-communay-portfolio.netlify.app/](https://clement-communay-portfolio.netlify.app/)
 
-## Apercu
+## Overview
 
-Le projet presente mon profil, mes experiences, mes competences, mes projets professionnels/personnels et un formulaire de contact.
+This project presents my profile, professional experience, skills, professional and personal projects, and contact form.
 
-L'accueil propose une experience 3D interactive avec satellites de navigation. Les pages internes utilisent un layout commun responsive, une navigation sticky, un changement de langue et des contenus structures via i18n.
+The home page provides an interactive 3D experience with navigation satellites. Internal pages share a responsive portfolio layout with sticky navigation, language switching, and structured i18n content.
 
-## Fonctionnalites
+## Features
 
-- Home 3D interactive avec React Three Fiber et Three.js
-- Navigation vers les sections principales depuis la scene 3D
-- Pages About, Experiences, Skills, Projects et Contact
-- Detail projet en vue desktop et bottom sheet en mobile
-- Internationalisation francais / anglais avec i18next
-- Formulaire de contact EmailJS
-- Loader initial avec prechargement des images critiques
-- Page 404 personnalisee
-- Fallbacks d'erreur applicative
-- Build Vite avec code splitting des vendors principaux
+- Interactive 3D home page with React Three Fiber and Three.js
+- Navigation to the main sections from the 3D scene
+- About, Experiences, Skills, Projects and Contact pages
+- Project details displayed as a sticky desktop panel and a mobile bottom sheet
+- French / English internationalization with i18next
+- EmailJS contact form
+- Initial loader with critical image preloading
+- Custom 404 page
+- Application error fallbacks
+- Vite production build with vendor code splitting
 
 ## Stack
 
-- Node `24.18.0`
+- Node.js `24.18.0`
 - npm `11.16.0`
 - React `19`
 - TypeScript
@@ -41,16 +41,16 @@ L'accueil propose une experience 3D interactive avec satellites de navigation. L
 - ESLint / Prettier
 - Netlify
 
-## Prerequis
+## Prerequisites
 
-Utiliser Node 24 :
+Use Node.js 24:
 
 ```bash
 nvm install
 nvm use
 ```
 
-La version Node est declaree dans :
+The Node.js version is declared in:
 
 - `.nvmrc`
 - `.node-version`
@@ -63,13 +63,13 @@ La version Node est declaree dans :
 npm install
 ```
 
-## Developpement
+## Development
 
 ```bash
 npm run dev
 ```
 
-Application locale :
+Local application:
 
 ```txt
 http://127.0.0.1:5173/
@@ -77,64 +77,64 @@ http://127.0.0.1:5173/
 
 ## Scripts
 
-| Commande               | Description                                  |
-| ---------------------- | -------------------------------------------- |
-| `npm run dev`          | Lance le serveur Vite en developpement       |
-| `npm start`            | Alias de `npm run dev`                       |
-| `npm run build`        | Typecheck puis build production dans `dist/` |
-| `npm run preview`      | Sert localement le build production          |
-| `npm run typecheck`    | Verifie TypeScript                           |
-| `npm run lint`         | Lance ESLint                                 |
-| `npm run test`         | Lance Vitest                                 |
-| `npm run test:watch`   | Lance Vitest en mode watch                   |
-| `npm run format`       | Verifie Prettier                             |
-| `npm run format:write` | Applique Prettier                            |
+| Command                | Description                                     |
+| ---------------------- | ----------------------------------------------- |
+| `npm run dev`          | Starts the Vite development server              |
+| `npm start`            | Alias for `npm run dev`                         |
+| `npm run build`        | Runs type checking and builds production assets |
+| `npm run preview`      | Serves the production build locally             |
+| `npm run typecheck`    | Runs TypeScript checks                          |
+| `npm run lint`         | Runs ESLint                                     |
+| `npm run test`         | Runs Vitest                                     |
+| `npm run test:watch`   | Runs Vitest in watch mode                       |
+| `npm run format`       | Checks formatting with Prettier                 |
+| `npm run format:write` | Applies Prettier formatting                     |
 
 ## Routes
 
-- `/` : accueil 3D
-- `/aboutme` : profil
-- `/experiences` : experiences professionnelles
-- `/skills` : competences
-- `/projects` : projets
-- `/contactme` : contact
-- `/notfound` : page 404
-- `*` : fallback 404
+- `/`: 3D home page
+- `/aboutme`: profile
+- `/experiences`: professional experience
+- `/skills`: skills
+- `/projects`: projects
+- `/contactme`: contact
+- `/notfound`: 404 page
+- `*`: 404 fallback
 
-Les routes de sections affichent une page portfolio commune et scrollent vers la section cible. Le scroll met aussi l'URL a jour avec la section active.
+Section routes render the shared portfolio page and scroll to the target section. Scrolling also keeps the URL in sync with the active section.
 
 ## Structure
 
 ```txt
 src/
-  app/       Composition racine, routing, loader et fallbacks
-  assets/    Images importees par le code React
-  data/      Donnees typees de navigation, projets, skills et experiences
-  i18n/      Configuration i18next et locales
-  pages/     Pages et sections de l'application
-  shared/    Helpers et configuration transverse
-  styles/    Tokens, reset et styles globaux
-  test/      Configuration des tests
+  app/       Root composition, routing, loader and fallbacks
+  assets/    Images imported by the React code
+  data/      Typed navigation, project, skill and experience data
+  i18n/      i18next configuration and locale files
+  pages/     Application pages and sections
+  shared/    Shared helpers and cross-cutting configuration
+  styles/    Tokens, reset and global styles
+  test/      Test setup
 ```
 
-Les assets servis directement par Vite sont dans `public/`.
+Assets served directly by Vite live in `public/`.
 
-## Internationalisation
+## Internationalization
 
-Les traductions sont dans :
+Translations are stored in:
 
 ```txt
 src/i18n/locales/fr.json
 src/i18n/locales/en.json
 ```
 
-La langue par defaut est l'anglais. Le choix utilisateur est conserve par i18next via le stockage navigateur.
+The default language is English. The user's language choice is persisted by i18next through browser storage.
 
-## Contact et EmailJS
+## Contact and EmailJS
 
-Le formulaire de contact utilise EmailJS.
+The contact form uses EmailJS.
 
-Variables attendues dans `.env` et sur Netlify :
+Expected variables in `.env` and on Netlify:
 
 ```bash
 CONTACT_EMAIL=
@@ -143,9 +143,9 @@ EMAILJS_TEMPLATE_ID=
 EMAILJS_PUBLIC_KEY=
 ```
 
-Le fichier `.env` est ignore par Git.
+The `.env` file is ignored by Git.
 
-Payload envoye au template EmailJS :
+Payload sent to the EmailJS template:
 
 ```txt
 first_name
@@ -156,22 +156,22 @@ message
 to_email
 ```
 
-## Deploiement
+## Deployment
 
-Le projet est deploye sur Netlify.
+The project is deployed on Netlify.
 
-Configuration :
+Configuration:
 
-- Build command : `npm run build`
-- Publish directory : `dist`
-- Node : `24.18.0`
-- npm : `11.16.0`
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Node.js: `24.18.0`
+- npm: `11.16.0`
 
-La configuration est versionnee dans `netlify.toml`.
+The deployment configuration is versioned in `netlify.toml`.
 
 ## Validation
 
-Avant publication :
+Before publishing:
 
 ```bash
 npm run typecheck
@@ -182,7 +182,7 @@ npm run build
 
 ## Maintenance
 
-- Ne pas reintroduire `react-scripts`
-- Garder `dist/`, `node_modules/` et `.npm-cache/` hors Git
-- Ajouter les nouvelles cles i18n dans les deux langues
-- Garder les routes publiques a la racine
+- Do not reintroduce `react-scripts`
+- Keep `dist/`, `node_modules/` and `.npm-cache/` out of Git
+- Add new i18n keys in both languages
+- Keep public routes at the root level
