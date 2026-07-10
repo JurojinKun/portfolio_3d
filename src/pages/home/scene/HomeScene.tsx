@@ -201,7 +201,7 @@ function HomeFooter() {
   const { t } = useTranslation();
   const contactHref = contactConfig.recipientEmail
     ? `mailto:${contactConfig.recipientEmail}`
-    : "/portfolio/contactme";
+    : "/contactme";
 
   return (
     <nav aria-label="Social links" className={styles.footer}>

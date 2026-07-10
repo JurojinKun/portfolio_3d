@@ -182,7 +182,7 @@ export function PortfolioPage() {
       if (activeSectionId !== latestSectionIdRef.current) {
         latestSectionIdRef.current = activeSectionId;
         isUrlUpdateFromScrollRef.current = true;
-        void navigate(`/portfolio/${activeSectionId}`, {
+        void navigate(`/${activeSectionId}`, {
           replace: true,
         });
       }
