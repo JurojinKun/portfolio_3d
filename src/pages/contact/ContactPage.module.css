@@ -107,6 +107,12 @@
   outline: none;
 }
 
+.field input:disabled,
+.field textarea:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
 .status {
   display: grid;
   gap: 4px;
@@ -158,6 +164,19 @@
   color: #e9fbff;
   outline: none;
   transform: translateY(-1px);
+}
+
+.submitButton:disabled,
+.submitButton:disabled:hover,
+.submitButton:disabled:focus-visible {
+  border-color: rgb(243 199 255 / 20%);
+  background:
+    linear-gradient(135deg, rgb(71 205 214 / 20%), rgb(157 77 196 / 18%)),
+    rgb(14 14 22 / 82%);
+  box-shadow: none;
+  color: var(--color-text);
+  cursor: wait;
+  transform: none;
 }
 
 .visual {

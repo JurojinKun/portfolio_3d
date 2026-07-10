@@ -199,7 +199,7 @@ function HomeHeader() {
 
 function HomeFooter() {
   const { t } = useTranslation();
-  const emailHref = contactConfig.recipientEmail
+  const contactHref = contactConfig.recipientEmail
     ? `mailto:${contactConfig.recipientEmail}`
     : "/portfolio/contactme";
 
@@ -214,7 +214,7 @@ function HomeFooter() {
       <FooterLink download href={cvUrl} label="CV">
         <DocumentIcon />
       </FooterLink>
-      <FooterLink href={emailHref} label={t("contact_me.title")}>
+      <FooterLink href={contactHref} label={t("contact_me.title")}>
         <MailIcon />
       </FooterLink>
     </nav>

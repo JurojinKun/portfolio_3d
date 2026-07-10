@@ -181,13 +181,11 @@
     "label_message": "Que veux-tu dire ?",
     "send": "Envoyer",
     "loading_send": "Envoi en cours...",
-    "title_ready": "Message prêt",
-    "content_mailto": "Ton application email va s'ouvrir avec le message préparé.",
     "title_validate": "Mail envoyé",
     "content_validate": "Merci. Je te répondrai dans les plus brefs délais.",
     "title_error": "Erreur",
     "content_error_1": "Les champs ne sont pas tous remplis.",
     "content_error_2": "Quelque chose n'a pas fonctionné.",
-    "content_email_config_missing": "L'adresse email de destination n'est pas encore configurée."
+    "content_email_config_missing": "Le formulaire de contact n'est pas encore configuré."
   }
 }

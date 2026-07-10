@@ -1,5 +1,6 @@
 import astroContactMe from "@/assets/astro_contact_me.png";
-import { contactConfig } from "@/shared/config/contact";
+import { contactConfig, isEmailJsConfigured } from "@/shared/config/contact";
+import emailjs from "@emailjs/browser";
 import {
   type ChangeEvent,
   type SyntheticEvent,
@@ -71,23 +72,6 @@ const hasEmptyRequiredField = (form: ContactFormState) =>
     (field) => form[field].trim().length === 0,
   );
 
-const buildMailtoHref = (form: ContactFormState, recipientEmail: string) => {
-  const subject = encodeURIComponent(
-    `Portfolio - ${form.name} ${form.firstname}`,
-  );
-  const body = encodeURIComponent(
-    [
-      `Bonjour/Bonsoir, je suis ${form.name} ${form.firstname}, actuellement ${form.post}.`,
-      "",
-      form.message,
-      "",
-      `Tu peux me contacter via ${form.email}`,
-    ].join("\n"),
-  );
-
-  return `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
-};
-
 interface ContactPageProps {
   asSection?: boolean;
   sectionId?: string;
@@ -99,8 +83,8 @@ export function ContactPage({
 }: ContactPageProps) {
   const { t } = useTranslation();
   const [form, setForm] = useState<ContactFormState>(initialFormState);
+  const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState<ContactStatus | null>(null);
-  const recipientEmail = contactConfig.recipientEmail;
   const canSubmit = useMemo(() => !hasEmptyRequiredField(form), [form]);
 
   const handleChange = (
@@ -114,8 +98,12 @@ export function ContactPage({
     }));
   };
 
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isSending) {
+      return;
+    }
 
     if (!canSubmit) {
       setStatus({
@@ -126,7 +114,7 @@ export function ContactPage({
       return;
     }
 
-    if (!recipientEmail) {
+    if (!isEmailJsConfigured) {
       setStatus({
         message: t("contact_me.content_email_config_missing"),
         title: t("contact_me.title_error"),
@@ -135,13 +123,44 @@ export function ContactPage({
       return;
     }
 
-    window.location.href = buildMailtoHref(form, recipientEmail);
-    setStatus({
-      message: t("contact_me.content_mailto"),
-      title: t("contact_me.title_ready"),
-      tone: "success",
-    });
-    setForm(initialFormState);
+    const fullName = `${form.firstname} ${form.name}`.trim();
+
+    setIsSending(true);
+    setStatus(null);
+
+    try {
+      await emailjs.send(
+        contactConfig.emailJsServiceId,
+        contactConfig.emailJsTemplateId,
+        {
+          first_name: form.firstname,
+          form_name: fullName,
+          from_email: form.email,
+          last_name: form.name,
+          message: form.message,
+          post: form.post,
+          reply_to: form.email,
+          to_email: contactConfig.recipientEmail,
+          to_name: contactConfig.emailJsToName,
+        },
+        { publicKey: contactConfig.emailJsPublicKey },
+      );
+
+      setStatus({
+        message: t("contact_me.content_validate"),
+        title: t("contact_me.title_validate"),
+        tone: "success",
+      });
+      setForm(initialFormState);
+    } catch {
+      setStatus({
+        message: t("contact_me.content_error_2"),
+        title: t("contact_me.title_error"),
+        tone: "error",
+      });
+    } finally {
+      setIsSending(false);
+    }
   };
   const Root = asSection ? "section" : "main";
 
@@ -157,7 +176,12 @@ export function ContactPage({
       </section>
 
       <section className={styles.layout}>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form
+          className={styles.form}
+          onSubmit={(event) => {
+            void handleSubmit(event);
+          }}
+        >
           <div className={styles.fieldsGrid}>
             {contactFields.map((field) => (
               <label className={styles.field} htmlFor={field.id} key={field.id}>
@@ -166,6 +190,7 @@ export function ContactPage({
                   autoComplete={field.id === "email" ? "email" : "on"}
                   id={field.id}
                   name={field.id}
+                  disabled={isSending}
                   onChange={handleChange}
                   placeholder={t(field.placeholderKey)}
                   type={field.type}
@@ -180,6 +205,7 @@ export function ContactPage({
             <textarea
               id="message"
               name="message"
+              disabled={isSending}
               onChange={handleChange}
               placeholder={t("contact_me.label_message")}
               rows={7}
@@ -198,8 +224,12 @@ export function ContactPage({
             </div>
           ) : null}
 
-          <button className={styles.submitButton} type="submit">
-            {t("contact_me.send")}
+          <button
+            className={styles.submitButton}
+            disabled={isSending}
+            type="submit"
+          >
+            {isSending ? t("contact_me.loading_send") : t("contact_me.send")}
           </button>
         </form>
 

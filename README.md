@@ -196,15 +196,17 @@ Les routes de section portfolio gardent une URL dediee, mais elles rendent toute
 
 ## Variables d'environnement
 
-La page Contact v2 utilise un lien `mailto:` et lit l'adresse de destination depuis :
+La page Contact v2 utilise EmailJS et lit sa configuration depuis :
 
 ```bash
-VITE_CONTACT_EMAIL=
+CONTACT_EMAIL=
+EMAILJS_SERVICE_ID=
+EMAILJS_TEMPLATE_ID=
+EMAILJS_PUBLIC_KEY=
+EMAILJS_TO_NAME=
 ```
 
-Cette variable doit etre configuree localement et sur Netlify pour activer l'ouverture du client email avec un destinataire.
-
-Un exemple est fourni dans `.env.example`.
+Ces variables doivent etre configurees dans un fichier `.env` local et sur Netlify pour activer l'envoi du formulaire de contact. Le fichier `.env` est ignore par Git.
 
 ## Validation
 

@@ -34,6 +34,7 @@ export default defineConfig({
       },
     },
   },
+  envPrefix: ["CONTACT_", "EMAILJS_"],
   plugins: [react()],
   resolve: {
     alias: {
