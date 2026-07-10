@@ -150,7 +150,7 @@ function HeaderSatelliteContent() {
         hexagonRef={hexagonRef}
         iconPath="/icons/header_bitmoji.png"
         iconRendering="bitmap"
-        iconScale={1.08}
+        iconScale={1.2}
       />
     </group>
   );
