@@ -1,18 +1,18 @@
-import bitbucket from "@/assets/skills/bitbucket.png";
-import c from "@/assets/skills/c.png";
-import firebase from "@/assets/skills/firebase.png";
-import flutter from "@/assets/skills/flutter.png";
-import github from "@/assets/skills/github.png";
-import kotlin from "@/assets/skills/kotlin.png";
-import mysql from "@/assets/skills/mysql.png";
-import nodejs from "@/assets/skills/nodejs.png";
-import postman from "@/assets/skills/postman.png";
-import python from "@/assets/skills/python.png";
-import react from "@/assets/skills/react.png";
-import redux from "@/assets/skills/redux.png";
-import sequelize from "@/assets/skills/sequelize.png";
-import sourcetree from "@/assets/skills/sourcetree.png";
-import threejs from "@/assets/skills/threejs.png";
+import bitbucket from "@/assets/skills/bitbucket.svg";
+import c from "@/assets/skills/c.svg";
+import firebase from "@/assets/skills/firebase.svg";
+import flutter from "@/assets/skills/flutter.svg";
+import github from "@/assets/skills/github.svg";
+import kotlin from "@/assets/skills/kotlin.svg";
+import mysql from "@/assets/skills/mysql.svg";
+import nodejs from "@/assets/skills/nodejs.svg";
+import postman from "@/assets/skills/postman.svg";
+import python from "@/assets/skills/python.svg";
+import react from "@/assets/skills/react.svg";
+import redux from "@/assets/skills/redux.svg";
+import sequelize from "@/assets/skills/sequelize.svg";
+import sourcetree from "@/assets/skills/sourcetree.svg";
+import threejs from "@/assets/skills/threejs.svg";
 
 import type { TranslationKey } from "./translationKeys";
 
@@ -148,7 +148,7 @@ export const skills = [
     category: "frontend",
     contentKey: "skills.content_reactjs",
     image: react,
-    label: "React js",
+    label: "React",
   },
   {
     id: "bitbucket",

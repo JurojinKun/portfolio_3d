@@ -46,14 +46,22 @@ export function SkillsPage({ asSection = false, sectionId }: SkillsPageProps) {
               }}
               type="button"
             >
-              <img alt="" src={skill.image} />
-              <span>{skill.label}</span>
+              <span className={styles.skillLogo}>
+                <img alt="" src={skill.image} />
+              </span>
+              <span className={styles.skillLabel}>{skill.label}</span>
             </button>
           ))}
         </div>
 
         <article className={styles.detailCard} aria-live="polite">
-          <img alt="" className={styles.detailIcon} src={selectedSkill.image} />
+          <div className={styles.detailIconFrame}>
+            <img
+              alt=""
+              className={styles.detailIcon}
+              src={selectedSkill.image}
+            />
+          </div>
           <div>
             <h2>{selectedSkill.label}</h2>
           </div>
