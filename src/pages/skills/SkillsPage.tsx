@@ -17,9 +17,15 @@ interface SkillDetailProps {
   className?: string | undefined;
   id: string;
   skill: SkillData;
+  withHeader?: boolean;
 }
 
-function SkillDetail({ className, id, skill }: SkillDetailProps) {
+function SkillDetail({
+  className,
+  id,
+  skill,
+  withHeader = true,
+}: SkillDetailProps) {
   const { t } = useTranslation();
   const detailClassName = className
     ? [styles.detailCard, className].join(" ")
@@ -27,12 +33,16 @@ function SkillDetail({ className, id, skill }: SkillDetailProps) {
 
   return (
     <article className={detailClassName} id={id} aria-live="polite">
-      <div className={styles.detailIconFrame}>
-        <img alt="" className={styles.detailIcon} src={skill.image} />
-      </div>
-      <div>
-        <h2>{skill.label}</h2>
-      </div>
+      {withHeader ? (
+        <>
+          <div className={styles.detailIconFrame}>
+            <img alt="" className={styles.detailIcon} src={skill.image} />
+          </div>
+          <div>
+            <h2>{skill.label}</h2>
+          </div>
+        </>
+      ) : null}
       {formatParagraph(t(skill.contentKey)).map((paragraph, index) => (
         <p key={`${skill.id}-${String(index)}`}>{paragraph}</p>
       ))}
@@ -101,7 +111,13 @@ export function SkillsPage({ asSection = false, sectionId }: SkillsPageProps) {
               : undefined;
 
             return (
-              <div className={styles.skillItem} key={skill.id}>
+              <div
+                className={styles.skillItem}
+                data-expanded={
+                  isInlineSkillDetail && isSelected ? "true" : undefined
+                }
+                key={skill.id}
+              >
                 <button
                   aria-controls={
                     isSelected && controlledDetailId
@@ -128,6 +144,7 @@ export function SkillsPage({ asSection = false, sectionId }: SkillsPageProps) {
                     className={styles.inlineDetailCard}
                     id={`${selectedSkillDetailId}-inline`}
                     skill={skill}
+                    withHeader={false}
                   />
                 ) : null}
               </div>
