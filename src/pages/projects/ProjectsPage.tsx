@@ -3,13 +3,8 @@ import {
   professionalProjects,
   type ProjectData,
 } from "@/data/projects";
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useMediaQuery } from "@/shared/hooks/useMediaQuery";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import styles from "./ProjectsPage.module.css";
@@ -185,50 +180,6 @@ function ProjectDetailSheet({ onClose, project }: ProjectDetailSheetProps) {
       </div>
     </>
   );
-}
-
-function useMediaQuery(
-  query: string,
-  initialMatches = false,
-  onChange?: (matches: boolean) => void,
-) {
-  const getSnapshot = useCallback(() => {
-    if (
-      typeof window === "undefined" ||
-      typeof window.matchMedia !== "function"
-    ) {
-      return initialMatches;
-    }
-
-    return window.matchMedia(query).matches;
-  }, [initialMatches, query]);
-
-  const subscribe = useCallback(
-    (notify: () => void) => {
-      if (
-        typeof window === "undefined" ||
-        typeof window.matchMedia !== "function"
-      ) {
-        return () => undefined;
-      }
-
-      const mediaQueryList = window.matchMedia(query);
-
-      const handleChange = (event: MediaQueryListEvent) => {
-        onChange?.(event.matches);
-        notify();
-      };
-
-      mediaQueryList.addEventListener("change", handleChange);
-
-      return () => {
-        mediaQueryList.removeEventListener("change", handleChange);
-      };
-    },
-    [onChange, query],
-  );
-
-  return useSyncExternalStore(subscribe, getSnapshot, () => initialMatches);
 }
 
 function useCloseProjectSheetOnDesktopChange(closeProjectSheet: () => void) {

@@ -44,15 +44,20 @@
 }
 
 .skillGrid {
-  position: sticky;
   display: grid;
-  top: 104px;
   gap: 10px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+}
+
+.skillItem {
+  display: grid;
+  min-width: 0;
 }
 
 .skillButton {
   display: grid;
+  width: 100%;
   align-items: center;
   min-height: 56px;
   border: 1px solid rgb(243 199 255 / 16%);
@@ -72,6 +77,22 @@
     background 140ms ease,
     box-shadow 140ms ease,
     transform 140ms ease;
+}
+
+.skillButton::after {
+  display: none;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: "";
+  justify-self: center;
+  opacity: 0;
+  transform: rotate(45deg);
+  transform-origin: center;
+  transition:
+    opacity 140ms ease,
+    transform 180ms ease;
 }
 
 .skillButton:hover,
@@ -127,6 +148,16 @@
     0 0 12px rgb(71 205 214 / 8%);
 }
 
+.skillButton:hover::after,
+.skillButton:focus-visible::after,
+.skillButton[data-active="true"]::after {
+  opacity: 1;
+}
+
+.skillButton[data-active="true"]::after {
+  transform: rotate(-135deg);
+}
+
 .skillLogo img {
   width: 28px;
   height: 28px;
@@ -140,9 +171,18 @@
   font-weight: var(--font-weight-bold);
 }
 
+.detailPanel {
+  position: sticky;
+  top: 104px;
+  align-self: start;
+  min-width: 0;
+}
+
 .detailCard {
   display: grid;
+  max-height: calc(100dvh - 128px);
   gap: 14px;
+  overflow: auto;
   border: 1px solid rgb(71 205 214 / 34%);
   border-radius: 8px;
   padding: 22px;
@@ -153,6 +193,12 @@
   box-shadow:
     var(--shadow-panel),
     0 0 30px rgb(157 77 196 / 10%);
+}
+
+.inlineDetailCard {
+  max-height: none;
+  margin-top: 10px;
+  overflow: visible;
 }
 
 .detailIconFrame {
@@ -198,8 +244,17 @@
     grid-template-columns: 1fr;
   }
 
+  .skillButton {
+    grid-template-columns: 36px minmax(0, 1fr) 18px;
+  }
+
+  .skillButton::after {
+    display: block;
+    opacity: 0.62;
+  }
+
   .skillGrid {
-    position: static;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -210,10 +265,6 @@
 
   .header h1 {
     font-size: var(--text-title-tablet);
-  }
-
-  .skillGrid {
-    grid-template-columns: 1fr;
   }
 }
 
