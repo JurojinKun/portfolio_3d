@@ -197,7 +197,6 @@
 
 .inlineDetailCard {
   max-height: none;
-  margin-top: 10px;
   overflow: visible;
 }
 
@@ -248,6 +247,16 @@
     grid-template-columns: 36px minmax(0, 1fr) 18px;
   }
 
+  .skillItem[data-expanded="true"] .skillButton {
+    border-bottom-color: rgb(243 199 255 / 18%);
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    box-shadow:
+      0 -8px 22px rgb(157 77 196 / 8%),
+      inset 0 0 0 1px rgb(255 255 255 / 6%);
+    transform: none;
+  }
+
   .skillButton::after {
     display: block;
     opacity: 0.62;
@@ -255,6 +264,43 @@
 
   .skillGrid {
     grid-template-columns: 1fr;
+  }
+
+  .inlineDetailCard {
+    position: relative;
+    border-top: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    margin-top: -1px;
+    padding: 14px 16px 18px 58px;
+    background:
+      linear-gradient(135deg, rgb(71 205 214 / 8%), transparent 42%),
+      linear-gradient(315deg, rgb(157 77 196 / 11%), transparent 48%),
+      rgb(14 14 22 / 76%);
+    box-shadow:
+      0 16px 30px rgb(0 0 0 / 20%),
+      0 0 22px rgb(157 77 196 / 8%),
+      inset 0 1px 0 rgb(255 255 255 / 5%);
+  }
+
+  .inlineDetailCard::before {
+    position: absolute;
+    top: 14px;
+    bottom: 18px;
+    left: 28px;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      rgb(71 205 214 / 0%),
+      rgb(71 205 214 / 54%),
+      rgb(157 77 196 / 42%),
+      rgb(157 77 196 / 0%)
+    );
+    content: "";
+  }
+
+  .inlineDetailCard p {
+    font-size: var(--text-sm);
   }
 }
 
@@ -275,5 +321,13 @@
 
   .detailCard {
     padding: 16px;
+  }
+
+  .inlineDetailCard {
+    padding: 13px 14px 16px 54px;
+  }
+
+  .inlineDetailCard::before {
+    left: 26px;
   }
 }
