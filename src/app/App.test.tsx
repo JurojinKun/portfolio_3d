@@ -6,17 +6,37 @@ import { i18n } from "@/i18n";
 import { App } from "./App";
 
 const compactNavigationQuery = "(max-width: 1100px)";
+const inlineSkillDetailQuery = "(max-width: 980px)";
 
-function mockMatchMedia(initialMatches: boolean) {
-  let currentMatches = initialMatches;
-  const listeners = new Set<(event: MediaQueryListEvent) => void>();
+function mockMatchMedia(initialMatches: boolean | Record<string, boolean>) {
+  const matchesByQuery = new Map<string, boolean>(
+    typeof initialMatches === "boolean"
+      ? [[compactNavigationQuery, initialMatches]]
+      : Object.entries(initialMatches),
+  );
+  const listenersByQuery = new Map<
+    string,
+    Set<(event: MediaQueryListEvent) => void>
+  >();
+  const getListeners = (query: string) => {
+    const existingListeners = listenersByQuery.get(query);
+
+    if (existingListeners) {
+      return existingListeners;
+    }
+
+    const listeners = new Set<(event: MediaQueryListEvent) => void>();
+    listenersByQuery.set(query, listeners);
+    return listeners;
+  };
 
   vi.stubGlobal(
     "matchMedia",
     vi.fn((query: string) => {
+      const listeners = getListeners(query);
       const mediaQueryList = {
         get matches() {
-          return query === compactNavigationQuery ? currentMatches : false;
+          return matchesByQuery.get(query) ?? false;
         },
         media: query,
         onchange: null,
@@ -50,14 +70,14 @@ function mockMatchMedia(initialMatches: boolean) {
   );
 
   return {
-    setMatches(matches: boolean) {
-      currentMatches = matches;
+    setMatches(matches: boolean, query = compactNavigationQuery) {
+      matchesByQuery.set(query, matches);
       const event = {
         matches,
-        media: compactNavigationQuery,
+        media: query,
       } as MediaQueryListEvent;
 
-      listeners.forEach((listener) => {
+      getListeners(query).forEach((listener) => {
         listener(event);
       });
     },
@@ -170,6 +190,37 @@ describe("App", () => {
     expect(
       screen.getByText(/github is my main environment/i),
     ).toBeInTheDocument();
+  });
+
+  it("renders mobile skills without a default detail and toggles the active skill", async () => {
+    await i18n.changeLanguage("en");
+    mockMatchMedia({ [inlineSkillDetailQuery]: true });
+    const user = userEvent.setup();
+
+    window.history.pushState({}, "", "/skills");
+    render(<App />);
+
+    const flutterButton = screen.getByRole("button", { name: /^flutter$/i });
+    const githubButton = screen.getByRole("button", { name: /^github$/i });
+
+    expect(flutterButton).toHaveAttribute("aria-expanded", "false");
+    expect(
+      screen.queryByText(/flutter is my main technology/i),
+    ).not.toBeInTheDocument();
+
+    await user.click(githubButton);
+
+    expect(githubButton).toHaveAttribute("aria-expanded", "true");
+    expect(
+      screen.getByText(/github is my main environment/i),
+    ).toBeInTheDocument();
+
+    await user.click(githubButton);
+
+    expect(githubButton).toHaveAttribute("aria-expanded", "false");
+    expect(
+      screen.queryByText(/github is my main environment/i),
+    ).not.toBeInTheDocument();
   });
 
   it("renders the experiences page route", async () => {

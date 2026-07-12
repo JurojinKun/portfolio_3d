@@ -11,8 +11,8 @@ const publicImageSources = [
   "/icons/about_me.svg",
   "/icons/contact_me.svg",
   "/icons/experiences.svg",
-  "/icons/header_bitmoji.png",
   "/icons/home.svg",
+  "/icons/logo_portfolio.png",
   "/icons/not_found.svg",
   "/icons/projects.svg",
   "/icons/skills.svg",
@@ -33,7 +33,9 @@ const appImageSources = Array.from(
 function preloadImage(source: string) {
   return new Promise<void>((resolve) => {
     const image = new Image();
-    let timeoutId: number | undefined;
+    const timeoutId = window.setTimeout(() => {
+      resolve();
+    }, imagePreloadTimeoutMs);
 
     const finish = () => {
       window.clearTimeout(timeoutId);
@@ -51,7 +53,6 @@ function preloadImage(source: string) {
       finish();
     };
     image.onerror = finish;
-    timeoutId = window.setTimeout(finish, imagePreloadTimeoutMs);
     image.src = source;
   });
 }

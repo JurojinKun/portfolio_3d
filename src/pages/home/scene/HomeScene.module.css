@@ -44,25 +44,39 @@
 
 .brand {
   display: grid;
-  width: min(56vw, 520px);
-  max-width: min(56vw, 520px);
+  width: min(60vw, 560px);
+  max-width: min(60vw, 560px);
+  box-sizing: border-box;
   min-width: 0;
   align-items: center;
   grid-template-columns: auto minmax(0, 1fr);
   color: rgb(247 248 255 / 92%);
   cursor: default;
-  gap: 10px;
+  column-gap: var(--home-scene-padding-inline);
   pointer-events: none;
   text-shadow: 0 0 24px rgb(71 205 214 / 22%);
 }
 
-.brandMark {
+.brandLogo {
   position: relative;
-  isolation: isolate;
-  display: grid;
-  width: 42px;
-  height: 42px;
-  place-items: center;
+  display: block;
+  width: clamp(37px, 3vw, 42px);
+  height: clamp(42px, 3.4vw, 48px);
+  flex: 0 0 auto;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.brandLogoImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 168.5%;
+  height: auto;
+  max-width: none;
+  pointer-events: none;
+  transform: translate(-20.32%, -14.95%);
 }
 
 .brandCopy {
@@ -452,13 +466,11 @@
   .brand {
     width: calc(100vw - 176px);
     max-width: calc(100vw - 176px);
-    gap: 8px;
   }
 
-  .brandMark {
-    width: 36px;
-    height: 36px;
-    font-size: 0.68rem;
+  .brandLogo {
+    width: 37px;
+    height: 42px;
   }
 
   .brandCopy {
@@ -542,19 +554,16 @@
 @media (max-width: 420px), (max-height: 520px) {
   .header {
     gap: 12px;
-    padding-inline: 14px;
   }
 
   .brand {
     width: calc(100vw - 168px);
     max-width: calc(100vw - 168px);
-    gap: 8px;
   }
 
-  .brandMark {
-    width: 31px;
-    height: 31px;
-    font-size: 0.62rem;
+  .brandLogo {
+    width: 32px;
+    height: 36px;
   }
 
   .brandTitle {
