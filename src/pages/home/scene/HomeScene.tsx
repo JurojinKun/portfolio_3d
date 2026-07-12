@@ -1,15 +1,7 @@
 import { PerspectiveCamera } from "@react-three/drei";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  Suspense,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type ReactNode,
-} from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useEffect, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { Color, type Group } from "three";
 import { preloadFont } from "troika-three-text";
 
 import {
@@ -21,7 +13,6 @@ import { contactConfig } from "@/shared/config/contact";
 
 import { HexSphere } from "./HexSphere";
 import { HomeSceneFallback } from "./HomeSceneFallback";
-import { InteractiveHexagon } from "./InteractiveHexagon";
 import { StarField } from "./StarField";
 import styles from "./HomeScene.module.css";
 
@@ -31,10 +22,6 @@ const cvUrl = "/cv/CV_Clement_Communay.pdf";
 const satelliteLabelFont = "/fonts/SpaceGrotesk-Bold.ttf";
 const satelliteLabelCharacters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÀÂÄÇÉÈÊËÎÏÔÖÙÛÜàâäçéèêëîïôöùûü -_";
-const headerSatellitePitchSpeed = 0.0025;
-const headerSatelliteYawSpeed = 0.0035;
-const headerSatelliteRollSpeed = 0.0045;
-const headerSatelliteZPosition = 8.5;
 
 function supportsWebGL() {
   if (
@@ -82,7 +69,6 @@ function SceneContent() {
         <pointLight decay={0} intensity={1} position={[10, 10, 10]} />
       </PerspectiveCamera>
       <ambientLight intensity={1} />
-      <HeaderSatelliteContent />
       <HexSphere />
     </>
   );
@@ -102,60 +88,6 @@ function StarsCamera() {
   return null;
 }
 
-function HeaderSatelliteContent() {
-  const hexagonRef = useRef<Group>(null);
-  const { size } = useThree();
-  const color = useMemo(
-    () => new Color("#47cdd6").lerp(new Color("#9d4dc4"), 0.46),
-    [],
-  );
-  const markLayout = useMemo(() => {
-    const isSmallHeader = size.width <= 420 || size.height <= 520;
-    const isCompactHeader = size.width <= 550 || size.height <= 600;
-    const slotSize = isSmallHeader ? 31 : isCompactHeader ? 36 : 42;
-    const visualSize = isSmallHeader ? 24 : isCompactHeader ? 28 : 32;
-    const headerPadding = 12;
-    const headerHexagonOffsetX = isSmallHeader ? 2 : 3;
-    const distanceFromCamera = 10 - headerSatelliteZPosition;
-    const halfHeight = Math.tan((50 * Math.PI) / 360) * distanceFromCamera;
-    const halfWidth = halfHeight * (size.width / size.height);
-    const centerX = headerPadding + slotSize / 2 + headerHexagonOffsetX;
-    const centerY = headerPadding + slotSize / 2;
-    const worldPerPixel = (halfHeight * 2) / size.height;
-    const visualWorldSize = visualSize * worldPerPixel;
-
-    return {
-      position: [
-        (centerX / size.width) * halfWidth * 2 - halfWidth,
-        halfHeight - (centerY / size.height) * halfHeight * 2,
-        headerSatelliteZPosition,
-      ] as const,
-      scale: visualWorldSize / 0.3,
-    };
-  }, [size.height, size.width]);
-
-  useFrame(() => {
-    if (hexagonRef.current) {
-      hexagonRef.current.rotation.x += headerSatellitePitchSpeed;
-      hexagonRef.current.rotation.y += headerSatelliteYawSpeed;
-      hexagonRef.current.rotation.z += headerSatelliteRollSpeed;
-    }
-  });
-
-  return (
-    <group position={markLayout.position} scale={markLayout.scale}>
-      <InteractiveHexagon
-        bodyStyle="gradient"
-        hexagonColor={color}
-        hexagonRef={hexagonRef}
-        iconPath="/icons/header_bitmoji.png"
-        iconRendering="bitmap"
-        iconScale={1.2}
-      />
-    </group>
-  );
-}
-
 function HomeHeader() {
   const { i18n, t } = useTranslation();
   const currentLanguage = isSupportedLanguage(i18n.language)
@@ -167,7 +99,13 @@ function HomeHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.brand} aria-label="Clément Communay Portfolio">
-        <span className={styles.brandMark} aria-hidden="true" />
+        <span className={styles.brandLogo} aria-hidden="true">
+          <img
+            alt=""
+            className={styles.brandLogoImage}
+            src="/icons/logo_portfolio.png"
+          />
+        </span>
         <span className={styles.brandCopy}>
           <span className={styles.brandTitle}>Clément Communay</span>
           <span className={styles.brandMeta}>
