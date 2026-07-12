@@ -215,8 +215,8 @@ export const projects = [
     resultsKey: "projects.results_content_portfolio",
     summaryKey: "projects.content_project_perso_3",
     theme: {
-      primaryColor: "#c4658d",
-      shadowColor: "rgba(196, 101, 141, 0.2)",
+      primaryColor: "#235957",
+      shadowColor: "rgba(35, 89, 87, 0.2)",
     },
     titleKey: "projects.title_project_perso_3",
   },
