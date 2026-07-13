@@ -19,10 +19,14 @@ import {
   selectSatelliteTiles,
   type ScenePosition,
 } from "./sceneUtils";
+import {
+  getSceneColorElapsedTime,
+  getScenePulseColor,
+  sceneEndColorHex,
+  sceneStartColorHex,
+} from "./sceneColor";
 
 const sphereRotationSpeed = 0.0003;
-const colorPulseSpeed = 0.1;
-const colorPulsePhase = 0;
 const satelliteOrbitSpeed = 0.03;
 const cameraFov = 50;
 const cameraZPosition = 10;
@@ -41,11 +45,16 @@ const tileStyle = {
 const tempNormal = new Vector3();
 const tempPosition = new Vector3();
 const tempToCamera = new Vector3();
+const tempColor = new Color();
 const identityQuaternion = new Quaternion();
 
 interface WindowSize {
   height: number;
   width: number;
+}
+
+function isPortraitTabletViewport({ height, width }: WindowSize) {
+  return width > 720 && width <= 1180 && height > width;
 }
 
 function createHexGeometry() {
@@ -95,6 +104,10 @@ function useWindowSize() {
 }
 
 function getEndPosition({ height, width }: WindowSize): ScenePosition {
+  if (isPortraitTabletViewport({ height, width })) {
+    return [0, 0.1, -0.55];
+  }
+
   if (height <= 430) {
     return [0, 0.1, -4.5];
   }
@@ -153,6 +166,10 @@ function getVisibleHalfExtents({
 function getSatelliteScale({ height, width }: WindowSize) {
   const shortestSide = Math.min(height, width);
 
+  if (isPortraitTabletViewport({ height, width })) {
+    return 0.92;
+  }
+
   if (shortestSide <= 380) {
     return 0.82;
   }
@@ -170,6 +187,10 @@ function getSatelliteScale({ height, width }: WindowSize) {
 
 function getSphereScale({ height, width }: WindowSize) {
   const shortestSide = Math.min(height, width);
+
+  if (isPortraitTabletViewport({ height, width })) {
+    return 0.88;
+  }
 
   if (shortestSide <= 380) {
     return 0.9;
@@ -225,6 +246,10 @@ function getLabelOffsetY({ height, width }: WindowSize) {
 function getLabelMaxWidth({ height, width }: WindowSize) {
   const shortestSide = Math.min(height, width);
 
+  if (isPortraitTabletViewport({ height, width })) {
+    return 0.88;
+  }
+
   if (shortestSide <= 360) {
     return 0.76;
   }
@@ -238,6 +263,21 @@ function getLabelMaxWidth({ height, width }: WindowSize) {
   }
 
   return 0.95;
+}
+
+function getSafeOrbitRadius({
+  availableRadius,
+  baseRadius,
+  minimumRadius,
+}: {
+  availableRadius: number;
+  baseRadius: number;
+  minimumRadius: number;
+}) {
+  const safeAvailableRadius = Math.max(0.1, availableRadius);
+  const safeMinimumRadius = Math.min(minimumRadius, safeAvailableRadius);
+
+  return Math.min(baseRadius, Math.max(safeMinimumRadius, safeAvailableRadius));
 }
 
 function getOrbitRadii({
@@ -266,16 +306,20 @@ function getOrbitRadii({
     (Math.abs(labelOffsetY) + labelFontSize * 1.4 + 0.1) * tileScale;
   const labelHorizontalClearance = (labelMaxWidth / 2 + 0.18) * tileScale;
   const minimumRadius = sphereRadius * sphereScale + 0.36 * tileScale;
+  const availableRadiusX = halfWidth - labelHorizontalClearance;
+  const availableRadiusY = halfHeight - labelVerticalClearance;
 
   return {
-    x: Math.min(
+    x: getSafeOrbitRadius({
+      availableRadius: availableRadiusX,
       baseRadius,
-      Math.max(minimumRadius, halfWidth - labelHorizontalClearance),
-    ),
-    y: Math.min(
+      minimumRadius,
+    }),
+    y: getSafeOrbitRadius({
+      availableRadius: availableRadiusY,
       baseRadius,
-      Math.max(minimumRadius, halfHeight - labelVerticalClearance),
-    ),
+      minimumRadius,
+    }),
   };
 }
 
@@ -325,8 +369,8 @@ function computeSatellitePosition({
 export function HexSphere() {
   const sphereGroupRef = useRef<Group>(null);
   const windowSize = useWindowSize();
-  const startColor = useMemo(() => new Color("#47cdd6"), []);
-  const endColor = useMemo(() => new Color("#9d4dc4"), []);
+  const startColor = useMemo(() => new Color(sceneStartColorHex), []);
+  const endColor = useMemo(() => new Color(sceneEndColorHex), []);
   const hexGeometry = useMemo(() => createHexGeometry(), []);
   const hexEdgesGeometry = useMemo(
     () => new EdgesGeometry(hexGeometry),
@@ -374,7 +418,14 @@ export function HexSphere() {
   const labelFontSize = getLabelFontSize(windowSize);
   const labelMaxWidth = getLabelMaxWidth(windowSize);
   const labelOffsetY = getLabelOffsetY(windowSize);
-  const [color, setColor] = useState(() => startColor.clone());
+  const [color, setColor] = useState(() =>
+    getScenePulseColor({
+      elapsedTime: getSceneColorElapsedTime(),
+      endColor,
+      startColor,
+      targetColor: startColor.clone(),
+    }),
+  );
   const lastColorStateUpdateRef = useRef(0);
   const initialSatellitePositions = useMemo(
     () =>
@@ -428,19 +479,19 @@ export function HexSphere() {
     }
 
     const elapsedTime = clock.getElapsedTime();
-    const updatedColor = new Color()
-      .copy(startColor)
-      .lerp(
-        endColor,
-        Math.abs(Math.sin(elapsedTime * colorPulseSpeed + colorPulsePhase)),
-      );
+    const updatedColor = getScenePulseColor({
+      elapsedTime: getSceneColorElapsedTime(),
+      endColor,
+      startColor,
+      targetColor: tempColor,
+    });
 
     sphereGroup.rotation.y += sphereRotationSpeed;
     sphereGroup.rotation.z += sphereRotationSpeed;
     hexEdgeMaterial.color.copy(updatedColor);
 
     if (elapsedTime - lastColorStateUpdateRef.current >= 0.08) {
-      setColor(updatedColor);
+      setColor(updatedColor.clone());
       lastColorStateUpdateRef.current = elapsedTime;
     }
 

@@ -10,15 +10,19 @@ import {
   supportedLanguages,
 } from "@/i18n";
 import { contactConfig } from "@/shared/config/contact";
+import { useMediaQuery } from "@/shared/hooks/useMediaQuery";
 
 import { HexSphere } from "./HexSphere";
 import { HomeSceneFallback } from "./HomeSceneFallback";
+import { MobileFloatingHexagons } from "./MobileFloatingHexagons";
 import { StarField } from "./StarField";
 import styles from "./HomeScene.module.css";
 
 const githubUrl = "https://github.com/JurojinKun";
 const linkedInUrl = "https://www.linkedin.com/in/clément-communay";
 const cvUrl = "/cv/CV_Clement_Communay.pdf";
+const compactHomeSceneQuery =
+  "(max-width: 720px), (hover: none) and (pointer: coarse) and (max-height: 560px)";
 const satelliteLabelFont = "/fonts/SpaceGrotesk-Bold.ttf";
 const satelliteLabelCharacters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÀÂÄÇÉÈÊËÎÏÔÖÙÛÜàâäçéèêëîïôöùûü -_";
@@ -62,14 +66,14 @@ function usePreloadSatelliteLabelFont() {
   }, []);
 }
 
-function SceneContent() {
+function SceneContent({ isCompactScene }: { isCompactScene: boolean }) {
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 10]}>
         <pointLight decay={0} intensity={1} position={[10, 10, 10]} />
       </PerspectiveCamera>
       <ambientLight intensity={1} />
-      <HexSphere />
+      {isCompactScene ? <MobileFloatingHexagons /> : <HexSphere />}
     </>
   );
 }
@@ -243,6 +247,7 @@ function MailIcon() {
 
 export function HomeScene() {
   const canRenderScene = supportsWebGL() && !prefersReducedMotion();
+  const isCompactScene = useMediaQuery(compactHomeSceneQuery);
 
   usePreloadSatelliteLabelFont();
 
@@ -267,7 +272,7 @@ export function HomeScene() {
         }}
       >
         <Suspense fallback={null}>
-          <SceneContent />
+          <SceneContent isCompactScene={isCompactScene} />
         </Suspense>
       </Canvas>
       <HomeFooter />
