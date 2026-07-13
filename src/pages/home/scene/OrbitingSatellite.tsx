@@ -32,6 +32,14 @@ function resetCursor() {
   }
 }
 
+function setPointerCursor(cursor: "auto" | "pointer") {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  document.body.style.cursor = cursor;
+}
+
 export const OrbitingSatellite = forwardRef<Group, OrbitingSatelliteProps>(
   function OrbitingSatellite(
     {
@@ -91,6 +99,13 @@ export const OrbitingSatellite = forwardRef<Group, OrbitingSatelliteProps>(
                 font="/fonts/SpaceGrotesk-Bold.ttf"
                 fontSize={labelFontSize}
                 maxWidth={labelMaxWidth}
+                onClick={handleClick}
+                onPointerOut={() => {
+                  setPointerCursor("auto");
+                }}
+                onPointerOver={() => {
+                  setPointerCursor("pointer");
+                }}
                 position={[0, labelOffsetY, 0]}
                 textAlign="center"
               >
