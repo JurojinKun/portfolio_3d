@@ -43,7 +43,6 @@ const backgroundTileStyle = {
   minOpacity: 0.028,
   radius: 0.15,
 } as const;
-const collisionCooldownDuration = 1.45;
 const mobileSatellitePathDefinitions = [
   {
     phase: 0.02,
@@ -308,24 +307,6 @@ function getMobilePointFromViewportRatio({
   );
 }
 
-function getMinimumSatelliteDistance(
-  satelliteScale: number,
-  viewportHeight: number,
-  viewportWidth: number,
-) {
-  const shortestSide = Math.min(viewportHeight, viewportWidth);
-
-  if (shortestSide <= 360) {
-    return satelliteScale * 0.62;
-  }
-
-  if (viewportWidth <= 480) {
-    return satelliteScale * 0.72;
-  }
-
-  return satelliteScale * 0.8;
-}
-
 function createRandomTrackPhases(satelliteCount: number) {
   return Array.from({ length: satelliteCount }, () => Math.random());
 }
@@ -387,46 +368,6 @@ function getMobileSatellitePosition({
   return { depthValue, position };
 }
 
-function getPairKey(firstIndex: number, secondIndex: number) {
-  return `${String(firstIndex)}:${String(secondIndex)}`;
-}
-
-function getPlacementVisualScale(
-  placement: MobileSatellitePlacement,
-  satelliteScale: number,
-) {
-  return satelliteScale * getSatelliteDepthScale(placement.depthValue);
-}
-
-function cleanupCollisionCooldowns({
-  collisionCooldowns,
-  elapsedTime,
-}: {
-  collisionCooldowns: Map<string, number>;
-  elapsedTime: number;
-}) {
-  collisionCooldowns.forEach((startedAt, key) => {
-    if (elapsedTime - startedAt > collisionCooldownDuration) {
-      collisionCooldowns.delete(key);
-    }
-  });
-}
-
-function getDirectionAwayFromCollision({
-  awayVector,
-  progress,
-  track,
-}: {
-  awayVector: Vector3;
-  progress: number;
-  track: MobileSatelliteTrack;
-}): MotionDirection {
-  const tangent = track.curve.getTangentAt(wrapProgress(progress));
-  const forwardScore = tangent.x * awayVector.x + tangent.y * awayVector.y;
-
-  return forwardScore >= 0 ? 1 : -1;
-}
-
 function ensureMotionStates({
   motionStates,
   tracks,
@@ -468,99 +409,6 @@ function advanceMotionStates({
       motionState.progress + motionState.direction * track.speed * stableDelta,
     );
   });
-}
-
-function handleSatelliteCollisions({
-  collisionCooldowns,
-  elapsedTime,
-  minimumDistance,
-  motionStates,
-  placements,
-  satelliteScale,
-  tracks,
-}: {
-  collisionCooldowns: Map<string, number>;
-  elapsedTime: number;
-  minimumDistance: number;
-  motionStates: MobileSatelliteMotionState[];
-  placements: MobileSatellitePlacement[];
-  satelliteScale: number;
-  tracks: MobileSatelliteTrack[];
-}) {
-  cleanupCollisionCooldowns({ collisionCooldowns, elapsedTime });
-
-  for (let index = 0; index < placements.length; index += 1) {
-    for (
-      let nextIndex = index + 1;
-      nextIndex < placements.length;
-      nextIndex += 1
-    ) {
-      const current = placements[index];
-      const next = placements[nextIndex];
-      const currentMotionState = motionStates[index];
-      const nextMotionState = motionStates[nextIndex];
-      const currentTrack = tracks[index];
-      const nextTrack = tracks[nextIndex];
-
-      if (
-        !current ||
-        !next ||
-        !currentMotionState ||
-        !nextMotionState ||
-        !currentTrack ||
-        !nextTrack
-      ) {
-        continue;
-      }
-
-      const pairKey = getPairKey(index, nextIndex);
-      const lastCollisionTime = collisionCooldowns.get(pairKey);
-
-      if (
-        lastCollisionTime !== undefined &&
-        elapsedTime - lastCollisionTime < collisionCooldownDuration
-      ) {
-        continue;
-      }
-
-      const deltaX = current.position[0] - next.position[0];
-      const deltaY = current.position[1] - next.position[1];
-      const distance = Math.hypot(deltaX, deltaY);
-      const currentVisualScale = getPlacementVisualScale(
-        current,
-        satelliteScale,
-      );
-      const nextVisualScale = getPlacementVisualScale(next, satelliteScale);
-      const collisionDistance = Math.max(
-        minimumDistance,
-        (currentVisualScale + nextVisualScale) * 0.42,
-      );
-
-      if (distance >= collisionDistance) {
-        continue;
-      }
-
-      const fallbackAngle = (index + 1) * (nextIndex + 2) * 0.83;
-      const normalX =
-        distance > 0.001 ? deltaX / distance : Math.cos(fallbackAngle);
-      const normalY =
-        distance > 0.001 ? deltaY / distance : Math.sin(fallbackAngle);
-      const currentAwayVector = new Vector3(normalX, normalY, 0);
-      const nextAwayVector = currentAwayVector.clone().multiplyScalar(-1);
-
-      currentMotionState.direction = getDirectionAwayFromCollision({
-        awayVector: currentAwayVector,
-        progress: currentMotionState.progress,
-        track: currentTrack,
-      });
-      nextMotionState.direction = getDirectionAwayFromCollision({
-        awayVector: nextAwayVector,
-        progress: nextMotionState.progress,
-        track: nextTrack,
-      });
-      collisionCooldowns.set(pairKey, elapsedTime);
-    }
-  }
 }
 
 function getMobileSatellitePlacements({
@@ -766,7 +614,6 @@ export function MobileFloatingHexagons() {
       targetColor: startColor.clone(),
     }),
   );
-  const collisionCooldownsRef = useRef(new Map<string, number>());
   const lastColorStateUpdateRef = useRef(0);
   const motionStatesRef = useRef<MobileSatelliteMotionState[]>([]);
   const satelliteRefs = useRef<(Group | null)[]>([]);
@@ -774,11 +621,6 @@ export function MobileFloatingHexagons() {
   const labelFontSize = getMobileLabelFontSize(width, height);
   const labelMaxWidth = 0.92;
   const labelOffsetY = getMobileLabelOffsetY(width, height);
-  const minimumSatelliteDistance = getMinimumSatelliteDistance(
-    satelliteScale,
-    height,
-    width,
-  );
   const randomTrackPhases = useMemo(
     () => createRandomTrackPhases(satelliteNavigationItems.length),
     [],
@@ -830,16 +672,6 @@ export function MobileFloatingHexagons() {
     });
     const placements = getMobileSatellitePlacements({
       motionStates: motionStatesRef.current,
-      tracks: satelliteTracks,
-    });
-
-    handleSatelliteCollisions({
-      collisionCooldowns: collisionCooldownsRef.current,
-      elapsedTime,
-      minimumDistance: minimumSatelliteDistance,
-      motionStates: motionStatesRef.current,
-      placements,
-      satelliteScale,
       tracks: satelliteTracks,
     });
 
