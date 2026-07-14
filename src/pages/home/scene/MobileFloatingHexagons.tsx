@@ -1,22 +1,11 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
-import {
-  CatmullRomCurve3,
-  Color,
-  EdgesGeometry,
-  ExtrudeGeometry,
-  LineBasicMaterial,
-  MathUtils,
-  MeshPhongMaterial,
-  Shape,
-  Vector3,
-  type Group,
-} from "three";
+import { useMemo, useRef, useState } from "react";
+import { Color, MathUtils, Vector3, type Group } from "three";
 
 import { satelliteNavigationItems } from "@/data/navigation";
 
 import { OrbitingSatellite } from "./OrbitingSatellite";
-import { generateHexSphereTiles, type ScenePosition } from "./sceneUtils";
+import { type ScenePosition } from "./sceneUtils";
 import {
   getSceneColorElapsedTime,
   getScenePulseColor,
@@ -29,112 +18,20 @@ const cameraZPosition = 10;
 const baseSatelliteZPosition = 1.25;
 const backDepthAmplitude = 1.25;
 const frontDepthAmplitude = 2.75;
-const backgroundSpherePosition = [0, 0.05, -2.8] satisfies ScenePosition;
-const backgroundSphereRadius = 2;
-const backgroundSphereScale = 0.64;
-const backgroundSphereTileCount = 425;
-const backgroundSphereRotationSpeed = 0.00022;
-const backgroundTileStyle = {
-  depth: 0.1,
-  edgeOpacity: 0.22,
-  foregroundGlowStart: 0.66,
-  maxEmissiveIntensity: 0.06,
-  maxOpacity: 0.18,
-  minOpacity: 0.028,
-  radius: 0.15,
-} as const;
-const mobileSatellitePathDefinitions = [
-  {
-    phase: 0.02,
-    speed: 0.014,
-    points: [
-      [-0.96, 0.78, -0.72],
-      [-0.42, 0.96, -0.18],
-      [0.16, 0.42, 0.96],
-      [0.92, 0.64, 0.18],
-      [0.78, -0.16, -0.62],
-      [-0.08, -0.02, 1],
-      [-0.88, -0.56, 0.08],
-      [0.18, -0.9, -0.88],
-    ],
-  },
-  {
-    phase: 0.25,
-    speed: 0.0125,
-    points: [
-      [0.92, 0.86, -0.42],
-      [0.12, 0.72, -0.86],
-      [-0.88, 0.88, -0.08],
-      [-0.62, 0.12, 0.56],
-      [0.08, -0.1, 1],
-      [0.86, -0.62, 0.1],
-      [-0.2, -0.88, -0.58],
-      [-0.94, -0.22, -0.92],
-    ],
-  },
-  {
-    phase: 0.45,
-    speed: 0.013,
-    points: [
-      [-0.78, -0.86, 0.72],
-      [-0.96, -0.12, 0.22],
-      [-0.18, 0.1, -0.62],
-      [-0.6, 0.78, -0.98],
-      [0.28, 0.92, -0.26],
-      [0.96, 0.26, 0.44],
-      [0.08, -0.08, 1],
-      [0.64, -0.44, 0.76],
-      [-0.12, -0.64, 0.1],
-    ],
-  },
-  {
-    phase: 0.66,
-    speed: 0.0115,
-    points: [
-      [0.76, -0.84, -0.76],
-      [0.98, -0.08, -0.18],
-      [0.16, 0.08, 0.92],
-      [0.54, 0.82, 0.74],
-      [-0.28, 0.9, 0.08],
-      [-0.96, 0.3, -0.58],
-      [-0.58, -0.5, -0.96],
-      [0.1, -0.7, -0.18],
-    ],
-  },
-  {
-    phase: 0.83,
-    speed: 0.012,
-    points: [
-      [-0.12, 0.88, 0.08],
-      [0.72, 0.68, -0.66],
-      [0.96, -0.02, -0.98],
-      [0.3, -0.2, -0.22],
-      [0.76, -0.88, 0.46],
-      [-0.06, -0.08, 1],
-      [-0.32, -0.8, 0.76],
-      [-0.96, -0.02, 0.22],
-      [-0.5, 0.46, -0.48],
-    ],
-  },
-  {
-    phase: 0.58,
-    speed: 0.0128,
-    points: [
-      [0.34, 0.92, -0.28],
-      [0.98, 0.34, 0.42],
-      [0.42, -0.16, 1],
-      [0.9, -0.78, 0.02],
-      [0.06, -0.92, -0.58],
-      [-0.9, -0.48, -0.16],
-      [-0.64, 0.18, 0.74],
-      [-0.08, 0.04, 0.98],
-      [-0.82, 0.78, -0.44],
-    ],
-  },
-] as const;
-const backgroundTempNormal = new Vector3();
-const backgroundTempPosition = new Vector3();
-const backgroundTempToCamera = new Vector3();
+const mobileSatelliteBaseSpeed = 0.052;
+const mobileSatelliteSpeedVariance = 0.012;
+const mobileSatelliteDepthAmplitude = 0.74;
+const mobileSatelliteDepthBase = 0.14;
+const mobileSatelliteDepthSpeedMin = 0.15;
+const mobileSatelliteDepthSpeedVariance = 0.08;
+const mobileSatelliteNaturalTurnStrength = 0.28;
+const mobileSatelliteMaxFrameDelta = 0.034;
+const mobileSatelliteCollisionRadiusFactor = 0.255;
+const mobileSatelliteCollisionTangentBias = 0.16;
+const mobileSatelliteCollisionRandomness = 0.1;
+const mobileSatelliteInitialXLimit = 1;
+const mobileSatelliteInitialYLimit = 0.8;
+const mobileSatelliteInitialSpacing = 0.42;
 
 interface MobileBounds {
   maxX: number;
@@ -148,17 +45,28 @@ interface MobileSatellitePlacement {
   position: ScenePosition;
 }
 
-interface MobileSatelliteTrack {
-  curve: CatmullRomCurve3;
-  phase: number;
-  speed: number;
+interface MobileSatelliteInitialPosition {
+  xRatio: number;
+  yRatio: number;
 }
 
-type MotionDirection = -1 | 1;
-
 interface MobileSatelliteMotionState {
-  direction: MotionDirection;
-  progress: number;
+  collisionPhase: number;
+  depthPhase: number;
+  depthSpeed: number;
+  speed: number;
+  turnPhase: number;
+  turnSpeed: number;
+  velocityX: number;
+  velocityY: number;
+  xRatio: number;
+  yRatio: number;
+}
+
+interface MobileSatelliteCollisionImpulse {
+  count: number;
+  x: number;
+  y: number;
 }
 
 function getSatelliteZFromDepthValue(depthValue: number) {
@@ -169,13 +77,6 @@ function getSatelliteZFromDepthValue(depthValue: number) {
   }
 
   return baseSatelliteZPosition + clampedDepthValue * backDepthAmplitude;
-}
-
-function getDepthValueFromSatelliteZ(positionZ: number) {
-  const deltaZ = positionZ - baseSatelliteZPosition;
-  const amplitude = deltaZ >= 0 ? frontDepthAmplitude : backDepthAmplitude;
-
-  return MathUtils.clamp(deltaZ / amplitude, -1, 1);
 }
 
 function getSatelliteDepthScale(depthValue: number) {
@@ -258,19 +159,32 @@ function getMobileBounds({
     viewportWidth,
   });
   const worldPerPixelY = (halfHeight * 2) / viewportHeight;
-  const worldPerPixelX = (halfWidth * 2) / viewportWidth;
-  const horizontalClearance = 0.34 * satelliteScale + 10 * worldPerPixelX;
-  const verticalClearance = 0.5 * satelliteScale;
-  const topChromeClearance = (viewportHeight <= 520 ? 70 : 84) * worldPerPixelY;
-  const bottomChromeClearance =
-    (viewportHeight <= 520 ? 68 : 80) * worldPerPixelY;
+  const horizontalClearance = 0.18 * satelliteScale;
+  const headerVisualClearance = 0.26 * satelliteScale;
+  const footerLabelClearance = 0.52 * satelliteScale;
+  const headerChromeClearance =
+    (viewportHeight <= 520 ? 76 : 92) * worldPerPixelY;
+  const footerChromeClearance =
+    (viewportHeight <= 520 ? 72 : 84) * worldPerPixelY;
 
   return {
     maxX: halfWidth - horizontalClearance,
-    maxY: halfHeight - topChromeClearance - verticalClearance,
+    maxY: halfHeight - headerChromeClearance - headerVisualClearance,
     minX: -halfWidth + horizontalClearance,
-    minY: -halfHeight + bottomChromeClearance + verticalClearance,
+    minY: -halfHeight + footerChromeClearance + footerLabelClearance,
   };
+}
+
+function getSafeCoordinate(
+  minValue: number,
+  maxValue: number,
+  progress: number,
+) {
+  if (minValue > maxValue) {
+    return (minValue + maxValue) / 2;
+  }
+
+  return MathUtils.lerp(minValue, maxValue, progress);
 }
 
 function getMobilePointFromViewportRatio({
@@ -301,68 +215,124 @@ function getMobilePointFromViewportRatio({
   const yProgress = (MathUtils.clamp(yRatio, -1, 1) + 1) / 2;
 
   return new Vector3(
-    MathUtils.lerp(bounds.minX, bounds.maxX, xProgress),
-    MathUtils.lerp(bounds.minY, bounds.maxY, yProgress),
+    getSafeCoordinate(bounds.minX, bounds.maxX, xProgress),
+    getSafeCoordinate(bounds.minY, bounds.maxY, yProgress),
     objectZ,
   );
 }
 
-function createRandomTrackPhases(satelliteCount: number) {
-  return Array.from({ length: satelliteCount }, () => Math.random());
+function createRandomInitialSatellitePosition(
+  existingPositions: readonly MobileSatelliteInitialPosition[],
+): MobileSatelliteInitialPosition {
+  let candidate = {
+    xRatio: MathUtils.randFloat(
+      -mobileSatelliteInitialXLimit,
+      mobileSatelliteInitialXLimit,
+    ),
+    yRatio: MathUtils.randFloat(
+      -mobileSatelliteInitialYLimit,
+      mobileSatelliteInitialYLimit,
+    ),
+  };
+
+  for (let attempt = 0; attempt < 18; attempt += 1) {
+    const hasEnoughSpace = existingPositions.every((position) => {
+      const deltaX = candidate.xRatio - position.xRatio;
+      const deltaY = candidate.yRatio - position.yRatio;
+
+      return Math.hypot(deltaX, deltaY) >= mobileSatelliteInitialSpacing;
+    });
+
+    if (hasEnoughSpace) {
+      return candidate;
+    }
+
+    candidate = {
+      xRatio: MathUtils.randFloat(
+        -mobileSatelliteInitialXLimit,
+        mobileSatelliteInitialXLimit,
+      ),
+      yRatio: MathUtils.randFloat(
+        -mobileSatelliteInitialYLimit,
+        mobileSatelliteInitialYLimit,
+      ),
+    };
+  }
+
+  return candidate;
 }
 
-function createMobileSatelliteTracks({
-  phaseOffsets,
-  satelliteScale,
-  satelliteCount,
-  viewportHeight,
-  viewportWidth,
-}: {
-  phaseOffsets: readonly number[];
-  satelliteScale: number;
-  satelliteCount: number;
-  viewportHeight: number;
-  viewportWidth: number;
-}) {
-  return Array.from({ length: satelliteCount }, (_, index) => {
-    const pathDefinition =
-      mobileSatellitePathDefinitions[
-        index % mobileSatellitePathDefinitions.length
-      ] ?? mobileSatellitePathDefinitions[0];
-    const pathPoints = pathDefinition.points.map(([x, y, z]) =>
-      getMobilePointFromViewportRatio({
-        satelliteScale,
-        viewportHeight,
-        viewportWidth,
-        xRatio: x,
-        yRatio: y,
-        zRatio: z,
-      }),
-    );
+function createMobileSatelliteMotionState(
+  initialPosition: MobileSatelliteInitialPosition,
+): MobileSatelliteMotionState {
+  const motionAngle = Math.random() * Math.PI * 2;
+  const speed =
+    mobileSatelliteBaseSpeed +
+    (Math.random() - 0.5) * mobileSatelliteSpeedVariance;
 
-    return {
-      curve: new CatmullRomCurve3(pathPoints, true, "catmullrom", 0.55),
-      phase:
-        (pathDefinition.phase + (phaseOffsets[index] ?? Math.random())) % 1,
-      speed: pathDefinition.speed,
-    } satisfies MobileSatelliteTrack;
+  return {
+    collisionPhase: Math.random() * Math.PI * 2,
+    depthPhase: Math.random() * Math.PI * 2,
+    depthSpeed:
+      mobileSatelliteDepthSpeedMin +
+      Math.random() * mobileSatelliteDepthSpeedVariance,
+    speed,
+    turnPhase: Math.random() * Math.PI * 2,
+    turnSpeed: 0.26 + Math.random() * 0.22,
+    velocityX: Math.cos(motionAngle) * speed,
+    velocityY: Math.sin(motionAngle) * speed,
+    xRatio: initialPosition.xRatio,
+    yRatio: initialPosition.yRatio,
+  };
+}
+
+function createMobileSatelliteMotionStates(satelliteCount: number) {
+  const initialPositions: MobileSatelliteInitialPosition[] = [];
+
+  return Array.from({ length: satelliteCount }, () => {
+    const initialPosition =
+      createRandomInitialSatellitePosition(initialPositions);
+
+    initialPositions.push(initialPosition);
+    return createMobileSatelliteMotionState(initialPosition);
   });
 }
 
-function wrapProgress(progress: number) {
-  return ((progress % 1) + 1) % 1;
+function getMobileSatelliteDepthValue(
+  motionState: MobileSatelliteMotionState,
+  elapsedTime: number,
+) {
+  return MathUtils.clamp(
+    mobileSatelliteDepthBase +
+      Math.sin(elapsedTime * motionState.depthSpeed + motionState.depthPhase) *
+        mobileSatelliteDepthAmplitude,
+    -0.66,
+    1,
+  );
 }
 
-function getMobileSatellitePosition({
-  progress,
-  track,
+function getMobileSatellitePlacement({
+  elapsedTime,
+  motionState,
+  satelliteScale,
+  viewportHeight,
+  viewportWidth,
 }: {
-  progress: number;
-  track: MobileSatelliteTrack;
+  elapsedTime: number;
+  motionState: MobileSatelliteMotionState;
+  satelliteScale: number;
+  viewportHeight: number;
+  viewportWidth: number;
 }): MobileSatellitePlacement {
-  const wrappedProgress = wrapProgress(progress);
-  const point = track.curve.getPointAt(wrappedProgress);
-  const depthValue = getDepthValueFromSatelliteZ(point.z);
+  const depthValue = getMobileSatelliteDepthValue(motionState, elapsedTime);
+  const point = getMobilePointFromViewportRatio({
+    satelliteScale,
+    viewportHeight,
+    viewportWidth,
+    xRatio: motionState.xRatio,
+    yRatio: motionState.yRatio,
+    zRatio: depthValue,
+  });
   const position = [point.x, point.y, point.z] satisfies ScenePosition;
 
   return { depthValue, position };
@@ -370,242 +340,266 @@ function getMobileSatellitePosition({
 
 function ensureMotionStates({
   motionStates,
-  tracks,
+  satelliteCount,
 }: {
   motionStates: MobileSatelliteMotionState[];
-  tracks: MobileSatelliteTrack[];
+  satelliteCount: number;
 }) {
-  while (motionStates.length < tracks.length) {
-    const track = tracks[motionStates.length];
+  while (motionStates.length < satelliteCount) {
+    const initialPosition = createRandomInitialSatellitePosition(motionStates);
 
-    motionStates.push({
-      direction: Math.random() > 0.5 ? 1 : -1,
-      progress: track?.phase ?? Math.random(),
-    });
+    motionStates.push(createMobileSatelliteMotionState(initialPosition));
   }
 
-  motionStates.length = tracks.length;
+  motionStates.length = satelliteCount;
+}
+
+function setVelocityFromDirection(
+  motionState: MobileSatelliteMotionState,
+  directionX: number,
+  directionY: number,
+) {
+  const directionLength = Math.hypot(directionX, directionY);
+
+  if (directionLength <= 0.0001) {
+    return;
+  }
+
+  motionState.velocityX = (directionX / directionLength) * motionState.speed;
+  motionState.velocityY = (directionY / directionLength) * motionState.speed;
+}
+
+function bounceMobileSatelliteFromBounds(
+  motionState: MobileSatelliteMotionState,
+) {
+  if (motionState.xRatio <= -1) {
+    motionState.xRatio = -1;
+    motionState.velocityX = Math.abs(motionState.velocityX);
+  } else if (motionState.xRatio >= 1) {
+    motionState.xRatio = 1;
+    motionState.velocityX = -Math.abs(motionState.velocityX);
+  }
+
+  if (motionState.yRatio <= -1) {
+    motionState.yRatio = -1;
+    motionState.velocityY = Math.abs(motionState.velocityY);
+  } else if (motionState.yRatio >= 1) {
+    motionState.yRatio = 1;
+    motionState.velocityY = -Math.abs(motionState.velocityY);
+  }
 }
 
 function advanceMotionStates({
   delta,
+  elapsedTime,
   motionStates,
-  tracks,
 }: {
   delta: number;
+  elapsedTime: number;
   motionStates: MobileSatelliteMotionState[];
-  tracks: MobileSatelliteTrack[];
 }) {
-  const stableDelta = Math.min(delta, 0.05);
+  const stableDelta = Math.min(delta, mobileSatelliteMaxFrameDelta);
 
-  motionStates.forEach((motionState, index) => {
-    const track = tracks[index];
+  motionStates.forEach((motionState) => {
+    const turnAmount =
+      Math.sin(elapsedTime * motionState.turnSpeed + motionState.turnPhase) *
+      mobileSatelliteNaturalTurnStrength *
+      stableDelta;
+    const nextVelocityX =
+      motionState.velocityX * Math.cos(turnAmount) -
+      motionState.velocityY * Math.sin(turnAmount);
+    const nextVelocityY =
+      motionState.velocityX * Math.sin(turnAmount) +
+      motionState.velocityY * Math.cos(turnAmount);
 
-    if (!track) {
-      return;
-    }
-
-    motionState.progress = wrapProgress(
-      motionState.progress + motionState.direction * track.speed * stableDelta,
-    );
+    setVelocityFromDirection(motionState, nextVelocityX, nextVelocityY);
+    motionState.xRatio += motionState.velocityX * stableDelta;
+    motionState.yRatio += motionState.velocityY * stableDelta;
+    bounceMobileSatelliteFromBounds(motionState);
   });
 }
 
 function getMobileSatellitePlacements({
+  elapsedTime,
   motionStates,
-  tracks,
+  satelliteScale,
+  viewportHeight,
+  viewportWidth,
 }: {
+  elapsedTime: number;
   motionStates: MobileSatelliteMotionState[];
-  tracks: MobileSatelliteTrack[];
+  satelliteScale: number;
+  viewportHeight: number;
+  viewportWidth: number;
 }) {
-  return tracks.map((track, index) =>
-    getMobileSatellitePosition({
-      progress: motionStates[index]?.progress ?? track.phase,
-      track,
+  return motionStates.map((motionState) =>
+    getMobileSatellitePlacement({
+      elapsedTime,
+      motionState,
+      satelliteScale,
+      viewportHeight,
+      viewportWidth,
     }),
   );
 }
 
-function createHexBackdropGeometry() {
-  const shape = new Shape();
-
-  shape.moveTo(backgroundTileStyle.radius, 0);
-
-  for (let index = 1; index <= 6; index += 1) {
-    const theta = (index / 6) * Math.PI * 2;
-    shape.lineTo(
-      backgroundTileStyle.radius * Math.cos(theta),
-      backgroundTileStyle.radius * Math.sin(theta),
-    );
-  }
-
-  const geometry = new ExtrudeGeometry(shape, {
-    bevelEnabled: false,
-    depth: backgroundTileStyle.depth,
-  });
-
-  geometry.center();
-  return geometry;
+function getMobileSatelliteCollisionRadius({
+  placement,
+  satelliteScale,
+}: {
+  placement: MobileSatellitePlacement;
+  satelliteScale: number;
+}) {
+  return (
+    satelliteScale *
+    getSatelliteDepthScale(placement.depthValue) *
+    mobileSatelliteCollisionRadiusFactor
+  );
 }
 
-const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop() {
-  const sphereRef = useRef<Group>(null);
-  const startColor = useMemo(() => new Color(sceneStartColorHex), []);
-  const endColor = useMemo(() => new Color(sceneEndColorHex), []);
-  const currentColor = useMemo(() => startColor.clone(), [startColor]);
-  const hexGeometry = useMemo(() => createHexBackdropGeometry(), []);
-  const hexEdgesGeometry = useMemo(
-    () => new EdgesGeometry(hexGeometry),
-    [hexGeometry],
+function applyMobileSatelliteCollisionImpulse({
+  impulse,
+  motionState,
+}: {
+  impulse: MobileSatelliteCollisionImpulse;
+  motionState: MobileSatelliteMotionState;
+}) {
+  if (impulse.count === 0) {
+    return;
+  }
+
+  const impulseLength = Math.hypot(impulse.x, impulse.y);
+  const fallbackAngle =
+    impulse.count > 1
+      ? motionState.collisionPhase
+      : Math.atan2(motionState.velocityY, motionState.velocityX);
+  const awayX =
+    impulseLength > 0.0001
+      ? impulse.x / impulseLength
+      : Math.cos(fallbackAngle);
+  const awayY =
+    impulseLength > 0.0001
+      ? impulse.y / impulseLength
+      : Math.sin(fallbackAngle);
+  const tangentX = -awayY;
+  const tangentY = awayX;
+  const currentTangent =
+    motionState.velocityX * tangentX + motionState.velocityY * tangentY;
+  const tangentDirection = currentTangent >= 0 ? 1 : -1;
+  const baseTangentBias =
+    impulse.count > 1
+      ? mobileSatelliteCollisionTangentBias * 0.45
+      : mobileSatelliteCollisionTangentBias;
+  const tangentBias =
+    tangentDirection *
+    (baseTangentBias +
+      (Math.random() - 0.5) * mobileSatelliteCollisionRandomness);
+
+  setVelocityFromDirection(
+    motionState,
+    awayX + tangentX * tangentBias,
+    awayY + tangentY * tangentBias,
   );
-  const hexEdgeMaterial = useMemo(
-    () =>
-      new LineBasicMaterial({
-        color: startColor.clone(),
-        depthTest: true,
-        depthWrite: false,
-        opacity: backgroundTileStyle.edgeOpacity,
-        toneMapped: false,
-        transparent: true,
-      }),
-    [startColor],
-  );
-  const tiles = useMemo(
-    () =>
-      generateHexSphereTiles(backgroundSphereTileCount, backgroundSphereRadius),
-    [],
-  );
-  const tileMaterials = useMemo(
-    () =>
-      tiles.map(
-        () =>
-          new MeshPhongMaterial({
-            color: startColor.clone(),
-            emissive: startColor.clone(),
-            emissiveIntensity: 0,
-            opacity: backgroundTileStyle.minOpacity,
-            polygonOffset: true,
-            polygonOffsetFactor: -2,
-            polygonOffsetUnits: -2,
-            transparent: true,
-          }),
-      ),
-    [startColor, tiles],
+}
+
+function resolveMobileSatelliteCollisions({
+  motionStates,
+  placements,
+  satelliteScale,
+}: {
+  motionStates: MobileSatelliteMotionState[];
+  placements: MobileSatellitePlacement[];
+  satelliteScale: number;
+}) {
+  const impulses = motionStates.map(
+    () => ({ count: 0, x: 0, y: 0 }) satisfies MobileSatelliteCollisionImpulse,
   );
 
-  useEffect(
-    () => () => {
-      hexGeometry.dispose();
-      hexEdgesGeometry.dispose();
-      hexEdgeMaterial.dispose();
-      tileMaterials.forEach((material) => {
-        material.dispose();
-      });
-    },
-    [hexEdgeMaterial, hexEdgesGeometry, hexGeometry, tileMaterials],
-  );
+  for (let index = 0; index < placements.length; index += 1) {
+    for (
+      let nextIndex = index + 1;
+      nextIndex < placements.length;
+      nextIndex += 1
+    ) {
+      const currentPlacement = placements[index];
+      const nextPlacement = placements[nextIndex];
+      const currentState = motionStates[index];
+      const nextState = motionStates[nextIndex];
+      const currentImpulse = impulses[index];
+      const nextImpulse = impulses[nextIndex];
 
-  useFrame(({ camera }) => {
-    const sphere = sphereRef.current;
+      if (
+        !currentPlacement ||
+        !nextPlacement ||
+        !currentState ||
+        !nextState ||
+        !currentImpulse ||
+        !nextImpulse
+      ) {
+        continue;
+      }
 
-    if (!sphere) {
+      const deltaX = nextPlacement.position[0] - currentPlacement.position[0];
+      const deltaY = nextPlacement.position[1] - currentPlacement.position[1];
+      const distance = Math.hypot(deltaX, deltaY);
+      const collisionDistance =
+        getMobileSatelliteCollisionRadius({
+          placement: currentPlacement,
+          satelliteScale,
+        }) +
+        getMobileSatelliteCollisionRadius({
+          placement: nextPlacement,
+          satelliteScale,
+        });
+
+      if (distance >= collisionDistance) {
+        continue;
+      }
+
+      const ratioDeltaX = nextState.xRatio - currentState.xRatio;
+      const ratioDeltaY = nextState.yRatio - currentState.yRatio;
+      const ratioDistance = Math.hypot(ratioDeltaX, ratioDeltaY);
+      const fallbackAngle = (index + 1) * (nextIndex + 2) * 0.73;
+      const normalX =
+        ratioDistance > 0.0001
+          ? ratioDeltaX / ratioDistance
+          : Math.cos(fallbackAngle);
+      const normalY =
+        ratioDistance > 0.0001
+          ? ratioDeltaY / ratioDistance
+          : Math.sin(fallbackAngle);
+      const overlap = collisionDistance - distance;
+
+      currentImpulse.x -= normalX * overlap;
+      currentImpulse.y -= normalY * overlap;
+      currentImpulse.count += 1;
+      nextImpulse.x += normalX * overlap;
+      nextImpulse.y += normalY * overlap;
+      nextImpulse.count += 1;
+    }
+  }
+
+  motionStates.forEach((motionState, index) => {
+    const impulse = impulses[index];
+
+    if (!impulse) {
       return;
     }
 
-    getScenePulseColor({
-      elapsedTime: getSceneColorElapsedTime(),
-      endColor,
-      startColor,
-      targetColor: currentColor,
-    });
-    sphere.rotation.y += backgroundSphereRotationSpeed;
-    sphere.rotation.z += backgroundSphereRotationSpeed;
-    hexEdgeMaterial.color.copy(currentColor);
-
-    tiles.forEach((tile, index) => {
-      const material = tileMaterials[index];
-
-      if (!material) {
-        return;
-      }
-
-      backgroundTempNormal.copy(tile.normal).applyQuaternion(sphere.quaternion);
-      backgroundTempPosition
-        .copy(tile.position)
-        .applyQuaternion(sphere.quaternion)
-        .multiplyScalar(backgroundSphereScale)
-        .add(sphere.position);
-      backgroundTempToCamera
-        .copy(camera.position)
-        .sub(backgroundTempPosition)
-        .normalize();
-
-      const facing = MathUtils.clamp(
-        backgroundTempNormal.dot(backgroundTempToCamera),
-        -1,
-        1,
-      );
-      const normalizedFacing = (facing + 1) / 2;
-      const opacityFacing = MathUtils.smoothstep(normalizedFacing, 0.18, 0.92);
-      const targetOpacity =
-        backgroundTileStyle.minOpacity +
-        (backgroundTileStyle.maxOpacity - backgroundTileStyle.minOpacity) *
-          opacityFacing;
-      const foregroundGlow = MathUtils.smoothstep(
-        normalizedFacing,
-        backgroundTileStyle.foregroundGlowStart,
-        1,
-      );
-
-      material.color.copy(currentColor);
-      material.emissive.copy(currentColor);
-      material.emissiveIntensity = MathUtils.lerp(
-        material.emissiveIntensity,
-        backgroundTileStyle.maxEmissiveIntensity * foregroundGlow,
-        0.1,
-      );
-      material.opacity = MathUtils.lerp(material.opacity, targetOpacity, 0.08);
-      material.needsUpdate = true;
-    });
+    applyMobileSatelliteCollisionImpulse({ impulse, motionState });
+    bounceMobileSatelliteFromBounds(motionState);
   });
-
-  return (
-    <group
-      ref={sphereRef}
-      position={backgroundSpherePosition}
-      rotation={[0.2, 0.42, -0.12]}
-      scale={backgroundSphereScale}
-    >
-      {tiles.map((tile, index) => {
-        const material = tileMaterials[index];
-
-        if (!material) {
-          return null;
-        }
-
-        return (
-          <group
-            key={index}
-            position={tile.position}
-            quaternion={tile.quaternion}
-          >
-            <mesh geometry={hexGeometry} material={material} />
-            <lineSegments
-              geometry={hexEdgesGeometry}
-              material={hexEdgeMaterial}
-            />
-          </group>
-        );
-      })}
-    </group>
-  );
-});
+}
 
 export function MobileFloatingHexagons() {
   const { height, width } = useThree((state) => state.size);
   const startColor = useMemo(() => new Color(sceneStartColorHex), []);
   const endColor = useMemo(() => new Color(sceneEndColorHex), []);
   const currentColor = useMemo(() => startColor.clone(), [startColor]);
+  const initialMotionStates = useMemo(
+    () => createMobileSatelliteMotionStates(satelliteNavigationItems.length),
+    [],
+  );
   const [color, setColor] = useState(() =>
     getScenePulseColor({
       elapsedTime: getSceneColorElapsedTime(),
@@ -615,36 +609,25 @@ export function MobileFloatingHexagons() {
     }),
   );
   const lastColorStateUpdateRef = useRef(0);
-  const motionStatesRef = useRef<MobileSatelliteMotionState[]>([]);
+  const motionStatesRef =
+    useRef<MobileSatelliteMotionState[]>(initialMotionStates);
   const satelliteRefs = useRef<(Group | null)[]>([]);
   const satelliteScale = getMobileSatelliteScale(width, height);
   const labelFontSize = getMobileLabelFontSize(width, height);
   const labelMaxWidth = 0.92;
   const labelOffsetY = getMobileLabelOffsetY(width, height);
-  const randomTrackPhases = useMemo(
-    () => createRandomTrackPhases(satelliteNavigationItems.length),
-    [],
-  );
-  const satelliteTracks = useMemo(
-    () =>
-      createMobileSatelliteTracks({
-        phaseOffsets: randomTrackPhases,
-        satelliteScale,
-        satelliteCount: satelliteNavigationItems.length,
-        viewportHeight: height,
-        viewportWidth: width,
-      }),
-    [height, randomTrackPhases, satelliteScale, width],
-  );
   const initialSatellitePlacements = useMemo(
     () =>
-      satelliteTracks.map((track) =>
-        getMobileSatellitePosition({
-          progress: track.phase,
-          track,
+      initialMotionStates.map((motionState) =>
+        getMobileSatellitePlacement({
+          elapsedTime: 0,
+          motionState,
+          satelliteScale,
+          viewportHeight: height,
+          viewportWidth: width,
         }),
       ),
-    [satelliteTracks],
+    [height, initialMotionStates, satelliteScale, width],
   );
 
   useFrame(({ clock }, delta) => {
@@ -663,18 +646,33 @@ export function MobileFloatingHexagons() {
 
     ensureMotionStates({
       motionStates: motionStatesRef.current,
-      tracks: satelliteTracks,
+      satelliteCount: satelliteNavigationItems.length,
     });
     advanceMotionStates({
       delta,
+      elapsedTime,
       motionStates: motionStatesRef.current,
-      tracks: satelliteTracks,
     });
-    const placements = getMobileSatellitePlacements({
+    let placements = getMobileSatellitePlacements({
+      elapsedTime,
       motionStates: motionStatesRef.current,
-      tracks: satelliteTracks,
+      satelliteScale,
+      viewportHeight: height,
+      viewportWidth: width,
     });
 
+    resolveMobileSatelliteCollisions({
+      motionStates: motionStatesRef.current,
+      placements,
+      satelliteScale,
+    });
+    placements = getMobileSatellitePlacements({
+      elapsedTime,
+      motionStates: motionStatesRef.current,
+      satelliteScale,
+      viewportHeight: height,
+      viewportWidth: width,
+    });
     placements.forEach((placement, index) => {
       const satellite = satelliteRefs.current[index];
       const depthScale = getSatelliteDepthScale(placement.depthValue);
@@ -691,10 +689,9 @@ export function MobileFloatingHexagons() {
 
   return (
     <>
-      <MobileHexSphereBackdrop />
-      {satelliteTracks.map((track, index) => (
+      {satelliteNavigationItems.map((item, index) => (
         <OrbitingSatellite
-          key={satelliteNavigationItems[index]?.id ?? index}
+          key={item.id}
           ref={(satellite) => {
             satelliteRefs.current[index] = satellite;
           }}
@@ -705,9 +702,16 @@ export function MobileFloatingHexagons() {
           labelOffsetY={labelOffsetY}
           position={
             initialSatellitePlacements[index]?.position ??
-            getMobileSatellitePosition({
-              progress: track.phase,
-              track,
+            getMobileSatellitePlacement({
+              elapsedTime: 0,
+              motionState:
+                initialMotionStates[index] ??
+                createMobileSatelliteMotionState(
+                  createRandomInitialSatellitePosition(initialMotionStates),
+                ),
+              satelliteScale,
+              viewportHeight: height,
+              viewportWidth: width,
             }).position
           }
           tileScale={satelliteScale}
