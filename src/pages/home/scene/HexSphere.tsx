@@ -53,6 +53,17 @@ interface WindowSize {
   width: number;
 }
 
+function getSafeWindowDimension(value: number) {
+  return Number.isFinite(value) ? Math.max(1, value) : 1;
+}
+
+function getSafeWindowSize({ height, width }: WindowSize): WindowSize {
+  return {
+    height: getSafeWindowDimension(height),
+    width: getSafeWindowDimension(width),
+  };
+}
+
 function isPortraitTabletViewport({ height, width }: WindowSize) {
   return width > 720 && width <= 1180 && height > width;
 }
@@ -81,15 +92,20 @@ function useWindowSize() {
   const [windowSize, setWindowSize] = useState<WindowSize>(() =>
     typeof window === "undefined"
       ? { height: 900, width: 1280 }
-      : { height: window.innerHeight, width: window.innerWidth },
+      : getSafeWindowSize({
+          height: window.innerHeight,
+          width: window.innerWidth,
+        }),
   );
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowSize({
-        height: window.innerHeight,
-        width: window.innerWidth,
-      });
+      setWindowSize(
+        getSafeWindowSize({
+          height: window.innerHeight,
+          width: window.innerWidth,
+        }),
+      );
     };
 
     handleResize();
@@ -156,9 +172,10 @@ function getVisibleHalfExtents({
   objectZ: number;
   windowSize: WindowSize;
 }) {
+  const safeWindowSize = getSafeWindowSize(windowSize);
   const distanceFromCamera = Math.max(cameraZPosition - objectZ, 0.1);
   const halfHeight = Math.tan((cameraFov * Math.PI) / 360) * distanceFromCamera;
-  const halfWidth = halfHeight * (windowSize.width / windowSize.height);
+  const halfWidth = halfHeight * (safeWindowSize.width / safeWindowSize.height);
 
   return { halfHeight, halfWidth };
 }

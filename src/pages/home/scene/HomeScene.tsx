@@ -1,6 +1,16 @@
 import { PerspectiveCamera } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useEffect, useState, type ReactNode } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type Ref,
+  type RefObject,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { preloadFont } from "troika-three-text";
 
@@ -26,6 +36,16 @@ const compactHomeSceneQuery =
 const satelliteLabelFont = "/fonts/SpaceGrotesk-Bold.ttf";
 const satelliteLabelCharacters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÀÂÄÇÉÈÊËÎÏÔÖÙÛÜàâäçéèêëîïôöùûü -_";
+
+interface HomeMobileChromeBounds {
+  footerClearancePx: number;
+  headerClearancePx: number;
+}
+
+const defaultMobileChromeBounds = {
+  footerClearancePx: 68,
+  headerClearancePx: 56,
+} satisfies HomeMobileChromeBounds;
 
 function supportsWebGL() {
   if (
@@ -66,14 +86,24 @@ function usePreloadSatelliteLabelFont() {
   }, []);
 }
 
-function SceneContent({ isCompactScene }: { isCompactScene: boolean }) {
+function SceneContent({
+  isCompactScene,
+  mobileChromeBounds,
+}: {
+  isCompactScene: boolean;
+  mobileChromeBounds: HomeMobileChromeBounds;
+}) {
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 10]}>
         <pointLight decay={0} intensity={1} position={[10, 10, 10]} />
       </PerspectiveCamera>
       <ambientLight intensity={1} />
-      {isCompactScene ? <MobileFloatingHexagons /> : <HexSphere />}
+      {isCompactScene ? (
+        <MobileFloatingHexagons chromeBoundsPx={mobileChromeBounds} />
+      ) : (
+        <HexSphere />
+      )}
     </>
   );
 }
@@ -92,7 +122,117 @@ function StarsCamera() {
   return null;
 }
 
-function HomeHeader() {
+function getVisibleElementRect(element: HTMLElement | null) {
+  if (!element) {
+    return null;
+  }
+
+  const rect = element.getBoundingClientRect();
+
+  if (rect.width <= 0 && rect.height <= 0) {
+    return null;
+  }
+
+  return rect;
+}
+
+function useHomeMobileChromeBounds({
+  brandRef,
+  footerRef,
+  isEnabled,
+  languageActionsRef,
+}: {
+  brandRef: RefObject<HTMLDivElement | null>;
+  footerRef: RefObject<HTMLElement | null>;
+  isEnabled: boolean;
+  languageActionsRef: RefObject<HTMLDivElement | null>;
+}) {
+  const [bounds, setBounds] = useState<HomeMobileChromeBounds>(
+    defaultMobileChromeBounds,
+  );
+
+  const measureBounds = useCallback(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const headerRects = [
+      getVisibleElementRect(brandRef.current),
+      getVisibleElementRect(languageActionsRef.current),
+    ].filter((rect): rect is DOMRect => Boolean(rect));
+    const footerRect = getVisibleElementRect(footerRef.current);
+    const headerClearancePx =
+      headerRects.length > 0
+        ? Math.ceil(Math.max(...headerRects.map((rect) => rect.bottom)))
+        : defaultMobileChromeBounds.headerClearancePx;
+    const footerClearancePx = footerRect
+      ? Math.ceil(Math.max(0, window.innerHeight - footerRect.top))
+      : defaultMobileChromeBounds.footerClearancePx;
+
+    setBounds((currentBounds) => {
+      if (
+        currentBounds.headerClearancePx === headerClearancePx &&
+        currentBounds.footerClearancePx === footerClearancePx
+      ) {
+        return currentBounds;
+      }
+
+      return {
+        footerClearancePx,
+        headerClearancePx,
+      };
+    });
+  }, [brandRef, footerRef, languageActionsRef]);
+
+  useLayoutEffect(() => {
+    if (!isEnabled || typeof window === "undefined") {
+      return undefined;
+    }
+
+    measureBounds();
+
+    const observedElements = [
+      brandRef.current,
+      languageActionsRef.current,
+      footerRef.current,
+    ].filter((element): element is HTMLElement => Boolean(element));
+    const resizeObserver =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(measureBounds);
+    const animationFrame = window.requestAnimationFrame(measureBounds);
+
+    observedElements.forEach((element) => {
+      resizeObserver?.observe(element);
+    });
+
+    window.addEventListener("resize", measureBounds);
+    window.addEventListener("orientationchange", measureBounds);
+    window.visualViewport?.addEventListener("resize", measureBounds);
+    void document.fonts.ready.then(measureBounds);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      observedElements.forEach((element) => {
+        resizeObserver?.unobserve(element);
+      });
+      resizeObserver?.disconnect();
+      window.removeEventListener("resize", measureBounds);
+      window.removeEventListener("orientationchange", measureBounds);
+      window.visualViewport?.removeEventListener("resize", measureBounds);
+    };
+  }, [brandRef, footerRef, isEnabled, languageActionsRef, measureBounds]);
+
+  return bounds;
+}
+
+function HomeHeader({
+  brandRef,
+  languageActionsRef,
+}: {
+  brandRef: Ref<HTMLDivElement>;
+  languageActionsRef: Ref<HTMLDivElement>;
+}) {
   const { i18n, t } = useTranslation();
   const currentLanguage = isSupportedLanguage(i18n.language)
     ? i18n.language
@@ -102,7 +242,11 @@ function HomeHeader() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.brand} aria-label="Clément Communay Portfolio">
+      <div
+        className={styles.brand}
+        ref={brandRef}
+        aria-label="Clément Communay Portfolio"
+      >
         <span className={styles.brandLogo} aria-hidden="true">
           <img
             alt=""
@@ -119,7 +263,11 @@ function HomeHeader() {
           </span>
         </span>
       </div>
-      <div aria-label="Language" className={styles.languageActions}>
+      <div
+        aria-label="Language"
+        className={styles.languageActions}
+        ref={languageActionsRef}
+      >
         {supportedLanguages.map((language) => (
           <button
             className={styles.languageButton}
@@ -139,14 +287,14 @@ function HomeHeader() {
   );
 }
 
-function HomeFooter() {
+function HomeFooter({ footerRef }: { footerRef: Ref<HTMLElement> }) {
   const { t } = useTranslation();
   const contactHref = contactConfig.recipientEmail
     ? `mailto:${contactConfig.recipientEmail}`
     : "/contactme";
 
   return (
-    <nav aria-label="Social links" className={styles.footer}>
+    <nav aria-label="Social links" className={styles.footer} ref={footerRef}>
       <FooterLink href={githubUrl} label="GitHub">
         <GithubIcon />
       </FooterLink>
@@ -248,6 +396,15 @@ function MailIcon() {
 export function HomeScene() {
   const canRenderScene = supportsWebGL() && !prefersReducedMotion();
   const isCompactScene = useMediaQuery(compactHomeSceneQuery);
+  const brandRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLElement>(null);
+  const languageActionsRef = useRef<HTMLDivElement>(null);
+  const mobileChromeBounds = useHomeMobileChromeBounds({
+    brandRef,
+    footerRef,
+    isEnabled: isCompactScene,
+    languageActionsRef,
+  });
 
   usePreloadSatelliteLabelFont();
 
@@ -257,7 +414,7 @@ export function HomeScene() {
 
   return (
     <div className={styles.sceneRoot}>
-      <HomeHeader />
+      <HomeHeader brandRef={brandRef} languageActionsRef={languageActionsRef} />
       <Canvas className={styles.starsCanvas} camera={{ position: [0, 0, 1] }}>
         <StarField color="#ffffff" count={1500} radius={1.2} size={0.0042} />
         <StarsCamera />
@@ -272,10 +429,13 @@ export function HomeScene() {
         }}
       >
         <Suspense fallback={null}>
-          <SceneContent isCompactScene={isCompactScene} />
+          <SceneContent
+            isCompactScene={isCompactScene}
+            mobileChromeBounds={mobileChromeBounds}
+          />
         </Suspense>
       </Canvas>
-      <HomeFooter />
+      <HomeFooter footerRef={footerRef} />
     </div>
   );
 }
