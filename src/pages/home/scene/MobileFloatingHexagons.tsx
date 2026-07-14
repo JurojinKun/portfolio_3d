@@ -1,5 +1,6 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import { useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Color, MathUtils, Vector3, type Group } from "three";
 
 import { satelliteNavigationItems } from "@/data/navigation";
@@ -28,18 +29,31 @@ const mobileSatelliteNaturalTurnStrength = 0.2;
 const mobileSatelliteMaxFrameDelta = 0.034;
 const mobileSatelliteCollisionTangentBias = 0.16;
 const mobileSatelliteCollisionRandomness = 0.1;
-const mobileSatelliteHexVisualRadius = 0.17;
+const mobileSatelliteHexVisualRadius = 0.15;
 const mobileSatelliteInitialXLimit = 1;
 const mobileSatelliteInitialYLimit = 0.8;
 const mobileSatelliteInitialSpacing = 0.42;
 const mobileSatelliteLabelLineHeightFactor = 1.28;
 const mobileSatelliteLabelMaxWidth = 0.92;
+const mobileSatelliteLabelMeasureFontSizePx = 1000;
+let mobileSatelliteLabelMeasureContext:
+  CanvasRenderingContext2D | null | undefined;
+
+interface MobileChromeBoundsPx {
+  footerClearancePx: number;
+  headerClearancePx: number;
+}
 
 interface MobileBounds {
   maxX: number;
   maxY: number;
   minX: number;
   minY: number;
+}
+
+interface MobileViewportSize {
+  height: number;
+  width: number;
 }
 
 interface MobileSatellitePlacement {
@@ -52,6 +66,11 @@ interface MobileSatelliteVisualBounds {
   maxY: number;
   minX: number;
   minY: number;
+}
+
+interface MobileSatelliteLabelMetrics {
+  lineCount: number;
+  width: number;
 }
 
 interface MobileSatelliteVisualExtents {
@@ -98,6 +117,20 @@ function getSatelliteDepthScale(depthValue: number) {
   return MathUtils.mapLinear(depthValue, -1, 1, 0.86, 1.58);
 }
 
+function getSafeViewportDimension(value: number) {
+  return Number.isFinite(value) ? Math.max(1, value) : 1;
+}
+
+function getSafeMobileViewportSize({
+  height,
+  width,
+}: MobileViewportSize): MobileViewportSize {
+  return {
+    height: getSafeViewportDimension(height),
+    width: getSafeViewportDimension(width),
+  };
+}
+
 function getVisibleHalfExtents({
   objectZ,
   viewportHeight,
@@ -107,9 +140,14 @@ function getVisibleHalfExtents({
   viewportHeight: number;
   viewportWidth: number;
 }) {
+  const safeViewportSize = getSafeMobileViewportSize({
+    height: viewportHeight,
+    width: viewportWidth,
+  });
   const distanceFromCamera = Math.max(cameraZPosition - objectZ, 0.1);
   const halfHeight = Math.tan((cameraFov * Math.PI) / 360) * distanceFromCamera;
-  const halfWidth = halfHeight * (viewportWidth / viewportHeight);
+  const halfWidth =
+    halfHeight * (safeViewportSize.width / safeViewportSize.height);
 
   return { halfHeight, halfWidth };
 }
@@ -157,11 +195,83 @@ function getMobileLabelOffsetY(viewportWidth: number, viewportHeight: number) {
   return -0.36;
 }
 
+function getMobileSatelliteLabelMeasureContext() {
+  if (mobileSatelliteLabelMeasureContext !== undefined) {
+    return mobileSatelliteLabelMeasureContext;
+  }
+
+  if (typeof document === "undefined") {
+    mobileSatelliteLabelMeasureContext = null;
+    return mobileSatelliteLabelMeasureContext;
+  }
+
+  const canvas = document.createElement("canvas");
+
+  mobileSatelliteLabelMeasureContext = canvas.getContext("2d");
+  return mobileSatelliteLabelMeasureContext;
+}
+
+function getFallbackMobileSatelliteLabelWidth(
+  labelText: string,
+  labelFontSize: number,
+) {
+  return (
+    Array.from(labelText).reduce((width, character) => {
+      if (character === " ") {
+        return width + 0.34;
+      }
+
+      if (".,:;|!Il1".includes(character)) {
+        return width + 0.34;
+      }
+
+      if ("MW@#%&".includes(character)) {
+        return width + 0.78;
+      }
+
+      return width + 0.58;
+    }, 0) * labelFontSize
+  );
+}
+
+function getMobileSatelliteLabelMetrics({
+  labelFontSize,
+  labelText,
+}: {
+  labelFontSize: number;
+  labelText: string;
+}): MobileSatelliteLabelMetrics {
+  const context = getMobileSatelliteLabelMeasureContext();
+  const measuredWidth = (() => {
+    if (!context) {
+      return getFallbackMobileSatelliteLabelWidth(labelText, labelFontSize);
+    }
+
+    context.font = `700 ${String(mobileSatelliteLabelMeasureFontSizePx)}px "Space Grotesk"`;
+
+    return (
+      (context.measureText(labelText).width /
+        mobileSatelliteLabelMeasureFontSizePx) *
+      labelFontSize
+    );
+  })();
+
+  return {
+    lineCount: Math.max(
+      1,
+      Math.ceil(measuredWidth / mobileSatelliteLabelMaxWidth),
+    ),
+    width: Math.min(measuredWidth, mobileSatelliteLabelMaxWidth),
+  };
+}
+
 function getMobileSatelliteVisualExtents({
+  labelMetrics,
   satelliteScale,
   viewportHeight,
   viewportWidth,
 }: {
+  labelMetrics: MobileSatelliteLabelMetrics;
   satelliteScale: number;
   viewportHeight: number;
   viewportWidth: number;
@@ -170,46 +280,59 @@ function getMobileSatelliteVisualExtents({
   const labelOffsetY = Math.abs(
     getMobileLabelOffsetY(viewportWidth, viewportHeight),
   );
+  const labelHalfHeight =
+    (labelFontSize *
+      mobileSatelliteLabelLineHeightFactor *
+      labelMetrics.lineCount) /
+    2;
+  const labelTop = -labelOffsetY + labelHalfHeight;
 
   return {
     bottom:
-      (labelOffsetY + labelFontSize * mobileSatelliteLabelLineHeightFactor) *
+      Math.max(mobileSatelliteHexVisualRadius, labelOffsetY + labelHalfHeight) *
       satelliteScale,
     halfWidth:
-      Math.max(
-        mobileSatelliteHexVisualRadius,
-        mobileSatelliteLabelMaxWidth / 2,
-      ) * satelliteScale,
-    top: mobileSatelliteHexVisualRadius * satelliteScale,
+      Math.max(mobileSatelliteHexVisualRadius, labelMetrics.width / 2) *
+      satelliteScale,
+    top: Math.max(mobileSatelliteHexVisualRadius, labelTop) * satelliteScale,
   };
 }
 
 function getMobileBounds({
+  chromeBoundsPx,
+  labelMetrics,
   objectZ,
   satelliteScale,
   viewportHeight,
   viewportWidth,
 }: {
+  chromeBoundsPx: MobileChromeBoundsPx;
+  labelMetrics: MobileSatelliteLabelMetrics;
   objectZ: number;
   satelliteScale: number;
   viewportHeight: number;
   viewportWidth: number;
 }): MobileBounds {
+  const safeViewportSize = getSafeMobileViewportSize({
+    height: viewportHeight,
+    width: viewportWidth,
+  });
   const { halfHeight, halfWidth } = getVisibleHalfExtents({
     objectZ,
-    viewportHeight,
-    viewportWidth,
+    viewportHeight: safeViewportSize.height,
+    viewportWidth: safeViewportSize.width,
   });
-  const worldPerPixelY = (halfHeight * 2) / viewportHeight;
+  const worldPerPixelY = (halfHeight * 2) / safeViewportSize.height;
   const visualExtents = getMobileSatelliteVisualExtents({
+    labelMetrics,
     satelliteScale,
-    viewportHeight,
-    viewportWidth,
+    viewportHeight: safeViewportSize.height,
+    viewportWidth: safeViewportSize.width,
   });
   const headerChromeClearance =
-    (viewportHeight <= 520 ? 76 : 92) * worldPerPixelY;
+    Math.max(0, chromeBoundsPx.headerClearancePx) * worldPerPixelY;
   const footerChromeClearance =
-    (viewportHeight <= 520 ? 72 : 84) * worldPerPixelY;
+    Math.max(0, chromeBoundsPx.footerClearancePx) * worldPerPixelY;
 
   return {
     maxX: halfWidth - visualExtents.halfWidth,
@@ -232,6 +355,8 @@ function getSafeCoordinate(
 }
 
 function getMobilePointFromViewportRatio({
+  chromeBoundsPx,
+  labelMetrics,
   satelliteScale,
   viewportHeight,
   viewportWidth,
@@ -239,6 +364,8 @@ function getMobilePointFromViewportRatio({
   yRatio,
   zRatio,
 }: {
+  chromeBoundsPx: MobileChromeBoundsPx;
+  labelMetrics: MobileSatelliteLabelMetrics;
   satelliteScale: number;
   viewportHeight: number;
   viewportWidth: number;
@@ -250,6 +377,8 @@ function getMobilePointFromViewportRatio({
   const objectZ = getSatelliteZFromDepthValue(depthValue);
   const pointScale = satelliteScale * getSatelliteDepthScale(depthValue);
   const bounds = getMobileBounds({
+    chromeBoundsPx,
+    labelMetrics,
     objectZ,
     satelliteScale: pointScale,
     viewportHeight,
@@ -356,13 +485,17 @@ function getMobileSatelliteDepthValue(
 }
 
 function getMobileSatellitePlacement({
+  chromeBoundsPx,
   elapsedTime,
+  labelMetrics,
   motionState,
   satelliteScale,
   viewportHeight,
   viewportWidth,
 }: {
+  chromeBoundsPx: MobileChromeBoundsPx;
   elapsedTime: number;
+  labelMetrics: MobileSatelliteLabelMetrics;
   motionState: MobileSatelliteMotionState;
   satelliteScale: number;
   viewportHeight: number;
@@ -370,6 +503,8 @@ function getMobileSatellitePlacement({
 }): MobileSatellitePlacement {
   const depthValue = getMobileSatelliteDepthValue(motionState, elapsedTime);
   const point = getMobilePointFromViewportRatio({
+    chromeBoundsPx,
+    labelMetrics,
     satelliteScale,
     viewportHeight,
     viewportWidth,
@@ -464,21 +599,32 @@ function advanceMotionStates({
 }
 
 function getMobileSatellitePlacements({
+  chromeBoundsPx,
   elapsedTime,
+  labelMetrics,
   motionStates,
   satelliteScale,
   viewportHeight,
   viewportWidth,
 }: {
+  chromeBoundsPx: MobileChromeBoundsPx;
   elapsedTime: number;
+  labelMetrics: readonly MobileSatelliteLabelMetrics[];
   motionStates: MobileSatelliteMotionState[];
   satelliteScale: number;
   viewportHeight: number;
   viewportWidth: number;
 }) {
-  return motionStates.map((motionState) =>
+  return motionStates.map((motionState, index) =>
     getMobileSatellitePlacement({
+      chromeBoundsPx,
       elapsedTime,
+      labelMetrics:
+        labelMetrics[index] ??
+        getMobileSatelliteLabelMetrics({
+          labelFontSize: getMobileLabelFontSize(viewportWidth, viewportHeight),
+          labelText: "",
+        }),
       motionState,
       satelliteScale,
       viewportHeight,
@@ -487,32 +633,48 @@ function getMobileSatellitePlacements({
   );
 }
 
-function getMobileSatelliteVisualBounds({
+function getMobileSatelliteHitBoxes({
+  labelMetrics,
   placement,
   satelliteScale,
   viewportHeight,
   viewportWidth,
 }: {
+  labelMetrics: MobileSatelliteLabelMetrics;
   placement: MobileSatellitePlacement;
   satelliteScale: number;
   viewportHeight: number;
   viewportWidth: number;
-}): MobileSatelliteVisualBounds {
+}): MobileSatelliteVisualBounds[] {
   const visualScale =
     satelliteScale * getSatelliteDepthScale(placement.depthValue);
-  const visualExtents = getMobileSatelliteVisualExtents({
-    satelliteScale: visualScale,
-    viewportHeight,
-    viewportWidth,
-  });
+  const labelFontSize = getMobileLabelFontSize(viewportWidth, viewportHeight);
+  const labelOffsetY = getMobileLabelOffsetY(viewportWidth, viewportHeight);
+  const labelHalfWidth = (labelMetrics.width / 2) * visualScale;
+  const labelHalfHeight =
+    ((labelFontSize *
+      mobileSatelliteLabelLineHeightFactor *
+      labelMetrics.lineCount) /
+      2) *
+    visualScale;
+  const hexagonRadius = mobileSatelliteHexVisualRadius * visualScale;
   const [positionX, positionY] = placement.position;
+  const labelCenterY = positionY + labelOffsetY * visualScale;
 
-  return {
-    maxX: positionX + visualExtents.halfWidth,
-    maxY: positionY + visualExtents.top,
-    minX: positionX - visualExtents.halfWidth,
-    minY: positionY - visualExtents.bottom,
-  };
+  return [
+    {
+      maxX: positionX + hexagonRadius,
+      maxY: positionY + hexagonRadius,
+      minX: positionX - hexagonRadius,
+      minY: positionY - hexagonRadius,
+    },
+    {
+      maxX: positionX + labelHalfWidth,
+      maxY: labelCenterY + labelHalfHeight,
+      minX: positionX - labelHalfWidth,
+      minY: labelCenterY - labelHalfHeight,
+    },
+  ];
 }
 
 function applyMobileSatelliteCollisionImpulse({
@@ -561,12 +723,14 @@ function applyMobileSatelliteCollisionImpulse({
 }
 
 function resolveMobileSatelliteCollisions({
+  labelMetrics,
   motionStates,
   placements,
   satelliteScale,
   viewportHeight,
   viewportWidth,
 }: {
+  labelMetrics: readonly MobileSatelliteLabelMetrics[];
   motionStates: MobileSatelliteMotionState[];
   placements: MobileSatellitePlacement[];
   satelliteScale: number;
@@ -589,16 +753,34 @@ function resolveMobileSatelliteCollisions({
       const nextState = motionStates[nextIndex];
       const currentImpulse = impulses[index];
       const nextImpulse = impulses[nextIndex];
-      const currentVisualBounds = currentPlacement
-        ? getMobileSatelliteVisualBounds({
+      const currentHitBoxes = currentPlacement
+        ? getMobileSatelliteHitBoxes({
+            labelMetrics:
+              labelMetrics[index] ??
+              getMobileSatelliteLabelMetrics({
+                labelFontSize: getMobileLabelFontSize(
+                  viewportWidth,
+                  viewportHeight,
+                ),
+                labelText: "",
+              }),
             placement: currentPlacement,
             satelliteScale,
             viewportHeight,
             viewportWidth,
           })
         : null;
-      const nextVisualBounds = nextPlacement
-        ? getMobileSatelliteVisualBounds({
+      const nextHitBoxes = nextPlacement
+        ? getMobileSatelliteHitBoxes({
+            labelMetrics:
+              labelMetrics[nextIndex] ??
+              getMobileSatelliteLabelMetrics({
+                labelFontSize: getMobileLabelFontSize(
+                  viewportWidth,
+                  viewportHeight,
+                ),
+                labelText: "",
+              }),
             placement: nextPlacement,
             satelliteScale,
             viewportHeight,
@@ -613,20 +795,32 @@ function resolveMobileSatelliteCollisions({
         !nextState ||
         !currentImpulse ||
         !nextImpulse ||
-        !currentVisualBounds ||
-        !nextVisualBounds
+        !currentHitBoxes ||
+        !nextHitBoxes
       ) {
         continue;
       }
 
-      const overlapX =
-        Math.min(currentVisualBounds.maxX, nextVisualBounds.maxX) -
-        Math.max(currentVisualBounds.minX, nextVisualBounds.minX);
-      const overlapY =
-        Math.min(currentVisualBounds.maxY, nextVisualBounds.maxY) -
-        Math.max(currentVisualBounds.minY, nextVisualBounds.minY);
+      let overlap = 0;
 
-      if (overlapX <= 0 || overlapY <= 0) {
+      currentHitBoxes.forEach((currentHitBox) => {
+        nextHitBoxes.forEach((nextHitBox) => {
+          const overlapX =
+            Math.min(currentHitBox.maxX, nextHitBox.maxX) -
+            Math.max(currentHitBox.minX, nextHitBox.minX);
+          const overlapY =
+            Math.min(currentHitBox.maxY, nextHitBox.maxY) -
+            Math.max(currentHitBox.minY, nextHitBox.minY);
+
+          if (overlapX <= 0 || overlapY <= 0) {
+            return;
+          }
+
+          overlap = Math.max(overlap, Math.min(overlapX, overlapY));
+        });
+      });
+
+      if (overlap <= 0) {
         continue;
       }
 
@@ -642,8 +836,6 @@ function resolveMobileSatelliteCollisions({
         ratioDistance > 0.0001
           ? ratioDeltaY / ratioDistance
           : Math.sin(fallbackAngle);
-      const overlap = Math.min(overlapX, overlapY);
-
       currentImpulse.x -= normalX * overlap;
       currentImpulse.y -= normalY * overlap;
       currentImpulse.count += 1;
@@ -665,8 +857,14 @@ function resolveMobileSatelliteCollisions({
   });
 }
 
-export function MobileFloatingHexagons() {
-  const { height, width } = useThree((state) => state.size);
+export function MobileFloatingHexagons({
+  chromeBoundsPx,
+}: {
+  chromeBoundsPx: MobileChromeBoundsPx;
+}) {
+  const { t } = useTranslation();
+  const canvasSize = useThree((state) => state.size);
+  const viewportSize = getSafeMobileViewportSize(canvasSize);
   const startColor = useMemo(() => new Color(sceneStartColorHex), []);
   const endColor = useMemo(() => new Color(sceneEndColorHex), []);
   const currentColor = useMemo(() => startColor.clone(), [startColor]);
@@ -686,22 +884,63 @@ export function MobileFloatingHexagons() {
   const motionStatesRef =
     useRef<MobileSatelliteMotionState[]>(initialMotionStates);
   const satelliteRefs = useRef<(Group | null)[]>([]);
-  const satelliteScale = getMobileSatelliteScale(width, height);
-  const labelFontSize = getMobileLabelFontSize(width, height);
+  const satelliteScale = getMobileSatelliteScale(
+    viewportSize.width,
+    viewportSize.height,
+  );
+  const labelFontSize = getMobileLabelFontSize(
+    viewportSize.width,
+    viewportSize.height,
+  );
   const labelMaxWidth = mobileSatelliteLabelMaxWidth;
-  const labelOffsetY = getMobileLabelOffsetY(width, height);
-  const initialSatellitePlacements = useMemo(
+  const labelOffsetY = getMobileLabelOffsetY(
+    viewportSize.width,
+    viewportSize.height,
+  );
+  const satelliteLabels = useMemo(
     () =>
-      initialMotionStates.map((motionState) =>
-        getMobileSatellitePlacement({
-          elapsedTime: 0,
-          motionState,
-          satelliteScale,
-          viewportHeight: height,
-          viewportWidth: width,
+      satelliteNavigationItems.map((item) =>
+        "labelKey" in item ? t(item.labelKey).toUpperCase() : item.label,
+      ),
+    [t],
+  );
+  const satelliteLabelMetrics = useMemo(
+    () =>
+      satelliteLabels.map((labelText) =>
+        getMobileSatelliteLabelMetrics({
+          labelFontSize,
+          labelText,
         }),
       ),
-    [height, initialMotionStates, satelliteScale, width],
+    [labelFontSize, satelliteLabels],
+  );
+  const initialSatellitePlacements = useMemo(
+    () =>
+      initialMotionStates.map((motionState, index) =>
+        getMobileSatellitePlacement({
+          chromeBoundsPx,
+          elapsedTime: 0,
+          labelMetrics:
+            satelliteLabelMetrics[index] ??
+            getMobileSatelliteLabelMetrics({
+              labelFontSize,
+              labelText: "",
+            }),
+          motionState,
+          satelliteScale,
+          viewportHeight: viewportSize.height,
+          viewportWidth: viewportSize.width,
+        }),
+      ),
+    [
+      chromeBoundsPx,
+      initialMotionStates,
+      labelFontSize,
+      satelliteLabelMetrics,
+      satelliteScale,
+      viewportSize.height,
+      viewportSize.width,
+    ],
   );
 
   useFrame(({ clock }, delta) => {
@@ -728,26 +967,31 @@ export function MobileFloatingHexagons() {
       motionStates: motionStatesRef.current,
     });
     let placements = getMobileSatellitePlacements({
+      chromeBoundsPx,
       elapsedTime,
+      labelMetrics: satelliteLabelMetrics,
       motionStates: motionStatesRef.current,
       satelliteScale,
-      viewportHeight: height,
-      viewportWidth: width,
+      viewportHeight: viewportSize.height,
+      viewportWidth: viewportSize.width,
     });
 
     resolveMobileSatelliteCollisions({
+      labelMetrics: satelliteLabelMetrics,
       motionStates: motionStatesRef.current,
       placements,
       satelliteScale,
-      viewportHeight: height,
-      viewportWidth: width,
+      viewportHeight: viewportSize.height,
+      viewportWidth: viewportSize.width,
     });
     placements = getMobileSatellitePlacements({
+      chromeBoundsPx,
       elapsedTime,
+      labelMetrics: satelliteLabelMetrics,
       motionStates: motionStatesRef.current,
       satelliteScale,
-      viewportHeight: height,
-      viewportWidth: width,
+      viewportHeight: viewportSize.height,
+      viewportWidth: viewportSize.width,
     });
     placements.forEach((placement, index) => {
       const satellite = satelliteRefs.current[index];
@@ -779,15 +1023,22 @@ export function MobileFloatingHexagons() {
           position={
             initialSatellitePlacements[index]?.position ??
             getMobileSatellitePlacement({
+              chromeBoundsPx,
               elapsedTime: 0,
+              labelMetrics:
+                satelliteLabelMetrics[index] ??
+                getMobileSatelliteLabelMetrics({
+                  labelFontSize,
+                  labelText: "",
+                }),
               motionState:
                 initialMotionStates[index] ??
                 createMobileSatelliteMotionState(
                   createRandomInitialSatellitePosition(initialMotionStates),
                 ),
               satelliteScale,
-              viewportHeight: height,
-              viewportWidth: width,
+              viewportHeight: viewportSize.height,
+              viewportWidth: viewportSize.width,
             }).position
           }
           tileScale={satelliteScale}
