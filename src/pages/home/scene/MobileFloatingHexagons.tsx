@@ -17,21 +17,23 @@ const cameraFov = 50;
 const cameraZPosition = 10;
 const baseSatelliteZPosition = 1.25;
 const backDepthAmplitude = 1.25;
-const frontDepthAmplitude = 2.75;
-const mobileSatelliteBaseSpeed = 0.052;
-const mobileSatelliteSpeedVariance = 0.012;
-const mobileSatelliteDepthAmplitude = 0.74;
-const mobileSatelliteDepthBase = 0.14;
-const mobileSatelliteDepthSpeedMin = 0.15;
-const mobileSatelliteDepthSpeedVariance = 0.08;
-const mobileSatelliteNaturalTurnStrength = 0.28;
+const frontDepthAmplitude = 2.25;
+const mobileSatelliteBaseSpeed = 0.034;
+const mobileSatelliteSpeedVariance = 0.008;
+const mobileSatelliteDepthAmplitude = 0.52;
+const mobileSatelliteDepthBase = 0.02;
+const mobileSatelliteDepthSpeedMin = 0.1;
+const mobileSatelliteDepthSpeedVariance = 0.05;
+const mobileSatelliteNaturalTurnStrength = 0.2;
 const mobileSatelliteMaxFrameDelta = 0.034;
-const mobileSatelliteCollisionRadiusFactor = 0.255;
 const mobileSatelliteCollisionTangentBias = 0.16;
 const mobileSatelliteCollisionRandomness = 0.1;
+const mobileSatelliteHexVisualRadius = 0.17;
 const mobileSatelliteInitialXLimit = 1;
 const mobileSatelliteInitialYLimit = 0.8;
 const mobileSatelliteInitialSpacing = 0.42;
+const mobileSatelliteLabelLineHeightFactor = 1.28;
+const mobileSatelliteLabelMaxWidth = 0.92;
 
 interface MobileBounds {
   maxX: number;
@@ -43,6 +45,19 @@ interface MobileBounds {
 interface MobileSatellitePlacement {
   depthValue: number;
   position: ScenePosition;
+}
+
+interface MobileSatelliteVisualBounds {
+  maxX: number;
+  maxY: number;
+  minX: number;
+  minY: number;
+}
+
+interface MobileSatelliteVisualExtents {
+  bottom: number;
+  halfWidth: number;
+  top: number;
 }
 
 interface MobileSatelliteInitialPosition {
@@ -80,7 +95,7 @@ function getSatelliteZFromDepthValue(depthValue: number) {
 }
 
 function getSatelliteDepthScale(depthValue: number) {
-  return MathUtils.mapLinear(depthValue, -1, 1, 0.86, 1.84);
+  return MathUtils.mapLinear(depthValue, -1, 1, 0.86, 1.58);
 }
 
 function getVisibleHalfExtents({
@@ -142,6 +157,33 @@ function getMobileLabelOffsetY(viewportWidth: number, viewportHeight: number) {
   return -0.36;
 }
 
+function getMobileSatelliteVisualExtents({
+  satelliteScale,
+  viewportHeight,
+  viewportWidth,
+}: {
+  satelliteScale: number;
+  viewportHeight: number;
+  viewportWidth: number;
+}): MobileSatelliteVisualExtents {
+  const labelFontSize = getMobileLabelFontSize(viewportWidth, viewportHeight);
+  const labelOffsetY = Math.abs(
+    getMobileLabelOffsetY(viewportWidth, viewportHeight),
+  );
+
+  return {
+    bottom:
+      (labelOffsetY + labelFontSize * mobileSatelliteLabelLineHeightFactor) *
+      satelliteScale,
+    halfWidth:
+      Math.max(
+        mobileSatelliteHexVisualRadius,
+        mobileSatelliteLabelMaxWidth / 2,
+      ) * satelliteScale,
+    top: mobileSatelliteHexVisualRadius * satelliteScale,
+  };
+}
+
 function getMobileBounds({
   objectZ,
   satelliteScale,
@@ -159,19 +201,21 @@ function getMobileBounds({
     viewportWidth,
   });
   const worldPerPixelY = (halfHeight * 2) / viewportHeight;
-  const horizontalClearance = 0.18 * satelliteScale;
-  const headerVisualClearance = 0.26 * satelliteScale;
-  const footerLabelClearance = 0.52 * satelliteScale;
+  const visualExtents = getMobileSatelliteVisualExtents({
+    satelliteScale,
+    viewportHeight,
+    viewportWidth,
+  });
   const headerChromeClearance =
     (viewportHeight <= 520 ? 76 : 92) * worldPerPixelY;
   const footerChromeClearance =
     (viewportHeight <= 520 ? 72 : 84) * worldPerPixelY;
 
   return {
-    maxX: halfWidth - horizontalClearance,
-    maxY: halfHeight - headerChromeClearance - headerVisualClearance,
-    minX: -halfWidth + horizontalClearance,
-    minY: -halfHeight + footerChromeClearance + footerLabelClearance,
+    maxX: halfWidth - visualExtents.halfWidth,
+    maxY: halfHeight - headerChromeClearance - visualExtents.top,
+    minX: -halfWidth + visualExtents.halfWidth,
+    minY: -halfHeight + footerChromeClearance + visualExtents.bottom,
   };
 }
 
@@ -306,8 +350,8 @@ function getMobileSatelliteDepthValue(
     mobileSatelliteDepthBase +
       Math.sin(elapsedTime * motionState.depthSpeed + motionState.depthPhase) *
         mobileSatelliteDepthAmplitude,
-    -0.66,
-    1,
+    -0.58,
+    0.72,
   );
 }
 
@@ -443,18 +487,32 @@ function getMobileSatellitePlacements({
   );
 }
 
-function getMobileSatelliteCollisionRadius({
+function getMobileSatelliteVisualBounds({
   placement,
   satelliteScale,
+  viewportHeight,
+  viewportWidth,
 }: {
   placement: MobileSatellitePlacement;
   satelliteScale: number;
-}) {
-  return (
-    satelliteScale *
-    getSatelliteDepthScale(placement.depthValue) *
-    mobileSatelliteCollisionRadiusFactor
-  );
+  viewportHeight: number;
+  viewportWidth: number;
+}): MobileSatelliteVisualBounds {
+  const visualScale =
+    satelliteScale * getSatelliteDepthScale(placement.depthValue);
+  const visualExtents = getMobileSatelliteVisualExtents({
+    satelliteScale: visualScale,
+    viewportHeight,
+    viewportWidth,
+  });
+  const [positionX, positionY] = placement.position;
+
+  return {
+    maxX: positionX + visualExtents.halfWidth,
+    maxY: positionY + visualExtents.top,
+    minX: positionX - visualExtents.halfWidth,
+    minY: positionY - visualExtents.bottom,
+  };
 }
 
 function applyMobileSatelliteCollisionImpulse({
@@ -506,10 +564,14 @@ function resolveMobileSatelliteCollisions({
   motionStates,
   placements,
   satelliteScale,
+  viewportHeight,
+  viewportWidth,
 }: {
   motionStates: MobileSatelliteMotionState[];
   placements: MobileSatellitePlacement[];
   satelliteScale: number;
+  viewportHeight: number;
+  viewportWidth: number;
 }) {
   const impulses = motionStates.map(
     () => ({ count: 0, x: 0, y: 0 }) satisfies MobileSatelliteCollisionImpulse,
@@ -527,6 +589,22 @@ function resolveMobileSatelliteCollisions({
       const nextState = motionStates[nextIndex];
       const currentImpulse = impulses[index];
       const nextImpulse = impulses[nextIndex];
+      const currentVisualBounds = currentPlacement
+        ? getMobileSatelliteVisualBounds({
+            placement: currentPlacement,
+            satelliteScale,
+            viewportHeight,
+            viewportWidth,
+          })
+        : null;
+      const nextVisualBounds = nextPlacement
+        ? getMobileSatelliteVisualBounds({
+            placement: nextPlacement,
+            satelliteScale,
+            viewportHeight,
+            viewportWidth,
+          })
+        : null;
 
       if (
         !currentPlacement ||
@@ -534,25 +612,21 @@ function resolveMobileSatelliteCollisions({
         !currentState ||
         !nextState ||
         !currentImpulse ||
-        !nextImpulse
+        !nextImpulse ||
+        !currentVisualBounds ||
+        !nextVisualBounds
       ) {
         continue;
       }
 
-      const deltaX = nextPlacement.position[0] - currentPlacement.position[0];
-      const deltaY = nextPlacement.position[1] - currentPlacement.position[1];
-      const distance = Math.hypot(deltaX, deltaY);
-      const collisionDistance =
-        getMobileSatelliteCollisionRadius({
-          placement: currentPlacement,
-          satelliteScale,
-        }) +
-        getMobileSatelliteCollisionRadius({
-          placement: nextPlacement,
-          satelliteScale,
-        });
+      const overlapX =
+        Math.min(currentVisualBounds.maxX, nextVisualBounds.maxX) -
+        Math.max(currentVisualBounds.minX, nextVisualBounds.minX);
+      const overlapY =
+        Math.min(currentVisualBounds.maxY, nextVisualBounds.maxY) -
+        Math.max(currentVisualBounds.minY, nextVisualBounds.minY);
 
-      if (distance >= collisionDistance) {
+      if (overlapX <= 0 || overlapY <= 0) {
         continue;
       }
 
@@ -568,7 +642,7 @@ function resolveMobileSatelliteCollisions({
         ratioDistance > 0.0001
           ? ratioDeltaY / ratioDistance
           : Math.sin(fallbackAngle);
-      const overlap = collisionDistance - distance;
+      const overlap = Math.min(overlapX, overlapY);
 
       currentImpulse.x -= normalX * overlap;
       currentImpulse.y -= normalY * overlap;
@@ -614,7 +688,7 @@ export function MobileFloatingHexagons() {
   const satelliteRefs = useRef<(Group | null)[]>([]);
   const satelliteScale = getMobileSatelliteScale(width, height);
   const labelFontSize = getMobileLabelFontSize(width, height);
-  const labelMaxWidth = 0.92;
+  const labelMaxWidth = mobileSatelliteLabelMaxWidth;
   const labelOffsetY = getMobileLabelOffsetY(width, height);
   const initialSatellitePlacements = useMemo(
     () =>
@@ -665,6 +739,8 @@ export function MobileFloatingHexagons() {
       motionStates: motionStatesRef.current,
       placements,
       satelliteScale,
+      viewportHeight: height,
+      viewportWidth: width,
     });
     placements = getMobileSatellitePlacements({
       elapsedTime,
