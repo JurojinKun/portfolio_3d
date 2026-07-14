@@ -141,11 +141,13 @@ function useHomeMobileChromeBounds({
   footerRef,
   isEnabled,
   languageActionsRef,
+  sceneRootRef,
 }: {
   brandRef: RefObject<HTMLDivElement | null>;
   footerRef: RefObject<HTMLElement | null>;
   isEnabled: boolean;
   languageActionsRef: RefObject<HTMLDivElement | null>;
+  sceneRootRef: RefObject<HTMLDivElement | null>;
 }) {
   const [bounds, setBounds] = useState<HomeMobileChromeBounds>(
     defaultMobileChromeBounds,
@@ -161,12 +163,20 @@ function useHomeMobileChromeBounds({
       getVisibleElementRect(languageActionsRef.current),
     ].filter((rect): rect is DOMRect => Boolean(rect));
     const footerRect = getVisibleElementRect(footerRef.current);
+    const sceneRootRect = getVisibleElementRect(sceneRootRef.current);
+    const viewportTop = sceneRootRect?.top ?? 0;
+    const viewportBottom = sceneRootRect?.bottom ?? window.innerHeight;
     const headerClearancePx =
       headerRects.length > 0
-        ? Math.ceil(Math.max(...headerRects.map((rect) => rect.bottom)))
+        ? Math.ceil(
+            Math.max(
+              0,
+              Math.max(...headerRects.map((rect) => rect.bottom)) - viewportTop,
+            ),
+          )
         : defaultMobileChromeBounds.headerClearancePx;
     const footerClearancePx = footerRect
-      ? Math.ceil(Math.max(0, window.innerHeight - footerRect.top))
+      ? Math.ceil(Math.max(0, viewportBottom - footerRect.top))
       : defaultMobileChromeBounds.footerClearancePx;
 
     setBounds((currentBounds) => {
@@ -182,7 +192,7 @@ function useHomeMobileChromeBounds({
         headerClearancePx,
       };
     });
-  }, [brandRef, footerRef, languageActionsRef]);
+  }, [brandRef, footerRef, languageActionsRef, sceneRootRef]);
 
   useLayoutEffect(() => {
     if (!isEnabled || typeof window === "undefined") {
@@ -195,6 +205,7 @@ function useHomeMobileChromeBounds({
       brandRef.current,
       languageActionsRef.current,
       footerRef.current,
+      sceneRootRef.current,
     ].filter((element): element is HTMLElement => Boolean(element));
     const resizeObserver =
       typeof ResizeObserver === "undefined"
@@ -209,6 +220,7 @@ function useHomeMobileChromeBounds({
     window.addEventListener("resize", measureBounds);
     window.addEventListener("orientationchange", measureBounds);
     window.visualViewport?.addEventListener("resize", measureBounds);
+    window.visualViewport?.addEventListener("scroll", measureBounds);
     void document.fonts.ready.then(measureBounds);
 
     return () => {
@@ -220,8 +232,16 @@ function useHomeMobileChromeBounds({
       window.removeEventListener("resize", measureBounds);
       window.removeEventListener("orientationchange", measureBounds);
       window.visualViewport?.removeEventListener("resize", measureBounds);
+      window.visualViewport?.removeEventListener("scroll", measureBounds);
     };
-  }, [brandRef, footerRef, isEnabled, languageActionsRef, measureBounds]);
+  }, [
+    brandRef,
+    footerRef,
+    isEnabled,
+    languageActionsRef,
+    measureBounds,
+    sceneRootRef,
+  ]);
 
   return bounds;
 }
@@ -399,11 +419,13 @@ export function HomeScene() {
   const brandRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLElement>(null);
   const languageActionsRef = useRef<HTMLDivElement>(null);
+  const sceneRootRef = useRef<HTMLDivElement>(null);
   const mobileChromeBounds = useHomeMobileChromeBounds({
     brandRef,
     footerRef,
     isEnabled: isCompactScene,
     languageActionsRef,
+    sceneRootRef,
   });
 
   usePreloadSatelliteLabelFont();
@@ -413,7 +435,7 @@ export function HomeScene() {
   }
 
   return (
-    <div className={styles.sceneRoot}>
+    <div className={styles.sceneRoot} ref={sceneRootRef}>
       <HomeHeader brandRef={brandRef} languageActionsRef={languageActionsRef} />
       <Canvas className={styles.starsCanvas} camera={{ position: [0, 0, 1] }}>
         <StarField color="#ffffff" count={1500} radius={1.2} size={0.0042} />
