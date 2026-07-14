@@ -7,7 +7,6 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-  type CSSProperties,
   type ReactNode,
   type Ref,
   type RefObject,
@@ -312,29 +311,6 @@ function HomeFooter({ footerRef }: { footerRef: Ref<HTMLElement> }) {
   );
 }
 
-function HomeMobileBoundsDebugOverlay({
-  bounds,
-}: {
-  bounds: HomeMobileChromeBounds;
-}) {
-  const debugStyle: CSSProperties &
-    Record<"--home-mobile-debug-bottom" | "--home-mobile-debug-top", string> = {
-    "--home-mobile-debug-bottom": `${String(bounds.footerClearancePx)}px`,
-    "--home-mobile-debug-top": `${String(bounds.headerClearancePx)}px`,
-  };
-
-  return (
-    <div
-      className={styles.mobileBoundsDebug}
-      style={debugStyle}
-      aria-hidden="true"
-    >
-      <span className={styles.mobileBoundsDebugTop} />
-      <span className={styles.mobileBoundsDebugBottom} />
-    </div>
-  );
-}
-
 function FooterLink({
   children,
   download = false,
@@ -439,9 +415,6 @@ export function HomeScene() {
   return (
     <div className={styles.sceneRoot}>
       <HomeHeader brandRef={brandRef} languageActionsRef={languageActionsRef} />
-      {isCompactScene ? (
-        <HomeMobileBoundsDebugOverlay bounds={mobileChromeBounds} />
-      ) : null}
       <Canvas className={styles.starsCanvas} camera={{ position: [0, 0, 1] }}>
         <StarField color="#ffffff" count={1500} radius={1.2} size={0.0042} />
         <StarsCamera />

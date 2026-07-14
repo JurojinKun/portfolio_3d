@@ -27,38 +27,6 @@
   z-index: 1;
 }
 
-.mobileBoundsDebug {
-  --home-mobile-debug-top: 0px;
-  --home-mobile-debug-bottom: 0px;
-
-  position: fixed;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-}
-
-.mobileBoundsDebugTop,
-.mobileBoundsDebugBottom {
-  position: absolute;
-  border: 1px solid rgb(255 255 255 / 14%);
-  background: rgb(255 54 126 / 18%);
-  box-shadow: inset 0 0 28px rgb(255 54 126 / 16%);
-}
-
-.mobileBoundsDebugTop {
-  top: 0;
-  right: 0;
-  left: 0;
-  height: var(--home-mobile-debug-top);
-}
-
-.mobileBoundsDebugBottom {
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: var(--home-mobile-debug-bottom);
-}
-
 .header {
   position: fixed;
   z-index: 5;
