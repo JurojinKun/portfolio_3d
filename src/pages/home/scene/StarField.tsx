@@ -11,8 +11,8 @@ import {
 import { getVisibleHalfExtents } from "./hexSphereLayout";
 
 const referenceViewportArea = 1440 * 900;
-const minimumStarCount = 2200;
-const maximumStarCount = 14000;
+const minimumStarCount = 5000;
+const maximumStarCount = 40000;
 const starCountStep = 100;
 const viewportAreaScalePower = 0.62;
 const viewportCoverageMargin = 1.45;

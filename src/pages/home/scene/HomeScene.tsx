@@ -114,9 +114,9 @@ function SceneContent({
       <ambientLight intensity={1} />
       <StarField
         color="#ffffff"
-        count={4200}
-        depth={22}
-        position={[0, 0, -4]}
+        count={12000}
+        depth={14}
+        position={[0, 0, -1]}
         size={0.045}
       />
       {isCompactScene ? (
