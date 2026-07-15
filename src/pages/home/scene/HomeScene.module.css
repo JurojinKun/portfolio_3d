@@ -10,18 +10,12 @@
   background: #02020d;
 }
 
-.starsCanvas,
 .mainCanvas {
   position: fixed !important;
   inset: 0;
   width: 100vw !important;
   height: 100vh !important;
   height: 100dvh !important;
-}
-
-.starsCanvas {
-  z-index: 0;
-  pointer-events: none;
 }
 
 .mainCanvas {

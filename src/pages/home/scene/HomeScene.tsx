@@ -1,5 +1,5 @@
 import { PerspectiveCamera } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import {
   Suspense,
   useCallback,
@@ -31,11 +31,15 @@ import styles from "./HomeScene.module.css";
 const githubUrl = "https://github.com/JurojinKun";
 const linkedInUrl = "https://www.linkedin.com/in/clément-communay";
 const cvUrl = "/cv/CV_Clement_Communay.pdf";
-const compactHomeSceneQuery =
-  "(max-width: 720px), (hover: none) and (pointer: coarse) and (max-height: 560px)";
+const compactHomeSceneQuery = [
+  "(max-width: 720px)",
+  "(max-width: 1440px) and (max-height: 760px)",
+  "(max-height: 620px)",
+].join(", ");
 const satelliteLabelFont = "/fonts/SpaceGrotesk-Bold.ttf";
 const satelliteLabelCharacters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÀÂÄÇÉÈÊËÎÏÔÖÙÛÜàâäçéèêëîïôöùûü -_";
+let cachedWebGLSupport: boolean | null = null;
 
 interface HomeMobileChromeBounds {
   footerClearancePx: number;
@@ -48,19 +52,28 @@ const defaultMobileChromeBounds = {
 } satisfies HomeMobileChromeBounds;
 
 function supportsWebGL() {
+  if (cachedWebGLSupport !== null) {
+    return cachedWebGLSupport;
+  }
+
   if (
     typeof document === "undefined" ||
     typeof window === "undefined" ||
     typeof window.WebGLRenderingContext === "undefined"
   ) {
+    cachedWebGLSupport = false;
     return false;
   }
 
   const canvas = document.createElement("canvas");
+  const context =
+    canvas.getContext("webgl") ??
+    (canvas.getContext("experimental-webgl") as WebGLRenderingContext | null);
 
-  return Boolean(
-    canvas.getContext("webgl") ?? canvas.getContext("experimental-webgl"),
-  );
+  cachedWebGLSupport = Boolean(context);
+  context?.getExtension("WEBGL_lose_context")?.loseContext();
+
+  return cachedWebGLSupport;
 }
 
 function prefersReducedMotion() {
@@ -99,6 +112,13 @@ function SceneContent({
         <pointLight decay={0} intensity={1} position={[10, 10, 10]} />
       </PerspectiveCamera>
       <ambientLight intensity={1} />
+      <StarField
+        color="#ffffff"
+        count={4200}
+        depth={22}
+        position={[0, 0, -4]}
+        size={0.045}
+      />
       {isCompactScene ? (
         <MobileFloatingHexagons chromeBoundsPx={mobileChromeBounds} />
       ) : (
@@ -106,20 +126,6 @@ function SceneContent({
       )}
     </>
   );
-}
-
-function StarsCamera() {
-  useFrame(({ camera }) => {
-    if (typeof window !== "undefined" && window.innerHeight <= 500) {
-      camera.position.set(0, 0, 0);
-    } else {
-      camera.position.set(0, 0, 1);
-    }
-
-    camera.updateProjectionMatrix();
-  });
-
-  return null;
 }
 
 function getVisibleElementRect(element: HTMLElement | null) {
@@ -414,7 +420,9 @@ function MailIcon() {
 }
 
 export function HomeScene() {
-  const canRenderScene = supportsWebGL() && !prefersReducedMotion();
+  const [canRenderScene] = useState(
+    () => supportsWebGL() && !prefersReducedMotion(),
+  );
   const isCompactScene = useMediaQuery(compactHomeSceneQuery);
   const brandRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLElement>(null);
@@ -437,10 +445,6 @@ export function HomeScene() {
   return (
     <div className={styles.sceneRoot} ref={sceneRootRef}>
       <HomeHeader brandRef={brandRef} languageActionsRef={languageActionsRef} />
-      <Canvas className={styles.starsCanvas} camera={{ position: [0, 0, 1] }}>
-        <StarField color="#ffffff" count={1500} radius={1.2} size={0.0042} />
-        <StarsCamera />
-      </Canvas>
       <Canvas
         className={styles.mainCanvas}
         dpr={[1, 1.75]}

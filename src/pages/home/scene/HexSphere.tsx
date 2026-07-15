@@ -20,6 +20,14 @@ import {
   type ScenePosition,
 } from "./sceneUtils";
 import {
+  desktopSatelliteZOffset,
+  getHexSphereLayout,
+  getHexSphereOrbitRadii,
+  getSafeSceneViewportSize,
+  hexSphereRadius,
+  type SceneViewportSize,
+} from "./hexSphereLayout";
+import {
   getSceneColorElapsedTime,
   getScenePulseColor,
   sceneEndColorHex,
@@ -28,10 +36,6 @@ import {
 
 const sphereRotationSpeed = 0.0003;
 const satelliteOrbitSpeed = 0.03;
-const cameraFov = 50;
-const cameraZPosition = 10;
-const sphereRadius = 2;
-const satelliteZOffset = 1.3;
 const tileStyle = {
   baseOpacity: 1,
   depth: 0.1,
@@ -47,26 +51,6 @@ const tempPosition = new Vector3();
 const tempToCamera = new Vector3();
 const tempColor = new Color();
 const identityQuaternion = new Quaternion();
-
-interface WindowSize {
-  height: number;
-  width: number;
-}
-
-function getSafeWindowDimension(value: number) {
-  return Number.isFinite(value) ? Math.max(1, value) : 1;
-}
-
-function getSafeWindowSize({ height, width }: WindowSize): WindowSize {
-  return {
-    height: getSafeWindowDimension(height),
-    width: getSafeWindowDimension(width),
-  };
-}
-
-function isPortraitTabletViewport({ height, width }: WindowSize) {
-  return width > 720 && width <= 1180 && height > width;
-}
 
 function createHexGeometry() {
   const shape = new Shape();
@@ -89,10 +73,10 @@ function createHexGeometry() {
 }
 
 function useWindowSize() {
-  const [windowSize, setWindowSize] = useState<WindowSize>(() =>
+  const [windowSize, setWindowSize] = useState<SceneViewportSize>(() =>
     typeof window === "undefined"
       ? { height: 900, width: 1280 }
-      : getSafeWindowSize({
+      : getSafeSceneViewportSize({
           height: window.innerHeight,
           width: window.innerWidth,
         }),
@@ -101,7 +85,7 @@ function useWindowSize() {
   useEffect(() => {
     const handleResize = () => {
       setWindowSize(
-        getSafeWindowSize({
+        getSafeSceneViewportSize({
           height: window.innerHeight,
           width: window.innerWidth,
         }),
@@ -117,227 +101,6 @@ function useWindowSize() {
   }, []);
 
   return windowSize;
-}
-
-function getEndPosition({ height, width }: WindowSize): ScenePosition {
-  if (isPortraitTabletViewport({ height, width })) {
-    return [0, 0.1, -0.55];
-  }
-
-  if (height <= 430) {
-    return [0, 0.1, -4.5];
-  }
-
-  if (width <= 400) {
-    return [0, 0.1, -5.2];
-  }
-
-  if (width <= 600) {
-    return [0, 0.1, -3.4];
-  }
-
-  if (width <= 1000) {
-    return [0, 0.1, 0.5];
-  }
-
-  return [0, 0.1, 2.5];
-}
-
-function getOrbitRadius({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (shortestSide <= 360) {
-    return 2.12;
-  }
-
-  if (shortestSide <= 430) {
-    return 2.22;
-  }
-
-  if (width <= 480) {
-    return 2.35;
-  }
-
-  if (width <= 720) {
-    return 2.45;
-  }
-
-  return 2.6;
-}
-
-function getVisibleHalfExtents({
-  objectZ,
-  windowSize,
-}: {
-  objectZ: number;
-  windowSize: WindowSize;
-}) {
-  const safeWindowSize = getSafeWindowSize(windowSize);
-  const distanceFromCamera = Math.max(cameraZPosition - objectZ, 0.1);
-  const halfHeight = Math.tan((cameraFov * Math.PI) / 360) * distanceFromCamera;
-  const halfWidth = halfHeight * (safeWindowSize.width / safeWindowSize.height);
-
-  return { halfHeight, halfWidth };
-}
-
-function getSatelliteScale({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (isPortraitTabletViewport({ height, width })) {
-    return 0.92;
-  }
-
-  if (shortestSide <= 380) {
-    return 0.82;
-  }
-
-  if (width <= 480) {
-    return 0.88;
-  }
-
-  if (width <= 720) {
-    return 0.94;
-  }
-
-  return 1;
-}
-
-function getSphereScale({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (isPortraitTabletViewport({ height, width })) {
-    return 0.88;
-  }
-
-  if (shortestSide <= 380) {
-    return 0.9;
-  }
-
-  if (width <= 480) {
-    return 0.94;
-  }
-
-  if (width <= 720 || height <= 640) {
-    return 0.98;
-  }
-
-  return 1;
-}
-
-function getLabelFontSize({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (shortestSide <= 360) {
-    return 0.096;
-  }
-
-  if (width <= 480) {
-    return 0.104;
-  }
-
-  if (width <= 720 || height <= 640) {
-    return 0.106;
-  }
-
-  return 0.1;
-}
-
-function getLabelOffsetY({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (shortestSide <= 360) {
-    return -0.28;
-  }
-
-  if (width <= 480) {
-    return -0.29;
-  }
-
-  if (width <= 720 || height <= 640) {
-    return -0.3;
-  }
-
-  return -0.27;
-}
-
-function getLabelMaxWidth({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (isPortraitTabletViewport({ height, width })) {
-    return 0.88;
-  }
-
-  if (shortestSide <= 360) {
-    return 0.76;
-  }
-
-  if (width <= 480) {
-    return 0.84;
-  }
-
-  if (width <= 720 || height <= 640) {
-    return 0.92;
-  }
-
-  return 0.95;
-}
-
-function getSafeOrbitRadius({
-  availableRadius,
-  baseRadius,
-  minimumRadius,
-}: {
-  availableRadius: number;
-  baseRadius: number;
-  minimumRadius: number;
-}) {
-  const safeAvailableRadius = Math.max(0.1, availableRadius);
-  const safeMinimumRadius = Math.min(minimumRadius, safeAvailableRadius);
-
-  return Math.min(baseRadius, Math.max(safeMinimumRadius, safeAvailableRadius));
-}
-
-function getOrbitRadii({
-  groupPosition,
-  labelFontSize,
-  labelMaxWidth,
-  labelOffsetY,
-  sphereScale,
-  tileScale,
-  windowSize,
-}: {
-  groupPosition: ScenePosition;
-  labelFontSize: number;
-  labelMaxWidth: number;
-  labelOffsetY: number;
-  sphereScale: number;
-  tileScale: number;
-  windowSize: WindowSize;
-}) {
-  const baseRadius = getOrbitRadius(windowSize);
-  const { halfHeight, halfWidth } = getVisibleHalfExtents({
-    objectZ: groupPosition[2] + satelliteZOffset,
-    windowSize,
-  });
-  const labelVerticalClearance =
-    (Math.abs(labelOffsetY) + labelFontSize * 1.4 + 0.1) * tileScale;
-  const labelHorizontalClearance = (labelMaxWidth / 2 + 0.18) * tileScale;
-  const minimumRadius = sphereRadius * sphereScale + 0.36 * tileScale;
-  const availableRadiusX = halfWidth - labelHorizontalClearance;
-  const availableRadiusY = halfHeight - labelVerticalClearance;
-
-  return {
-    x: getSafeOrbitRadius({
-      availableRadius: availableRadiusX,
-      baseRadius,
-      minimumRadius,
-    }),
-    y: getSafeOrbitRadius({
-      availableRadius: availableRadiusY,
-      baseRadius,
-      minimumRadius,
-    }),
-  };
 }
 
 function computeSatellitePosition({
@@ -361,25 +124,25 @@ function computeSatellitePosition({
   satelliteCount: number;
   sphereScale: number;
   tileScale: number;
-  windowSize: WindowSize;
+  windowSize: SceneViewportSize;
 }): ScenePosition {
   const angle =
     ((2 * Math.PI) / satelliteCount) * index +
     elapsedTime * satelliteOrbitSpeed;
-  const orbitRadii = getOrbitRadii({
+  const orbitRadii = getHexSphereOrbitRadii({
     groupPosition,
     labelFontSize,
     labelMaxWidth,
     labelOffsetY,
     sphereScale,
     tileScale,
-    windowSize,
+    viewportSize: windowSize,
   });
 
   return [
     groupPosition[0] + Math.cos(angle) * orbitRadii.x,
     groupPosition[1] + Math.sin(angle) * orbitRadii.y,
-    groupPosition[2] + satelliteZOffset,
+    groupPosition[2] + desktopSatelliteZOffset,
   ] satisfies ScenePosition;
 }
 
@@ -405,7 +168,7 @@ export function HexSphere() {
       }),
     [startColor],
   );
-  const tiles = useMemo(() => generateHexSphereTiles(425, sphereRadius), []);
+  const tiles = useMemo(() => generateHexSphereTiles(425, hexSphereRadius), []);
   const satelliteRefs = useRef<(Group | null)[]>([]);
   const tileMaterials = useMemo(
     () =>
@@ -428,13 +191,14 @@ export function HexSphere() {
     () => selectSatelliteTiles(tiles, 6),
     [tiles],
   );
-  const groupPosition = useMemo(() => getEndPosition(windowSize), [windowSize]);
-  const sphereScale = getSphereScale(windowSize);
+  const sphereLayout = useMemo(
+    () => getHexSphereLayout(windowSize),
+    [windowSize],
+  );
+  const { groupPosition, labelFontSize, labelMaxWidth, labelOffsetY } =
+    sphereLayout;
+  const { satelliteScale, sphereScale } = sphereLayout;
   const sphereTileScale = 1;
-  const satelliteScale = getSatelliteScale(windowSize);
-  const labelFontSize = getLabelFontSize(windowSize);
-  const labelMaxWidth = getLabelMaxWidth(windowSize);
-  const labelOffsetY = getLabelOffsetY(windowSize);
   const [color, setColor] = useState(() =>
     getScenePulseColor({
       elapsedTime: getSceneColorElapsedTime(),
