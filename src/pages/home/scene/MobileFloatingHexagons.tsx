@@ -19,6 +19,7 @@ import { OrbitingSatellite } from "./OrbitingSatellite";
 import { generateHexSphereTiles, type ScenePosition } from "./sceneUtils";
 import {
   getHexSphereLayout,
+  getVisibleHalfExtents as getSceneVisibleHalfExtents,
   hexSphereCameraFov,
   hexSphereCameraZPosition,
   hexSphereRadius,
@@ -36,6 +37,7 @@ const backDepthAmplitude = 1.25;
 const frontDepthAmplitude = 2.25;
 const backgroundSphereTileCount = 425;
 const backgroundSphereRotationSpeed = 0.00022;
+const backgroundSphereMinViewportCoverage = 0.68;
 const backgroundTileStyle = {
   depth: 0.1,
   edgeOpacity: 0.2,
@@ -909,6 +911,27 @@ function createHexBackdropGeometry() {
   return geometry;
 }
 
+function getMobileBackdropSphereScale({
+  groupPosition,
+  sphereScale,
+  viewportSize,
+}: {
+  groupPosition: ScenePosition;
+  sphereScale: number;
+  viewportSize: SceneViewportSize;
+}) {
+  const { halfHeight, halfWidth } = getSceneVisibleHalfExtents({
+    objectZ: groupPosition[2],
+    viewportSize,
+  });
+  const shortestVisibleHalfExtent = Math.min(halfHeight, halfWidth);
+  const minimumScale =
+    (backgroundSphereMinViewportCoverage * shortestVisibleHalfExtent) /
+    hexSphereRadius;
+
+  return Math.max(sphereScale, minimumScale);
+}
+
 const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
   viewportSize,
 }: {
@@ -918,9 +941,18 @@ const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
   const startColor = useMemo(() => new Color(sceneStartColorHex), []);
   const endColor = useMemo(() => new Color(sceneEndColorHex), []);
   const currentColor = useMemo(() => startColor.clone(), [startColor]);
-  const { groupPosition, sphereScale } = useMemo(
+  const { groupPosition, sphereScale: layoutSphereScale } = useMemo(
     () => getHexSphereLayout(viewportSize),
     [viewportSize],
+  );
+  const sphereScale = useMemo(
+    () =>
+      getMobileBackdropSphereScale({
+        groupPosition,
+        sphereScale: layoutSphereScale,
+        viewportSize,
+      }),
+    [groupPosition, layoutSphereScale, viewportSize],
   );
   const hexGeometry = useMemo(() => createHexBackdropGeometry(), []);
   const hexEdgesGeometry = useMemo(
