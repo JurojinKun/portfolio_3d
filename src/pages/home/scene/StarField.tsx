@@ -25,16 +25,19 @@ interface StarFieldProps {
   size?: number;
 }
 
+interface StarFieldScale {
+  x: number;
+  y: number;
+}
+
 function createStarPositions(count: number) {
   const positions = new Float32Array(count * 3);
 
   for (let index = 0; index < count; index += 1) {
     const vectorIndex = index * 3;
-    const angle = Math.random() * Math.PI * 2;
-    const distance = Math.sqrt(Math.random());
 
-    positions[vectorIndex] = Math.cos(angle) * distance;
-    positions[vectorIndex + 1] = Math.sin(angle) * distance;
+    positions[vectorIndex] = MathUtils.randFloatSpread(2);
+    positions[vectorIndex + 1] = MathUtils.randFloatSpread(2);
     positions[vectorIndex + 2] = MathUtils.randFloat(-0.5, 0.5);
   }
 
@@ -107,7 +110,7 @@ export function StarField({
   const geometryRef = useRef<BufferGeometry>(null);
   const canvasSize = useThree((state) => state.size);
   const fieldZ = position[2];
-  const fieldHalfSize = useMemo(() => {
+  const fieldScale = useMemo<StarFieldScale>(() => {
     const { halfHeight, halfWidth } = getVisibleHalfExtents({
       objectZ: fieldZ - depth / 2,
       viewportSize: {
@@ -115,9 +118,11 @@ export function StarField({
         width: canvasSize.width,
       },
     });
-    const halfDiagonal = Math.hypot(halfWidth, halfHeight);
 
-    return Math.ceil(halfDiagonal * viewportCoverageMargin * 2) / 2;
+    return {
+      x: Math.ceil(halfWidth * viewportCoverageMargin * 2) / 2,
+      y: Math.ceil(halfHeight * viewportCoverageMargin * 2) / 2,
+    };
   }, [canvasSize.height, canvasSize.width, depth, fieldZ]);
   const responsiveCount = useMemo(
     () =>
@@ -157,7 +162,7 @@ export function StarField({
       ref={pointsRef}
       position={position}
       rotation={[0, 0, Math.PI / 4]}
-      scale={[fieldHalfSize, fieldHalfSize, depth]}
+      scale={[fieldScale.x, fieldScale.y, depth]}
     >
       <bufferGeometry ref={geometryRef}>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
