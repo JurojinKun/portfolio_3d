@@ -1,12 +1,30 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import { useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Color, MathUtils, Vector3, type Group } from "three";
+import {
+  Color,
+  EdgesGeometry,
+  ExtrudeGeometry,
+  LineBasicMaterial,
+  MathUtils,
+  MeshPhongMaterial,
+  Shape,
+  Vector3,
+  type Group,
+} from "three";
 
 import { satelliteNavigationItems } from "@/data/navigation";
 
 import { OrbitingSatellite } from "./OrbitingSatellite";
-import { type ScenePosition } from "./sceneUtils";
+import { generateHexSphereTiles, type ScenePosition } from "./sceneUtils";
+import {
+  getHexSphereLayout,
+  getVisibleHalfExtents as getSceneVisibleHalfExtents,
+  hexSphereCameraFov,
+  hexSphereCameraZPosition,
+  hexSphereRadius,
+  type SceneViewportSize,
+} from "./hexSphereLayout";
 import {
   getSceneColorElapsedTime,
   getScenePulseColor,
@@ -14,11 +32,24 @@ import {
   sceneStartColorHex,
 } from "./sceneColor";
 
-const cameraFov = 50;
-const cameraZPosition = 10;
 const baseSatelliteZPosition = 1.25;
 const backDepthAmplitude = 1.25;
 const frontDepthAmplitude = 2.25;
+const backgroundSphereTileCount = 425;
+const backgroundSphereRotationSpeed = 0.00022;
+const backgroundSphereMinViewportCoverage = 0.52;
+const backgroundSphereRenderOrder = 0;
+const mobileSatelliteRenderOrder = 10;
+const backgroundTileStyle = {
+  depth: 0.1,
+  edgeMaxOpacity: 0.28,
+  edgeMinOpacity: 0.06,
+  foregroundGlowStart: 0.66,
+  maxEmissiveIntensity: 0.072,
+  maxOpacity: 0.2,
+  minOpacity: 0.04,
+  radius: 0.15,
+} as const;
 const mobileSatelliteBaseSpeed = 0.034;
 const mobileSatelliteSpeedVariance = 0.008;
 const mobileSatelliteDepthAmplitude = 0.52;
@@ -38,6 +69,9 @@ const mobileSatelliteLabelMaxWidth = 0.92;
 const mobileSatelliteLabelMeasureFontSizePx = 1000;
 let mobileSatelliteLabelMeasureContext:
   CanvasRenderingContext2D | null | undefined;
+const backgroundTempNormal = new Vector3();
+const backgroundTempPosition = new Vector3();
+const backgroundTempToCamera = new Vector3();
 
 interface MobileChromeBoundsPx {
   footerClearancePx: number;
@@ -144,8 +178,9 @@ function getVisibleHalfExtents({
     height: viewportHeight,
     width: viewportWidth,
   });
-  const distanceFromCamera = Math.max(cameraZPosition - objectZ, 0.1);
-  const halfHeight = Math.tan((cameraFov * Math.PI) / 360) * distanceFromCamera;
+  const distanceFromCamera = Math.max(hexSphereCameraZPosition - objectZ, 0.1);
+  const halfHeight =
+    Math.tan((hexSphereCameraFov * Math.PI) / 360) * distanceFromCamera;
   const halfWidth =
     halfHeight * (safeViewportSize.width / safeViewportSize.height);
 
@@ -857,6 +892,244 @@ function resolveMobileSatelliteCollisions({
   });
 }
 
+function createHexBackdropGeometry() {
+  const shape = new Shape();
+
+  shape.moveTo(backgroundTileStyle.radius, 0);
+
+  for (let index = 1; index <= 6; index += 1) {
+    const theta = (index / 6) * Math.PI * 2;
+    shape.lineTo(
+      backgroundTileStyle.radius * Math.cos(theta),
+      backgroundTileStyle.radius * Math.sin(theta),
+    );
+  }
+
+  const geometry = new ExtrudeGeometry(shape, {
+    bevelEnabled: false,
+    depth: backgroundTileStyle.depth,
+  });
+
+  geometry.center();
+  return geometry;
+}
+
+function getMobileBackdropSphereScale({
+  groupPosition,
+  sphereScale,
+  viewportSize,
+}: {
+  groupPosition: ScenePosition;
+  sphereScale: number;
+  viewportSize: SceneViewportSize;
+}) {
+  const { halfHeight, halfWidth } = getSceneVisibleHalfExtents({
+    objectZ: groupPosition[2],
+    viewportSize,
+  });
+  const shortestVisibleHalfExtent = Math.min(halfHeight, halfWidth);
+  const minimumScale =
+    (backgroundSphereMinViewportCoverage * shortestVisibleHalfExtent) /
+    hexSphereRadius;
+
+  return Math.max(sphereScale, minimumScale);
+}
+
+const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
+  viewportSize,
+}: {
+  viewportSize: SceneViewportSize;
+}) {
+  const sphereRef = useRef<Group>(null);
+  const startColor = useMemo(() => new Color(sceneStartColorHex), []);
+  const endColor = useMemo(() => new Color(sceneEndColorHex), []);
+  const currentColor = useMemo(() => startColor.clone(), [startColor]);
+  const { groupPosition, sphereScale: layoutSphereScale } = useMemo(
+    () => getHexSphereLayout(viewportSize),
+    [viewportSize],
+  );
+  const sphereScale = useMemo(
+    () =>
+      getMobileBackdropSphereScale({
+        groupPosition,
+        sphereScale: layoutSphereScale,
+        viewportSize,
+      }),
+    [groupPosition, layoutSphereScale, viewportSize],
+  );
+  const hexGeometry = useMemo(() => createHexBackdropGeometry(), []);
+  const hexEdgesGeometry = useMemo(
+    () => new EdgesGeometry(hexGeometry),
+    [hexGeometry],
+  );
+  const tiles = useMemo(
+    () => generateHexSphereTiles(backgroundSphereTileCount, hexSphereRadius),
+    [],
+  );
+  const edgeMaterials = useMemo(
+    () =>
+      tiles.map(
+        () =>
+          new LineBasicMaterial({
+            color: startColor.clone(),
+            depthTest: true,
+            depthWrite: false,
+            opacity: backgroundTileStyle.edgeMinOpacity,
+            toneMapped: false,
+            transparent: true,
+          }),
+      ),
+    [startColor, tiles],
+  );
+  const tileMaterials = useMemo(
+    () =>
+      tiles.map(
+        () =>
+          new MeshPhongMaterial({
+            color: startColor.clone(),
+            depthWrite: false,
+            emissive: startColor.clone(),
+            emissiveIntensity: 0,
+            opacity: backgroundTileStyle.minOpacity,
+            polygonOffset: true,
+            polygonOffsetFactor: -2,
+            polygonOffsetUnits: -2,
+            transparent: true,
+          }),
+      ),
+    [startColor, tiles],
+  );
+
+  useEffect(
+    () => () => {
+      hexGeometry.dispose();
+      hexEdgesGeometry.dispose();
+      edgeMaterials.forEach((material) => {
+        material.dispose();
+      });
+      tileMaterials.forEach((material) => {
+        material.dispose();
+      });
+    },
+    [edgeMaterials, hexEdgesGeometry, hexGeometry, tileMaterials],
+  );
+
+  useFrame(({ camera }) => {
+    const sphere = sphereRef.current;
+
+    if (!sphere) {
+      return;
+    }
+
+    getScenePulseColor({
+      elapsedTime: getSceneColorElapsedTime(),
+      endColor,
+      startColor,
+      targetColor: currentColor,
+    });
+    sphere.rotation.y += backgroundSphereRotationSpeed;
+    sphere.rotation.z += backgroundSphereRotationSpeed;
+
+    tiles.forEach((tile, index) => {
+      const material = tileMaterials[index];
+      const edgeMaterial = edgeMaterials[index];
+
+      if (!material || !edgeMaterial) {
+        return;
+      }
+
+      backgroundTempNormal.copy(tile.normal).applyQuaternion(sphere.quaternion);
+      backgroundTempPosition
+        .copy(tile.position)
+        .applyQuaternion(sphere.quaternion)
+        .multiplyScalar(sphereScale)
+        .add(sphere.position);
+      backgroundTempToCamera
+        .copy(camera.position)
+        .sub(backgroundTempPosition)
+        .normalize();
+
+      const facing = MathUtils.clamp(
+        backgroundTempNormal.dot(backgroundTempToCamera),
+        -1,
+        1,
+      );
+      const normalizedFacing = (facing + 1) / 2;
+      const opacityFacing = MathUtils.smoothstep(normalizedFacing, 0.12, 0.92);
+      const targetOpacity =
+        backgroundTileStyle.minOpacity +
+        (backgroundTileStyle.maxOpacity - backgroundTileStyle.minOpacity) *
+          opacityFacing;
+      const targetEdgeOpacity =
+        backgroundTileStyle.edgeMinOpacity +
+        (backgroundTileStyle.edgeMaxOpacity -
+          backgroundTileStyle.edgeMinOpacity) *
+          opacityFacing;
+      const foregroundGlow = MathUtils.smoothstep(
+        normalizedFacing,
+        backgroundTileStyle.foregroundGlowStart,
+        1,
+      );
+
+      material.color.copy(currentColor);
+      material.emissive.copy(currentColor);
+      edgeMaterial.color.copy(currentColor);
+      material.emissiveIntensity = MathUtils.lerp(
+        material.emissiveIntensity,
+        backgroundTileStyle.maxEmissiveIntensity * foregroundGlow,
+        0.1,
+      );
+      material.opacity = MathUtils.lerp(material.opacity, targetOpacity, 0.08);
+      edgeMaterial.opacity = MathUtils.lerp(
+        edgeMaterial.opacity,
+        targetEdgeOpacity,
+        0.08,
+      );
+      material.needsUpdate = true;
+      edgeMaterial.needsUpdate = true;
+    });
+  });
+
+  return (
+    <group
+      ref={sphereRef}
+      position={groupPosition}
+      renderOrder={backgroundSphereRenderOrder}
+      rotation={[0.2, 0.42, -0.12]}
+      scale={sphereScale}
+    >
+      {tiles.map((tile, index) => {
+        const material = tileMaterials[index];
+        const edgeMaterial = edgeMaterials[index];
+
+        if (!material || !edgeMaterial) {
+          return null;
+        }
+
+        return (
+          <group
+            key={index}
+            position={tile.position}
+            quaternion={tile.quaternion}
+            renderOrder={backgroundSphereRenderOrder}
+          >
+            <mesh
+              geometry={hexGeometry}
+              material={material}
+              renderOrder={backgroundSphereRenderOrder}
+            />
+            <lineSegments
+              geometry={hexEdgesGeometry}
+              material={edgeMaterial}
+              renderOrder={backgroundSphereRenderOrder}
+            />
+          </group>
+        );
+      })}
+    </group>
+  );
+});
+
 export function MobileFloatingHexagons({
   chromeBoundsPx,
 }: {
@@ -864,7 +1137,14 @@ export function MobileFloatingHexagons({
 }) {
   const { t } = useTranslation();
   const canvasSize = useThree((state) => state.size);
-  const viewportSize = getSafeMobileViewportSize(canvasSize);
+  const viewportSize = useMemo(
+    () =>
+      getSafeMobileViewportSize({
+        height: canvasSize.height,
+        width: canvasSize.width,
+      }),
+    [canvasSize.height, canvasSize.width],
+  );
   const startColor = useMemo(() => new Color(sceneStartColorHex), []);
   const endColor = useMemo(() => new Color(sceneEndColorHex), []);
   const currentColor = useMemo(() => startColor.clone(), [startColor]);
@@ -1009,6 +1289,7 @@ export function MobileFloatingHexagons({
 
   return (
     <>
+      <MobileHexSphereBackdrop viewportSize={viewportSize} />
       {satelliteNavigationItems.map((item, index) => (
         <OrbitingSatellite
           key={item.id}
@@ -1041,6 +1322,7 @@ export function MobileFloatingHexagons({
               viewportWidth: viewportSize.width,
             }).position
           }
+          renderOrder={mobileSatelliteRenderOrder}
           tileScale={satelliteScale}
         />
       ))}

@@ -13,6 +13,7 @@ interface BugSatelliteProps {
   labelMaxWidth: number;
   labelOffsetY: number;
   position: ScenePosition;
+  renderOrder?: number;
 }
 
 const bugInactiveColor = "#252525";
@@ -34,6 +35,7 @@ export function BugSatellite({
   labelMaxWidth,
   labelOffsetY,
   position,
+  renderOrder = 0,
 }: BugSatelliteProps) {
   const navigate = useNavigate();
   const satelliteRef = useRef<Group>(null);
@@ -60,12 +62,13 @@ export function BugSatellite({
   };
 
   return (
-    <group position={position}>
+    <group position={position} renderOrder={renderOrder}>
       <InteractiveHexagon
         hexagonColor={hexagonColor}
         hexagonRef={satelliteRef}
         iconPath="/icons/not_found.svg"
         onClick={navigateToNotFound}
+        renderOrder={renderOrder}
       />
       <Text
         color="white"
@@ -74,6 +77,7 @@ export function BugSatellite({
         maxWidth={labelMaxWidth}
         onClick={navigateToNotFound}
         position={[0, labelOffsetY, 0]}
+        renderOrder={renderOrder + 1}
         textAlign="center"
       >
         ERR 404

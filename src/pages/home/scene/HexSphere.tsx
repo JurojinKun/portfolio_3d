@@ -1,24 +1,37 @@
-import { useFrame } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useFrame, type ThreeEvent } from "@react-three/fiber";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Color,
   EdgesGeometry,
   ExtrudeGeometry,
   LineBasicMaterial,
+  MeshBasicMaterial,
   MathUtils,
   MeshPhongMaterial,
   Quaternion,
   Shape,
+  SphereGeometry,
   Vector3,
+  type Camera,
   type Group,
+  type Object3D,
 } from "three";
 
 import { OrbitingSatellite } from "./OrbitingSatellite";
 import {
   generateHexSphereTiles,
   selectSatelliteTiles,
+  type HexTile,
   type ScenePosition,
 } from "./sceneUtils";
+import {
+  desktopSatelliteZOffset,
+  getHexSphereLayout,
+  getHexSphereOrbitRadii,
+  getSafeSceneViewportSize,
+  hexSphereRadius,
+  type SceneViewportSize,
+} from "./hexSphereLayout";
 import {
   getSceneColorElapsedTime,
   getScenePulseColor,
@@ -28,10 +41,24 @@ import {
 
 const sphereRotationSpeed = 0.0003;
 const satelliteOrbitSpeed = 0.03;
-const cameraFov = 50;
-const cameraZPosition = 10;
-const sphereRadius = 2;
-const satelliteZOffset = 1.3;
+const sphereBaseSpinAxis = new Vector3(0, 1, 1).normalize();
+const sphereBaseSpinSpeed = Math.hypot(
+  sphereRotationSpeed,
+  sphereRotationSpeed,
+);
+const sphereInteractionClickDuration = 260;
+const sphereInteractionDragDistance = 6;
+const sphereInteractionDragRotationSensitivity = 4.85;
+const sphereInteractionMaxFrameRotation = 0.16;
+const sphereInteractionMaxSpinSpeed = 0.08;
+const sphereInteractionMinPointerBasis = 320;
+const sphereInteractionPulseDuration = 1.2;
+const sphereInteractionPulseIntensity = 0.82;
+const sphereInteractionPulseSpeed = 2.65;
+const sphereInteractionPulseWidth = 0.42;
+const sphereInteractionSpinReturn = 0.018;
+const sphereColliderUserDataKey = "sphereCollider";
+const sphereTileIndexUserDataKey = "sphereTileIndex";
 const tileStyle = {
   baseOpacity: 1,
   depth: 0.1,
@@ -46,26 +73,110 @@ const tempNormal = new Vector3();
 const tempPosition = new Vector3();
 const tempToCamera = new Vector3();
 const tempColor = new Color();
+const tempCameraRight = new Vector3();
+const tempCameraUp = new Vector3();
+const tempDragAxis = new Vector3();
+const tempDragQuaternion = new Quaternion();
+const tempPulseLocalNormal = new Vector3();
+const tempSpinQuaternion = new Quaternion();
 const identityQuaternion = new Quaternion();
 
-interface WindowSize {
-  height: number;
-  width: number;
+interface SphereInteractionState {
+  activePointerId: number | null;
+  dragDistance: number;
+  dragStartedAt: number;
+  isDragging: boolean;
+  isPointerOver: boolean;
+  lastPointerTime: number;
+  lastPointerX: number;
+  lastPointerY: number;
+  pendingPulse: boolean;
+  pulseOriginTileIndex: number | null;
+  pulsePosition: Vector3;
+  pulseStartedAt: number;
+  spinAxis: Vector3;
+  spinSpeed: number;
 }
 
-function getSafeWindowDimension(value: number) {
-  return Number.isFinite(value) ? Math.max(1, value) : 1;
+interface PointerCaptureTarget extends EventTarget {
+  hasPointerCapture?: (pointerId: number) => boolean;
+  releasePointerCapture?: (pointerId: number) => void;
+  setPointerCapture?: (pointerId: number) => void;
 }
 
-function getSafeWindowSize({ height, width }: WindowSize): WindowSize {
-  return {
-    height: getSafeWindowDimension(height),
-    width: getSafeWindowDimension(width),
-  };
+interface SphereHit {
+  localPoint: Vector3;
+  tileIndex: number | null;
 }
 
-function isPortraitTabletViewport({ height, width }: WindowSize) {
-  return width > 720 && width <= 1180 && height > width;
+function setPointerCursor(cursor: "auto" | "grab" | "grabbing") {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  document.body.style.cursor = cursor;
+}
+
+function getInteractionNow() {
+  return typeof performance === "undefined" ? Date.now() : performance.now();
+}
+
+function isObjectDescendantOf(object: Object3D, parent: Object3D) {
+  let current: Object3D | null = object;
+
+  while (current) {
+    if (current === parent) {
+      return true;
+    }
+
+    current = current.parent;
+  }
+
+  return false;
+}
+
+function getSphereTileIndex(object: Object3D) {
+  let current: Object3D | null = object;
+
+  while (current) {
+    const userData = current.userData as Record<string, unknown>;
+    const tileIndex = userData[sphereTileIndexUserDataKey];
+
+    if (typeof tileIndex === "number") {
+      return tileIndex;
+    }
+
+    current = current.parent;
+  }
+
+  return null;
+}
+
+function isSphereCollider(object: Object3D) {
+  let current: Object3D | null = object;
+
+  while (current) {
+    const userData = current.userData as Record<string, unknown>;
+
+    if (userData[sphereColliderUserDataKey] === true) {
+      return true;
+    }
+
+    current = current.parent;
+  }
+
+  return false;
+}
+
+function isTileInForeground(tile: HexTile, sphereGroup: Group, camera: Camera) {
+  tempNormal.copy(tile.normal).applyQuaternion(sphereGroup.quaternion);
+  tempPosition
+    .copy(tile.position)
+    .applyQuaternion(sphereGroup.quaternion)
+    .add(sphereGroup.position);
+  tempToCamera.copy(camera.position).sub(tempPosition).normalize();
+
+  return tempNormal.dot(tempToCamera) > 0;
 }
 
 function createHexGeometry() {
@@ -89,10 +200,10 @@ function createHexGeometry() {
 }
 
 function useWindowSize() {
-  const [windowSize, setWindowSize] = useState<WindowSize>(() =>
+  const [windowSize, setWindowSize] = useState<SceneViewportSize>(() =>
     typeof window === "undefined"
       ? { height: 900, width: 1280 }
-      : getSafeWindowSize({
+      : getSafeSceneViewportSize({
           height: window.innerHeight,
           width: window.innerWidth,
         }),
@@ -101,7 +212,7 @@ function useWindowSize() {
   useEffect(() => {
     const handleResize = () => {
       setWindowSize(
-        getSafeWindowSize({
+        getSafeSceneViewportSize({
           height: window.innerHeight,
           width: window.innerWidth,
         }),
@@ -117,227 +228,6 @@ function useWindowSize() {
   }, []);
 
   return windowSize;
-}
-
-function getEndPosition({ height, width }: WindowSize): ScenePosition {
-  if (isPortraitTabletViewport({ height, width })) {
-    return [0, 0.1, -0.55];
-  }
-
-  if (height <= 430) {
-    return [0, 0.1, -4.5];
-  }
-
-  if (width <= 400) {
-    return [0, 0.1, -5.2];
-  }
-
-  if (width <= 600) {
-    return [0, 0.1, -3.4];
-  }
-
-  if (width <= 1000) {
-    return [0, 0.1, 0.5];
-  }
-
-  return [0, 0.1, 2.5];
-}
-
-function getOrbitRadius({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (shortestSide <= 360) {
-    return 2.12;
-  }
-
-  if (shortestSide <= 430) {
-    return 2.22;
-  }
-
-  if (width <= 480) {
-    return 2.35;
-  }
-
-  if (width <= 720) {
-    return 2.45;
-  }
-
-  return 2.6;
-}
-
-function getVisibleHalfExtents({
-  objectZ,
-  windowSize,
-}: {
-  objectZ: number;
-  windowSize: WindowSize;
-}) {
-  const safeWindowSize = getSafeWindowSize(windowSize);
-  const distanceFromCamera = Math.max(cameraZPosition - objectZ, 0.1);
-  const halfHeight = Math.tan((cameraFov * Math.PI) / 360) * distanceFromCamera;
-  const halfWidth = halfHeight * (safeWindowSize.width / safeWindowSize.height);
-
-  return { halfHeight, halfWidth };
-}
-
-function getSatelliteScale({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (isPortraitTabletViewport({ height, width })) {
-    return 0.92;
-  }
-
-  if (shortestSide <= 380) {
-    return 0.82;
-  }
-
-  if (width <= 480) {
-    return 0.88;
-  }
-
-  if (width <= 720) {
-    return 0.94;
-  }
-
-  return 1;
-}
-
-function getSphereScale({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (isPortraitTabletViewport({ height, width })) {
-    return 0.88;
-  }
-
-  if (shortestSide <= 380) {
-    return 0.9;
-  }
-
-  if (width <= 480) {
-    return 0.94;
-  }
-
-  if (width <= 720 || height <= 640) {
-    return 0.98;
-  }
-
-  return 1;
-}
-
-function getLabelFontSize({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (shortestSide <= 360) {
-    return 0.096;
-  }
-
-  if (width <= 480) {
-    return 0.104;
-  }
-
-  if (width <= 720 || height <= 640) {
-    return 0.106;
-  }
-
-  return 0.1;
-}
-
-function getLabelOffsetY({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (shortestSide <= 360) {
-    return -0.28;
-  }
-
-  if (width <= 480) {
-    return -0.29;
-  }
-
-  if (width <= 720 || height <= 640) {
-    return -0.3;
-  }
-
-  return -0.27;
-}
-
-function getLabelMaxWidth({ height, width }: WindowSize) {
-  const shortestSide = Math.min(height, width);
-
-  if (isPortraitTabletViewport({ height, width })) {
-    return 0.88;
-  }
-
-  if (shortestSide <= 360) {
-    return 0.76;
-  }
-
-  if (width <= 480) {
-    return 0.84;
-  }
-
-  if (width <= 720 || height <= 640) {
-    return 0.92;
-  }
-
-  return 0.95;
-}
-
-function getSafeOrbitRadius({
-  availableRadius,
-  baseRadius,
-  minimumRadius,
-}: {
-  availableRadius: number;
-  baseRadius: number;
-  minimumRadius: number;
-}) {
-  const safeAvailableRadius = Math.max(0.1, availableRadius);
-  const safeMinimumRadius = Math.min(minimumRadius, safeAvailableRadius);
-
-  return Math.min(baseRadius, Math.max(safeMinimumRadius, safeAvailableRadius));
-}
-
-function getOrbitRadii({
-  groupPosition,
-  labelFontSize,
-  labelMaxWidth,
-  labelOffsetY,
-  sphereScale,
-  tileScale,
-  windowSize,
-}: {
-  groupPosition: ScenePosition;
-  labelFontSize: number;
-  labelMaxWidth: number;
-  labelOffsetY: number;
-  sphereScale: number;
-  tileScale: number;
-  windowSize: WindowSize;
-}) {
-  const baseRadius = getOrbitRadius(windowSize);
-  const { halfHeight, halfWidth } = getVisibleHalfExtents({
-    objectZ: groupPosition[2] + satelliteZOffset,
-    windowSize,
-  });
-  const labelVerticalClearance =
-    (Math.abs(labelOffsetY) + labelFontSize * 1.4 + 0.1) * tileScale;
-  const labelHorizontalClearance = (labelMaxWidth / 2 + 0.18) * tileScale;
-  const minimumRadius = sphereRadius * sphereScale + 0.36 * tileScale;
-  const availableRadiusX = halfWidth - labelHorizontalClearance;
-  const availableRadiusY = halfHeight - labelVerticalClearance;
-
-  return {
-    x: getSafeOrbitRadius({
-      availableRadius: availableRadiusX,
-      baseRadius,
-      minimumRadius,
-    }),
-    y: getSafeOrbitRadius({
-      availableRadius: availableRadiusY,
-      baseRadius,
-      minimumRadius,
-    }),
-  };
 }
 
 function computeSatellitePosition({
@@ -361,25 +251,25 @@ function computeSatellitePosition({
   satelliteCount: number;
   sphereScale: number;
   tileScale: number;
-  windowSize: WindowSize;
+  windowSize: SceneViewportSize;
 }): ScenePosition {
   const angle =
     ((2 * Math.PI) / satelliteCount) * index +
     elapsedTime * satelliteOrbitSpeed;
-  const orbitRadii = getOrbitRadii({
+  const orbitRadii = getHexSphereOrbitRadii({
     groupPosition,
     labelFontSize,
     labelMaxWidth,
     labelOffsetY,
     sphereScale,
     tileScale,
-    windowSize,
+    viewportSize: windowSize,
   });
 
   return [
     groupPosition[0] + Math.cos(angle) * orbitRadii.x,
     groupPosition[1] + Math.sin(angle) * orbitRadii.y,
-    groupPosition[2] + satelliteZOffset,
+    groupPosition[2] + desktopSatelliteZOffset,
   ] satisfies ScenePosition;
 }
 
@@ -393,6 +283,20 @@ export function HexSphere() {
     () => new EdgesGeometry(hexGeometry),
     [hexGeometry],
   );
+  const sphereColliderGeometry = useMemo(
+    () => new SphereGeometry(hexSphereRadius + tileStyle.depth, 48, 24),
+    [],
+  );
+  const sphereColliderMaterial = useMemo(() => {
+    const material = new MeshBasicMaterial({
+      depthWrite: false,
+      opacity: 0,
+      transparent: true,
+    });
+
+    material.visible = false;
+    return material;
+  }, []);
   const hexEdgeMaterial = useMemo(
     () =>
       new LineBasicMaterial({
@@ -405,8 +309,24 @@ export function HexSphere() {
       }),
     [startColor],
   );
-  const tiles = useMemo(() => generateHexSphereTiles(425, sphereRadius), []);
+  const tiles = useMemo(() => generateHexSphereTiles(425, hexSphereRadius), []);
   const satelliteRefs = useRef<(Group | null)[]>([]);
+  const interactionRef = useRef<SphereInteractionState>({
+    activePointerId: null,
+    dragDistance: 0,
+    dragStartedAt: 0,
+    isDragging: false,
+    isPointerOver: false,
+    lastPointerTime: 0,
+    lastPointerX: 0,
+    lastPointerY: 0,
+    pendingPulse: false,
+    pulseOriginTileIndex: null,
+    pulsePosition: new Vector3(),
+    pulseStartedAt: Number.NEGATIVE_INFINITY,
+    spinAxis: sphereBaseSpinAxis.clone(),
+    spinSpeed: sphereBaseSpinSpeed,
+  });
   const tileMaterials = useMemo(
     () =>
       tiles.map(
@@ -428,13 +348,14 @@ export function HexSphere() {
     () => selectSatelliteTiles(tiles, 6),
     [tiles],
   );
-  const groupPosition = useMemo(() => getEndPosition(windowSize), [windowSize]);
-  const sphereScale = getSphereScale(windowSize);
+  const sphereLayout = useMemo(
+    () => getHexSphereLayout(windowSize),
+    [windowSize],
+  );
+  const { groupPosition, labelFontSize, labelMaxWidth, labelOffsetY } =
+    sphereLayout;
+  const { satelliteScale, sphereScale } = sphereLayout;
   const sphereTileScale = 1;
-  const satelliteScale = getSatelliteScale(windowSize);
-  const labelFontSize = getLabelFontSize(windowSize);
-  const labelMaxWidth = getLabelMaxWidth(windowSize);
-  const labelOffsetY = getLabelOffsetY(windowSize);
   const [color, setColor] = useState(() =>
     getScenePulseColor({
       elapsedTime: getSceneColorElapsedTime(),
@@ -478,17 +399,319 @@ export function HexSphere() {
 
   useEffect(
     () => () => {
+      setPointerCursor("auto");
       hexGeometry.dispose();
       hexEdgesGeometry.dispose();
+      sphereColliderGeometry.dispose();
+      sphereColliderMaterial.dispose();
       hexEdgeMaterial.dispose();
       tileMaterials.forEach((material) => {
         material.dispose();
       });
     },
-    [hexEdgeMaterial, hexEdgesGeometry, hexGeometry, tileMaterials],
+    [
+      hexEdgeMaterial,
+      hexEdgesGeometry,
+      hexGeometry,
+      sphereColliderGeometry,
+      sphereColliderMaterial,
+      tileMaterials,
+    ],
   );
 
-  useFrame(({ camera, clock }) => {
+  const getNearestTileIndex = useCallback(
+    (localPoint: Vector3, sphereGroup: Group, camera: Camera) => {
+      tempPulseLocalNormal.copy(localPoint).normalize();
+
+      let closestTileIndex: number | null = null;
+      let closestTileScore = Number.NEGATIVE_INFINITY;
+
+      tiles.forEach((tile, index) => {
+        if (!isTileInForeground(tile, sphereGroup, camera)) {
+          return;
+        }
+
+        const tileScore = tile.normal.dot(tempPulseLocalNormal);
+
+        if (tileScore > closestTileScore) {
+          closestTileIndex = index;
+          closestTileScore = tileScore;
+        }
+      });
+
+      return closestTileIndex;
+    },
+    [tiles],
+  );
+
+  const getSphereHit = useCallback(
+    (event: ThreeEvent<PointerEvent>) => {
+      const sphereGroup = sphereGroupRef.current;
+      let directTileHit: SphereHit | null = null;
+      let colliderPoint: Vector3 | null = null;
+
+      if (!sphereGroup) {
+        return null;
+      }
+
+      for (const intersection of event.intersections) {
+        if (!isObjectDescendantOf(intersection.object, sphereGroup)) {
+          continue;
+        }
+
+        const localPoint = intersection.point.clone();
+
+        sphereGroup.worldToLocal(localPoint);
+
+        const tileIndex = getSphereTileIndex(intersection.object);
+        const tile =
+          tileIndex === null || tileIndex < 0 || tileIndex >= tiles.length
+            ? null
+            : tiles[tileIndex];
+
+        if (
+          tileIndex !== null &&
+          tile &&
+          intersection.object.type === "Mesh" &&
+          isTileInForeground(tile, sphereGroup, event.camera)
+        ) {
+          directTileHit = {
+            localPoint,
+            tileIndex,
+          };
+          break;
+        }
+
+        if (!colliderPoint && isSphereCollider(intersection.object)) {
+          colliderPoint = localPoint;
+        }
+      }
+
+      if (directTileHit) {
+        return directTileHit;
+      }
+
+      if (colliderPoint) {
+        return {
+          localPoint: colliderPoint,
+          tileIndex: getNearestTileIndex(
+            colliderPoint,
+            sphereGroup,
+            event.camera,
+          ),
+        } satisfies SphereHit;
+      }
+
+      return null;
+    },
+    [getNearestTileIndex, tiles],
+  );
+
+  const setPulseOriginFromHit = useCallback(
+    ({ localPoint, tileIndex }: SphereHit) => {
+      const interaction = interactionRef.current;
+      const originTile =
+        tileIndex === null || tileIndex < 0 || tileIndex >= tiles.length
+          ? null
+          : tiles[tileIndex];
+
+      interaction.pulseOriginTileIndex = tileIndex;
+      interaction.pulsePosition.copy(originTile?.position ?? localPoint);
+    },
+    [tiles],
+  );
+
+  const releasePointerCapture = useCallback(
+    (event: ThreeEvent<PointerEvent>) => {
+      const target = event.target as PointerCaptureTarget;
+
+      if (
+        target.releasePointerCapture &&
+        (!target.hasPointerCapture || target.hasPointerCapture(event.pointerId))
+      ) {
+        target.releasePointerCapture(event.pointerId);
+      }
+    },
+    [],
+  );
+
+  const finishSphereDrag = useCallback(
+    (
+      event: ThreeEvent<PointerEvent>,
+      { allowPulse }: { allowPulse: boolean },
+    ) => {
+      const interaction = interactionRef.current;
+
+      if (!interaction.isDragging) {
+        return;
+      }
+
+      const dragDuration = getInteractionNow() - interaction.dragStartedAt;
+      const isSimpleClick =
+        allowPulse &&
+        interaction.dragDistance < sphereInteractionDragDistance &&
+        dragDuration <= sphereInteractionClickDuration;
+
+      if (isSimpleClick) {
+        interaction.pendingPulse = true;
+      }
+
+      interaction.activePointerId = null;
+      interaction.dragDistance = 0;
+      interaction.isDragging = false;
+
+      releasePointerCapture(event);
+      setPointerCursor(interaction.isPointerOver ? "grab" : "auto");
+      event.stopPropagation();
+    },
+    [releasePointerCapture],
+  );
+
+  const handleSpherePointerOver = useCallback(
+    (event: ThreeEvent<PointerEvent>) => {
+      const interaction = interactionRef.current;
+
+      if (getSphereHit(event)) {
+        interaction.isPointerOver = true;
+        setPointerCursor("grab");
+      }
+    },
+    [getSphereHit],
+  );
+
+  const handleSpherePointerOut = useCallback(() => {
+    const interaction = interactionRef.current;
+
+    interaction.isPointerOver = false;
+
+    if (!interaction.isDragging) {
+      setPointerCursor("auto");
+    }
+  }, []);
+
+  const handleSpherePointerDown = useCallback(
+    (event: ThreeEvent<PointerEvent>) => {
+      const sphereHit = getSphereHit(event);
+
+      if (!sphereHit) {
+        return;
+      }
+
+      const interaction = interactionRef.current;
+      const target = event.target as PointerCaptureTarget;
+
+      interaction.activePointerId = event.pointerId;
+      interaction.dragDistance = 0;
+      interaction.dragStartedAt = getInteractionNow();
+      interaction.isDragging = true;
+      interaction.isPointerOver = true;
+      interaction.lastPointerTime = interaction.dragStartedAt;
+      interaction.lastPointerX = event.clientX;
+      interaction.lastPointerY = event.clientY;
+      interaction.pendingPulse = false;
+      setPulseOriginFromHit(sphereHit);
+
+      target.setPointerCapture?.(event.pointerId);
+      event.stopPropagation();
+      setPointerCursor("grabbing");
+    },
+    [getSphereHit, setPulseOriginFromHit],
+  );
+
+  const handleSpherePointerMove = useCallback(
+    (event: ThreeEvent<PointerEvent>) => {
+      const sphereGroup = sphereGroupRef.current;
+      const interaction = interactionRef.current;
+
+      if (
+        !sphereGroup ||
+        !interaction.isDragging ||
+        interaction.activePointerId !== event.pointerId
+      ) {
+        return;
+      }
+
+      const pointerTime = getInteractionNow();
+      const deltaX = event.clientX - interaction.lastPointerX;
+      const deltaY = event.clientY - interaction.lastPointerY;
+
+      interaction.lastPointerX = event.clientX;
+      interaction.lastPointerY = event.clientY;
+
+      if (deltaX === 0 && deltaY === 0) {
+        event.stopPropagation();
+        return;
+      }
+
+      interaction.dragDistance += Math.hypot(deltaX, deltaY);
+
+      const pointerBasis = Math.max(
+        sphereInteractionMinPointerBasis,
+        Math.min(windowSize.width, windowSize.height),
+      );
+      const dragDistance = Math.hypot(deltaX, deltaY);
+      const rotationAngle = Math.min(
+        (dragDistance / pointerBasis) *
+          sphereInteractionDragRotationSensitivity,
+        sphereInteractionMaxFrameRotation,
+      );
+
+      tempCameraRight
+        .set(1, 0, 0)
+        .applyQuaternion(event.camera.quaternion)
+        .normalize();
+      tempCameraUp
+        .set(0, 1, 0)
+        .applyQuaternion(event.camera.quaternion)
+        .normalize();
+      tempDragAxis
+        .copy(tempCameraRight)
+        .multiplyScalar(deltaY)
+        .addScaledVector(tempCameraUp, deltaX);
+
+      if (tempDragAxis.lengthSq() === 0) {
+        event.stopPropagation();
+        return;
+      }
+
+      tempDragAxis.normalize();
+      tempDragQuaternion.setFromAxisAngle(tempDragAxis, rotationAngle);
+      sphereGroup.quaternion.premultiply(tempDragQuaternion);
+
+      const pointerDeltaTime = Math.max(
+        (pointerTime - interaction.lastPointerTime) / 1000,
+        1 / 120,
+      );
+      const spinSpeed = rotationAngle / (pointerDeltaTime * 60);
+
+      interaction.lastPointerTime = pointerTime;
+      interaction.spinAxis.copy(tempDragAxis);
+      interaction.spinSpeed = MathUtils.clamp(
+        spinSpeed,
+        sphereBaseSpinSpeed,
+        sphereInteractionMaxSpinSpeed,
+      );
+
+      event.stopPropagation();
+    },
+    [windowSize],
+  );
+
+  const handleSpherePointerUp = useCallback(
+    (event: ThreeEvent<PointerEvent>) => {
+      finishSphereDrag(event, { allowPulse: true });
+    },
+    [finishSphereDrag],
+  );
+
+  const handleSpherePointerCancel = useCallback(
+    (event: ThreeEvent<PointerEvent>) => {
+      finishSphereDrag(event, { allowPulse: false });
+    },
+    [finishSphereDrag],
+  );
+
+  useFrame(({ camera, clock }, delta) => {
     const sphereGroup = sphereGroupRef.current;
 
     if (!sphereGroup) {
@@ -502,9 +725,31 @@ export function HexSphere() {
       startColor,
       targetColor: tempColor,
     });
+    const interaction = interactionRef.current;
 
-    sphereGroup.rotation.y += sphereRotationSpeed;
-    sphereGroup.rotation.z += sphereRotationSpeed;
+    if (interaction.pendingPulse) {
+      interaction.pulseStartedAt = elapsedTime;
+      interaction.pendingPulse = false;
+    }
+
+    const frameFactor = MathUtils.clamp(delta * 60, 0.5, 1.8);
+
+    if (!interaction.isDragging) {
+      const spinAngle = interaction.spinSpeed * frameFactor;
+
+      tempSpinQuaternion.setFromAxisAngle(interaction.spinAxis, spinAngle);
+      sphereGroup.quaternion.premultiply(tempSpinQuaternion);
+
+      const spinReturnFactor =
+        1 - Math.pow(1 - sphereInteractionSpinReturn, frameFactor);
+
+      interaction.spinSpeed = MathUtils.lerp(
+        interaction.spinSpeed,
+        sphereBaseSpinSpeed,
+        spinReturnFactor,
+      );
+    }
+
     hexEdgeMaterial.color.copy(updatedColor);
 
     if (elapsedTime - lastColorStateUpdateRef.current >= 0.08) {
@@ -536,15 +781,44 @@ export function HexSphere() {
         tileStyle.foregroundGlowStart,
         1,
       );
+      const pulseDistance = tile.position.distanceTo(interaction.pulsePosition);
+      const pulseAge = elapsedTime - interaction.pulseStartedAt;
+      const pulseGlow =
+        pulseAge >= 0 && pulseAge <= sphereInteractionPulseDuration
+          ? (1 -
+              MathUtils.smoothstep(
+                Math.abs(
+                  pulseDistance - pulseAge * sphereInteractionPulseSpeed,
+                ),
+                0.02,
+                sphereInteractionPulseWidth,
+              )) *
+            (1 - pulseAge / sphereInteractionPulseDuration)
+          : 0;
+      const originGlow =
+        interaction.pulseOriginTileIndex === index &&
+        pulseAge >= 0 &&
+        pulseAge <= sphereInteractionPulseDuration
+          ? 1 - pulseAge / sphereInteractionPulseDuration
+          : 0;
+      const interactionGlow =
+        Math.max(pulseGlow, originGlow) * sphereInteractionPulseIntensity;
+      const boostedOpacity = MathUtils.clamp(
+        targetOpacity + interactionGlow * 0.28,
+        tileStyle.minOpacity,
+        1,
+      );
+      const boostedEmissiveIntensity =
+        tileStyle.maxEmissiveIntensity * foregroundGlow + interactionGlow * 0.7;
 
       material.color.copy(updatedColor);
       material.emissive.copy(updatedColor);
       material.emissiveIntensity = MathUtils.lerp(
         material.emissiveIntensity,
-        tileStyle.maxEmissiveIntensity * foregroundGlow,
+        boostedEmissiveIntensity,
         0.1,
       );
-      material.opacity = MathUtils.lerp(material.opacity, targetOpacity, 0.1);
+      material.opacity = MathUtils.lerp(material.opacity, boostedOpacity, 0.1);
       material.needsUpdate = true;
     });
 
@@ -579,7 +853,23 @@ export function HexSphere() {
 
   return (
     <>
-      <group ref={sphereGroupRef} position={groupPosition} scale={sphereScale}>
+      <group
+        ref={sphereGroupRef}
+        onLostPointerCapture={handleSpherePointerCancel}
+        onPointerCancel={handleSpherePointerCancel}
+        onPointerDown={handleSpherePointerDown}
+        onPointerMove={handleSpherePointerMove}
+        onPointerOut={handleSpherePointerOut}
+        onPointerOver={handleSpherePointerOver}
+        onPointerUp={handleSpherePointerUp}
+        position={groupPosition}
+        scale={sphereScale}
+      >
+        <mesh
+          geometry={sphereColliderGeometry}
+          material={sphereColliderMaterial}
+          userData={{ [sphereColliderUserDataKey]: true }}
+        />
         {tiles.map((tile, index) => {
           const material = tileMaterials[index];
 
@@ -593,6 +883,7 @@ export function HexSphere() {
               position={tile.position}
               quaternion={tile.quaternion}
               scale={sphereTileScale}
+              userData={{ [sphereTileIndexUserDataKey]: index }}
             >
               <mesh geometry={hexGeometry} material={material} />
               <lineSegments
