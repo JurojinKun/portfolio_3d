@@ -37,14 +37,17 @@ const backDepthAmplitude = 1.25;
 const frontDepthAmplitude = 2.25;
 const backgroundSphereTileCount = 425;
 const backgroundSphereRotationSpeed = 0.00022;
-const backgroundSphereMinViewportCoverage = 0.68;
+const backgroundSphereMinViewportCoverage = 0.52;
+const backgroundSphereRenderOrder = 0;
+const mobileSatelliteRenderOrder = 10;
 const backgroundTileStyle = {
   depth: 0.1,
-  edgeOpacity: 0.2,
+  edgeMaxOpacity: 0.28,
+  edgeMinOpacity: 0.06,
   foregroundGlowStart: 0.66,
-  maxEmissiveIntensity: 0.055,
-  maxOpacity: 0.16,
-  minOpacity: 0.024,
+  maxEmissiveIntensity: 0.072,
+  maxOpacity: 0.2,
+  minOpacity: 0.04,
   radius: 0.15,
 } as const;
 const mobileSatelliteBaseSpeed = 0.034;
@@ -959,21 +962,24 @@ const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
     () => new EdgesGeometry(hexGeometry),
     [hexGeometry],
   );
-  const hexEdgeMaterial = useMemo(
-    () =>
-      new LineBasicMaterial({
-        color: startColor.clone(),
-        depthTest: true,
-        depthWrite: false,
-        opacity: backgroundTileStyle.edgeOpacity,
-        toneMapped: false,
-        transparent: true,
-      }),
-    [startColor],
-  );
   const tiles = useMemo(
     () => generateHexSphereTiles(backgroundSphereTileCount, hexSphereRadius),
     [],
+  );
+  const edgeMaterials = useMemo(
+    () =>
+      tiles.map(
+        () =>
+          new LineBasicMaterial({
+            color: startColor.clone(),
+            depthTest: true,
+            depthWrite: false,
+            opacity: backgroundTileStyle.edgeMinOpacity,
+            toneMapped: false,
+            transparent: true,
+          }),
+      ),
+    [startColor, tiles],
   );
   const tileMaterials = useMemo(
     () =>
@@ -981,6 +987,7 @@ const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
         () =>
           new MeshPhongMaterial({
             color: startColor.clone(),
+            depthWrite: false,
             emissive: startColor.clone(),
             emissiveIntensity: 0,
             opacity: backgroundTileStyle.minOpacity,
@@ -997,12 +1004,14 @@ const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
     () => () => {
       hexGeometry.dispose();
       hexEdgesGeometry.dispose();
-      hexEdgeMaterial.dispose();
+      edgeMaterials.forEach((material) => {
+        material.dispose();
+      });
       tileMaterials.forEach((material) => {
         material.dispose();
       });
     },
-    [hexEdgeMaterial, hexEdgesGeometry, hexGeometry, tileMaterials],
+    [edgeMaterials, hexEdgesGeometry, hexGeometry, tileMaterials],
   );
 
   useFrame(({ camera }) => {
@@ -1020,12 +1029,12 @@ const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
     });
     sphere.rotation.y += backgroundSphereRotationSpeed;
     sphere.rotation.z += backgroundSphereRotationSpeed;
-    hexEdgeMaterial.color.copy(currentColor);
 
     tiles.forEach((tile, index) => {
       const material = tileMaterials[index];
+      const edgeMaterial = edgeMaterials[index];
 
-      if (!material) {
+      if (!material || !edgeMaterial) {
         return;
       }
 
@@ -1046,10 +1055,15 @@ const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
         1,
       );
       const normalizedFacing = (facing + 1) / 2;
-      const opacityFacing = MathUtils.smoothstep(normalizedFacing, 0.18, 0.92);
+      const opacityFacing = MathUtils.smoothstep(normalizedFacing, 0.12, 0.92);
       const targetOpacity =
         backgroundTileStyle.minOpacity +
         (backgroundTileStyle.maxOpacity - backgroundTileStyle.minOpacity) *
+          opacityFacing;
+      const targetEdgeOpacity =
+        backgroundTileStyle.edgeMinOpacity +
+        (backgroundTileStyle.edgeMaxOpacity -
+          backgroundTileStyle.edgeMinOpacity) *
           opacityFacing;
       const foregroundGlow = MathUtils.smoothstep(
         normalizedFacing,
@@ -1059,13 +1073,20 @@ const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
 
       material.color.copy(currentColor);
       material.emissive.copy(currentColor);
+      edgeMaterial.color.copy(currentColor);
       material.emissiveIntensity = MathUtils.lerp(
         material.emissiveIntensity,
         backgroundTileStyle.maxEmissiveIntensity * foregroundGlow,
         0.1,
       );
       material.opacity = MathUtils.lerp(material.opacity, targetOpacity, 0.08);
+      edgeMaterial.opacity = MathUtils.lerp(
+        edgeMaterial.opacity,
+        targetEdgeOpacity,
+        0.08,
+      );
       material.needsUpdate = true;
+      edgeMaterial.needsUpdate = true;
     });
   });
 
@@ -1073,13 +1094,15 @@ const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
     <group
       ref={sphereRef}
       position={groupPosition}
+      renderOrder={backgroundSphereRenderOrder}
       rotation={[0.2, 0.42, -0.12]}
       scale={sphereScale}
     >
       {tiles.map((tile, index) => {
         const material = tileMaterials[index];
+        const edgeMaterial = edgeMaterials[index];
 
-        if (!material) {
+        if (!material || !edgeMaterial) {
           return null;
         }
 
@@ -1088,11 +1111,17 @@ const MobileHexSphereBackdrop = memo(function MobileHexSphereBackdrop({
             key={index}
             position={tile.position}
             quaternion={tile.quaternion}
+            renderOrder={backgroundSphereRenderOrder}
           >
-            <mesh geometry={hexGeometry} material={material} />
+            <mesh
+              geometry={hexGeometry}
+              material={material}
+              renderOrder={backgroundSphereRenderOrder}
+            />
             <lineSegments
               geometry={hexEdgesGeometry}
-              material={hexEdgeMaterial}
+              material={edgeMaterial}
+              renderOrder={backgroundSphereRenderOrder}
             />
           </group>
         );
@@ -1293,6 +1322,7 @@ export function MobileFloatingHexagons({
               viewportWidth: viewportSize.width,
             }).position
           }
+          renderOrder={mobileSatelliteRenderOrder}
           tileScale={satelliteScale}
         />
       ))}

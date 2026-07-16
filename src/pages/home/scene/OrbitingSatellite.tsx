@@ -20,6 +20,7 @@ interface OrbitingSatelliteProps {
   labelMaxWidth: number;
   labelOffsetY: number;
   position: ScenePosition;
+  renderOrder?: number;
   tileScale: number;
 }
 
@@ -49,6 +50,7 @@ export const OrbitingSatellite = forwardRef<Group, OrbitingSatelliteProps>(
       labelMaxWidth,
       labelOffsetY,
       position,
+      renderOrder = 0,
       tileScale,
     },
     satelliteRef,
@@ -75,7 +77,12 @@ export const OrbitingSatellite = forwardRef<Group, OrbitingSatelliteProps>(
     };
 
     return (
-      <group ref={satelliteRef} position={position} scale={tileScale}>
+      <group
+        ref={satelliteRef}
+        position={position}
+        renderOrder={renderOrder}
+        scale={tileScale}
+      >
         {"isBug" in config ? (
           <BugSatellite
             color={color}
@@ -83,15 +90,17 @@ export const OrbitingSatellite = forwardRef<Group, OrbitingSatelliteProps>(
             labelMaxWidth={labelMaxWidth}
             labelOffsetY={labelOffsetY}
             position={[0, 0, 0]}
+            renderOrder={renderOrder}
           />
         ) : null}
         {!("isBug" in config) ? (
-          <group>
+          <group renderOrder={renderOrder}>
             <InteractiveHexagon
               hexagonColor={color}
               hexagonRef={hexagonRef}
               iconPath={config.iconPath}
               onClick={handleClick}
+              renderOrder={renderOrder}
             />
             {label ? (
               <Text
@@ -107,6 +116,7 @@ export const OrbitingSatellite = forwardRef<Group, OrbitingSatelliteProps>(
                   setPointerCursor("pointer");
                 }}
                 position={[0, labelOffsetY, 0]}
+                renderOrder={renderOrder + 1}
                 textAlign="center"
               >
                 {label}

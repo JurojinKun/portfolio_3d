@@ -7,6 +7,7 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  useSyncExternalStore,
   type ReactNode,
   type Ref,
   type RefObject,
@@ -20,7 +21,6 @@ import {
   supportedLanguages,
 } from "@/i18n";
 import { contactConfig } from "@/shared/config/contact";
-import { useMediaQuery } from "@/shared/hooks/useMediaQuery";
 
 import { HexSphere } from "./HexSphere";
 import { HomeSceneFallback } from "./HomeSceneFallback";
@@ -31,15 +31,22 @@ import styles from "./HomeScene.module.css";
 const githubUrl = "https://github.com/JurojinKun";
 const linkedInUrl = "https://www.linkedin.com/in/clément-communay";
 const cvUrl = "/cv/CV_Clement_Communay.pdf";
-const compactHomeSceneQuery = [
-  "(max-width: 720px)",
-  "(max-width: 1440px) and (max-height: 760px)",
-  "(max-height: 620px)",
-].join(", ");
 const satelliteLabelFont = "/fonts/SpaceGrotesk-Bold.ttf";
 const satelliteLabelCharacters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÀÂÄÇÉÈÊËÎÏÔÖÙÛÜàâäçéèêëîïôöùûü -_";
+const compactHomeSceneMaxWidth = 767;
+const compactHomeSceneLandscapePhoneMaxHeight = 500;
+const compactHomeSceneLandscapePhoneMaxWidth = 960;
+const desktopHomeSceneFallbackSize = {
+  height: 900,
+  width: 1280,
+} satisfies HomeSceneViewportSize;
 let cachedWebGLSupport: boolean | null = null;
+
+interface HomeSceneViewportSize {
+  height: number;
+  width: number;
+}
 
 interface HomeMobileChromeBounds {
   footerClearancePx: number;
@@ -50,6 +57,54 @@ const defaultMobileChromeBounds = {
   footerClearancePx: 68,
   headerClearancePx: 56,
 } satisfies HomeMobileChromeBounds;
+
+function getSafeViewportDimension(value: number) {
+  return Number.isFinite(value) ? Math.max(1, value) : 1;
+}
+
+function getHomeSceneViewportSize(): HomeSceneViewportSize {
+  if (typeof window === "undefined") {
+    return desktopHomeSceneFallbackSize;
+  }
+
+  return {
+    height: getSafeViewportDimension(window.innerHeight),
+    width: getSafeViewportDimension(window.innerWidth),
+  };
+}
+
+function shouldUseCompactHomeScene({ height, width }: HomeSceneViewportSize) {
+  if (width <= compactHomeSceneMaxWidth) {
+    return true;
+  }
+
+  return (
+    width <= compactHomeSceneLandscapePhoneMaxWidth &&
+    height <= compactHomeSceneLandscapePhoneMaxHeight
+  );
+}
+
+function useCompactHomeSceneMode() {
+  const getSnapshot = useCallback(
+    () => shouldUseCompactHomeScene(getHomeSceneViewportSize()),
+    [],
+  );
+  const subscribe = useCallback((notify: () => void) => {
+    if (typeof window === "undefined") {
+      return () => undefined;
+    }
+
+    window.addEventListener("resize", notify);
+    window.addEventListener("orientationchange", notify);
+
+    return () => {
+      window.removeEventListener("resize", notify);
+      window.removeEventListener("orientationchange", notify);
+    };
+  }, []);
+
+  return useSyncExternalStore(subscribe, getSnapshot, () => false);
+}
 
 function supportsWebGL() {
   if (cachedWebGLSupport !== null) {
@@ -423,7 +478,7 @@ export function HomeScene() {
   const [canRenderScene] = useState(
     () => supportsWebGL() && !prefersReducedMotion(),
   );
-  const isCompactScene = useMediaQuery(compactHomeSceneQuery);
+  const isCompactScene = useCompactHomeSceneMode();
   const brandRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLElement>(null);
   const languageActionsRef = useRef<HTMLDivElement>(null);

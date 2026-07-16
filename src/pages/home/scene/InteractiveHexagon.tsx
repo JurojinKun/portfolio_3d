@@ -24,6 +24,7 @@ interface InteractiveHexagonProps {
   iconRendering?: "bitmap" | "vector";
   iconScale?: number;
   onClick?: (() => void) | undefined;
+  renderOrder?: number;
 }
 
 interface HexagonCoreProps {
@@ -32,6 +33,7 @@ interface HexagonCoreProps {
   hexagonColor: ColorRepresentation;
   hexagonRef?: RefObject<Group | null> | undefined;
   onClick?: (() => void) | undefined;
+  renderOrder?: number;
 }
 
 const satelliteVisualStyle = {
@@ -88,6 +90,7 @@ export function HexagonCore({
   hexagonColor,
   hexagonRef,
   onClick,
+  renderOrder = 0,
 }: HexagonCoreProps) {
   const hexagonGeometry = useMemo(() => {
     const geometry = new ExtrudeGeometry(createHexagonShape(0.15), {
@@ -107,7 +110,7 @@ export function HexagonCore({
   );
 
   return (
-    <group ref={hexagonRef ?? null}>
+    <group ref={hexagonRef ?? null} renderOrder={renderOrder}>
       {onClick ? (
         <mesh
           geometry={hexagonGeometry}
@@ -118,13 +121,14 @@ export function HexagonCore({
           onPointerOver={() => {
             setPointerCursor("pointer");
           }}
+          renderOrder={renderOrder}
         >
           <meshBasicMaterial visible={false} />
         </mesh>
       ) : null}
 
-      <group>
-        <mesh geometry={hexagonGeometry}>
+      <group renderOrder={renderOrder}>
+        <mesh geometry={hexagonGeometry} renderOrder={renderOrder}>
           {bodyStyle === "gradient" ? (
             <shaderMaterial
               depthWrite={false}
@@ -142,7 +146,7 @@ export function HexagonCore({
             />
           )}
         </mesh>
-        <lineSegments>
+        <lineSegments renderOrder={renderOrder + 1}>
           <edgesGeometry args={[hexagonGeometry]} />
           <lineBasicMaterial
             color={hexagonColor}
@@ -168,6 +172,7 @@ export function InteractiveHexagon({
   iconRendering = "vector",
   iconScale = 1,
   onClick,
+  renderOrder = 0,
 }: InteractiveHexagonProps) {
   const iconTexture = useLoader(TextureLoader, iconPath);
   const maxTextureAnisotropy = useThree(({ gl }) =>
@@ -214,6 +219,7 @@ export function InteractiveHexagon({
       hexagonColor={hexagonColor}
       hexagonRef={hexagonRef}
       onClick={onClick}
+      renderOrder={renderOrder}
     >
       {iconDepthPositions.map((zPosition) => (
         <mesh
@@ -221,6 +227,7 @@ export function InteractiveHexagon({
           geometry={iconGeometry}
           material={iconMaterial}
           position={[0, 0, zPosition]}
+          renderOrder={renderOrder + 2}
           scale={[iconScale, iconScale, 1]}
         />
       ))}
